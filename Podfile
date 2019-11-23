@@ -7,5 +7,9 @@ target 'StarStarDiary' do
 
   # Pods for StarStarDiary
   pod 'SwiftLint'
+  pod 'Moya', '~> 13.0'
+  pod 'SnapKit', '~> 5.0.0'
+  pod 'Then'
+  pod 'Nuke', '~> 8.0'
 
 end
