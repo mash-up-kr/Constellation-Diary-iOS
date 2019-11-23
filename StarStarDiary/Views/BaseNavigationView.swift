@@ -11,9 +11,9 @@ import SnapKit
 
 class BaseNavigationView: UIView {
         
-    var btnLeft = UIButton(frame: .zero)
-    var btnRight = UIButton(frame: .zero)
-    var btnTitle = UIButton(frame: .zero)
+    private var btnLeft = UIButton(frame: .zero)
+    private var btnRight = UIButton(frame: .zero)
+    private var btnTitle = UIButton(frame: .zero)
         
     // MARK: - Public
     
@@ -60,7 +60,7 @@ class BaseNavigationView: UIView {
             button.snp.makeConstraints { (make) in
                 make.centerY.equalToSuperview()
                 make.height.width.equalTo(24.0)
-                make.trailing.equalTo(self.snp.trailing).offset(-20.0)
+                make.trailing.equalTo(self.snp.trailing).inset(20.0)
             }
         }
         
@@ -68,7 +68,7 @@ class BaseNavigationView: UIView {
             button.snp.makeConstraints { (make) in
                 make.centerY.equalToSuperview()
                 make.leading.equalTo(btnLeft.snp.trailing).offset(16.0)
-                make.trailing.equalTo(btnRight.snp.leading).offset(-16.0)
+                make.trailing.equalTo(btnRight.snp.leading).inset(16.0)
             }
             
             button.titleLabel?.textAlignment = .center
@@ -81,6 +81,8 @@ class BaseNavigationView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
 //        fatalError("init(coder:) has not been implemented")
+        
+        initLayout()
     }
     
     override init(frame: CGRect) {

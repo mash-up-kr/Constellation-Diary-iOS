@@ -18,17 +18,17 @@ typealias AddTargetType = (target: Any?, action: Selector, for: UIControl.Event)
 
 class WriteViewController: UIViewController {
 
-    var superview = UIView(frame: .zero)
-    var navigationView = BaseNavigationView(frame: .zero)
-    var headerView = UIView(frame: .zero)
-    var bodyView = UIView(frame: .zero)
+    private var superview = UIView(frame: .zero)
+    private var navigationView = BaseNavigationView(frame: .zero)
+    private var headerView = UIView(frame: .zero)
+    private var bodyView = UIView(frame: .zero)
 
     // headerView
-    var tfTitle = UITextField()
-    var headerViewBottomLine = UIView()
+    private var tfTitle = UITextField(frame: .zero)
+    private var headerViewBottomLine = UIView(frame: .zero)
 
     // bodyView
-    var tvContents = UITextView()
+    private var tvContents = UITextView(frame: .zero)
     
     // MARK: - Event
     
@@ -51,7 +51,7 @@ class WriteViewController: UIViewController {
     private func initLayout() {
         superview = self.view
 
-        superview.do { (view) in
+        superview.do { view in
             view.addSubview(navigationView)
             view.addSubview(headerView)
             view.addSubview(bodyView)
@@ -60,21 +60,20 @@ class WriteViewController: UIViewController {
         }
 
         // navigationView
-        navigationView.do { (view) in
+        navigationView.do { view in
             view.snp.makeConstraints { (make) in
                 make.height.equalTo(44.0)
                 make.top.equalTo(superview.snp.topMargin)
-                make.trailing.equalTo(superview.snp.trailing)
-                make.leading.equalTo(superview.snp.leading)
+                make.leading.trailing.equalToSuperview()
             }
         }
         
         // headerView
-        headerView.do { (view) in
+        headerView.do { view in
             view.addSubview(tfTitle)
             view.addSubview(headerViewBottomLine)
 
-            view.snp.makeConstraints { (make) in
+            view.snp.makeConstraints { make in
                 make.height.equalTo(50.0)
                 make.top.equalTo(navigationView.snp.bottom)
                 make.trailing.equalTo(navigationView.snp.trailing)
@@ -82,16 +81,16 @@ class WriteViewController: UIViewController {
             }
         }
         
-        tfTitle.do { (view) in
-            view.snp.makeConstraints { (make) in
+        tfTitle.do { view in
+            view.snp.makeConstraints { make in
                 make.height.equalTo(22.0)
                 make.top.equalTo(20.0)
                 make.leading.trailing.equalToSuperview().inset(20.0)
             }
         }
         
-        headerViewBottomLine.do { (view) in
-            view.snp.makeConstraints { (make) in
+        headerViewBottomLine.do { view in
+            view.snp.makeConstraints { make in
                 make.height.equalTo(1.0)
                 make.top.equalTo(tfTitle.snp.bottom)
                 make.leading.equalTo(tfTitle.snp.leading)
@@ -100,10 +99,10 @@ class WriteViewController: UIViewController {
         }
         
         // bodyView
-        bodyView.do { (view) in
+        bodyView.do { view in
             view.addSubview(tvContents)
             
-            view.snp.makeConstraints { (make) in
+            view.snp.makeConstraints { make in
                 make.top.equalTo(headerView.snp.bottom)
                 make.trailing.equalTo(headerView.snp.trailing)
                 make.leading.equalTo(headerView.snp.leading)
@@ -111,8 +110,8 @@ class WriteViewController: UIViewController {
             }
         }
         
-        tvContents.do { (view) in
-            view.snp.makeConstraints { (make) in
+        tvContents.do { view in
+            view.snp.makeConstraints { make in
                 make.top.equalTo(bodyView.snp.top).offset(24.0)
                 make.trailing.equalTo(tfTitle.snp.trailing)
                 make.leading.equalTo(tfTitle.snp.leading)
@@ -122,13 +121,15 @@ class WriteViewController: UIViewController {
     }
     
     private func initNavigationView() {
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
         let leftTargetType: AddTargetType = (self, #selector(close(sender:)), .touchUpInside)
         let rightTargetType: AddTargetType = (self, #selector(done(sender:)), .touchUpInside)
         
         navigationView.setBackgroundColor(color: .clear) // test
         navigationView.setTitle(title: "test", titleColor: .black, image: nil) // test
-        navigationView.setBtnLeft(image: nil, addTargetType: leftTargetType)
-        navigationView.setBtnRight(image: nil, addTargetType: rightTargetType)
+        navigationView.setBtnLeft(image: UIImage(named: "close"), addTargetType: leftTargetType)
+        navigationView.setBtnRight(image: UIImage(named: "check"), addTargetType: rightTargetType)
     }
     
     private func initView() {
