@@ -13,11 +13,11 @@ import Then
 class HoroscopeView: UIView {
 
     // MARK: - UI
-    let titleLabel = UILabel()
-    let suggestionLabel = UILabel()
-    let fortuneItemsView = UIStackView()
-    let detailTextView = UITextView()
-    let completeButton = UIButton()
+    private let titleLabel = UILabel()
+    private let suggestionLabel = UILabel()
+    private let fortuneItemsView = UIStackView()
+    private let detailTextView = UITextView()
+    private let completeButton = UIButton()
 
     // MARK: - Methods
     override func draw(_ rect: CGRect) {
