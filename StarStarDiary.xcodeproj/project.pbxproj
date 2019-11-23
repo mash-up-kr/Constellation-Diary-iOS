@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E3272912389BDE000EF36B4 /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E32728F2389BDE000EF36B4 /* DateFormatter+.swift */; };
+		0E3272922389BDE000EF36B4 /* UIColor+Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */; };
 		ADCC22B4D25855423D8EE10D /* Pods_StarStarDiary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A57C3B489FC848FFBB6107E7 /* Pods_StarStarDiary.framework */; };
 		D544F2862389672C009B3967 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D544F2852389672C009B3967 /* MainViewController.swift */; };
 		D544F28A23898405009B3967 /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D544F28923898405009B3967 /* DateFormatter+.swift */; };
@@ -21,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E32728F2389BDE000EF36B4 /* DateFormatter+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+.swift"; sourceTree = "<group>"; };
+		0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Resource.swift"; sourceTree = "<group>"; };
 		A57C3B489FC848FFBB6107E7 /* Pods_StarStarDiary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StarStarDiary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B52A4D106A7F14CB5BEAE593 /* Pods-StarStarDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarStarDiary.release.xcconfig"; path = "Target Support Files/Pods-StarStarDiary/Pods-StarStarDiary.release.xcconfig"; sourceTree = "<group>"; };
 		C374176DB79A9B002599C37A /* Pods-StarStarDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarStarDiary.debug.xcconfig"; path = "Target Support Files/Pods-StarStarDiary/Pods-StarStarDiary.debug.xcconfig"; sourceTree = "<group>"; };
@@ -70,6 +74,37 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		0E32727C2389622300EF36B4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0E32727D2389622700EF36B4 /* Networks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Networks;
+			sourceTree = "<group>";
+		};
+		0E32728B2389BD3C00EF36B4 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				D544F28923898405009B3967 /* DateFormatter+.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		0E32728E2389BDE000EF36B4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0E32728F2389BDE000EF36B4 /* DateFormatter+.swift */,
+				0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		13DD90F7C982B82A180C42D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -87,14 +122,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		D544F28E23898B1F009B3967 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				D544F28923898405009B3967 /* DateFormatter+.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		D5D0F66323890DC500DA3169 = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +129,7 @@
 				D5D0F66D23890DC500DA3169 /* Products */,
 				3A4E1C44ED126C7C009F1804 /* Pods */,
 				13DD90F7C982B82A180C42D6 /* Frameworks */,
+				0E32728B2389BD3C00EF36B4 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -119,7 +147,9 @@
 				D5D0F66F23890DC500DA3169 /* AppDelegate.swift */,
 				0E32727A2389621600EF36B4 /* ViewControllers */,
 				0E32727B2389622000EF36B4 /* Views */,
-				D544F28E23898B1F009B3967 /* Extensions */,
+				0E32727C2389622300EF36B4 /* Models */,
+				0E32727D2389622700EF36B4 /* Networks */,
+				0E32728E2389BDE000EF36B4 /* Extensions */,
 				D5D0F67923890DC600DA3169 /* Assets.xcassets */,
 				D5D0F67E23890DC600DA3169 /* Info.plist */,
 				D5D0F67623890DC500DA3169 /* StarStarDiary.xcdatamodeld */,
@@ -265,6 +295,8 @@
 				D5D0F67823890DC500DA3169 /* StarStarDiary.xcdatamodeld in Sources */,
 				DBF122F02389673300EFE5B2 /* WriteViewController.swift in Sources */,
 				D5D0F67023890DC500DA3169 /* AppDelegate.swift in Sources */,
+				0E3272922389BDE000EF36B4 /* UIColor+Resource.swift in Sources */,
+				0E3272912389BDE000EF36B4 /* DateFormatter+.swift in Sources */,
 				D544F2862389672C009B3967 /* MainViewController.swift in Sources */,
 				D544F28A23898405009B3967 /* DateFormatter+.swift in Sources */,
 				DB09E1722389A4B400760C86 /* BaseNavigationView.swift in Sources */,
