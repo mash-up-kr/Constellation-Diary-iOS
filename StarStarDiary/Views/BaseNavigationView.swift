@@ -13,9 +13,9 @@ class BaseNavigationView: UIView {
     
     // MARK: - Private Property
 
-    private var btnLeft = UIButton(frame: .zero)
-    private var btnRight = UIButton(frame: .zero)
-    private var btnTitle = UIButton(frame: .zero)
+    private let btnLeft = UIButton(frame: .zero)
+    private let btnRight = UIButton(frame: .zero)
+    private let btnTitle = UIButton(frame: .zero)
     
     // MARK: - Init
     

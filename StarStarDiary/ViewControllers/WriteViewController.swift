@@ -21,16 +21,16 @@ class WriteViewController: UIViewController {
     // MARK: - Private Property
     
     private var superview = UIView(frame: .zero)
-    private var navigationView = BaseNavigationView(frame: .zero)
-    private var headerView = UIView(frame: .zero)
-    private var bodyView = UIView(frame: .zero)
+    private let navigationView = BaseNavigationView(frame: .zero)
+    private let headerView = UIView(frame: .zero)
+    private let bodyView = UIView(frame: .zero)
 
     // headerView
-    private var tfTitle = UITextField(frame: .zero)
-    private var headerViewBottomLine = UIView(frame: .zero)
+    private let tfTitle = UITextField(frame: .zero)
+    private let headerViewBottomLine = UIView(frame: .zero)
 
     // bodyView
-    private var tvContents = UITextView(frame: .zero)
+    private let tvContents = UITextView(frame: .zero)
     
     // MARK: - Init
 
