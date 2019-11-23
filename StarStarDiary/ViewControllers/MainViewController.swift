@@ -12,18 +12,24 @@ import SnapKit
 
 class MainViewController: UIViewController {
 
+    // MARK:- Properties
+
+    private let dateLabel: UILabel          =       UILabel(frame: .zero)
+    private let titleLabel: UILabel         =       UILabel(frame: .zero)
+    private let editImageView: UIImageView  =       UIImageView(frame: .zero)
+    private let fortuneView: UIView         =       UIView(frame: .zero)
+    
+    // MARK:- Methods
+    
+    // MARK: Life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
     }
 
-    // MARK:- privates
-
-    private var dateLabel: UILabel          =       UILabel(frame: .zero)
-    private var titleLabel: UILabel         =       UILabel(frame: .zero)
-    private var editImageView: UIImageView  =       UIImageView(frame: .zero)
-    private var fortuneView: UIView         =       UIView(frame: .zero)
-
+    // MARK: privates
+    
     // FIXME :- rename method properly.
     private func bindDiary() {
         let dateFormatter = DateFormatter.defualtInstance
@@ -76,11 +82,10 @@ class MainViewController: UIViewController {
         fortuneView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         view.addSubview(fortuneView)
         
-        fortuneView.snp.makeConstraints { view in
-            view.leading.equalToSuperview()
-            view.trailing.equalToSuperview()
-            view.top.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).inset(182.0)
-            view.bottom.equalToSuperview()
+        fortuneView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(182.0)
+            make.bottom.equalToSuperview()
         }
     }
 
@@ -102,8 +107,7 @@ class MainViewController: UIViewController {
         }
         editImageView.snp.makeConstraints { imageView in
             imageView.centerX.equalToSuperview()
-            imageView.width.equalTo(19.0)
-            imageView.height.equalTo(19.0)
+            imageView.width.height.equalTo(19.0)
             imageView.top.equalTo(titleLabel.snp.bottom).offset(19.0)
             imageView.bottom.equalToSuperview().inset(12.0)
         }
@@ -112,8 +116,7 @@ class MainViewController: UIViewController {
         view.addSubview(blankView)
         
         blankView.snp.makeConstraints { blank in
-            blank.leading.equalToSuperview()
-            blank.trailing.equalToSuperview()
+            blank.leading.trailing.equalToSuperview()
             blank.top.equalToSuperview()
             blank.bottom.equalTo(fortuneView.snp.top)
         }
