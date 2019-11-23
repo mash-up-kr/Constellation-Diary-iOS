@@ -90,6 +90,16 @@ class MainViewController: UIViewController {
     }
 
     private func setupContainerView() {
+        let blankView = UIView()
+        view.addSubview(blankView)
+        
+        blankView.snp.makeConstraints { blank in
+            blank.leading.equalToSuperview()
+            blank.trailing.equalToSuperview()
+            blank.top.equalToSuperview()
+            blank.bottom.equalTo(fortuneView.snp.top)
+        }
+
         let container = UIView()
         container.addSubview(dateLabel)
         container.addSubview(titleLabel)
@@ -111,21 +121,18 @@ class MainViewController: UIViewController {
             imageView.top.equalTo(titleLabel.snp.bottom).offset(19.0)
             imageView.bottom.equalToSuperview().inset(12.0)
         }
-        
-        let blankView = UIView()
-        view.addSubview(blankView)
-        
-        blankView.snp.makeConstraints { blank in
-            blank.leading.trailing.equalToSuperview()
-            blank.top.equalToSuperview()
-            blank.bottom.equalTo(fortuneView.snp.top)
-        }
-        
         container.snp.makeConstraints { container in
             container.centerX.equalToSuperview()
             container.leading.equalToSuperview().inset(76.0)
             container.centerY.equalTo(blankView.snp.centerY)
         }
+        addTapGesture(container)
+    }
+    
+    private func addTapGesture(_ view: UIView) {
+        view.isUserInteractionEnabled = true
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTapNewDiary))
+        view.addGestureRecognizer(recognizer)
     }
 
     // MARK: actions
@@ -139,7 +146,8 @@ class MainViewController: UIViewController {
     }
 
     @objc private func didTapNewDiary() {
-        // TODO : open diary Edit view controller
+        let writeViewController = WriteViewController()
+        navigationController?.pushViewController(writeViewController, animated: true)
     }
 
 
