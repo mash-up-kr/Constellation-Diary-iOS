@@ -129,7 +129,7 @@ extension HoroscopeViewController {
         
         completeButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-50)
+            make.bottom.equalToSuperview().inset(50)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
             make.height.equalTo(56)
         }
