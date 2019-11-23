@@ -18,6 +18,8 @@ typealias AddTargetType = (target: Any?, action: Selector, for: UIControl.Event)
 
 class WriteViewController: UIViewController {
 
+    // MARK: - Private Property
+    
     private var superview = UIView(frame: .zero)
     private var navigationView = BaseNavigationView(frame: .zero)
     private var headerView = UIView(frame: .zero)
@@ -29,22 +31,6 @@ class WriteViewController: UIViewController {
 
     // bodyView
     private var tvContents = UITextView(frame: .zero)
-    
-    // MARK: - Event
-    
-    @objc
-    private func close(sender: AnyObject?) {
-        print(#function)
-    }
-    
-    @objc
-    private func done(sender: AnyObject?) {
-        print(#function)
-    }
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-      self.view.endEditing(true)
-    }
     
     // MARK: - Init
 
@@ -154,7 +140,19 @@ class WriteViewController: UIViewController {
         tvContents.text = "Contents"
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+    // MARK: - Event
+    
+    @objc
+    private func close(sender: AnyObject?) {
+        print(#function)
+    }
+    
+    @objc
+    private func done(sender: AnyObject?) {
+        print(#function)
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+      self.view.endEditing(true)
     }
 }

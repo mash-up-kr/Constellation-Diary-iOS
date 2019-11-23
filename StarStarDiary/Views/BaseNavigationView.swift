@@ -10,36 +10,12 @@ import UIKit
 import SnapKit
 
 class BaseNavigationView: UIView {
-        
+    
+    // MARK: - Private Property
+
     private var btnLeft = UIButton(frame: .zero)
     private var btnRight = UIButton(frame: .zero)
     private var btnTitle = UIButton(frame: .zero)
-        
-    // MARK: - Public
-    
-    public func setBtnLeft(image: UIImage?, addTargetType: AddTargetType) {
-        btnLeft.setImage(image, for: .normal)
-        btnLeft.addTarget(addTargetType.target,
-                          action: addTargetType.action,
-                          for: addTargetType.for)
-    }
-    
-    public func setBtnRight(image: UIImage?, addTargetType: AddTargetType) {
-        btnRight.setImage(image, for: .normal)
-        btnRight.addTarget(addTargetType.target,
-                          action: addTargetType.action,
-                          for: addTargetType.for)
-    }
-    
-    public func setBackgroundColor(color: UIColor) {
-        self.backgroundColor = color
-    }
-    
-    public func setTitle(title: String?, titleColor: UIColor, image: UIImage?) {
-        btnTitle.setTitle(title, for: .normal)
-        btnTitle.setTitleColor(titleColor, for: .normal)
-        btnTitle.setImage(image, for: .normal)
-    }
     
     // MARK: - Init
     
@@ -89,5 +65,31 @@ class BaseNavigationView: UIView {
         super.init(frame: frame)
         
         initLayout()
+    }
+    
+    // MARK: - Public Function
+    
+    public func setBtnLeft(image: UIImage?, addTargetType: AddTargetType) {
+        btnLeft.setImage(image, for: .normal)
+        btnLeft.addTarget(addTargetType.target,
+                          action: addTargetType.action,
+                          for: addTargetType.for)
+    }
+    
+    public func setBtnRight(image: UIImage?, addTargetType: AddTargetType) {
+        btnRight.setImage(image, for: .normal)
+        btnRight.addTarget(addTargetType.target,
+                          action: addTargetType.action,
+                          for: addTargetType.for)
+    }
+    
+    public func setBackgroundColor(color: UIColor) {
+        self.backgroundColor = color
+    }
+    
+    public func setTitle(title: String?, titleColor: UIColor, image: UIImage?) {
+        btnTitle.setTitle(title, for: .normal)
+        btnTitle.setTitleColor(titleColor, for: .normal)
+        btnTitle.setImage(image, for: .normal)
     }
 }
