@@ -13,6 +13,7 @@ import Then
 class HoroscopeViewController: UIViewController {
     
     // MARK: - UI
+    private let drawerHandleView = UIView()
     private let titleLabel = UILabel()
     private let suggestionLabel = UILabel()
     private let fortuneItemsView = UIStackView()
@@ -37,6 +38,8 @@ extension HoroscopeViewController {
     private func setUpAttributes() {
         
         view.do {
+            $0.backgroundColor = .white
+            $0.addSubview(drawerHandleView)
             $0.addSubview(titleLabel)
             $0.addSubview(suggestionLabel)
             $0.addSubview(fortuneItemsView)
@@ -45,25 +48,34 @@ extension HoroscopeViewController {
             $0.addSubview(completeButton)
         }
         
+        drawerHandleView.do {
+            $0.backgroundColor = .black
+            $0.layer.cornerRadius = 1.5
+        }
+        
         titleLabel.do {
-            $0.font.withSize(40)
+            $0.font = UIFont.systemFont(ofSize: 20, weight: .bold)
             $0.textColor = .black
             $0.text = "별자리 운세"
-            $0.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         }
         
         suggestionLabel.do {
+            $0.font = UIFont.systemFont(ofSize: 13)
             $0.textColor = .gray122
             $0.text = "행운의 소품을 확인하세요."
-            $0.font = UIFont.systemFont(ofSize: 14)
         }
         
         fortuneItemsView.do {
             $0.backgroundColor = .black
         }
         
+        seperatorView.do {
+            $0.backgroundColor = .white216
+        }
+        
         detailLabel.do {
             $0.numberOfLines = 0
+            $0.font = UIFont.systemFont(ofSize: 16)
             $0.textColor = .black
             $0.text = """
             활기찬 한 주가 되겠네요. 한 주를 시작하는 월요일부터 기운이 넘치는 주간입니다. 유난히 친구를 많이 만나게 됩니다.
@@ -79,6 +91,13 @@ extension HoroscopeViewController {
     }
     
     private func setUpConstraints() {
+        drawerHandleView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(10)
+            make.width.equalTo(24)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(3)
+        }
+        
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).inset(43)
             make.centerX.equalToSuperview()
@@ -111,7 +130,7 @@ extension HoroscopeViewController {
         completeButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().offset(-50)
-            make.leading.trailing.equalToSuperview().inset(20)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
             make.height.equalTo(56)
         }
     }
