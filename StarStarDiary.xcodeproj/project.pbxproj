@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -42,6 +42,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E32727A2389621600EF36B4 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D5D0F67123890DC500DA3169 /* ViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		0E32727B2389622000EF36B4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D5D0F67323890DC500DA3169 /* Main.storyboard */,
+				D5D0F67B23890DC600DA3169 /* LaunchScreen.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0E32727C2389622300EF36B4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0E32727D2389622700EF36B4 /* Networks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Networks;
+			sourceTree = "<group>";
+		};
+		0E32727E2389623200EF36B4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		13DD90F7C982B82A180C42D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -81,10 +119,12 @@
 			isa = PBXGroup;
 			children = (
 				D5D0F66F23890DC500DA3169 /* AppDelegate.swift */,
-				D5D0F67123890DC500DA3169 /* ViewController.swift */,
-				D5D0F67323890DC500DA3169 /* Main.storyboard */,
+				0E32727A2389621600EF36B4 /* ViewControllers */,
+				0E32727B2389622000EF36B4 /* Views */,
+				0E32727C2389622300EF36B4 /* Models */,
+				0E32727D2389622700EF36B4 /* Networks */,
+				0E32727E2389623200EF36B4 /* Extensions */,
 				D5D0F67923890DC600DA3169 /* Assets.xcassets */,
-				D5D0F67B23890DC600DA3169 /* LaunchScreen.storyboard */,
 				D5D0F67E23890DC600DA3169 /* Info.plist */,
 				D5D0F67623890DC500DA3169 /* StarStarDiary.xcdatamodeld */,
 			);
