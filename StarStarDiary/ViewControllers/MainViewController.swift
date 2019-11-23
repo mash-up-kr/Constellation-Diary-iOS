@@ -24,6 +24,7 @@ class MainViewController: UIViewController {
     private var editImageView: UIImageView  =       UIImageView(frame: .zero)
     private var fortuneView: UIView         =       UIView(frame: .zero)
 
+    // FIXME :- rename method properly.
     private func bindDiary() {
         let dateFormatter = DateFormatter.defualtInstance
         dateFormatter.dateFormat = "YYYY년 MM월 dd일"
@@ -43,10 +44,10 @@ class MainViewController: UIViewController {
     }
 
     private func setupNavigationBar() {
-        let menuItem = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(openMenu))
+        let menuItem = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(didTapMenuItem))
         self.navigationItem.setLeftBarButton(menuItem, animated: false)
-        let storeItem = UIBarButtonItem(image: UIImage(named: "book"), style: .plain, target: self, action: #selector(openDiaryList))
-        self.navigationItem.setRightBarButton(storeItem, animated: false)
+        let storageItem = UIBarButtonItem(image: UIImage(named: "book"), style: .plain, target: self, action: #selector(didTapStorageItem))
+        self.navigationItem.setRightBarButton(storageItem, animated: false)
         self.navigationController?.navigationBar.tintColor = .white
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -126,11 +127,11 @@ class MainViewController: UIViewController {
 
     // MARK: actions
 
-    @objc private func openMenu() {
+    @objc private func didTapMenuItem() {
         // TODO : open side menu view controller
     }
 
-    @objc private func openDiaryList() {
+    @objc private func didTapStorageItem() {
         // TODO : open diary list view controller
     }
 
