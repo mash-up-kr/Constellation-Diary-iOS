@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0E3272912389BDE000EF36B4 /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E32728F2389BDE000EF36B4 /* DateFormatter+.swift */; };
 		0E3272922389BDE000EF36B4 /* UIColor+Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */; };
+		0E3272962389C37300EF36B4 /* HoroscopeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3272952389C37300EF36B4 /* HoroscopeViewController.swift */; };
 		ADCC22B4D25855423D8EE10D /* Pods_StarStarDiary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A57C3B489FC848FFBB6107E7 /* Pods_StarStarDiary.framework */; };
 		D544F2862389672C009B3967 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D544F2852389672C009B3967 /* MainViewController.swift */; };
 		D544F28A23898405009B3967 /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D544F28923898405009B3967 /* DateFormatter+.swift */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		0E32728F2389BDE000EF36B4 /* DateFormatter+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+.swift"; sourceTree = "<group>"; };
 		0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Resource.swift"; sourceTree = "<group>"; };
+		0E3272952389C37300EF36B4 /* HoroscopeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoroscopeViewController.swift; sourceTree = "<group>"; };
 		A57C3B489FC848FFBB6107E7 /* Pods_StarStarDiary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StarStarDiary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B52A4D106A7F14CB5BEAE593 /* Pods-StarStarDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarStarDiary.release.xcconfig"; path = "Target Support Files/Pods-StarStarDiary/Pods-StarStarDiary.release.xcconfig"; sourceTree = "<group>"; };
 		C374176DB79A9B002599C37A /* Pods-StarStarDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarStarDiary.debug.xcconfig"; path = "Target Support Files/Pods-StarStarDiary/Pods-StarStarDiary.debug.xcconfig"; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 		0E32727A2389621600EF36B4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				0E3272952389C37300EF36B4 /* HoroscopeViewController.swift */,
 				D5D0F67123890DC500DA3169 /* ViewController.swift */,
 				D544F2852389672C009B3967 /* MainViewController.swift */,
 				DBF122EF2389673300EFE5B2 /* WriteViewController.swift */,
@@ -294,6 +297,7 @@
 				D5D0F67223890DC500DA3169 /* ViewController.swift in Sources */,
 				D5D0F67823890DC500DA3169 /* StarStarDiary.xcdatamodeld in Sources */,
 				DBF122F02389673300EFE5B2 /* WriteViewController.swift in Sources */,
+				0E3272962389C37300EF36B4 /* HoroscopeViewController.swift in Sources */,
 				D5D0F67023890DC500DA3169 /* AppDelegate.swift in Sources */,
 				0E3272922389BDE000EF36B4 /* UIColor+Resource.swift in Sources */,
 				0E3272912389BDE000EF36B4 /* DateFormatter+.swift in Sources */,
