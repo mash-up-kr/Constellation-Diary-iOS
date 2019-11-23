@@ -6,5 +6,6 @@ target 'StarStarDiary' do
   use_frameworks!
 
   # Pods for StarStarDiary
+  pod 'SwiftLint'
 
 end
