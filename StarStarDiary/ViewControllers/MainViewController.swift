@@ -84,7 +84,7 @@ class MainViewController: UIViewController {
         
         fortuneView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).inset(182.0)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(182.0)
             make.bottom.equalToSuperview()
         }
     }
