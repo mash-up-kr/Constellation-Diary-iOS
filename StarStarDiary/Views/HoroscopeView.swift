@@ -66,7 +66,7 @@ extension HoroscopeView {
         fortuneItemsView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(suggestionLabel.snp.bottom).offset(32)
-            make.width.equalToSuperview().inset(90)
+            make.width.equalToSuperview().dividedBy(2)
             make.height.equalTo(70)
         }
     }
