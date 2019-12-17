@@ -147,6 +147,9 @@ final class MainViewController: UIViewController {
 
     @objc private func didTapMenuItem() {
         // TODO : open side menu view controller
+        let viewController = SideMenuViewController()
+        viewController.modalPresentationStyle = .overFullScreen
+        navigationController?.present(viewController, animated: false)
     }
 
     @objc private func didTapStorageItem() {
