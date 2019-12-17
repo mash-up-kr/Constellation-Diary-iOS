@@ -19,6 +19,10 @@ class SideMenuViewController: UIViewController {
     @IBOutlet weak var diaryListButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
 
+    // MARK: - Vars
+
+    private var isShowing = false
+
     // MARK: - Animation
 
     public func show() {
@@ -28,6 +32,8 @@ class SideMenuViewController: UIViewController {
             self.dimView.alpha = 1.0
             self.menuBackgroundView.frame.origin.x = .zero
         })
+
+        isShowing = true
     }
 
     @objc
@@ -35,9 +41,13 @@ class SideMenuViewController: UIViewController {
         UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn,
                        animations: { [weak self] in
             guard let self = self else { return }
+                        
             self.dimView.alpha = 0.0
             self.menuBackgroundView.frame.origin.x = -(UIScreen.main.bounds.width + self.menuBackgroundView.frame.width)
-        }) { (isFinished) in
+        }) { [weak self] (isFinished) in
+            guard let self = self else { return }
+
+            self.isShowing = false
             self.dismiss(animated: false, completion: nil)
         }
     }
@@ -102,6 +112,8 @@ class SideMenuViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        show()
+        if isShowing == false {
+            show()
+        }
     }
 }
