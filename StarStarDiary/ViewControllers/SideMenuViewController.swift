@@ -41,6 +41,8 @@ final class SideMenuViewController: UIViewController {
     }
 
     // MARK: - Init
+    
+    // FIXME: - 스토리보드 > snapKit 변경 작업시, 객체생성 함수 init+a() 그 외 setUp+a()
 
     private func initView() {
         dimView.alpha = 0.0
@@ -117,7 +119,7 @@ final class SideMenuViewController: UIViewController {
             self.menuBackgroundView.do {
                 $0.frame.origin.x = -(UIScreen.main.bounds.width + $0.frame.width)
             }
-        }) { [weak self] (isFinished) in
+        }) { [weak self] isFinished in
             guard let self = self else { return }
 
             if isFinished {
