@@ -12,20 +12,15 @@ class SettingsViewController: UIViewController {
 
     @IBOutlet weak var navigationView: BaseNavigationView!
 
-    // MARK: - Event
-
-    @objc
-    private func onClose(sender: AnyObject?) {
-        self.dismiss(animated: true, completion: nil)
-    }
-
     // MARK: - Init
 
     private func initNavigationView() {
         let leftTargetType: AddTargetType = (self, #selector(onClose(sender:)), .touchUpInside)
 
-        navigationView.setBtnLeft(image: UIImage(named: "close"), addTargetType: leftTargetType)
-        navigationView.setTitle(title: "설정", titleColor: .black, image: nil)
+        navigationView.do {
+            $0.setBtnLeft(image: UIImage(named: "close"), addTargetType: leftTargetType)
+            $0.setTitle(title: "설정", titleColor: .black, image: nil)
+        }
     }
 
     // MARK: - Life Cycle
@@ -34,5 +29,12 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
 
         initNavigationView()
+    }
+
+    // MARK: - Event
+
+    @objc
+    private func onClose(sender: AnyObject?) {
+        self.dismiss(animated: true, completion: nil)
     }
 }
