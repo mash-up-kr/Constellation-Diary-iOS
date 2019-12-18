@@ -45,7 +45,7 @@ final class SideMenuViewController: UIViewController {
     private func initView() {
         dimView.alpha = 0.0
 
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        view.backgroundColor = .dim
         menuBackgroundView.backgroundColor = .white
 
         // FIXME: - 유저 데이터로 변경해야함
