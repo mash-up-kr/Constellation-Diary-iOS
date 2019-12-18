@@ -97,12 +97,10 @@ extension LoginViewController {
     
     private func setupTextFields() {
         idTextField.do {
-            $0.delegate = self
             $0.placeholder = "아이디 입력"
         }
         
         passwordTextField.do {
-            $0.delegate = self
             $0.placeholder = "비밀번호 입력"
         }
     }
@@ -149,7 +147,6 @@ extension LoginViewController {
     }
 }
 
-        // Do any additional setup after loading the view.
 // MARK: - Action
 
 extension LoginViewController {
@@ -277,7 +274,4 @@ extension LoginViewController {
             self?.view.layoutIfNeeded()
         })
     }
-}
-
-
 }
