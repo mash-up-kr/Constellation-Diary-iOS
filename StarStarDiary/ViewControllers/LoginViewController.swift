@@ -189,14 +189,82 @@ extension LoginViewController {
     }
 }
 
-    /*
-    // MARK: - Navigation
+// MARK: - Layouts
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension LoginViewController {
+    
+    private func setupConstraints() {
+        let screen = UIScreen.main.bounds
+        
+        signInView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(screen.height * 48.3/100)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        drawerHandleView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview().offset(screen.height * 2.5/100)
+            $0.width.equalTo(screen.width * 6.4/100)
+            $0.height.equalTo(screen.height * 0.4/100)
+        }
+        
+        closeButton.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(screen.height * 2.0/100)
+            $0.leading.equalToSuperview().offset(screen.width * 5.3/100)
+        }
+        
+        titleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(screen.height * 8.3/100)
+            $0.leading.equalTo(closeButton)
+        }
+        
+        findAccountButton.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(screen.height * 9.1/100)
+            $0.leading.equalToSuperview().offset(screen.width * 63.2/100)
+        }
+        
+        signUpButton.snp.makeConstraints {
+            $0.top.equalTo(findAccountButton)
+            $0.leading.equalTo(findAccountButton.snp.trailing).offset(screen.width * 3.2/100)
+        }
+        
+        idLabel.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(screen.height * 4.2/100)
+            $0.leading.equalTo(closeButton)
+        }
+        
+        idTextField.snp.makeConstraints {
+            $0.top.equalTo(idLabel.snp.bottom).offset(screen.height * 1.0/100)
+            $0.leading.equalTo(closeButton)
+        }
+        
+        passwordLabel.snp.makeConstraints {
+            $0.top.equalTo(idTextField.snp.bottom).offset(screen.height * 5.5/100)
+            $0.leading.equalTo(closeButton)
+        }
+        
+        passwordTextField.snp.makeConstraints {
+            $0.top.equalTo(passwordLabel.snp.bottom).offset(screen.height * 1.0/100)
+            $0.leading.equalTo(closeButton)
+        }
+        
+        signInButton.snp.makeConstraints {
+            $0.top.equalTo(passwordTextField.snp.bottom).offset(screen.height * 4.8/100)
+            $0.leading.trailing.equalToSuperview().inset(screen.width * 5.3/100)
+            $0.height.equalTo(screen.height * 6.4/100)
+        }
     }
-    */
+    
+    private func updateConstraintsWhenFullScreen(duration: TimeInterval) {
+        self.signInView.snp.updateConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+        UIView.animate(withDuration: duration, animations: { [weak self] in
+            self?.view.layoutIfNeeded()
+        })
+    }
+}
+
 
 }
