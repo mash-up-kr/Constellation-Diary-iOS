@@ -10,6 +10,19 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
+    // MARK: - UI
+    
+    private let drawerHandleView = UIView()
+    private let signInView = UIView()
+    private let closeButton = UIButton()
+    private let titleLabel = UILabel()
+    private let findAccountButton = UIButton()
+    private let signUpButton = UIButton()
+    private let idLabel = UILabel()
+    private let idTextField = UITextField()
+    private let passwordLabel = UILabel()
+    private let passwordTextField = UITextField()
+    private let signInButton = UIButton()
     override func viewDidLoad() {
         super.viewDidLoad()
 
