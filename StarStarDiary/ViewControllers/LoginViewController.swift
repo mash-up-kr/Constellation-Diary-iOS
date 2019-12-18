@@ -9,7 +9,7 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-
+    
     // MARK: - UI
     
     private let drawerHandleView = UIView()
@@ -23,8 +23,21 @@ class LoginViewController: UIViewController {
     private let passwordLabel = UILabel()
     private let passwordTextField = UITextField()
     private let signInButton = UIButton()
+    
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupAttributes()
+        setupConstraints()
+        addKeyboardObserver()
+    }
+    
+    deinit {
+        removeKeyboardObserver()
+    }
+}
 
 // MARK: - Attributes
 
