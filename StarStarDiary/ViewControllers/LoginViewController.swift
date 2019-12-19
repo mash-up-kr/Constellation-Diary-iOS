@@ -38,12 +38,12 @@ class LoginViewController: UIViewController {
         super.viewDidAppear(animated)
         
         setupAttributes()
+        showSignInView()
     }
     
     deinit {
         removeKeyboardObserver()
     }
-    
 }
 
 // MARK: - Attributes
@@ -68,6 +68,10 @@ extension LoginViewController {
         signInView.do {
             $0.layer.cornerRadius = 10.0
             $0.backgroundColor = .white
+            $0.frame = CGRect(x: 0,
+                              y: UIScreen.main.bounds.height,
+                              width: UIScreen.main.bounds.width,
+                              height: 0)
         }
         
         drawerHandleView.do {
@@ -148,6 +152,17 @@ extension LoginViewController {
 // MARK: - Action
 
 extension LoginViewController {
+    
+    // MARK: View
+    
+    private func showSignInView() {
+        self.signInView.snp.makeConstraints {
+            $0.height.equalToSuperview().multipliedBy(94.6/100)
+        }
+        UIView.animate(withDuration: 0.2) {
+            self.view.layoutIfNeeded()
+        }
+    }
     
     // MARK: TextField
     
@@ -238,7 +253,7 @@ extension LoginViewController {
         let screen = UIScreen.main.bounds.inset(by: view.safeAreaInsets)
         
         signInView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(screen.height * 48.3/100)
+            $0.top.equalToSuperview().offset(screen.height * 54.4/100)
             $0.leading.trailing.bottom.equalToSuperview()
         }
         
