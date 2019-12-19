@@ -139,12 +139,6 @@ extension LoginViewController {
             $0.isHidden = true
         }
     }
-    
-    private func updateAttributesWhenFullScreen() {
-        self.drawerHandleView.isHidden = true
-        self.closeButton.isHidden = false
-        self.signInButton.isHidden = false
-    }
 }
 
 // MARK: - Action
@@ -166,9 +160,22 @@ extension LoginViewController {
     
     @objc
     private func keyboardWillAppear(notification: Notification) {
-        let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey]
-        updateConstraintsWhenFullScreen(duration: duration as? TimeInterval ?? 0)
-        updateAttributesWhenFullScreen()
+        let value = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey]
+        let duration = value as? TimeInterval ?? 0
+        
+        DispatchQueue.main.async {
+            self.signInView.snp.updateConstraints {
+                $0.top.equalToSuperview()
+                $0.leading.trailing.bottom.equalToSuperview()
+            }
+            self.drawerHandleView.alpha = 0
+            self.closeButton.alpha = 1
+            self.signInButton.alpha = 1
+            
+            UIView.animate(withDuration: duration) {
+                self.view.layoutIfNeeded()
+            }
+        }
     }
     
     @objc
@@ -263,15 +270,5 @@ extension LoginViewController {
             $0.leading.trailing.equalToSuperview().inset(screen.width * 5.3/100)
             $0.height.equalTo(screen.height * 6.4/100)
         }
-    }
-    
-    private func updateConstraintsWhenFullScreen(duration: TimeInterval) {
-        self.signInView.snp.updateConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.trailing.bottom.equalToSuperview()
-        }
-        UIView.animate(withDuration: duration, animations: { [weak self] in
-            self?.view.layoutIfNeeded()
-        })
     }
 }
