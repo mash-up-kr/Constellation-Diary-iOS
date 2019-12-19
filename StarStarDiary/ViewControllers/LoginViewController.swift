@@ -76,27 +76,34 @@ extension LoginViewController {
     private func setupLabels() {
         titleLabel.do {
             $0.text = "로그인"
+            // FIXME: Asset Font로 수정 예정
             $0.font = .boldSystemFont(ofSize: 26)
         }
         
         idLabel.do {
             $0.text = "아이디"
+            // FIXME: Asset Font로 수정 예정
             $0.font = .systemFont(ofSize: 12)
         }
         
         passwordLabel.do {
             $0.text = "비밀번호"
+            // FIXME: Asset Font로 수정 예정
             $0.font = .systemFont(ofSize: 12)
         }
     }
     
     private func setupTextFields() {
         idTextField.do {
+            // FIXME: Asset Font로 수정 예정
             $0.placeholder = "아이디 입력"
+            $0.underlined(with: .white216)
         }
         
         passwordTextField.do {
+            // FIXME: Asset Font로 수정 예정
             $0.placeholder = "비밀번호 입력"
+            $0.underlined(with: .white216)
         }
     }
     
