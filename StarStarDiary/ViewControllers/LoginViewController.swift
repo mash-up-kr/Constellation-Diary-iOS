@@ -29,13 +29,19 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupAttributes()
+        setupViewHierarchy()
         setupConstraints()
         addKeyboardObserver()
     }
     
     deinit {
         removeKeyboardObserver()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        setupAttributes()
     }
 }
 
@@ -51,25 +57,14 @@ extension LoginViewController {
     }
     
     private func setupViews() {
-        self.view.do {
-            $0.addSubview(signInView)
-            $0.addGestureRecognizer(UITapGestureRecognizer(target: self,
-                                                           action: #selector(hideKeyboard)))
+        view.do {
+            let recognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+            $0.addGestureRecognizer(recognizer)
         }
         
         signInView.do {
             $0.layer.cornerRadius = 10.0
             $0.backgroundColor = .white
-            $0.addSubview(drawerHandleView)
-            $0.addSubview(closeButton)
-            $0.addSubview(titleLabel)
-            $0.addSubview(findAccountButton)
-            $0.addSubview(signUpButton)
-            $0.addSubview(idLabel)
-            $0.addSubview(idTextField)
-            $0.addSubview(passwordLabel)
-            $0.addSubview(passwordTextField)
-            $0.addSubview(signInButton)
         }
         
         drawerHandleView.do {
@@ -209,6 +204,25 @@ extension LoginViewController {
 // MARK: - Layouts
 
 extension LoginViewController {
+    
+    private func setupViewHierarchy() {
+        view.do {
+            $0.addSubview(signInView)
+        }
+        
+        signInView.do {
+            $0.addSubview(drawerHandleView)
+            $0.addSubview(closeButton)
+            $0.addSubview(titleLabel)
+            $0.addSubview(findAccountButton)
+            $0.addSubview(signUpButton)
+            $0.addSubview(idLabel)
+            $0.addSubview(idTextField)
+            $0.addSubview(passwordLabel)
+            $0.addSubview(passwordTextField)
+            $0.addSubview(signInButton)
+        }
+    }
     
     private func setupConstraints() {
         let screen = UIScreen.main.bounds
