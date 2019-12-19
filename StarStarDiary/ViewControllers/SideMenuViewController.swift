@@ -69,6 +69,8 @@ final class SideMenuViewController: UIViewController {
     }
 
     private func initBtn() {
+        
+        // MARK: - Menu 가 닫히는 액션이 정확히 어떤 액션을 통해서 닫혀야하는지 확인 필요.
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hide))
         self.view.addGestureRecognizer(tapGesture)
 
@@ -101,7 +103,10 @@ final class SideMenuViewController: UIViewController {
             $0.frame.origin.x = -(UIScreen.main.bounds.width + $0.frame.width)
         }
 
-        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn, animations: {
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn,
+                       animations: { [weak self] in
+            guard let self = self else { return }
+
             self.dimView.alpha = 1.0
             self.menuBackgroundView.frame.origin.x = .zero
         })
@@ -119,22 +124,21 @@ final class SideMenuViewController: UIViewController {
             self.menuBackgroundView.do {
                 $0.frame.origin.x = -(UIScreen.main.bounds.width + $0.frame.width)
             }
-        }) { [weak self] isFinished in
+        }, completion: { [weak self] isFinished in
             guard let self = self else { return }
 
             if isFinished {
                 self.isShowing = false
                 self.dismiss(animated: false, completion: nil)
             }
-        }
+        })
     }
 
     // MARK: - Event
 
     @objc
     private func didTapSettings(sender: AnyObject?) {
-        let viewController = UIStoryboard(name: "SettingsView",
-                                          bundle: nil)
+        let viewController = UIStoryboard(name: "SettingsView", bundle: nil)
             .instantiateViewController(withIdentifier: "SettingsViewController")
         viewController.do {
             $0.modalPresentationStyle = .fullScreen
