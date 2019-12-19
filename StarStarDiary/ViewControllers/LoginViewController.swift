@@ -174,7 +174,7 @@ extension LoginViewController {
     
     @objc
     private func hideKeyboard() {
-        self.view.endEditing(true)
+        view.endEditing(true)
     }
     
     // MARK: Button
