@@ -241,6 +241,7 @@ extension LoginViewController {
         closeButton.snp.makeConstraints {
             $0.top.equalToSuperview().offset(screen.height * 2.0/100)
             $0.leading.equalToSuperview().offset(screen.width * 5.3/100)
+            $0.width.height.equalTo(screen.height * 3.0/100)
         }
         
         titleLabel.snp.makeConstraints {
@@ -265,7 +266,8 @@ extension LoginViewController {
         
         idTextField.snp.makeConstraints {
             $0.top.equalTo(idLabel.snp.bottom).offset(screen.height * 1.0/100)
-            $0.leading.equalTo(closeButton)
+            $0.leading.trailing.equalToSuperview().inset(screen.width * 5.3/100)
+            $0.height.equalTo(screen.height * 5.3/100)
         }
         
         passwordLabel.snp.makeConstraints {
@@ -275,7 +277,8 @@ extension LoginViewController {
         
         passwordTextField.snp.makeConstraints {
             $0.top.equalTo(passwordLabel.snp.bottom).offset(screen.height * 1.0/100)
-            $0.leading.equalTo(closeButton)
+            $0.leading.trailing.equalToSuperview().inset(screen.width * 5.3/100)
+            $0.height.equalTo(screen.height * 5.3/100)
         }
         
         signInButton.snp.makeConstraints {
