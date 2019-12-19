@@ -108,28 +108,29 @@ extension LoginViewController {
         }
         
         findAccountButton.do {
+            // FIXME: Asset Font로 수정 예정
             $0.addTarget(self, action: #selector(findAccountButtonDidTap), for: .touchUpInside)
-            // FIXME: Asset Color로 수정 예정
             $0.setTitle("아이디 찾기", for: .normal)
-            $0.setTitleColor(.blue, for: .normal)
+            $0.setTitleColor(.buttonBlue, for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 12)
         }
         
         signUpButton.do {
+            // FIXME: Asset Font로 수정 예정
             $0.addTarget(self, action: #selector(signInButtonDidTap), for: .touchUpInside)
             $0.setTitle("회원가입", for: .normal)
-            // FIXME: Asset Color로 수정 예정
-            $0.setTitleColor(.blue, for: .normal)
+            $0.setTitleColor(.buttonBlue, for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 12)
         }
         
         signInButton.do {
+            // FIXME: Asset Font로 수정 예정
             $0.addTarget(self, action: #selector(signInButtonDidTap), for: .touchUpInside)
-            $0.setTitle("로그인 하기", for: .normal)
-            // FIXME: Asset Color로 수정 예정
-            $0.backgroundColor = .blue
+            $0.setTitle("별별일기 시작하기", for: .normal)
+            $0.titleLabel?.textColor = .white
+            $0.backgroundColor = .buttonNavy
             $0.layer.cornerRadius = 5.0
-            $0.isHidden = true
+            $0.alpha = 0
         }
     }
 }
