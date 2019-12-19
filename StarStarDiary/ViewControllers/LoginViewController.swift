@@ -34,15 +34,16 @@ class LoginViewController: UIViewController {
         addKeyboardObserver()
     }
     
-    deinit {
-        removeKeyboardObserver()
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         setupAttributes()
     }
+    
+    deinit {
+        removeKeyboardObserver()
+    }
+    
 }
 
 // MARK: - Attributes
