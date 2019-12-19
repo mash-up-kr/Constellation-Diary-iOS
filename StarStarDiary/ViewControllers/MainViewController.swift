@@ -50,9 +50,9 @@ final class MainViewController: UIViewController {
     }
 
     private func setupNavigationBar() {
-        let menuItem = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(didTapMenuItem))
+        let menuItem = UIBarButtonItem(image: UIImage(named: "icMenu24"), style: .plain, target: self, action: #selector(didTapMenuItem))
         navigationItem.setLeftBarButton(menuItem, animated: false)
-        let storageItem = UIBarButtonItem(image: UIImage(named: "book"), style: .plain, target: self, action: #selector(didTapStorageItem))
+        let storageItem = UIBarButtonItem(image: UIImage(named: "icBook24"), style: .plain, target: self, action: #selector(didTapStorageItem))
         navigationItem.setRightBarButton(storageItem, animated: false)
         navigationController?.do {
             $0.navigationBar.tintColor = .white
@@ -73,7 +73,7 @@ final class MainViewController: UIViewController {
     
     private func setupEditImageView() {
         editImageView.do {
-            $0.image = UIImage(named: "edit")
+            $0.image = UIImage(named: "icEdit24")
             $0.contentMode = .scaleAspectFit
             $0.tintColor = .white
         }
