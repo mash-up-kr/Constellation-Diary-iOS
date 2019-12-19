@@ -167,7 +167,7 @@ extension LoginViewController {
         
         DispatchQueue.main.async {
             self.signInView.snp.updateConstraints {
-                $0.top.equalToSuperview()
+                $0.top.equalToSuperview().offset(self.view.safeAreaInsets.top)
                 $0.leading.trailing.bottom.equalToSuperview()
             }
             self.drawerHandleView.alpha = 0
@@ -232,7 +232,7 @@ extension LoginViewController {
     }
     
     private func setupConstraints() {
-        let screen = UIScreen.main.bounds
+        let screen = UIScreen.main.bounds.inset(by: view.safeAreaInsets)
         
         signInView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(screen.height * 48.3/100)
