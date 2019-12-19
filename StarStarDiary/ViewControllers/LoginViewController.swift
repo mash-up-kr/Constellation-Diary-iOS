@@ -188,7 +188,7 @@ extension LoginViewController {
     
     @objc
     private func closeButtonDidTap(_ button: UIButton) {
-        // TODO: 차후 로직 구현
+        dismiss(animated: true, completion: nil)
     }
     
     @objc
