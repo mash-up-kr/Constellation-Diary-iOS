@@ -114,8 +114,8 @@ class WriteViewController: UIViewController {
         
         navigationView.setBackgroundColor(color: .clear) // test
         navigationView.setTitle(title: "test", titleColor: .black, image: nil) // test
-        navigationView.setBtnLeft(image: UIImage(named: "close"), addTargetType: leftTargetType)
-        navigationView.setBtnRight(image: UIImage(named: "check"), addTargetType: rightTargetType)
+        navigationView.setBtnLeft(image: UIImage(named: "icClose24"), addTargetType: leftTargetType)
+        navigationView.setBtnRight(image: UIImage(named: "icComplete24"), addTargetType: rightTargetType)
     }
     
     private func initView() {
