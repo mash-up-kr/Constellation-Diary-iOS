@@ -58,6 +58,8 @@ extension LoginViewController {
     }
     
     private func setupViews() {
+        presentingViewController?.view.alpha = 0.54
+        
         view.do {
             let recognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
             $0.addGestureRecognizer(recognizer)
@@ -189,6 +191,7 @@ extension LoginViewController {
     
     @objc
     private func closeButtonDidTap(_ button: UIButton) {
+        presentingViewController?.view.alpha = 1
         dismiss(animated: true, completion: nil)
     }
     
