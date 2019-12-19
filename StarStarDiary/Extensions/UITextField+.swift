@@ -9,11 +9,11 @@
 import UIKit
 
 extension UITextField {
-    func underlined(with color: UIColor) {
+    func underlined(with color: UIColor? = .black) {
         let border = CALayer()
         let width = CGFloat(1.0)
         
-        border.borderColor = color.cgColor
+        border.borderColor = color?.cgColor
         border.frame = CGRect(x: 0,
                               y: self.bounds.size.height - width,
                               width:  self.bounds.width,
