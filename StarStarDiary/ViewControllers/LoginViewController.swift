@@ -111,7 +111,7 @@ extension LoginViewController {
     private func setupButtons() {
         closeButton.do {
             $0.addTarget(self, action: #selector(closeButtonDidTap), for: .touchUpInside)
-            $0.setImage(UIImage(named: "close"), for: .normal)
+            $0.setImage(UIImage(named: "icClose24"), for: .normal)
             $0.alpha = 0
         }
         
