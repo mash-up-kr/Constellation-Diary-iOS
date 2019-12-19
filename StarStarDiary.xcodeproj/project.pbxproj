@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0E160CD523AA51E6000CA518 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E160CD423AA51E6000CA518 /* LoginViewController.swift */; };
+		0E160CD823ABED80000CA518 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E160CD723ABED80000CA518 /* UITextField+.swift */; };
 		0E3272912389BDE000EF36B4 /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E32728F2389BDE000EF36B4 /* DateFormatter+.swift */; };
 		0E3272922389BDE000EF36B4 /* UIColor+Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */; };
 		0E3272962389C37300EF36B4 /* FortuneDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3272952389C37300EF36B4 /* FortuneDetailViewController.swift */; };
@@ -63,6 +64,7 @@
 
 /* Begin PBXFileReference section */
 		0E160CD423AA51E6000CA518 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		0E160CD723ABED80000CA518 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		0E32728F2389BDE000EF36B4 /* DateFormatter+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+.swift"; sourceTree = "<group>"; };
 		0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Resource.swift"; sourceTree = "<group>"; };
 		0E3272952389C37300EF36B4 /* FortuneDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FortuneDetailViewController.swift; sourceTree = "<group>"; };
@@ -209,6 +211,9 @@
 				D5F23D2C23AA9D45002F8127 /* UserDefaults+.swift */,
 				0EEB411523E45961000AE851 /* UIView+.swift */,
 				D54F6D0723E46339001DA319 /* UIFont+.swift */,
+				0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */,
+				D5F23D2C23AA9D45002F8127 /* UserDefaults+.swift */,
+				0E160CD723ABED80000CA518 /* UITextField+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -461,6 +466,8 @@
 				DBAF024823AE57B80044E2DD /* BaseTableViewHeaderFooterView.swift in Sources */,
 				DBAF024223AE2C9B0044E2DD /* SettingsViewController+cell.swift in Sources */,
 				0E3272962389C37300EF36B4 /* FortuneDetailViewController.swift in Sources */,
+				0E160CD823ABED80000CA518 /* UITextField+.swift in Sources */,
+				0E3272962389C37300EF36B4 /* HoroscopeViewController.swift in Sources */,
 				9CF049FC23A918B400A85BEC /* SideMenuViewController.swift in Sources */,
 				D54F6CF023BB53D4001DA319 /* Diary.swift in Sources */,
 				0EDB40F723CA568C0020B0EF /* UICollectionView+.swift in Sources */,
