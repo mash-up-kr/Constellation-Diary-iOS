@@ -103,10 +103,8 @@ extension LoginViewController {
     private func setupButtons() {
         closeButton.do {
             $0.addTarget(self, action: #selector(closeButtonDidTap), for: .touchUpInside)
-            // FIXME: Asset BackgroundImage 로 수정 예정
-            $0.setTitle("X", for: .normal)
-            $0.setTitleColor(.black, for: .normal)
-            $0.isHidden = true
+            $0.setImage(UIImage(named: "close"), for: .normal)
+            $0.alpha = 0
         }
         
         findAccountButton.do {
