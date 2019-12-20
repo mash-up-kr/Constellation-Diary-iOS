@@ -6,10 +6,10 @@ target 'StarStarDiary' do
   use_frameworks!
 
   # Pods for StarStarDiary
-  pod 'SwiftLint'
+  pod 'SwiftLint', '~> 0.38.0'
   pod 'Moya', '~> 13.0'
   pod 'SnapKit', '~> 5.0.0'
-  pod 'Then'
+  pod 'Then', '~> 2.6.0'
   pod 'Nuke', '~> 8.0'
 
 end
