@@ -26,6 +26,10 @@
 		D5F23D2D23AA9D45002F8127 /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F23D2C23AA9D45002F8127 /* UserDefaults+.swift */; };
 		D5F23D2F23AA9E4C002F8127 /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F23D2E23AA9E4C002F8127 /* OnBoardingViewController.swift */; };
 		DB09E1722389A4B400760C86 /* BaseNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB09E1712389A4B400760C86 /* BaseNavigationView.swift */; };
+		DBAF024023AE2B480044E2DD /* Bundle+appVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF023F23AE2B480044E2DD /* Bundle+appVersion.swift */; };
+		DBAF024223AE2C9B0044E2DD /* SettingsViewController+cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF024123AE2C9B0044E2DD /* SettingsViewController+cell.swift */; };
+		DBAF024523AE32940044E2DD /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF024323AE32940044E2DD /* BaseTableViewCell.swift */; };
+		DBAF024823AE57B80044E2DD /* BaseTableViewHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF024723AE57B80044E2DD /* BaseTableViewHeaderFooterView.swift */; };
 		DBF122F02389673300EFE5B2 /* WriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF122EF2389673300EFE5B2 /* WriteViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +57,10 @@
 		D5F23D2C23AA9D45002F8127 /* UserDefaults+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
 		D5F23D2E23AA9E4C002F8127 /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
 		DB09E1712389A4B400760C86 /* BaseNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationView.swift; sourceTree = "<group>"; };
+		DBAF023F23AE2B480044E2DD /* Bundle+appVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+appVersion.swift"; sourceTree = "<group>"; };
+		DBAF024123AE2C9B0044E2DD /* SettingsViewController+cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsViewController+cell.swift"; sourceTree = "<group>"; };
+		DBAF024323AE32940044E2DD /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		DBAF024723AE57B80044E2DD /* BaseTableViewHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewHeaderFooterView.swift; sourceTree = "<group>"; };
 		DBF122EF2389673300EFE5B2 /* WriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -78,6 +86,7 @@
 				9CF049FA23A918B400A85BEC /* SideMenuViewController.swift */,
 				9CF049FB23A918B400A85BEC /* SideMenuViewController.xib */,
 				9CF049FE23A92F5D00A85BEC /* SettingsViewController.swift */,
+				DBAF024123AE2C9B0044E2DD /* SettingsViewController+cell.swift */,
 				9CF04A0223A931B400A85BEC /* SettingsView.storyboard */,
 				D5F23D2E23AA9E4C002F8127 /* OnBoardingViewController.swift */,
 			);
@@ -90,6 +99,8 @@
 				DB09E1712389A4B400760C86 /* BaseNavigationView.swift */,
 				D5D0F67323890DC500DA3169 /* Main.storyboard */,
 				D5D0F67B23890DC600DA3169 /* LaunchScreen.storyboard */,
+				DBAF024323AE32940044E2DD /* BaseTableViewCell.swift */,
+				DBAF024723AE57B80044E2DD /* BaseTableViewHeaderFooterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -122,6 +133,7 @@
 				0E32728F2389BDE000EF36B4 /* DateFormatter+.swift */,
 				0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */,
 				D5F23D2C23AA9D45002F8127 /* UserDefaults+.swift */,
+				DBAF023F23AE2B480044E2DD /* Bundle+appVersion.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -314,15 +326,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBAF024023AE2B480044E2DD /* Bundle+appVersion.swift in Sources */,
 				D5D0F67223890DC500DA3169 /* ViewController.swift in Sources */,
 				D5D0F67823890DC500DA3169 /* StarStarDiary.xcdatamodeld in Sources */,
 				DBF122F02389673300EFE5B2 /* WriteViewController.swift in Sources */,
 				0E3272962389C37300EF36B4 /* HoroscopeViewController.swift in Sources */,
+				DBAF024823AE57B80044E2DD /* BaseTableViewHeaderFooterView.swift in Sources */,
+				DBAF024223AE2C9B0044E2DD /* SettingsViewController+cell.swift in Sources */,
 				9CF049FC23A918B400A85BEC /* SideMenuViewController.swift in Sources */,
 				D5D0F67023890DC500DA3169 /* AppDelegate.swift in Sources */,
 				0E3272922389BDE000EF36B4 /* UIColor+Resource.swift in Sources */,
 				0E3272912389BDE000EF36B4 /* DateFormatter+.swift in Sources */,
 				D5F23D2D23AA9D45002F8127 /* UserDefaults+.swift in Sources */,
+				DBAF024523AE32940044E2DD /* BaseTableViewCell.swift in Sources */,
 				D544F2862389672C009B3967 /* MainViewController.swift in Sources */,
 				D544F28A23898405009B3967 /* DateFormatter+.swift in Sources */,
 				D5F23D2F23AA9E4C002F8127 /* OnBoardingViewController.swift in Sources */,
