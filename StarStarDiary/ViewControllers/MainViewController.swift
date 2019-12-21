@@ -153,7 +153,9 @@ final class MainViewController: UIViewController {
     }
 
     @objc private func didTapStorageItem() {
-        // TODO : open diary list view controller
+        let viewController = DiaryListViewController()
+        viewController.modalPresentationStyle = .fullScreen
+        navigationController?.present(viewController, animated: true)
     }
 
     @objc private func didTapNewDiary() {
