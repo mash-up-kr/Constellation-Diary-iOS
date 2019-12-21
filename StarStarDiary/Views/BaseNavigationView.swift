@@ -16,6 +16,7 @@ class BaseNavigationView: UIView {
     private let btnLeft = UIButton(frame: .zero)
     private let btnRight = UIButton(frame: .zero)
     private let btnTitle = UIButton(frame: .zero)
+    private let bottomLineView = UIView(frame: .zero)
     
     // MARK: - Init
     
@@ -23,6 +24,7 @@ class BaseNavigationView: UIView {
         self.addSubview(btnLeft)
         self.addSubview(btnRight)
         self.addSubview(btnTitle)
+        self.addSubview(bottomLineView)
         
         btnLeft.do { (button) in
             button.snp.makeConstraints { (make) in
@@ -44,10 +46,19 @@ class BaseNavigationView: UIView {
             button.snp.makeConstraints { (make) in
                 make.centerY.equalToSuperview()
                 make.leading.equalTo(btnLeft.snp.trailing).offset(16.0)
-                make.trailing.equalTo(btnRight.snp.leading).inset(16.0)
+                make.trailing.equalTo(btnRight.snp.leading).inset(-16.0)
             }
             
             button.titleLabel?.textAlignment = .center
+        }
+        
+        bottomLineView.do {
+            $0.snp.makeConstraints {
+                $0.leading.equalTo(self.snp.leading)
+                $0.trailing.equalTo(self.snp.trailing)
+                $0.bottom.equalTo(self.snp.bottom)
+                $0.height.equalTo(1.0)
+            }
         }
 
     }
@@ -91,5 +102,13 @@ class BaseNavigationView: UIView {
         btnTitle.setTitle(title, for: .normal)
         btnTitle.setTitleColor(titleColor, for: .normal)
         btnTitle.setImage(image, for: .normal)
+    }
+    
+    public func setBottomLine(isHidden: Bool) {
+        bottomLineView.isHidden = isHidden
+        
+        if isHidden == false {
+            bottomLineView.backgroundColor = .white216
+        }
     }
 }
