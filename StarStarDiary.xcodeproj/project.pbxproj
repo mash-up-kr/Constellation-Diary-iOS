@@ -26,6 +26,7 @@
 		D5F23D2D23AA9D45002F8127 /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F23D2C23AA9D45002F8127 /* UserDefaults+.swift */; };
 		D5F23D2F23AA9E4C002F8127 /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F23D2E23AA9E4C002F8127 /* OnBoardingViewController.swift */; };
 		DB09E1722389A4B400760C86 /* BaseNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB09E1712389A4B400760C86 /* BaseNavigationView.swift */; };
+		DB9EA41523AE90A000F4488D /* DiaryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9EA41423AE90A000F4488D /* DiaryListViewController.swift */; };
 		DBF122F02389673300EFE5B2 /* WriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF122EF2389673300EFE5B2 /* WriteViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,7 @@
 		D5F23D2C23AA9D45002F8127 /* UserDefaults+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
 		D5F23D2E23AA9E4C002F8127 /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
 		DB09E1712389A4B400760C86 /* BaseNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationView.swift; sourceTree = "<group>"; };
+		DB9EA41423AE90A000F4488D /* DiaryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewController.swift; sourceTree = "<group>"; };
 		DBF122EF2389673300EFE5B2 /* WriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,6 +82,7 @@
 				9CF049FE23A92F5D00A85BEC /* SettingsViewController.swift */,
 				9CF04A0223A931B400A85BEC /* SettingsView.storyboard */,
 				D5F23D2E23AA9E4C002F8127 /* OnBoardingViewController.swift */,
+				DB9EA41423AE90A000F4488D /* DiaryListViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 				D544F28A23898405009B3967 /* DateFormatter+.swift in Sources */,
 				D5F23D2F23AA9E4C002F8127 /* OnBoardingViewController.swift in Sources */,
 				DB09E1722389A4B400760C86 /* BaseNavigationView.swift in Sources */,
+				DB9EA41523AE90A000F4488D /* DiaryListViewController.swift in Sources */,
 				9CF04A0023A92F5D00A85BEC /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
