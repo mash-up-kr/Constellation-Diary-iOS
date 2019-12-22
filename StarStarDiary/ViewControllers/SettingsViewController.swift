@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import SnapKit
 
 class SettingsViewController: UIViewController {
-
-    @IBOutlet weak var navigationView: BaseNavigationView!
-    @IBOutlet weak var tableView: UITableView!
+    
+    private var navigationView = BaseNavigationView(frame: .zero)
+    private var tableView = UITableView(frame: .zero)
     
     // MARK: - Var
     
@@ -25,6 +26,21 @@ class SettingsViewController: UIViewController {
     }
 
     // MARK: - Init
+    
+    private func initLayout() {
+        view.addSubview(navigationView)
+        view.addSubview(tableView)
+        
+        navigationView.snp.makeConstraints {
+            $0.leading.trailing.top.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(44.0)
+        }
+        
+        tableView.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.top.equalTo(navigationView.snp.bottom)
+        }
+    }
 
     private func initNavigationView() {
         let leftTargetType: AddTargetType = (self, #selector(onClose(sender:)), .touchUpInside)
@@ -71,14 +87,20 @@ class SettingsViewController: UIViewController {
         }
     }
 
+    private func initView() {
+        view.backgroundColor = .white
+    }
+    
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        initLayout()
         initNavigationView()
         initTableView()
         initVar()
+        initView()
     }
 
 }
