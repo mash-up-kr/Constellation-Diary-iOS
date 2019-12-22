@@ -15,7 +15,7 @@ fileprivate struct Mockup {
     var date: String
 }
 
-class DiaryListViewController: UIViewController {
+final class DiaryListViewController: UIViewController {
     
     private var navigationView = BaseNavigationView(frame: .zero)
     private var tableView = UITableView(frame: .zero)
@@ -31,22 +31,14 @@ class DiaryListViewController: UIViewController {
         view.addSubview(navigationView)
         view.addSubview(tableView)
         
-        navigationView.do {
-            $0.snp.makeConstraints {
-                $0.leading.equalToSuperview()
-                $0.trailing.equalToSuperview()
-                $0.height.equalTo(44.0)
-                $0.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin)
-            }
+        navigationView.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(44.0)
         }
         
-        tableView.do {
-            $0.snp.makeConstraints {
-                $0.leading.equalToSuperview()
-                $0.trailing.equalToSuperview()
-                $0.bottom.equalToSuperview()
-                $0.top.equalTo(navigationView.snp.bottom)
-            }
+        tableView.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.top.equalTo(navigationView.snp.bottom)
         }
     }
     
@@ -80,9 +72,11 @@ class DiaryListViewController: UIViewController {
     }
     
     private func initTableView() {
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.backgroundColor = .white
+        tableView.do {
+            $0.dataSource = self
+            $0.delegate = self
+            $0.backgroundColor = .white
+        }
     }
     
     // MARK: - LifeCycle
