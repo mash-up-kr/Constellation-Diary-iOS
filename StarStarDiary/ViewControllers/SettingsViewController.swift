@@ -15,13 +15,13 @@ class SettingsViewController: UIViewController {
     
     // MARK: - Var
     
-    private var items: SettingsViewItem!
+    private var items = SettingsViewItem()
     
     // MARK: - Event
 
     @objc
     private func onClose(sender: AnyObject?) {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 
     // MARK: - Init
@@ -51,8 +51,6 @@ class SettingsViewController: UIViewController {
     }
     
     private func initVar() {
-        items = SettingsViewItem()
-        
         for section in SectionMenu.allCases {
             var cellItems: [SettingsViewCellItem] = []
             
@@ -63,7 +61,8 @@ class SettingsViewController: UIViewController {
                                           cellType: cell.cellType,
                                           isSwitchOn: cell.isSwitchOn,
                                           rightImage: cell.rightImage,
-                                          isHiddenBottomLine: cell.isHiddenBottomLine))
+                                          isHiddenBottomLine: cell.isHiddenBottomLine,
+                                          canSelected: cell.canSelected))
             }
             
             items.sections.append(SectionItem(index: section.rawValue,
@@ -131,14 +130,14 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if let sectionMenuType = SectionMenu(rawValue: section) {
-            switch sectionMenuType {
-            case .alarm: return 40.0
-            case .normal: return 8.0
-            }
+        guard let sectionMenuType = SectionMenu(rawValue: section) else {
+            return 0.0
         }
         
-        return 0.0
+        switch sectionMenuType {
+        case .alarm: return 40.0
+        case .normal: return 8.0
+        }
     }
     
     // MARK: Event

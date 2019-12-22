@@ -22,7 +22,7 @@ class BaseTableViewHeaderFooterView: UITableViewHeaderFooterView {
     public func setEntity(title: String,
                           titleColor: UIColor?,
                           font: UIFont = UIFont.systemFont(ofSize: 12.0)) {
-        if title == "" {
+        if title.isEmpty {
             bottomView.backgroundColor = .white216
             bottomView.isHidden = false
         } else {
@@ -72,7 +72,6 @@ class BaseTableViewHeaderFooterView: UITableViewHeaderFooterView {
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-//        fatalError("init(coder:) has not been implemented")
         
         initLayout()
         initView()

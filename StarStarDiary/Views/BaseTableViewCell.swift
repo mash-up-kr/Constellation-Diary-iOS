@@ -26,9 +26,10 @@ class BaseTableViewCell: UITableViewCell {
         
         titleLabel.text = cell.title
         subTitleLabel.text = cell.subTitle
-        onOffSwitch.isOn = cell.isSwitchOn
+        onOffSwitch.isOn = cell.isSwitchOn ?? false
         rightButton.setImage(cell.rightImage, for: .normal)
         bottomView.isHidden = cell.isHiddenBottomLine
+        selectionStyle = cell.canSelected ? .default : .none
         
         switch cell.cellType {
         case .hasOnlyTitle:
@@ -143,7 +144,6 @@ class BaseTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-//        fatalError("init(coder:) has not been implemented")
         
         initLayout()
         initView()

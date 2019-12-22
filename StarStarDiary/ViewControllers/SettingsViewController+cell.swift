@@ -30,11 +30,12 @@ struct SectionItem {
 struct SettingsViewCellItem {
     var index: Int
     var title: String
-    var subTitle: String = ""
+    var subTitle: String?
     var cellType: SettingsViewCellType
-    var isSwitchOn: Bool = false
+    var isSwitchOn: Bool?
     var rightImage: UIImage?
     var isHiddenBottomLine: Bool
+    var canSelected: Bool
 }
 
 extension SettingsViewController {
@@ -65,9 +66,9 @@ extension SettingsViewController {
         
         var sectionMenuType: SectionMenu {
             switch self {
-             case .amAlerm,
+            case .amAlerm,
                   .pmAlarm: return .alarm
-             case .changePMAlaramTime,
+            case .changePMAlaramTime,
                   .logout,
                   .appVersion: return .normal
             }
@@ -83,24 +84,24 @@ extension SettingsViewController {
            }
         }
         
-        var subTitleString: String {
+        var subTitleString: String? {
             switch self {
             case .amAlerm,
                  .pmAlarm,
                  .changePMAlaramTime,
-                 .logout: return ""
+                 .logout: return nil
             case .appVersion: return "ver \(Bundle.main.appVersion)"
             }
         }
 
         // TODO: 사용자 데이터 바인딩 필요
-        var isSwitchOn: Bool {
+        var isSwitchOn: Bool? {
            switch self {
            case .amAlerm: return false
            case .pmAlarm: return false
            case .changePMAlaramTime,
                 .logout,
-                .appVersion: return false
+                .appVersion: return nil
             }
         }
         
@@ -131,6 +132,16 @@ extension SettingsViewController {
             case .changePMAlaramTime,
                  .logout,
                  .appVersion: return false
+            }
+        }
+        
+        var canSelected: Bool {
+            switch self {
+            case .amAlerm,
+                 .pmAlarm: return false
+            case .changePMAlaramTime,
+                 .logout,
+                 .appVersion: return true
             }
         }
     }
