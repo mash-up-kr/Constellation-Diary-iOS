@@ -14,10 +14,11 @@ final class MainViewController: UIViewController {
 
     // MARK:- Properties
 
-    private let dateLabel: UILabel          =       UILabel(frame: .zero)
+    private let writeButton: UIButton          =       UIButton(frame: .zero)
     private let titleLabel: UILabel         =       UILabel(frame: .zero)
     private let editImageView: UIImageView  =       UIImageView(frame: .zero)
     private let fortuneView: UIView         =       UIView(frame: .zero)
+    private let backgroundImageView: UIImageView = UIImageView(frame: .zero)
     
     // MARK:- Methods
     
@@ -32,21 +33,28 @@ final class MainViewController: UIViewController {
     
     // FIXME :- rename method properly.
     private func bindDiary() {
-        let dateFormatter = DateFormatter.defualtInstance
-        dateFormatter.dateFormat = "YYYY년 MM월 dd일"
-        dateLabel.text = dateFormatter.string(from: Date())
-        // FIXME :- add real data
         titleLabel.text = "오늘 하루는 어땠나요?"
     }
 
     private func setupView() {
         view.backgroundColor = .black
+        setupBackgroundImageView()
         setupNavigationBar()
-        setupLabels()
-        setupEditImageView()
+        setupTitleLabel()
         setupFortuneView()
         setupContainerView()
         bindDiary()
+    }
+    
+    private func setupBackgroundImageView() {
+        backgroundImageView.do {
+            $0.image = UIImage(named: "bg_main")
+            $0.contentMode = .scaleAspectFill
+            view.addSubview($0)
+            $0.snp.makeConstraints { imageView in
+                imageView.edges.equalToSuperview()
+            }
+        }
     }
 
     private func setupNavigationBar() {
@@ -63,19 +71,16 @@ final class MainViewController: UIViewController {
         }
     }
     
-    private func setupLabels() {
-        dateLabel.textColor = .lightGray
-        dateLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-
+    private func setupTitleLabel() {
         titleLabel.textColor = .white
-        titleLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        titleLabel.font = UIFont.systemFont(ofSize: 30, weight: .bold)
     }
     
-    private func setupEditImageView() {
-        editImageView.do {
-            $0.image = UIImage(named: "icEdit24")
-            $0.contentMode = .scaleAspectFit
-            $0.tintColor = .white
+    private func setupWriteButton() {
+        writeButton.do {
+            $0.setTitle("일기작성 >", for: .normal)
+            $0.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
+            $0.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         }
     }
     
@@ -96,43 +101,23 @@ final class MainViewController: UIViewController {
     }
 
     private func setupContainerView() {
-        let blankView = UIView()
-        view.addSubview(blankView)
-        
-        blankView.snp.makeConstraints {
-            $0.leading.trailing.top.equalToSuperview()
-            $0.bottom.equalTo(fortuneView.snp.top)
-        }
-
-        let container = UIView()
-        container.do {
-            $0.addSubview(dateLabel)
-            $0.addSubview(titleLabel)
-            $0.addSubview(editImageView)
+        let stackView = UIStackView()
+        stackView.do {
+            $0.axis = .vertical
+            $0.alignment = .leading
+            $0.distribution = .equalSpacing
+            $0.spacing = 25
+            $0.addArrangedSubview(titleLabel)
+            $0.addArrangedSubview(writeButton)
             view.addSubview($0)
         }
 
-        dateLabel.snp.makeConstraints {
+        stackView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.leading.greaterThanOrEqualToSuperview()
-            $0.top.equalToSuperview().inset(15.0)
+            $0.top.equalToSuperview().inset(48.0)
+            $0.leading.equalToSuperview().inset(32.0)
         }
-        titleLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(dateLabel.snp.bottom).offset(8.0)
-        }
-        editImageView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.width.height.equalTo(19.0)
-            $0.top.equalTo(titleLabel.snp.bottom).offset(19.0)
-            $0.bottom.equalToSuperview().inset(12.0)
-        }
-        container.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.leading.equalToSuperview().inset(76.0)
-            $0.centerY.equalTo(blankView.snp.centerY)
-        }
-        addTapGesture(container)
+        addTapGesture(stackView)
     }
     
     private func addTapGesture(_ view: UIView) {
