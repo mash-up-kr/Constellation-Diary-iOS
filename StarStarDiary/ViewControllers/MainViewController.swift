@@ -12,7 +12,7 @@ import SnapKit
 
 final class MainViewController: UIViewController {
 
-    // MARK:- Properties
+    // MARK: - Properties
 
     private let writeButton: UIButton          =       UIButton(frame: .zero)
     private let titleLabel: UILabel         =       UILabel(frame: .zero)
@@ -20,7 +20,7 @@ final class MainViewController: UIViewController {
     private let fortuneView: UIView         =       UIView(frame: .zero)
     private let backgroundImageView: UIImageView = UIImageView(frame: .zero)
     
-    // MARK:- Methods
+    // MARK: - Methods
     
     // MARK: Life cycle
     
@@ -28,12 +28,17 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         setupView()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+    }
 
     // MARK: privates
     
-    // FIXME :- rename method properly.
+    // FIXME : - rename method properly.
     private func bindDiary() {
-        titleLabel.text = "오늘 하루는 어땠나요?"
+        titleLabel.text = "오늘 하루\n어떠셨나요?"
     }
 
     private func setupView() {
@@ -41,6 +46,7 @@ final class MainViewController: UIViewController {
         setupBackgroundImageView()
         setupNavigationBar()
         setupTitleLabel()
+        setupWriteButton()
         setupFortuneView()
         setupContainerView()
         bindDiary()
@@ -62,18 +68,23 @@ final class MainViewController: UIViewController {
         navigationItem.setLeftBarButton(menuItem, animated: false)
         let storageItem = UIBarButtonItem(image: UIImage(named: "icBook24"), style: .plain, target: self, action: #selector(didTapStorageItem))
         navigationItem.setRightBarButton(storageItem, animated: false)
-        navigationController?.do {
-            $0.navigationBar.tintColor = .white
-            $0.navigationBar.isTranslucent = false
-            $0.navigationBar.shadowImage = UIImage()
-            $0.navigationBar.barTintColor = .black
-            $0.navigationBar.barStyle = .black
+        let logoImageView = UIImageView(image: UIImage(named: "icStarVirgo40White"))
+        logoImageView.contentMode = .scaleAspectFit
+        navigationItem.titleView = logoImageView
+        navigationController?.navigationBar.do {
+            $0.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+            $0.shadowImage = UIImage()
+            $0.backgroundColor = UIColor.clear
+            $0.tintColor = .white
         }
     }
     
     private func setupTitleLabel() {
-        titleLabel.textColor = .white
-        titleLabel.font = UIFont.systemFont(ofSize: 30, weight: .bold)
+        titleLabel.do {
+            $0.textColor = .white
+            $0.font = UIFont.systemFont(ofSize: 30, weight: .bold)
+            $0.numberOfLines = 0
+        }
     }
     
     private func setupWriteButton() {
@@ -114,7 +125,7 @@ final class MainViewController: UIViewController {
 
         stackView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().inset(48.0)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(104)
             $0.leading.equalToSuperview().inset(32.0)
         }
         addTapGesture(stackView)
@@ -146,6 +157,5 @@ final class MainViewController: UIViewController {
     @objc private func didTapNewDiary() {
         navigationController?.pushViewController(WriteViewController(), animated: true)
     }
-
 
 }
