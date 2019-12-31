@@ -5,18 +5,18 @@ PODS:
   - Moya/Core (13.0.1):
     - Alamofire (~> 4.1)
     - Result (~> 4.1)
-  - Nuke (8.3.1)
+  - Nuke (8.4.0)
   - Result (4.1.0)
   - SnapKit (5.0.1)
-  - SwiftLint (0.37.0)
+  - SwiftLint (0.38.0)
   - Then (2.6.0)
 
 DEPENDENCIES:
   - Moya (~> 13.0)
   - Nuke (~> 8.0)
   - SnapKit (~> 5.0.0)
-  - SwiftLint
-  - Then
+  - SwiftLint (~> 0.38.0)
+  - Then (~> 2.6.0)
 
 SPEC REPOS:
   trunk:
@@ -31,12 +31,12 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
-  Nuke: 85fb80f8df0cb26c28d2f4e0cb7fb93bcd6548d3
+  Nuke: fa6f784c4f7e1c0f9313668510186c68b7af2509
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
-  SwiftLint: c078a14d7d7ade75e5507795d185e3da41d844d2
+  SwiftLint: 4105f061f9812b214568b736dab580ab2c73a582
   Then: 90cd104fd951cec1980a03f57704ad8f784d4d79
 
-PODFILE CHECKSUM: 263c7c2a4adea5fe42e378053e0dce4c47a3d77d
+PODFILE CHECKSUM: af157addfafcff9c976fef6ea7e43cfd0444ffa2
 
 COCOAPODS: 1.8.4
