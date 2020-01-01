@@ -9,21 +9,18 @@
 import UIKit
 import SnapKit
 
-// FIXME: mock up data
-fileprivate struct Mockup {
-    var title: String
-    var date: String
-}
 
 final class DiaryListViewController: UIViewController {
     
     private var navigationView = BaseNavigationView(frame: .zero)
-    private var tableView = UITableView(frame: .zero)
+    private var tableView = UITableView(frame: .zero, style: .grouped)
+    
+    private let reuseIdentifier: String = "diary_cell"
     
     // MARK: - Vars
     
     // FIXME: mock up data
-    private var items: [Mockup] = []
+    private var monthlyDiary = sampleDiary
     
     // MARK: - Init
     
@@ -64,18 +61,13 @@ final class DiaryListViewController: UIViewController {
         view.backgroundColor = .white
     }
     
-    private func initVar() {
-        // FIXME: 서버에서 가져온 데이터로
-        for index in 0..<9 {
-            items.append(Mockup(title: "Title \(index)", date: "12월 1일"))
-        }
-    }
-    
     private func initTableView() {
         tableView.do {
             $0.dataSource = self
             $0.delegate = self
-            $0.backgroundColor = .white
+            $0.separatorStyle = .singleLine
+            $0.separatorInset = .zero
+            $0.register(DiarayTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         }
     }
     
@@ -88,7 +80,6 @@ final class DiaryListViewController: UIViewController {
         initNavigationView()
         initTableView()
         initView()
-        initVar()
     }
     
     // MARK: - Events
@@ -105,18 +96,48 @@ final class DiaryListViewController: UIViewController {
     }
 }
 
-// MARK: - UITableViewDelegate, UITableViewDataSource
+// MARK: - UITableViewDataSource
 
-extension DiaryListViewController: UITableViewDelegate, UITableViewDataSource {
+extension DiaryListViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return monthlyDiary.count
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return monthlyDiary[section].diary.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // FIXME: BaseTalbeViewCell 쓸거임!
-        let cell = UITableViewCell()
-        cell.textLabel?.text = items[indexPath.row].title
+        let diaryData = monthlyDiary[indexPath.section].diary[indexPath.row]
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? DiarayTableViewCell else {
+            return UITableViewCell()
+        }
+        cell.bind(diary: diaryData)
         return cell
+    }
+
+}
+
+// MARK: - UITableViewDelegate
+
+extension DiaryListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = DiaryTableHeaderView(title: monthlyDiary[section].month)
+        headerView.frame.size.height = 52
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 52
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return nil
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -124,6 +145,5 @@ extension DiaryListViewController: UITableViewDelegate, UITableViewDataSource {
         
         // TODO: Detail 페이지로 이동
     }
-    
     
 }
