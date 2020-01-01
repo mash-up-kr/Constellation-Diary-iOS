@@ -27,7 +27,7 @@ struct Diary: Codable {
 
 struct MontlyDiary: Codable {
     let month: String
-    let diary: [Diary]
+    var diary: [Diary]
 }
 
 let sampleDiary: [MontlyDiary] = {

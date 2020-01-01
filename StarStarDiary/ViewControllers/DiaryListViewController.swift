@@ -67,6 +67,7 @@ final class DiaryListViewController: UIViewController {
             $0.delegate = self
             $0.separatorStyle = .singleLine
             $0.separatorInset = .zero
+            $0.allowsMultipleSelectionDuringEditing = false
             $0.register(DiarayTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         }
     }
@@ -146,4 +147,21 @@ extension DiaryListViewController: UITableViewDelegate {
         // TODO: Detail 페이지로 이동
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            var selectedMonthDiary = monthlyDiary[indexPath.section].diary
+            selectedMonthDiary.remove(at: indexPath.row)
+            if selectedMonthDiary.isEmpty {
+                monthlyDiary.remove(at: indexPath.section)
+            } else {
+                monthlyDiary[indexPath.section].diary = selectedMonthDiary
+            }
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+
 }
