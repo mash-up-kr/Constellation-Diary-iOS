@@ -29,8 +29,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupViewHierarchy()
-        setupConstraints()
+        setupLayouts()
         addKeyboardObserver()
     }
     
@@ -179,8 +178,11 @@ extension LoginViewController {
     
     @objc
     private func keyboardWillAppear(notification: Notification) {
-        let value = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey]
-        let duration = value as? TimeInterval ?? 0
+        resizeSignInView()
+    }
+    
+    func resizeSignInView() {
+        let duration = 0.3
         
         DispatchQueue.main.async {
             self.signInView.snp.updateConstraints {
@@ -224,13 +226,14 @@ extension LoginViewController {
     private func signInButtonDidTap(_ button: UIButton) {
         // TODO: 차후 로직 구현
     }
+    
 }
 
 // MARK: - Layouts
 
 extension LoginViewController {
     
-    private func setupViewHierarchy() {
+    private func setupLayouts() {
         view.do {
             $0.addSubview(signInView)
         }
@@ -247,6 +250,7 @@ extension LoginViewController {
             $0.addSubview(passwordTextField)
             $0.addSubview(signInButton)
         }
+        setupConstraints()
     }
     
     private func setupConstraints() {
