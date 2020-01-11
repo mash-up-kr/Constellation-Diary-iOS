@@ -14,7 +14,7 @@ class ConstellationCell: UICollectionViewCell {
     
     let iconImageView = UIImageView()
     let titleLabel = UILabel()
-    let dataLabel = UILabel()
+    let dateLabel = UILabel()
     let imageView = UIImageView()
     
     // MARK: - Initalization
@@ -33,23 +33,80 @@ class ConstellationCell: UICollectionViewCell {
         setUpAttribute()
     }
     
-//    // MARK: - Configure
-//
-//    func configure(_ constellation: Constellation) {
-//
-//    }
+//        // MARK: - Configure
+//    
+//        func configure(_ constellation: Constellation) {
+//            
+//        }
 }
 
 // MARK: - Layouts
 
 extension ConstellationCell {
-    func setUpLayout() {}
+    func setUpLayout() {
+        
+        contentView.do {
+            $0.addSubview(iconImageView)
+            $0.addSubview(titleLabel)
+            $0.addSubview(dateLabel)
+            $0.addSubview(imageView)
+        }
+        
+        iconImageView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(contentView.bounds.height * 1.0/20.0)
+            $0.leading.trailing.equalToSuperview().inset(contentView.bounds.width * 5.0/12.0)
+            $0.height.equalTo(iconImageView.snp.width)
+        }
+        
+        titleLabel.snp.makeConstraints {
+            $0.top.equalTo(iconImageView.snp.bottom).offset(contentView.bounds.height * 1.0/100.0)
+            $0.leading.trailing.equalToSuperview().inset(contentView.bounds.width * 1.0/30.0)
+        }
+        
+        dateLabel.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom)
+            $0.leading.trailing.equalToSuperview().inset(contentView.bounds.width * 1.0/30.0)
+        }
+        
+        imageView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(contentView.bounds.height * 16.0/170.0)
+            $0.leading.trailing.equalToSuperview().inset(contentView.bounds.width * 13.0/226)
+            $0.height.equalTo(imageView.snp.width)
+        }
+    }
 }
 
 // MARK: - Attributes
 
 extension ConstellationCell {
-    func setUpAttribute() {}
+    func setUpAttribute() {
+        contentView.do {
+            $0.layer.cornerRadius = 5
+            $0.backgroundColor = UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.14)
+        }
+        
+        iconImageView.do {
+            // FIXME: 추후 수정
+            $0.backgroundColor = .gray
+        }
+        
+        titleLabel.do {
+            // FIXME: 추후 수정
+            $0.font = .systemFont(ofSize: 16)
+            $0.textColor = .white
+        }
+        
+        dateLabel.do {
+            // FIXME: 추후 수정
+            $0.font = .systemFont(ofSize: 12)
+            $0.textColor = .white
+        }
+        
+        imageView.do {
+            // FIXME: 추후 수정
+            $0.backgroundColor = .gray
+        }
+    }
 }
 
 // MARK: - Reusable

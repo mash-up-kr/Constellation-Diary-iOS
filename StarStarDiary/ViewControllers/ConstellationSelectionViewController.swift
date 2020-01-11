@@ -20,6 +20,7 @@ final class ConstellationSelectionViewController: UIViewController {
     let startButton = UIButton()
     
     // MARK: - Properties
+    let constellations = Constellation.allCases
     
     private let boundary = UIScreen.main.bounds.width * 0.12
     private let padding = UIScreen.main.bounds.width * 0.06
@@ -80,9 +81,10 @@ extension ConstellationSelectionViewController {
             $0.contentMode = .scaleAspectFill
         }
         constellationCollectionView.do  {
-//            $0.dataSource = self
-//            $0.delegate = self
             $0.backgroundColor = .clear
+            $0.dataSource = self
+            $0.delegate = self
+            $0.register(type: ConstellationCell.self)
         }
         
         messageLabel.do {
@@ -101,6 +103,24 @@ extension ConstellationSelectionViewController {
         }
     }
 }
+
+
+// MARK: - UICollectionViewDataSource
+
+extension ConstellationSelectionViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return constellations.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(with: ConstellationCell.self, for: indexPath) else {
+            return ConstellationCell()
+        }
+        return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
 
 extension ConstellationSelectionViewController: UICollectionViewDelegateFlowLayout {
     
