@@ -72,7 +72,7 @@ extension ConstellationCell {
         
         imageView.snp.makeConstraints {
             $0.top.equalTo(nameLabel.snp.bottom).offset(contentView.bounds.height * 16.0/170.0)
-            $0.leading.trailing.equalToSuperview().inset(contentView.bounds.width * 13.0/226)
+            $0.leading.trailing.equalToSuperview().inset(contentView.bounds.width * 13.0/226.0)
             $0.height.equalTo(imageView.snp.width)
         }
     }

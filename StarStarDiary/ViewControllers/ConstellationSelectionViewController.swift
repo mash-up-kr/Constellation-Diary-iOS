@@ -12,31 +12,33 @@ final class ConstellationSelectionViewController: UIViewController {
     
     // MARK: - UI
     
-    let backgrounImageView = UIImageView()
-    let constellationCollectionView = UICollectionView(
+    private let backgrounImageView = UIImageView()
+    private let constellationCollectionView = UICollectionView(
         frame: .zero,
-        collectionViewLayout: UICollectionViewFlowLayout().then { $0.scrollDirection = .horizontal}
+        collectionViewLayout: UICollectionViewFlowLayout().then { $0.scrollDirection = .horizontal }
     )
-    let messageLabel = UILabel()
-    let startButton = UIButton()
+    private let messageLabel = UILabel()
+    private let startButton = UIButton()
     
     // MARK: - Properties
     
-    var constellations = Constellation.allCases
-    
+    private var constellations = Constellation.allCases
     private let boundary = UIScreen.main.bounds.width * 0.12
     private let padding = UIScreen.main.bounds.width * 0.06
     private let cardWidth = UIScreen.main.bounds.width * 0.64
-    lazy var startOffset = cardWidth - boundary + padding
-    lazy var endOffset = constellationCollectionView.contentSize.width - (cardWidth * 3.0/2.0 + boundary - padding)
     
-    // MARK: Life Cycle
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpLayout()
         setUpAttribute()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         setUpInfinitedScroll()
     }
 }
@@ -44,7 +46,7 @@ final class ConstellationSelectionViewController: UIViewController {
 // MARK: - Layouts
 
 extension ConstellationSelectionViewController {
-    func setUpLayout() {
+    private func setUpLayout() {
         let safeArea = view.safeAreaLayoutGuide.layoutFrame
         view.do {
             $0.addSubview(backgrounImageView)
@@ -80,7 +82,7 @@ extension ConstellationSelectionViewController {
 // MARK: - Attributes
 
 extension ConstellationSelectionViewController {
-    func setUpAttribute() {
+    private func setUpAttribute() {
         backgrounImageView.do {
             $0.image = UIImage(named: "bg_main")
             $0.contentMode = .scaleAspectFill
@@ -88,6 +90,7 @@ extension ConstellationSelectionViewController {
         
         constellationCollectionView.do  {
             $0.backgroundColor = .clear
+            $0.showsHorizontalScrollIndicator = false
             $0.dataSource = self
             $0.delegate = self
             $0.register(type: ConstellationCell.self)
@@ -109,18 +112,20 @@ extension ConstellationSelectionViewController {
         }
     }
     
-    func setUpInfinitedScroll() {
+    private func setUpInfinitedScroll() {
         setUpFakeData()
-        constellationCollectionView.contentOffset = CGPoint(x: startOffset, y: 0)
+        let startOffsetX = cardWidth - boundary + padding
+        constellationCollectionView.contentOffset = CGPoint(x: startOffsetX + 0.5, y: 0)
     }
     
-    func setUpFakeData() {
+    private func setUpFakeData() {
         guard let first = constellations.first,
             let last = constellations.last
             else { return }
         
         constellations.insert(last, at: 0)
         constellations.append(first)
+        constellationCollectionView.reloadData()
     }
 }
 
@@ -151,14 +156,14 @@ extension ConstellationSelectionViewController: UICollectionViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let currentOffset = scrollView.contentOffset.x
+        let startOffsetX = cardWidth - boundary + padding
+        let endOffsetX = scrollView.contentSize.width - (cardWidth * 3.0/2.0 + boundary - padding)
+        let currentOffsetX = scrollView.contentOffset.x
         
-        if startOffset > currentOffset {
-            scrollView.contentOffset = CGPoint(x: endOffset - 1, y: 0)
-        }
-        
-        if endOffset < currentOffset {
-            scrollView.contentOffset = CGPoint(x: startOffset + 1, y: 0)
+        if startOffsetX > currentOffsetX {
+            scrollView.contentOffset = CGPoint(x: endOffsetX - 0.5, y: 0)
+        } else if endOffsetX < currentOffsetX {
+            scrollView.contentOffset = CGPoint(x: startOffsetX + 0.5, y: 0)
         }
     }
 }
