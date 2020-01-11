@@ -11,6 +11,7 @@ import UIKit
 final class ConstellationSelectionViewController: UIViewController {
     
     // MARK: - UI
+    
     let backgrounImageView = UIImageView()
     let constellationCollectionView = UICollectionView(
         frame: .zero,
@@ -20,11 +21,14 @@ final class ConstellationSelectionViewController: UIViewController {
     let startButton = UIButton()
     
     // MARK: - Properties
-    let constellations = Constellation.allCases
+    
+    var constellations = Constellation.allCases
     
     private let boundary = UIScreen.main.bounds.width * 0.12
     private let padding = UIScreen.main.bounds.width * 0.06
     private let cardWidth = UIScreen.main.bounds.width * 0.64
+    lazy var startOffset = cardWidth - boundary + padding
+    lazy var endOffset = constellationCollectionView.contentSize.width - (cardWidth * 3.0/2.0 + boundary - padding)
     
     // MARK: Life Cycle
     
@@ -33,6 +37,7 @@ final class ConstellationSelectionViewController: UIViewController {
         
         setUpLayout()
         setUpAttribute()
+        setUpInfinitedScroll()
     }
 }
 
@@ -103,8 +108,21 @@ extension ConstellationSelectionViewController {
             $0.layer.cornerRadius = 5
         }
     }
+    
+    func setUpInfinitedScroll() {
+        setUpFakeData()
+        constellationCollectionView.contentOffset = CGPoint(x: startOffset, y: 0)
+    }
+    
+    func setUpFakeData() {
+        guard let first = constellations.first,
+            let last = constellations.last
+            else { return }
+        
+        constellations.insert(last, at: 0)
+        constellations.append(first)
+    }
 }
-
 
 // MARK: - UICollectionViewDataSource
 
@@ -117,7 +135,31 @@ extension ConstellationSelectionViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(with: ConstellationCell.self, for: indexPath) else {
             return ConstellationCell()
         }
+        
+        let constellation = constellations[indexPath.row]
+        cell.configure(constellation)
         return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension ConstellationSelectionViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentOffset = scrollView.contentOffset.x
+        
+        if startOffset > currentOffset {
+            scrollView.contentOffset = CGPoint(x: endOffset - 1, y: 0)
+        }
+        
+        if endOffset < currentOffset {
+            scrollView.contentOffset = CGPoint(x: startOffset + 1, y: 0)
+        }
     }
 }
 
