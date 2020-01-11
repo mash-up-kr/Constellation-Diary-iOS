@@ -14,6 +14,7 @@
 		0EDB40F223CA54830020B0EF /* ConstellationSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40F123CA54830020B0EF /* ConstellationSelectionViewController.swift */; };
 		0EDB40F523CA56140020B0EF /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40F423CA56140020B0EF /* Reusable.swift */; };
 		0EDB40F723CA568C0020B0EF /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40F623CA568C0020B0EF /* UICollectionView+.swift */; };
+		0EDB40FA23CA5D210020B0EF /* ConstellationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40F923CA5D210020B0EF /* ConstellationCell.swift */; };
 		9CF049FC23A918B400A85BEC /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF049FA23A918B400A85BEC /* SideMenuViewController.swift */; };
 		9CF049FD23A918B400A85BEC /* SideMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CF049FB23A918B400A85BEC /* SideMenuViewController.xib */; };
 		9CF04A0023A92F5D00A85BEC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF049FE23A92F5D00A85BEC /* SettingsViewController.swift */; };
@@ -50,6 +51,7 @@
 		0EDB40F123CA54830020B0EF /* ConstellationSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstellationSelectionViewController.swift; sourceTree = "<group>"; };
 		0EDB40F423CA56140020B0EF /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		0EDB40F623CA568C0020B0EF /* UICollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+.swift"; sourceTree = "<group>"; };
+		0EDB40F923CA5D210020B0EF /* ConstellationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstellationCell.swift; sourceTree = "<group>"; };
 		9CF049FA23A918B400A85BEC /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		9CF049FB23A918B400A85BEC /* SideMenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SideMenuViewController.xib; sourceTree = "<group>"; };
 		9CF049FE23A92F5D00A85BEC /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 		0E32727B2389622000EF36B4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0EDB40F823CA5D0E0020B0EF /* Cell */,
 				DB09E1712389A4B400760C86 /* BaseNavigationView.swift */,
 				D5D0F67323890DC500DA3169 /* Main.storyboard */,
 				D5D0F67B23890DC600DA3169 /* LaunchScreen.storyboard */,
@@ -168,6 +171,14 @@
 				0EDB40F423CA56140020B0EF /* Reusable.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		0EDB40F823CA5D0E0020B0EF /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				0EDB40F923CA5D210020B0EF /* ConstellationCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		13DD90F7C982B82A180C42D6 /* Frameworks */ = {
@@ -387,6 +398,7 @@
 				0EDB40F223CA54830020B0EF /* ConstellationSelectionViewController.swift in Sources */,
 				DB09E1722389A4B400760C86 /* BaseNavigationView.swift in Sources */,
 				0EDB40F023CA54350020B0EF /* Constellation.swift in Sources */,
+				0EDB40FA23CA5D210020B0EF /* ConstellationCell.swift in Sources */,
 				DB9EA41523AE90A000F4488D /* DiaryListViewController.swift in Sources */,
 				9CF04A0023A92F5D00A85BEC /* SettingsViewController.swift in Sources */,
 			);
