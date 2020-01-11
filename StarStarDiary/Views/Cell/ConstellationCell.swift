@@ -13,7 +13,7 @@ class ConstellationCell: UICollectionViewCell {
     // MARK: - UI
     
     let iconImageView = UIImageView()
-    let titleLabel = UILabel()
+    let nameLabel = UILabel()
     let dateLabel = UILabel()
     let imageView = UIImageView()
     
@@ -33,11 +33,13 @@ class ConstellationCell: UICollectionViewCell {
         setUpAttribute()
     }
     
-//        // MARK: - Configure
-//    
-//        func configure(_ constellation: Constellation) {
-//            
-//        }
+    // MARK: - Configure
+    
+    func configure(_ constellation: Constellation) {
+        // TODO: image 추후 구성
+        nameLabel.text = constellation.name
+        dateLabel.text = constellation.date
+    }
 }
 
 // MARK: - Layouts
@@ -47,7 +49,7 @@ extension ConstellationCell {
         
         contentView.do {
             $0.addSubview(iconImageView)
-            $0.addSubview(titleLabel)
+            $0.addSubview(nameLabel)
             $0.addSubview(dateLabel)
             $0.addSubview(imageView)
         }
@@ -58,18 +60,18 @@ extension ConstellationCell {
             $0.height.equalTo(iconImageView.snp.width)
         }
         
-        titleLabel.snp.makeConstraints {
+        nameLabel.snp.makeConstraints {
             $0.top.equalTo(iconImageView.snp.bottom).offset(contentView.bounds.height * 1.0/100.0)
             $0.leading.trailing.equalToSuperview().inset(contentView.bounds.width * 1.0/30.0)
         }
         
         dateLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom)
+            $0.top.equalTo(nameLabel.snp.bottom)
             $0.leading.trailing.equalToSuperview().inset(contentView.bounds.width * 1.0/30.0)
         }
         
         imageView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(contentView.bounds.height * 16.0/170.0)
+            $0.top.equalTo(nameLabel.snp.bottom).offset(contentView.bounds.height * 16.0/170.0)
             $0.leading.trailing.equalToSuperview().inset(contentView.bounds.width * 13.0/226)
             $0.height.equalTo(imageView.snp.width)
         }
@@ -90,7 +92,7 @@ extension ConstellationCell {
             $0.backgroundColor = .gray
         }
         
-        titleLabel.do {
+        nameLabel.do {
             // FIXME: 추후 수정
             $0.font = .systemFont(ofSize: 16)
             $0.textColor = .white

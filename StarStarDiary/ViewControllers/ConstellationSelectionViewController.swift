@@ -14,7 +14,7 @@ final class ConstellationSelectionViewController: UIViewController {
     let backgrounImageView = UIImageView()
     let constellationCollectionView = UICollectionView(
         frame: .zero,
-        collectionViewLayout: UICollectionViewFlowLayout()
+        collectionViewLayout: UICollectionViewFlowLayout().then { $0.scrollDirection = .horizontal}
     )
     let messageLabel = UILabel()
     let startButton = UIButton()
@@ -80,6 +80,7 @@ extension ConstellationSelectionViewController {
             $0.image = UIImage(named: "bg_main")
             $0.contentMode = .scaleAspectFill
         }
+        
         constellationCollectionView.do  {
             $0.backgroundColor = .clear
             $0.dataSource = self
