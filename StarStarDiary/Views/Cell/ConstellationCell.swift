@@ -96,12 +96,14 @@ extension ConstellationCell {
             // FIXME: 추후 수정
             $0.font = .systemFont(ofSize: 16)
             $0.textColor = .white
+            $0.textAlignment = .center
         }
         
         dateLabel.do {
             // FIXME: 추후 수정
             $0.font = .systemFont(ofSize: 12)
             $0.textColor = .white
+            $0.textAlignment = .center
         }
         
         imageView.do {
