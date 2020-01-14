@@ -19,6 +19,7 @@
 		0EDB41AA23CE25EE0020B0EF /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB41A923CE25EE0020B0EF /* SignUpViewController.swift */; };
 		0EDB41AC23CE2C1D0020B0EF /* BaseInputFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB41AB23CE2C1D0020B0EF /* BaseInputFormView.swift */; };
 
+		0EDB41AA23CE25EE0020B0EF /* FirstSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB41A923CE25EE0020B0EF /* FirstSignUpViewController.swift */; };
 		0EDB41AC23CE2C1D0020B0EF /* InputFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB41AB23CE2C1D0020B0EF /* InputFormView.swift */; };
 		9CF049FC23A918B400A85BEC /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF049FA23A918B400A85BEC /* SideMenuViewController.swift */; };
 		9CF049FD23A918B400A85BEC /* SideMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CF049FB23A918B400A85BEC /* SideMenuViewController.xib */; };
@@ -61,6 +62,9 @@
 
 		0EDB41A923CE25EE0020B0EF /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		0EDB41AB23CE2C1D0020B0EF /* BaseInputFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseInputFormView.swift; sourceTree = "<group>"; };
+
+		0EDB41A923CE25EE0020B0EF /* FirstSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstSignUpViewController.swift; sourceTree = "<group>"; };
+
 		0EDB41AB23CE2C1D0020B0EF /* InputFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFormView.swift; sourceTree = "<group>"; };
 		9CF049FA23A918B400A85BEC /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		9CF049FB23A918B400A85BEC /* SideMenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SideMenuViewController.xib; sourceTree = "<group>"; };
@@ -120,9 +124,12 @@
 				D5F23D2E23AA9E4C002F8127 /* OnBoardingViewController.swift */,
 				DB9EA41423AE90A000F4488D /* DiaryListViewController.swift */,
 
+
 				0EDB40F123CA54830020B0EF /* ConstellationSelectionViewController.swift */,
 
 				0EDB41A923CE25EE0020B0EF /* SignUpViewController.swift */,
+
+				0EDB41A923CE25EE0020B0EF /* FirstSignUpViewController.swift */,
 
 			);
 			path = ViewControllers;
@@ -414,7 +421,7 @@
 				0EDB41AC23CE2C1D0020B0EF /* BaseInputFormView.swift in Sources */,
 				0EDB41AC23CE2C1D0020B0EF /* InputFormView.swift in Sources */,
 				0EDB41AA23CE25EE0020B0EF /* SignUpViewController.swift in Sources */,
-
+				0EDB41AA23CE25EE0020B0EF /* FirstSignUpViewController.swift in Sources */,
 				D544F28A23898405009B3967 /* DateFormatter+.swift in Sources */,
 				D5F23D2F23AA9E4C002F8127 /* OnBoardingViewController.swift in Sources */,
 				0EDB40F523CA56140020B0EF /* Reusable.swift in Sources */,
