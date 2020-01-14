@@ -91,6 +91,9 @@ extension SignUpViewController {
         
         emailInputFormView.do {
             $0.setNeedsDisplay()
+            $0.actionButton?.addTarget(self,
+                                       action: #selector(requestCertificationButtonDidTap(_:)),
+                                       for: .touchUpInside)
         }
         
         completionButton.do {
@@ -98,6 +101,21 @@ extension SignUpViewController {
             $0.setTitle("다음", for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 16)
             $0.layer.cornerRadius = 5
+            $0.addTarget(self, action: #selector(completionButton), for: <#T##UIControl.Event#>)
         }
+    }
+}
+
+// MARK: - Actions
+
+extension SignUpViewController {
+    @objc
+    func requestCertificationButtonDidTap(_ sender: UIButton) {
+        // TODO: 로직 구현
+    }
+    
+    @objc
+    func completionButtonDidTap(_ sender: UIButton) {
+        // TODO: 로직 구현
     }
 }
