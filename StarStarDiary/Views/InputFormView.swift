@@ -130,6 +130,7 @@ final class InputFormView: UIView {
         
         timerLabel?.do {
             $0.textColor = .red
+            $0.font = .systemFont(ofSize: 10)
         }
         
         verificationImageView?.do {
