@@ -32,6 +32,14 @@ class InputFormView: UIView {
         setupAttribute()
     }
     
+    // MARK: - Life Cycle
+    
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        
+        verificationImageView?.layer.cornerRadius = (verificationImageView?.bounds.width ?? 0)/2
+    }
+    
     // MARK: - Layouts
     
     func setupLayout() {
@@ -71,7 +79,9 @@ class InputFormView: UIView {
         }
         
         verificationImageView?.snp.makeConstraints {
-            $0.bottom.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(UIScreen.main.bounds.width * 5.3/100.0)
+            $0.width.equalToSuperview().multipliedBy(8.5/100.0)
+            $0.height.equalTo(verificationImageView!.snp.width)
         }
         
         actionButton?.snp.makeConstraints {
@@ -90,32 +100,37 @@ class InputFormView: UIView {
     
     func setupAttribute() {
         titleLabel.do {
+            // FIXME: - 폰트 적용
             $0.font = .boldSystemFont(ofSize: 12)
             $0.textColor = .black
         }
         
         inputTextField.do {
-            // FIXME: -
+            // FIXME: - 폰트 적용
             $0.font = .systemFont(ofSize: 18)
             $0.textColor = .black
             // TODO: - underline이 있는 feature가 병합되면 추가할 예정
         }
         
         timerLabel?.do {
-            $0.text = ""
             $0.textColor = .red
+        }
+        
+        verificationImageView?.do {
+            // FIXME: - 색상 적용
+            $0.backgroundColor = .blue
         }
         
         actionButton?.do {
             $0.layer.cornerRadius = 16
             $0.setTitleColor(.white, for: .normal)
-            // FIXME:
+             // FIXME: - 색상 적용
             $0.backgroundColor = .blue
         }
         
         verificationMessageLabel?.do {
             $0.textColor = .red
-            // FIXME: -
+            // FIXME: - 폰트 적용
             $0.font = .systemFont(ofSize: 10)
         }
     }
@@ -129,6 +144,7 @@ class InputFormView: UIView {
         inputTextField.placeholder = style.placeholder
         timerLabel?.text = style.timerString
         verificationImageView?.image = style.verificationImage
+        // FIXME: - 폰트 적용
         actionButton?.titleLabel?.font = .systemFont(ofSize: 11)
         actionButton?.setTitle(style.buttonTitle, for: .normal)
         verificationMessageLabel?.text = style.vaildMessage
@@ -153,7 +169,6 @@ class InputFormView: UIView {
 // MARK: - Style
 
 extension InputFormView {
-    
     
     struct Style {
         let title: String
@@ -181,6 +196,17 @@ extension InputFormView {
     }
 }
 
-extension InputFormView {
-    
+extension InputFormView.Style {
+    static let id = InputFormView.Style(title: "아이디",
+                                        placeholder: "아이디 입력",
+                                        vaildMessage: "아이디를 입력해주세요")
+    static let password = InputFormView.Style(title: "비밀번호", placeholder: "비밀번호 입력")
+    static let confirmPassword = InputFormView.Style(title: "비밀번호 확인", placeholder: "이메일 입력")
+    static let email = InputFormView.Style(title: "이메일",
+                                           placeholder: "이메일 입력",
+                                           verificationImage: #imageLiteral(resourceName: "icComplete24White"))
+    static let certificationNumber = InputFormView.Style(title: "인증번호",
+                                                         placeholder: "인증번호 입력",
+                                                         timerString: "3:00",
+                                                         vaildMessage: "인증번호를 다시 입력해주세요")
 }
