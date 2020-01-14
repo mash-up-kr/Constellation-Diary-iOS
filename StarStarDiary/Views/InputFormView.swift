@@ -12,31 +12,6 @@ import Then
 
 class InputFormView: UIView {
     
-    struct Style {
-        let title: String
-        let placeholder: String
-        let timerString: String?
-        let verificationImage: UIImage?
-        let buttonTitle: String?
-        let vaildMessage: String?
-        
-        init(
-            title: String,
-            placeholder: String,
-            timerString: String? = nil,
-            verificationImage: UIImage? = nil,
-            buttonTitle: String? = nil,
-            vaildMessage: String? = nil
-        ) {
-            self.title = title
-            self.placeholder = placeholder
-            self.timerString = timerString
-            self.verificationImage = verificationImage
-            self.buttonTitle = buttonTitle
-            self.vaildMessage = vaildMessage
-        }
-    }
-    
     // MARK: - UI
     
     let titleLabel = UILabel()
@@ -80,12 +55,14 @@ class InputFormView: UIView {
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.leading.equalToSuperview().offset(self.bounds.width * 5.3/100.0)
+            $0.leading.equalToSuperview().inset(UIScreen.main.bounds.width * 5.3/100.0)
         }
         
         inputTextField.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom)
-            $0.leading.trailing.equalTo(titleLabel)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
+            $0.leading.equalTo(titleLabel)
+            $0.width.equalToSuperview().multipliedBy(66.0/100.0)
+            $0.height.equalTo(35)
         }
         
         timerLabel?.snp.makeConstraints {
@@ -98,7 +75,7 @@ class InputFormView: UIView {
         }
         
         actionButton?.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(self.bounds.width * 5.9/100.0)
+            $0.trailing.equalToSuperview().inset(UIScreen.main.bounds.width * 5.9/100.0)
             $0.width.equalToSuperview().multipliedBy(22.9/100.0)
             $0.height.equalTo(actionButton!.snp.width).multipliedBy(32.0/86.0)
         }
@@ -113,11 +90,12 @@ class InputFormView: UIView {
     
     func setupAttribute() {
         titleLabel.do {
-            $0.font = .systemFont(ofSize: 12)
+            $0.font = .boldSystemFont(ofSize: 12)
             $0.textColor = .black
         }
         
         inputTextField.do {
+            // FIXME: -
             $0.font = .systemFont(ofSize: 18)
             $0.textColor = .black
             // TODO: - underline이 있는 feature가 병합되면 추가할 예정
@@ -129,13 +107,16 @@ class InputFormView: UIView {
         }
         
         actionButton?.do {
-            $0.layer.cornerRadius = 10
+            $0.layer.cornerRadius = 16
             $0.setTitleColor(.white, for: .normal)
+            // FIXME:
             $0.backgroundColor = .blue
         }
         
         verificationMessageLabel?.do {
             $0.textColor = .red
+            // FIXME: -
+            $0.font = .systemFont(ofSize: 10)
         }
     }
     
@@ -148,6 +129,7 @@ class InputFormView: UIView {
         inputTextField.placeholder = style.placeholder
         timerLabel?.text = style.timerString
         verificationImageView?.image = style.verificationImage
+        actionButton?.titleLabel?.font = .systemFont(ofSize: 11)
         actionButton?.setTitle(style.buttonTitle, for: .normal)
         verificationMessageLabel?.text = style.vaildMessage
     }
@@ -166,4 +148,39 @@ class InputFormView: UIView {
             verificationMessageLabel = UILabel()
         }
     }
+}
+
+// MARK: - Style
+
+extension InputFormView {
+    
+    
+    struct Style {
+        let title: String
+        let placeholder: String
+        let timerString: String?
+        let verificationImage: UIImage?
+        let buttonTitle: String?
+        let vaildMessage: String?
+        
+        init(
+            title: String,
+            placeholder: String,
+            timerString: String? = nil,
+            verificationImage: UIImage? = nil,
+            buttonTitle: String? = nil,
+            vaildMessage: String? = nil
+        ) {
+            self.title = title
+            self.placeholder = placeholder
+            self.timerString = timerString
+            self.verificationImage = verificationImage
+            self.buttonTitle = buttonTitle
+            self.vaildMessage = vaildMessage
+        }
+    }
+}
+
+extension InputFormView {
+    
 }
