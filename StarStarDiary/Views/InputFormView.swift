@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class InputFormView: UIView {
+final class InputFormView: UIView {
     
     // MARK: - UI
     
@@ -27,6 +27,7 @@ class InputFormView: UIView {
     convenience init(frame: CGRect = .zero, style: Style) {
         self.init(frame: frame)
         
+        setUpComponentsIfNeeded(style: style)
         configure(style: style)
         setupLayout()
         setupAttribute()
@@ -41,6 +42,21 @@ class InputFormView: UIView {
     }
     
     // MARK: - Layouts
+    
+    func setUpComponentsIfNeeded(style: Style) {
+        if style.timerString != nil && timerLabel == nil {
+            timerLabel = UILabel()
+        }
+        if style.verificationImage != nil && verificationImageView == nil {
+            verificationImageView = UIImageView()
+        }
+        if style.buttonTitle != nil && actionButton == nil {
+            actionButton = UIButton()
+        }
+        if style.vaildMessage != nil && verificationMessageLabel == nil {
+            verificationMessageLabel = UILabel()
+        }
+    }
     
     func setupLayout() {
         self.do {
@@ -138,8 +154,6 @@ class InputFormView: UIView {
     // MARK: - Configuration
     
     func configure(style: Style) {
-        setUpComponentsIfNeeded(style: style)
-        
         titleLabel.text = style.title
         inputTextField.placeholder = style.placeholder
         timerLabel?.text = style.timerString
@@ -148,21 +162,6 @@ class InputFormView: UIView {
         actionButton?.titleLabel?.font = .systemFont(ofSize: 11)
         actionButton?.setTitle(style.buttonTitle, for: .normal)
         verificationMessageLabel?.text = style.vaildMessage
-    }
-    
-    func setUpComponentsIfNeeded(style: Style) {
-        if style.timerString != nil && timerLabel == nil {
-            timerLabel = UILabel()
-        }
-        if style.verificationImage != nil && verificationImageView == nil {
-            verificationImageView = UIImageView()
-        }
-        if style.buttonTitle != nil && actionButton == nil {
-            actionButton = UIButton()
-        }
-        if style.vaildMessage != nil && verificationMessageLabel == nil {
-            verificationMessageLabel = UILabel()
-        }
     }
 }
 
