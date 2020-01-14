@@ -21,6 +21,7 @@
 
 		0EDB41AA23CE25EE0020B0EF /* FirstSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB41A923CE25EE0020B0EF /* FirstSignUpViewController.swift */; };
 		0EDB41AC23CE2C1D0020B0EF /* InputFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB41AB23CE2C1D0020B0EF /* InputFormView.swift */; };
+		0EDB41AF23CE79240020B0EF /* SecondSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB41AE23CE79240020B0EF /* SecondSignUpViewController.swift */; };
 		9CF049FC23A918B400A85BEC /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF049FA23A918B400A85BEC /* SideMenuViewController.swift */; };
 		9CF049FD23A918B400A85BEC /* SideMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CF049FB23A918B400A85BEC /* SideMenuViewController.xib */; };
 		9CF04A0023A92F5D00A85BEC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF049FE23A92F5D00A85BEC /* SettingsViewController.swift */; };
@@ -66,6 +67,7 @@
 		0EDB41A923CE25EE0020B0EF /* FirstSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstSignUpViewController.swift; sourceTree = "<group>"; };
 
 		0EDB41AB23CE2C1D0020B0EF /* InputFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFormView.swift; sourceTree = "<group>"; };
+		0EDB41AE23CE79240020B0EF /* SecondSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondSignUpViewController.swift; sourceTree = "<group>"; };
 		9CF049FA23A918B400A85BEC /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		9CF049FB23A918B400A85BEC /* SideMenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SideMenuViewController.xib; sourceTree = "<group>"; };
 		9CF049FE23A92F5D00A85BEC /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 
 				0EDB41A923CE25EE0020B0EF /* FirstSignUpViewController.swift */,
 
+				0EDB41AE23CE79240020B0EF /* SecondSignUpViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				0EDB40F723CA568C0020B0EF /* UICollectionView+.swift in Sources */,
 
 				D5D0F67023890DC500DA3169 /* AppDelegate.swift in Sources */,
+				0EDB41AF23CE79240020B0EF /* SecondSignUpViewController.swift in Sources */,
 				0E3272922389BDE000EF36B4 /* UIColor+Resource.swift in Sources */,
 				0E3272912389BDE000EF36B4 /* DateFormatter+.swift in Sources */,
 				D54F6CF723BB60D4001DA319 /* Date+.swift in Sources */,

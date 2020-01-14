@@ -92,7 +92,7 @@ extension FirstSignUpViewController {
         emailInputFormView.do {
             $0.setNeedsDisplay()
             $0.actionButton?.addTarget(self,
-                                       action: #selector(requestCertificationButtonDidTap(_:)),
+                                       action: #selector(requestCertificationButtonDidTap),
                                        for: .touchUpInside)
         }
         
@@ -101,7 +101,7 @@ extension FirstSignUpViewController {
             $0.setTitle("다음", for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 16)
             $0.layer.cornerRadius = 5
-            $0.addTarget(self, action: #selector(completionButton), for: <#T##UIControl.Event#>)
+            $0.addTarget(self, action: #selector(completionButtonDidTap), for: .touchUpInside)
         }
     }
 }
