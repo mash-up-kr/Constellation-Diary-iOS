@@ -12,8 +12,8 @@ import SnapKit
 
 final class DiaryListViewController: UIViewController {
     
-    private var navigationView = BaseNavigationView(frame: .zero)
-    private var tableView = UITableView(frame: .zero, style: .grouped)
+    private let navigationView = BaseNavigationView(frame: .zero)
+    private let tableView = UITableView(frame: .zero, style: .grouped)
     
     private let reuseIdentifier: String = "diary_cell"
     
@@ -68,7 +68,7 @@ final class DiaryListViewController: UIViewController {
             $0.separatorStyle = .singleLine
             $0.separatorInset = .zero
             $0.allowsMultipleSelectionDuringEditing = false
-            $0.register(DiarayTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+            $0.register(DiaryTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         }
     }
     
@@ -102,6 +102,7 @@ final class DiaryListViewController: UIViewController {
 extension DiaryListViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        print("[caution]: numberOfSections \(monthlyDiary.count)")
         return monthlyDiary.count
     }
 
@@ -111,7 +112,7 @@ extension DiaryListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let diaryData = monthlyDiary[indexPath.section].diary[indexPath.row]
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? DiarayTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? DiaryTableViewCell else {
             return UITableViewCell()
         }
         cell.bind(diary: diaryData)
@@ -157,10 +158,11 @@ extension DiaryListViewController: UITableViewDelegate {
             selectedMonthDiary.remove(at: indexPath.row)
             if selectedMonthDiary.isEmpty {
                 monthlyDiary.remove(at: indexPath.section)
+                tableView.deleteSections([indexPath.section], with: .automatic)
             } else {
                 monthlyDiary[indexPath.section].diary = selectedMonthDiary
+                tableView.deleteRows(at: [indexPath], with: .automatic)
             }
-            tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
 

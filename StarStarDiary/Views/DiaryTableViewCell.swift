@@ -1,5 +1,5 @@
 //
-//  DiarayTableViewCell.swift
+//  DiaryTableViewCell.swift
 //  StarStarDiary
 //
 //  Created by juhee on 2019/12/31.
@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class DiarayTableViewCell: UITableViewCell {
+final class DiaryTableViewCell: UITableViewCell {
     
     private let dateLabel: UILabel = UILabel(frame: .zero)
     private let dayLabel: UILabel = UILabel(frame: .zero)
@@ -63,7 +63,7 @@ final class DiarayTableViewCell: UITableViewCell {
     private func setupDateLabel() {
         dateLabel.font = .systemFont(ofSize: 24, weight: .medium)
         dateLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(20)
+            $0.centerX.equalTo(self.snp.leading).inset(33)
             $0.top.equalToSuperview().inset(16)
             $0.centerY.equalToSuperview()
         }
