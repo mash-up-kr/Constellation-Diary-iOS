@@ -20,89 +20,110 @@ class WriteViewController: UIViewController {
 
     // MARK: - Private Property
     
-    private var superview = UIView(frame: .zero)
     private let navigationView = BaseNavigationView(frame: .zero)
     private let headerView = UIView(frame: .zero)
     private let bodyView = UIView(frame: .zero)
 
     // headerView
-    private let tfTitle = UITextField(frame: .zero)
+    private let titleTextField = UITextField(frame: .zero)
     private let headerViewBottomLine = UIView(frame: .zero)
 
     // bodyView
-    private let tvContents = UITextView(frame: .zero)
+    private let contentsTextView = UITextView(frame: .zero)
+    private let placeHodlerButton = UIButton(frame: .zero)
     
+    private let contentsPlaceHolder: String = "오늘의 이야기를 들려주세요."
+    
+    // MARK: - Life Cycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        initViews()
+        initLayout()
+        initNavigationView()
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+
     // MARK: - Init
+    
+    private func initViews() {
+        view.do {
+            $0.addSubview(navigationView)
+            $0.addSubview(headerView)
+            $0.addSubview(bodyView)
+            $0.backgroundColor = .white
+        }
+        headerView.do {
+            $0.addSubview(titleTextField)
+            $0.addSubview(headerViewBottomLine)
+        }
+        
+        bodyView.do {
+            $0.addSubview(contentsTextView)
+            $0.addSubview(placeHodlerButton)
+        }
+        headerViewBottomLine.backgroundColor = .white216
+        // FIXME : 폰트적용
+        titleTextField.do {
+            $0.font = UIFont.systemFont(ofSize: 20)
+            $0.placeholder = "제목"
+        }
+        contentsTextView.font = UIFont.systemFont(ofSize: 16)
+        placeHodlerButton.do {
+            $0.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+            $0.setTitle(contentsPlaceHolder, for: .normal)
+            $0.setTitleColor(.gray114, for: .normal)
+            $0.contentVerticalAlignment = .top
+            $0.contentHorizontalAlignment = .leading
+            $0.addTarget(self, action: #selector(didTap(_:)), for: .touchUpInside)
+        }
+    }
 
     private func initLayout() {
-        superview = self.view
-
-        superview.do { view in
-            view.addSubview(navigationView)
-            view.addSubview(headerView)
-            view.addSubview(bodyView)
-            
-            view.backgroundColor = .white
+        navigationView.snp.makeConstraints {
+            $0.height.equalTo(44.0)
+            $0.top.equalTo(view.snp.topMargin)
+            $0.leading.trailing.equalToSuperview()
         }
 
-        // navigationView
-        navigationView.do { view in
-            view.snp.makeConstraints { (make) in
-                make.height.equalTo(44.0)
-                make.top.equalTo(superview.snp.topMargin)
-                make.leading.trailing.equalToSuperview()
-            }
+        headerView.snp.makeConstraints {
+            $0.height.equalTo(68.0)
+            $0.top.equalTo(navigationView.snp.bottom)
+            $0.trailing.leading.equalToSuperview()
         }
-        
-        // headerView
-        headerView.do { view in
-            view.addSubview(tfTitle)
-            view.addSubview(headerViewBottomLine)
 
-            view.snp.makeConstraints { make in
-                make.height.equalTo(50.0)
-                make.top.equalTo(navigationView.snp.bottom)
-                make.trailing.equalTo(navigationView.snp.trailing)
-                make.leading.equalTo(navigationView.snp.leading)
-            }
+        titleTextField.snp.makeConstraints {
+            $0.top.greaterThanOrEqualToSuperview()
+            $0.bottom.equalToSuperview().inset(8.0)
+            $0.leading.trailing.equalToSuperview().inset(20.0)
         }
         
-        tfTitle.do { view in
-            view.snp.makeConstraints { make in
-                make.height.equalTo(22.0)
-                make.top.equalTo(20.0)
-                make.leading.trailing.equalToSuperview().inset(20.0)
-            }
+        headerViewBottomLine.snp.makeConstraints {
+            $0.height.equalTo(1.0)
+            $0.bottom.equalToSuperview()
+            $0.leading.trailing.equalTo(titleTextField)
         }
         
-        headerViewBottomLine.do { view in
-            view.snp.makeConstraints { make in
-                make.height.equalTo(1.0)
-                make.top.equalTo(tfTitle.snp.bottom)
-                make.leading.equalTo(tfTitle.snp.leading)
-                make.trailing.equalTo(tfTitle.snp.trailing)
-            }
+        bodyView.snp.makeConstraints {
+            $0.top.equalTo(headerView.snp.bottom)
+            $0.trailing.equalTo(headerView.snp.trailing)
+            $0.leading.equalTo(headerView.snp.leading)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottomMargin)
         }
         
-        // bodyView
-        bodyView.do { view in
-            view.addSubview(tvContents)
-            
-            view.snp.makeConstraints { make in
-                make.top.equalTo(headerView.snp.bottom)
-                make.trailing.equalTo(headerView.snp.trailing)
-                make.leading.equalTo(headerView.snp.leading)
-                make.bottom.equalTo(superview.snp.bottomMargin)
-            }
+        contentsTextView.snp.makeConstraints {
+            $0.top.equalTo(bodyView.snp.top).offset(24.0)
+            $0.trailing.equalTo(titleTextField.snp.trailing)
+            $0.leading.equalTo(titleTextField.snp.leading)
+            $0.bottom.equalTo(bodyView.snp.bottom)
         }
         
-        tvContents.do { view in
-            view.snp.makeConstraints { make in
-                make.top.equalTo(bodyView.snp.top).offset(24.0)
-                make.trailing.equalTo(tfTitle.snp.trailing)
-                make.leading.equalTo(tfTitle.snp.leading)
-                make.bottom.equalTo(bodyView.snp.bottom)
-            }
+        placeHodlerButton.snp.makeConstraints {
+            $0.edges.equalTo(contentsTextView)
         }
     }
     
@@ -113,46 +134,29 @@ class WriteViewController: UIViewController {
         let rightTargetType: AddTargetType = (self, #selector(done(sender:)), .touchUpInside)
         
         navigationView.setBackgroundColor(color: .clear) // test
-        navigationView.setTitle(title: "test", titleColor: .black, image: nil) // test
+        navigationView.setTitle(title: "일기 작성하기", titleColor: .black, image: nil) // test
         navigationView.setBtnLeft(image: UIImage(named: "icClose24"), addTargetType: leftTargetType)
         navigationView.setBtnRight(image: UIImage(named: "icComplete24"), addTargetType: rightTargetType)
     }
     
-    private func initView() {
-        headerViewBottomLine.backgroundColor = .lightGray // test
-    }
-    
-    // MARK: - Life Cycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        initLayout()
-        initNavigationView()
-        initView()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidLoad()
-        
-        // test
-        tfTitle.placeholder = "Title"
-        tvContents.text = "Contents"
-    }
-    
     // MARK: - Event
+    @objc
+    private func didTap(_ sender: UIButton) {
+        placeHodlerButton.isHidden = true
+        contentsTextView.becomeFirstResponder()
+    }
     
     @objc
     private func close(sender: AnyObject?) {
-        print(#function)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc
     private func done(sender: AnyObject?) {
-        print(#function)
+        let title = titleTextField.text
+        let contents = contentsTextView.text
+        // TODO: - API call
+        self.navigationController?.popViewController(animated: true)
     }
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-      self.view.endEditing(true)
-    }
 }
