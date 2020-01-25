@@ -84,6 +84,9 @@ final class SideMenuViewController: UIViewController {
             $0.setTitle("보관함", for: .normal)
             $0.setTitleColor(.black, for: .normal)
             $0.titleLabel?.textAlignment = .center
+            $0.addTarget(self,
+                         action: #selector(didTapDiaryList(sender:)),
+                         for: .touchUpInside)
         }
 
         settingsButton.do {
@@ -145,5 +148,13 @@ final class SideMenuViewController: UIViewController {
             self.present($0, animated: true, completion: nil)
         }
     }
-
+    
+    @objc
+    private func didTapDiaryList(sender: AnyObject?) {
+        let viewController = DiaryListViewController()
+        viewController.do {
+            $0.modalPresentationStyle = .fullScreen
+            self.present($0, animated: true, completion: nil)
+        }
+    }
 }
