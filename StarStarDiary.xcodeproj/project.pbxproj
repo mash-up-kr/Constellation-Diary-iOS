@@ -131,8 +131,8 @@
 		};
 		0E32727C2389622300EF36B4 /* Models */ = {
 			isa = PBXGroup;
-			children = (]
-				D54F6CEF23BB53D4001DA319 /* Diary.swift */,=
+			children = (
+				D54F6CEF23BB53D4001DA319 /* Diary.swift */,
 				0EDB40EF23CA54350020B0EF /* Constellation.swift */,
 			);
 			path = Models;
