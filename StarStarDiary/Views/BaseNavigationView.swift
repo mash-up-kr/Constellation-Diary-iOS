@@ -44,11 +44,10 @@ class BaseNavigationView: UIView {
         
         btnTitle.do { (button) in
             button.snp.makeConstraints { (make) in
-                make.centerY.equalToSuperview()
+                make.center.equalToSuperview()
                 make.leading.equalTo(btnLeft.snp.trailing).offset(16.0)
                 make.trailing.equalTo(btnRight.snp.leading).inset(-16.0)
             }
-            
             button.titleLabel?.textAlignment = .center
         }
         
