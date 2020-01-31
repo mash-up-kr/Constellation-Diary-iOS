@@ -62,19 +62,11 @@ final class InputFormView: UIView {
         self.do {
             $0.addSubview(titleLabel)
             $0.addSubview(inputTextField)
+            $0.addSubview(timerLabel)
+            $0.addSubview(verificationImageView)
+            $0.addSubview(actionButton)
+            $0.addSubview(verificationMessageLabel)
             
-            if let timerLabel = timerLabel {
-                $0.addSubview(timerLabel)
-            }
-            if let checkImageView = verificationImageView {
-                $0.addSubview(checkImageView)
-            }
-            if let actionButton = actionButton {
-                $0.addSubview(actionButton)
-            }
-            if let verificationMessageLabel = verificationMessageLabel {
-                $0.addSubview(verificationMessageLabel)
-            }
         }
         
         titleLabel.snp.makeConstraints {
@@ -141,7 +133,7 @@ final class InputFormView: UIView {
         actionButton?.do {
             $0.layer.cornerRadius = 16
             $0.setTitleColor(.white, for: .normal)
-             // FIXME: - 색상 적용
+            // FIXME: - 색상 적용
             $0.backgroundColor = .blue
         }
         
