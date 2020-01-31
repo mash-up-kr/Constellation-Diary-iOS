@@ -22,6 +22,7 @@
 		0EDB41AA23CE25EE0020B0EF /* FirstSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB41A923CE25EE0020B0EF /* FirstSignUpViewController.swift */; };
 		0EDB41AC23CE2C1D0020B0EF /* InputFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB41AB23CE2C1D0020B0EF /* InputFormView.swift */; };
 		0EDB41AF23CE79240020B0EF /* SecondSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB41AE23CE79240020B0EF /* SecondSignUpViewController.swift */; };
+		0EEB411623E45962000AE851 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEB411523E45961000AE851 /* UIView+.swift */; };
 		9CF049FC23A918B400A85BEC /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF049FA23A918B400A85BEC /* SideMenuViewController.swift */; };
 		9CF049FD23A918B400A85BEC /* SideMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CF049FB23A918B400A85BEC /* SideMenuViewController.xib */; };
 		9CF04A0023A92F5D00A85BEC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF049FE23A92F5D00A85BEC /* SettingsViewController.swift */; };
@@ -68,6 +69,7 @@
 
 		0EDB41AB23CE2C1D0020B0EF /* InputFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFormView.swift; sourceTree = "<group>"; };
 		0EDB41AE23CE79240020B0EF /* SecondSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondSignUpViewController.swift; sourceTree = "<group>"; };
+		0EEB411523E45961000AE851 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		9CF049FA23A918B400A85BEC /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		9CF049FB23A918B400A85BEC /* SideMenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SideMenuViewController.xib; sourceTree = "<group>"; };
 		9CF049FE23A92F5D00A85BEC /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -189,7 +191,8 @@
 				0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */,
 				D5F23D2C23AA9D45002F8127 /* UserDefaults+.swift */,	DBAF023F23AE2B480044E2DD /* Bundle+appVersion.swift */,
 				D54F6CF623BB60D4001DA319 /* Date+.swift */,0EDB40F623CA568C0020B0EF /* UICollectionView+.swift */,
-
+				D5F23D2C23AA9D45002F8127 /* UserDefaults+.swift */,
+				0EEB411523E45961000AE851 /* UIView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				D5F23D2F23AA9E4C002F8127 /* OnBoardingViewController.swift in Sources */,
 				0EDB40F523CA56140020B0EF /* Reusable.swift in Sources */,
 				0EDB40F223CA54830020B0EF /* ConstellationSelectionViewController.swift in Sources */,
+				0EEB411623E45962000AE851 /* UIView+.swift in Sources */,
 				DB09E1722389A4B400760C86 /* BaseNavigationView.swift in Sources */,
 				0EDB40F023CA54350020B0EF /* Constellation.swift in Sources */,
 				0EDB40FA23CA5D210020B0EF /* ConstellationCell.swift in Sources */,
