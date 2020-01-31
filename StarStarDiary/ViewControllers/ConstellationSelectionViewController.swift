@@ -39,7 +39,7 @@ final class ConstellationSelectionViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        setUpInfinitedScroll()
+        setupInifinieScroll()
     }
 }
 
@@ -112,13 +112,13 @@ extension ConstellationSelectionViewController {
         }
     }
     
-    private func setUpInfinitedScroll() {
-        setUpFakeData()
+    private func setupInifinieScroll() {
+        setupFakeData()
         let startOffsetX = cardWidth - boundary + padding
         constellationCollectionView.contentOffset = CGPoint(x: startOffsetX + 0.5, y: 0)
     }
     
-    private func setUpFakeData() {
+    private func setupFakeData() {
         guard let first = constellations.first,
             let last = constellations.last
             else { return }
