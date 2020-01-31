@@ -162,6 +162,7 @@ final class MainViewController: UIViewController {
     @objc private func openFortuneView() {
         let fortuneViewController = FortuneDetailViewController()
         fortuneViewController.bind(items: FortuneItem.allCases, viewType: .writeDirary)
+        fortuneViewController.delegate = self
         navigationController?.present(fortuneViewController, animated: true, completion: nil)
     }
 
@@ -179,7 +180,14 @@ final class MainViewController: UIViewController {
     }
 
     @objc private func didTapNewDiary() {
-        navigationController?.pushViewController(WriteViewController(), animated: true)
+        self.navigationController?.pushViewController(WriteViewController(), animated: true)
+    }
+
+}
+
+extension MainViewController: FortuneDetailViewDelegate {
+    func fortuneDeatilView(_ viewController: FortuneDetailViewController, didTap button: UIButton, with type: FortuneViewType) {
+        didTapNewDiary()
     }
 
 }

@@ -51,6 +51,11 @@ final class FortuneDetailViewController: UIViewController {
         // TOFO: - 실제 데이터 바인딩)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
     // MARK: - Configure
     
     func bind(items: [FortuneItem], viewType: FortuneViewType) {
@@ -59,8 +64,10 @@ final class FortuneDetailViewController: UIViewController {
         completeButton.setTitle(viewType.title, for: .normal)
     }
     
-    @objc private func writeDiary(_ sender: UIButton) {
-        delegate?.fortuneDeatilView(self, didTap: sender, with: self.viewType)
+    @objc private func didTapCompleteButton(_ sender: UIButton) {
+        dismiss(animated: true) {
+            self.delegate?.fortuneDeatilView(self, didTap: sender, with: self.viewType)
+        }
     }
     
 }
@@ -96,7 +103,7 @@ extension FortuneDetailViewController {
         completeButton.do {
             $0.backgroundColor = .navy3
             $0.layer.cornerRadius = 5
-            $0.addTarget(self, action: #selector(writeDiary(_:)), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(didTapCompleteButton), for: .touchUpInside)
         }
     }
     
