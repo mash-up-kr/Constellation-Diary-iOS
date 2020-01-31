@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class FirstSignUpViewController: UIViewController {
+class VarifyEmailViewController: UIViewController {
     
     // MARK: - UI
     
@@ -33,7 +33,7 @@ class FirstSignUpViewController: UIViewController {
 
 // MARK: - Layouts
 
-extension FirstSignUpViewController {
+extension VarifyEmailViewController {
     func setUpLayout() {
         view.do {
             $0.addSubview(titleLabel)
@@ -76,7 +76,7 @@ extension FirstSignUpViewController {
 
 // MARK: - Attributes
 
-extension FirstSignUpViewController {
+extension VarifyEmailViewController {
     func setUpAttribute() {
         titleLabel.do {
             $0.text = "회원가입"
@@ -108,7 +108,7 @@ extension FirstSignUpViewController {
 
 // MARK: - Actions
 
-extension FirstSignUpViewController {
+extension VarifyEmailViewController {
     @objc
     func requestCertificationButtonDidTap(_ sender: UIButton) {
         // TODO: 로직 구현

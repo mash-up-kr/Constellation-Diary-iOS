@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class SecondSignUpViewController: UIViewController {
+class SignUpViewController: UIViewController {
     
     // MARK: - UI
     
@@ -34,7 +34,7 @@ class SecondSignUpViewController: UIViewController {
 
 // MARK: - Layouts
 
-extension SecondSignUpViewController {
+extension SignUpViewController {
     func setUpLayout() {
         view.do {
             $0.addSubview(titleLabel)
@@ -84,7 +84,7 @@ extension SecondSignUpViewController {
 
 // MARK: - Attributes
 
-extension SecondSignUpViewController {
+extension SignUpViewController {
     func setUpAttribute() {
         titleLabel.do {
             $0.text = "회원가입"
@@ -113,7 +113,7 @@ extension SecondSignUpViewController {
 
 // MARK: - Actions
 
-extension SecondSignUpViewController {
+extension SignUpViewController {
     @objc
     func completionButtonDidTap(_ sender: UIButton) {
         // TODO: 로직 구현

@@ -15,13 +15,9 @@
 		0EDB40F523CA56140020B0EF /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40F423CA56140020B0EF /* Reusable.swift */; };
 		0EDB40F723CA568C0020B0EF /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40F623CA568C0020B0EF /* UICollectionView+.swift */; };
 		0EDB40FA23CA5D210020B0EF /* ConstellationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40F923CA5D210020B0EF /* ConstellationCell.swift */; };
-
-		0EDB41AA23CE25EE0020B0EF /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB41A923CE25EE0020B0EF /* SignUpViewController.swift */; };
-		0EDB41AC23CE2C1D0020B0EF /* BaseInputFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB41AB23CE2C1D0020B0EF /* BaseInputFormView.swift */; };
-
-		0EDB41AA23CE25EE0020B0EF /* FirstSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB41A923CE25EE0020B0EF /* FirstSignUpViewController.swift */; };
+		0EDB41AA23CE25EE0020B0EF /* VarifyEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB41A923CE25EE0020B0EF /* VarifyEmailViewController.swift */; };
 		0EDB41AC23CE2C1D0020B0EF /* InputFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB41AB23CE2C1D0020B0EF /* InputFormView.swift */; };
-		0EDB41AF23CE79240020B0EF /* SecondSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB41AE23CE79240020B0EF /* SecondSignUpViewController.swift */; };
+		0EDB41AF23CE79240020B0EF /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB41AE23CE79240020B0EF /* SignUpViewController.swift */; };
 		0EEB411623E45962000AE851 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEB411523E45961000AE851 /* UIView+.swift */; };
 		9CF049FC23A918B400A85BEC /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF049FA23A918B400A85BEC /* SideMenuViewController.swift */; };
 		9CF049FD23A918B400A85BEC /* SideMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CF049FB23A918B400A85BEC /* SideMenuViewController.xib */; };
@@ -55,20 +51,14 @@
 		0E32728F2389BDE000EF36B4 /* DateFormatter+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+.swift"; sourceTree = "<group>"; };
 		0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Resource.swift"; sourceTree = "<group>"; };
 		0E3272952389C37300EF36B4 /* HoroscopeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoroscopeViewController.swift; sourceTree = "<group>"; };
-
 		0EDB40EF23CA54350020B0EF /* Constellation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constellation.swift; sourceTree = "<group>"; };
 		0EDB40F123CA54830020B0EF /* ConstellationSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstellationSelectionViewController.swift; sourceTree = "<group>"; };
 		0EDB40F423CA56140020B0EF /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		0EDB40F623CA568C0020B0EF /* UICollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+.swift"; sourceTree = "<group>"; };
 		0EDB40F923CA5D210020B0EF /* ConstellationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstellationCell.swift; sourceTree = "<group>"; };
-
-		0EDB41A923CE25EE0020B0EF /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
-		0EDB41AB23CE2C1D0020B0EF /* BaseInputFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseInputFormView.swift; sourceTree = "<group>"; };
-
-		0EDB41A923CE25EE0020B0EF /* FirstSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstSignUpViewController.swift; sourceTree = "<group>"; };
-
+		0EDB41A923CE25EE0020B0EF /* VarifyEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VarifyEmailViewController.swift; sourceTree = "<group>"; };
 		0EDB41AB23CE2C1D0020B0EF /* InputFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFormView.swift; sourceTree = "<group>"; };
-		0EDB41AE23CE79240020B0EF /* SecondSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondSignUpViewController.swift; sourceTree = "<group>"; };
+		0EDB41AE23CE79240020B0EF /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		0EEB411523E45961000AE851 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		9CF049FA23A918B400A85BEC /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		9CF049FB23A918B400A85BEC /* SideMenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SideMenuViewController.xib; sourceTree = "<group>"; };
@@ -127,15 +117,9 @@
 				DBAF024123AE2C9B0044E2DD /* SettingsViewController+cell.swift */,
 				D5F23D2E23AA9E4C002F8127 /* OnBoardingViewController.swift */,
 				DB9EA41423AE90A000F4488D /* DiaryListViewController.swift */,
-
-
 				0EDB40F123CA54830020B0EF /* ConstellationSelectionViewController.swift */,
-
-				0EDB41A923CE25EE0020B0EF /* SignUpViewController.swift */,
-
-				0EDB41A923CE25EE0020B0EF /* FirstSignUpViewController.swift */,
-
-				0EDB41AE23CE79240020B0EF /* SecondSignUpViewController.swift */,
+				0EDB41A923CE25EE0020B0EF /* VarifyEmailViewController.swift */,
+				0EDB41AE23CE79240020B0EF /* SignUpViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -143,11 +127,7 @@
 		0E32727B2389622000EF36B4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-
 				0EDB40F823CA5D0E0020B0EF /* Cell */,
-
-				0EDB41AB23CE2C1D0020B0EF /* BaseInputFormView.swift */,
-
 				0EDB41AB23CE2C1D0020B0EF /* InputFormView.swift */,
 				DB09E1712389A4B400760C86 /* BaseNavigationView.swift */,
 				D5D0F67323890DC500DA3169 /* Main.storyboard */,
@@ -189,8 +169,9 @@
 			children = (
 				0E32728F2389BDE000EF36B4 /* DateFormatter+.swift */,
 				0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */,
-				D5F23D2C23AA9D45002F8127 /* UserDefaults+.swift */,	DBAF023F23AE2B480044E2DD /* Bundle+appVersion.swift */,
-				D54F6CF623BB60D4001DA319 /* Date+.swift */,0EDB40F623CA568C0020B0EF /* UICollectionView+.swift */,
+				DBAF023F23AE2B480044E2DD /* Bundle+appVersion.swift */,
+				D54F6CF623BB60D4001DA319 /* Date+.swift */,
+				0EDB40F623CA568C0020B0EF /* UICollectionView+.swift */,
 				D5F23D2C23AA9D45002F8127 /* UserDefaults+.swift */,
 				0EEB411523E45961000AE851 /* UIView+.swift */,
 			);
@@ -332,7 +313,6 @@
 				D5D0F67D23890DC600DA3169 /* LaunchScreen.storyboard in Resources */,
 				D5D0F67A23890DC600DA3169 /* Assets.xcassets in Resources */,
 				D5D0F67523890DC500DA3169 /* Main.storyboard in Resources */,
-				9CF04A0323A931B400A85BEC /* SettingsView.storyboard in Resources */,
 				D54F6CF523BB5DE2001DA319 /* Sample.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -414,9 +394,8 @@
 				9CF049FC23A918B400A85BEC /* SideMenuViewController.swift in Sources */,
 				D54F6CF023BB53D4001DA319 /* Diary.swift in Sources */,
 				0EDB40F723CA568C0020B0EF /* UICollectionView+.swift in Sources */,
-
 				D5D0F67023890DC500DA3169 /* AppDelegate.swift in Sources */,
-				0EDB41AF23CE79240020B0EF /* SecondSignUpViewController.swift in Sources */,
+				0EDB41AF23CE79240020B0EF /* SignUpViewController.swift in Sources */,
 				0E3272922389BDE000EF36B4 /* UIColor+Resource.swift in Sources */,
 				0E3272912389BDE000EF36B4 /* DateFormatter+.swift in Sources */,
 				D54F6CF723BB60D4001DA319 /* Date+.swift in Sources */,
@@ -425,10 +404,10 @@
 				DBAF024523AE32940044E2DD /* BaseTableViewCell.swift in Sources */,
 				D544F2862389672C009B3967 /* MainViewController.swift in Sources */,
 				D54F6CEE23BB5353001DA319 /* DiaryTableViewCell.swift in Sources */,
-				0EDB41AC23CE2C1D0020B0EF /* BaseInputFormView.swift in Sources */,
 				0EDB41AC23CE2C1D0020B0EF /* InputFormView.swift in Sources */,
-				0EDB41AA23CE25EE0020B0EF /* SignUpViewController.swift in Sources */,
-				0EDB41AA23CE25EE0020B0EF /* FirstSignUpViewController.swift in Sources */,
+				0EDB41AC23CE2C1D0020B0EF /* InputFormView.swift in Sources */,
+				0EDB41AA23CE25EE0020B0EF /* VarifyEmailViewController.swift in Sources */,
+				0EDB41AA23CE25EE0020B0EF /* VarifyEmailViewController.swift in Sources */,
 				D544F28A23898405009B3967 /* DateFormatter+.swift in Sources */,
 				D5F23D2F23AA9E4C002F8127 /* OnBoardingViewController.swift in Sources */,
 				0EDB40F523CA56140020B0EF /* Reusable.swift in Sources */,
