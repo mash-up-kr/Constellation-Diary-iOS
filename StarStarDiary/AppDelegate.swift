@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // FIXME : 필요할 경우 초기 API Call 이 추가되거나 분기 처리 방식이 변경될 수 있음
         
-        var rootViewController: UIViewController = OnBoardingViewController()
+        var rootViewController: UIViewController = ConstellationSelectionViewController()//OnBoardingViewController()
         if UserDefaults.currentToken != nil {
             let mainViewController = MainViewController()
             rootViewController = UINavigationController(rootViewController: mainViewController)
