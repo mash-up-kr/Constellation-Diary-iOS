@@ -83,7 +83,7 @@ final class FortuneHeaderView: UIView {
     
     private func setUpConstraints() {
         drawerHandleView.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide).offset(10)
+            $0.top.equalTo(safeAreaLayoutGuide).offset(20)
             $0.width.equalTo(24)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(3)
@@ -103,7 +103,7 @@ final class FortuneHeaderView: UIView {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(suggestionLabel.snp.bottom).offset(16)
             $0.height.equalTo(70)
-            $0.bottom.equalToSuperview().inset(23)
+            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(23)
         }
     }
 

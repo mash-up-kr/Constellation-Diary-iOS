@@ -10,8 +10,22 @@ import UIKit
 import SnapKit
 import Then
 
+enum FortuneViewType {
+    case writeDirary
+    case selectConstellation
+    
+    var title: String {
+        switch self {
+        case .writeDirary:
+            return "일기 쓰러 가기"
+        case .selectConstellation:
+            return "별자리 선택하기"
+        }
+    }
+}
+
 protocol FortuneDetailViewDelegate: class {
-    func didTapWriteDiary()
+    func fortuneDeatilView(_ viewController: FortuneDetailViewController, didTap button: UIButton, with type: FortuneViewType)
 }
 
 final class FortuneDetailViewController: UIViewController {
@@ -25,6 +39,8 @@ final class FortuneDetailViewController: UIViewController {
     private let detailLabel = UILabel()
     private let completeButton = UIButton()
     
+    private var viewType: FortuneViewType = .writeDirary
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -32,14 +48,19 @@ final class FortuneDetailViewController: UIViewController {
         
         setUpAttributes()
         setUpConstraints()
-        // TOFO: - 실제 데이터 바인딩
-        fortuneHeaderView.bind(items: FortuneItem.allCases )
+        // TOFO: - 실제 데이터 바인딩)
     }
     
     // MARK: - Configure
     
+    func bind(items: [FortuneItem], viewType: FortuneViewType) {
+        fortuneHeaderView.bind(items: FortuneItem.allCases)
+        self.viewType = viewType
+        completeButton.setTitle(viewType.title, for: .normal)
+    }
+    
     @objc private func writeDiary(_ sender: UIButton) {
-        delegate?.didTapWriteDiary()
+        delegate?.fortuneDeatilView(self, didTap: sender, with: self.viewType)
     }
     
 }
@@ -75,7 +96,6 @@ extension FortuneDetailViewController {
         completeButton.do {
             $0.backgroundColor = .navy3
             $0.layer.cornerRadius = 5
-            $0.setTitle("일기 작성하기", for: .normal)
             $0.addTarget(self, action: #selector(writeDiary(_:)), for: .touchUpInside)
         }
     }
