@@ -14,10 +14,10 @@ final class MainViewController: UIViewController {
 
     // MARK: - Properties
 
-    private let writeButton: UIButton          =       UIButton(frame: .zero)
+    private let writeButton: UIButton       =       UIButton(frame: .zero)
     private let titleLabel: UILabel         =       UILabel(frame: .zero)
     private let editImageView: UIImageView  =       UIImageView(frame: .zero)
-    private let fortuneView: UIView         =       UIView(frame: .zero)
+    private let fortuneHeaderView: FortuneHeaderView = FortuneHeaderView(frame: .zero)
     private let backgroundImageView: UIImageView = UIImageView(frame: .zero)
     
     // MARK: - Methods
@@ -39,6 +39,7 @@ final class MainViewController: UIViewController {
     // FIXME : - rename method properly.
     private func bindDiary() {
         titleLabel.text = "오늘 하루\n어떠셨나요?"
+        fortuneHeaderView.bind(items: FortuneItem.allCases)
     }
 
     private func setupView() {
@@ -49,6 +50,7 @@ final class MainViewController: UIViewController {
         setupWriteButton()
         setupFortuneView()
         setupContainerView()
+        setupGestures()
         bindDiary()
     }
     
@@ -64,9 +66,15 @@ final class MainViewController: UIViewController {
     }
 
     private func setupNavigationBar() {
-        let menuItem = UIBarButtonItem(image: UIImage(named: "icMenu24"), style: .plain, target: self, action: #selector(didTapMenuItem))
+        let menuItem = UIBarButtonItem(image: UIImage(named: "icMenu24"),
+                                       style: .plain,
+                                       target: self,
+                                       action: #selector(didTapMenuItem))
         navigationItem.setLeftBarButton(menuItem, animated: false)
-        let storageItem = UIBarButtonItem(image: UIImage(named: "icBook24"), style: .plain, target: self, action: #selector(didTapStorageItem))
+        let storageItem = UIBarButtonItem(image: UIImage(named: "icBook24"),
+                                          style: .plain,
+                                          target: self,
+                                          action: #selector(didTapStorageItem))
         navigationItem.setRightBarButton(storageItem, animated: false)
         let logoImageView = UIImageView(image: UIImage(named: "icStarVirgo40White"))
         logoImageView.contentMode = .scaleAspectFit
@@ -81,6 +89,7 @@ final class MainViewController: UIViewController {
     
     private func setupTitleLabel() {
         titleLabel.do {
+            $0.isUserInteractionEnabled = true
             $0.textColor = .white
             $0.font = UIFont.systemFont(ofSize: 30, weight: .bold)
             $0.numberOfLines = 0
@@ -96,11 +105,11 @@ final class MainViewController: UIViewController {
     }
     
     private func setupFortuneView() {
-        fortuneView.do {
-            $0.backgroundColor = .white
+        fortuneHeaderView.do {
             $0.clipsToBounds = true
             $0.layer.cornerRadius = 10
             $0.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+            $0.isUserInteractionEnabled = true
             view.addSubview($0)
 
             $0.snp.makeConstraints { make in
@@ -120,7 +129,11 @@ final class MainViewController: UIViewController {
             $0.spacing = 25
             $0.addArrangedSubview(titleLabel)
             $0.addArrangedSubview(writeButton)
+            $0.isUserInteractionEnabled = true
             view.addSubview($0)
+            let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTapNewDiary))
+            $0.addGestureRecognizer(recognizer)
+            $0.isUserInteractionEnabled = true
         }
 
         stackView.snp.makeConstraints {
@@ -128,18 +141,30 @@ final class MainViewController: UIViewController {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(104)
             $0.leading.equalToSuperview().inset(32.0)
         }
-        addTapGesture(stackView)
     }
     
-    private func addTapGesture(_ view: UIView) {
-        view.do {
-            let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTapNewDiary))
-            $0.addGestureRecognizer(recognizer)
-            $0.isUserInteractionEnabled = true
-        }
+    private func setupGestures() {
+        let swipeGestureRecognizer = UISwipeGestureRecognizer(
+            target: self,
+            action: #selector(openFortuneView)
+        )
+        swipeGestureRecognizer.direction = .up
+        view.addGestureRecognizer(swipeGestureRecognizer)
+        let tapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(openFortuneView)
+        )
+        fortuneHeaderView.addGestureRecognizer(tapGestureRecognizer)
     }
 
     // MARK: actions
+    
+    @objc private func openFortuneView() {
+        let fortuneViewController = FortuneDetailViewController()
+        fortuneViewController.bind(items: FortuneItem.allCases, viewType: .writeDirary)
+        fortuneViewController.delegate = self
+        navigationController?.present(fortuneViewController, animated: true, completion: nil)
+    }
 
     @objc private func didTapMenuItem() {
         // TODO : open side menu view controller
@@ -155,7 +180,14 @@ final class MainViewController: UIViewController {
     }
 
     @objc private func didTapNewDiary() {
-        navigationController?.pushViewController(WriteViewController(), animated: true)
+        self.navigationController?.pushViewController(WriteViewController(), animated: true)
+    }
+
+}
+
+extension MainViewController: FortuneDetailViewDelegate {
+    func fortuneDeatilView(_ viewController: FortuneDetailViewController, didTap button: UIButton, with type: FortuneViewType) {
+        didTapNewDiary()
     }
 
 }
