@@ -9,18 +9,16 @@
 import UIKit
 
 enum StarStarFonts: String {
-    case koreaYMJBold = "a영명조B"
+    case koreaYMJBold = "KoreanYMJ-B"
+    case koreaYMJMedium = "KoreanYMJ-M"
+    case koreaYMJE = "KoreanYMJ-E"
+    case koreaYMJL = "KoreanYMJ-L"
     case notoSerifCJKRegular = "NotoSansCJKkr-Medium"
     case notoSerifCJKMedium = "NotoSansCJKkr-Regular"
     case notoSerifCJKBold = "NotoSansCJKkr-Bold"
-
 }
 
 extension UIFont {
-
-    convenience init?(font: StarStarFonts, size: CGFloat) {
-        self.init(name: font.rawValue, size: size)
-    }
     
     static func font(_ font: StarStarFonts, size: CGFloat) -> UIFont {
         return UIFont.init(name: font.rawValue, size: size) ?? UIFont.systemFont(ofSize: size)

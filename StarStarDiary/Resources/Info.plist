@@ -6,8 +6,11 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>a영명조B.otf</string>
 		<string>NotoSansCJKkr-Bold.otf</string>
+		<string>KoreanYMJ-E.otf</string>
+		<string>KoreanYMJ-B.otf</string>
+		<string>KoreanYMJ-L.otf</string>
+		<string>KoreanYMJ-M.otf</string>
 		<string>NotoSansCJKkr-Medium.otf</string>
 		<string>NotoSansCJKkr-Regular.otf</string>
 	</array>

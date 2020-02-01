@@ -34,10 +34,13 @@
 		D54F6CFF23DC824A001DA319 /* FortuneItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54F6CFE23DC824A001DA319 /* FortuneItem.swift */; };
 		D54F6D0123DC95E5001DA319 /* FortuneItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54F6D0023DC95E5001DA319 /* FortuneItemView.swift */; };
 		D54F6D0823E46339001DA319 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54F6D0723E46339001DA319 /* UIFont+.swift */; };
-		D54F6D0923E463F4001DA319 /* a영명조B.otf in Resources */ = {isa = PBXBuildFile; fileRef = D54F6D0423E460CC001DA319 /* a영명조B.otf */; };
 		D54F6D0D23E46475001DA319 /* NotoSansCJKkr-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D54F6D0A23E46473001DA319 /* NotoSansCJKkr-Medium.otf */; };
 		D54F6D0E23E46475001DA319 /* NotoSansCJKkr-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D54F6D0B23E46474001DA319 /* NotoSansCJKkr-Bold.otf */; };
 		D54F6D0F23E46475001DA319 /* NotoSansCJKkr-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D54F6D0C23E46475001DA319 /* NotoSansCJKkr-Regular.otf */; };
+		D5847DF223E56C8500D8BA8E /* KoreanYMJ-E.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DEE23E56C8400D8BA8E /* KoreanYMJ-E.otf */; };
+		D5847DF323E56C8500D8BA8E /* KoreanYMJ-M.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DEF23E56C8500D8BA8E /* KoreanYMJ-M.otf */; };
+		D5847DF423E56C8500D8BA8E /* KoreanYMJ-B.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DF023E56C8500D8BA8E /* KoreanYMJ-B.otf */; };
+		D5847DF523E56C8500D8BA8E /* KoreanYMJ-L.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DF123E56C8500D8BA8E /* KoreanYMJ-L.otf */; };
 		D5D0F67023890DC500DA3169 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D0F66F23890DC500DA3169 /* AppDelegate.swift */; };
 		D5D0F67223890DC500DA3169 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D0F67123890DC500DA3169 /* ViewController.swift */; };
 		D5D0F67523890DC500DA3169 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5D0F67323890DC500DA3169 /* Main.storyboard */; };
@@ -84,11 +87,14 @@
 		D54F6CFC23DC7EA4001DA319 /* FortuneHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FortuneHeaderView.swift; sourceTree = "<group>"; };
 		D54F6CFE23DC824A001DA319 /* FortuneItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FortuneItem.swift; path = StarStarDiary/Views/FortuneItem.swift; sourceTree = SOURCE_ROOT; };
 		D54F6D0023DC95E5001DA319 /* FortuneItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FortuneItemView.swift; sourceTree = "<group>"; };
-		D54F6D0423E460CC001DA319 /* a영명조B.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "a영명조B.otf"; sourceTree = "<group>"; };
 		D54F6D0723E46339001DA319 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		D54F6D0A23E46473001DA319 /* NotoSansCJKkr-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansCJKkr-Medium.otf"; sourceTree = "<group>"; };
 		D54F6D0B23E46474001DA319 /* NotoSansCJKkr-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansCJKkr-Bold.otf"; sourceTree = "<group>"; };
 		D54F6D0C23E46475001DA319 /* NotoSansCJKkr-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansCJKkr-Regular.otf"; sourceTree = "<group>"; };
+		D5847DEE23E56C8400D8BA8E /* KoreanYMJ-E.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KoreanYMJ-E.otf"; sourceTree = "<group>"; };
+		D5847DEF23E56C8500D8BA8E /* KoreanYMJ-M.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KoreanYMJ-M.otf"; sourceTree = "<group>"; };
+		D5847DF023E56C8500D8BA8E /* KoreanYMJ-B.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KoreanYMJ-B.otf"; sourceTree = "<group>"; };
+		D5847DF123E56C8500D8BA8E /* KoreanYMJ-L.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KoreanYMJ-L.otf"; sourceTree = "<group>"; };
 		D5D0F66C23890DC500DA3169 /* StarStarDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarStarDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5D0F66F23890DC500DA3169 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D5D0F67123890DC500DA3169 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -246,10 +252,13 @@
 		D54F6D0323E460B5001DA319 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				D5847DF023E56C8500D8BA8E /* KoreanYMJ-B.otf */,
+				D5847DEE23E56C8400D8BA8E /* KoreanYMJ-E.otf */,
+				D5847DF123E56C8500D8BA8E /* KoreanYMJ-L.otf */,
+				D5847DEF23E56C8500D8BA8E /* KoreanYMJ-M.otf */,
 				D54F6D0B23E46474001DA319 /* NotoSansCJKkr-Bold.otf */,
 				D54F6D0A23E46473001DA319 /* NotoSansCJKkr-Medium.otf */,
 				D54F6D0C23E46475001DA319 /* NotoSansCJKkr-Regular.otf */,
-				D54F6D0423E460CC001DA319 /* a영명조B.otf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -350,14 +359,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CF049FD23A918B400A85BEC /* SideMenuViewController.xib in Resources */,
+				D5847DF423E56C8500D8BA8E /* KoreanYMJ-B.otf in Resources */,
 				D54F6D0D23E46475001DA319 /* NotoSansCJKkr-Medium.otf in Resources */,
 				D5D0F67D23890DC600DA3169 /* LaunchScreen.storyboard in Resources */,
-				D54F6D0923E463F4001DA319 /* a영명조B.otf in Resources */,
 				D54F6D0F23E46475001DA319 /* NotoSansCJKkr-Regular.otf in Resources */,
+				D5847DF323E56C8500D8BA8E /* KoreanYMJ-M.otf in Resources */,
 				D5D0F67A23890DC600DA3169 /* Assets.xcassets in Resources */,
 				D54F6D0E23E46475001DA319 /* NotoSansCJKkr-Bold.otf in Resources */,
 				D5D0F67523890DC500DA3169 /* Main.storyboard in Resources */,
 				D54F6CF523BB5DE2001DA319 /* Sample.json in Resources */,
+				D5847DF223E56C8500D8BA8E /* KoreanYMJ-E.otf in Resources */,
+				D5847DF523E56C8500D8BA8E /* KoreanYMJ-L.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
