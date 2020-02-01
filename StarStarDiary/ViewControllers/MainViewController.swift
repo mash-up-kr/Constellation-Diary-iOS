@@ -91,16 +91,16 @@ final class MainViewController: UIViewController {
         titleLabel.do {
             $0.isUserInteractionEnabled = true
             $0.textColor = .white
-            $0.font = UIFont.systemFont(ofSize: 30, weight: .bold)
+            $0.font = UIFont.font(.koreaYMJBold, size: 30)
             $0.numberOfLines = 0
         }
     }
     
     private func setupWriteButton() {
         writeButton.do {
+            $0.titleLabel?.font = UIFont.font(.notoSerifCJKMedium, size: 16)
             $0.setTitle("일기작성 >", for: .normal)
             $0.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
-            $0.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         }
     }
     
