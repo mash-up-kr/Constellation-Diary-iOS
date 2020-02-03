@@ -74,11 +74,10 @@ class SettingsViewController: UIViewController {
                 cellItems.append(SettingsViewCellItem(index: cell.rawValue,
                                           title: cell.titleString,
                                           subTitle: cell.subTitleString,
+                                          value: cell.valueString,
                                           cellType: cell.cellType,
                                           isSwitchOn: cell.isSwitchOn,
-                                          rightImage: cell.rightImage,
-                                          isHiddenBottomLine: cell.isHiddenBottomLine,
-                                          canSelected: cell.canSelected))
+                                          canSelecte: cell.canSelected))
             }
             
             items.sections.append(SectionItem(index: section.rawValue,
@@ -124,19 +123,18 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BaseTableViewCell",
                                                  for: indexPath) as! BaseTableViewCell
         let cellItem = items.sections[indexPath.section].cells[indexPath.row]
-        cell.setEntity(cell: cellItem)
+        cell.setEntity(titleString: cellItem.title,
+                       subTitleString: cellItem.subTitle,
+                       valueString: cellItem.value,
+                       isSwitchOn: cellItem.isSwitchOn,
+                       canSelect: cellItem.canSelecte,
+                       cellType: cellItem.cellType)
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if let sectionMenuType = SectionMenu(rawValue: indexPath.section) {
-            switch sectionMenuType {
-            case .alarm: return 40.0
-            case .normal: return 64.0
-            }
-        }
-    
-        return 0.0
+        return 72.0
     }
     
     // MARK: - HeaderFooter
@@ -157,8 +155,8 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         switch sectionMenuType {
-        case .alarm: return 40.0
-        case .normal: return 8.0
+        case .alarm: return 32.0
+        case .normal: return 0.0
         }
     }
     
