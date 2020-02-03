@@ -77,7 +77,7 @@ class SettingsViewController: UIViewController {
                                           value: cell.valueString,
                                           cellType: cell.cellType,
                                           isSwitchOn: cell.isSwitchOn,
-                                          canSelecte: cell.canSelected))
+                                          canSelect: cell.canSelected))
             }
             
             items.sections.append(SectionItem(index: section.rawValue,
@@ -127,14 +127,25 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
                        subTitleString: cellItem.subTitle,
                        valueString: cellItem.value,
                        isSwitchOn: cellItem.isSwitchOn,
-                       canSelect: cellItem.canSelecte,
+                       canSelect: cellItem.canSelect,
                        cellType: cellItem.cellType)
         
+        if cellItem.isSwitchOn != nil {
+            cell.selectionStyle = .none
+            cell.setDatePicker(mode: .time)
+        }
+    
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 72.0
+        let cellItem = items.sections[indexPath.section].cells[indexPath.row]
+        
+        if cellItem.didExtension {
+            return 288.0
+        } else {
+            return 72.0
+        }
     }
     
     // MARK: - HeaderFooter
@@ -164,5 +175,18 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        let cellItem = items.sections[indexPath.section].cells[indexPath.row]
+        guard let menuType = CellMenu(rawValue: indexPath.row),
+            let sectionType = SectionMenu(rawValue: indexPath.section) else {
+            return
+        }
+        
+        if sectionType == .alarm {
+            items.sections[indexPath.section].cells[indexPath.row].didExtension = !cellItem.didExtension
+            tableView.reloadRows(at: [indexPath], with: .none)
+        } else {
+            // TODO: cell 별 메뉴 이동
+        }
     }
 }

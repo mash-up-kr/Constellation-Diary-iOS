@@ -20,7 +20,14 @@ class BaseTableViewCell: UITableViewCell {
 
     // Common
     private var titleLabel = UILabel(frame: .zero)
-    private var bottomView = UIView(frame: .zero)
+    private var bottomLineView = UIView(frame: .zero)
+    
+    // contentsView
+    private var contentsView = UIView(frame: .zero)
+    private var contentsBottomLineView = UIView(frame: .zero)
+    
+    // contentsView - datePicker
+    private var datePickerView = UIDatePicker(frame: .zero)
     
     // cellType에 따라서 바뀌는 Components
     private var labelStackView = UIStackView(frame: .zero)
@@ -58,22 +65,30 @@ class BaseTableViewCell: UITableViewCell {
         }
     }
     
+    public func setDatePicker(mode: UIDatePicker.Mode) {
+        datePickerView.datePickerMode = mode
+    }
+    
     // MARK: - Init
     
     private func initLayout() {
         self.addSubview(titleLabel)
-        self.addSubview(bottomView)
+        self.addSubview(bottomLineView)
         self.addSubview(onOffSwitch)
         self.addSubview(labelStackView)
         labelStackView.addArrangedSubview(subTitleLabel)
         labelStackView.addArrangedSubview(valueLabel)
+        
+        self.addSubview(contentsView)
+        self.addSubview(contentsBottomLineView)
+        contentsView.addSubview(datePickerView)
         
         titleLabel.do {
             $0.snp.makeConstraints {
                 $0.leading.equalTo(self.snp.leading).offset(24.0)
                 $0.trailing.equalTo(labelStackView.snp.leading).offset(-8.0)
                 $0.top.equalToSuperview()
-                $0.bottom.equalToSuperview()
+                $0.height.equalTo(72.0)
             }
         }
         
@@ -81,18 +96,38 @@ class BaseTableViewCell: UITableViewCell {
             $0.snp.makeConstraints {
                 $0.trailing.equalTo(self.snp.trailing).inset(24.0)
                 $0.top.equalTo(self.snp.top)
-                $0.bottom.equalTo(self.snp.bottom)
+                $0.height.equalTo(titleLabel.snp.height)
             }
         }
         
         onOffSwitch.do {
             $0.snp.makeConstraints {
                 $0.trailing.equalTo(self.snp.trailing).inset(24.0)
-                $0.centerY.equalTo(self.snp.centerY)
+                $0.centerY.equalTo(labelStackView.snp.centerY)
             }
         }
         
-        bottomView.do {
+        bottomLineView.do {
+            $0.snp.makeConstraints {
+                $0.height.equalTo(1.0)
+                $0.leading.equalToSuperview()
+                $0.trailing.equalToSuperview()
+                $0.bottom.equalTo(labelStackView.snp.bottom)
+            }
+        }
+        
+        // contentsView
+        
+        contentsView.do {
+            $0.snp.makeConstraints {
+                $0.top.equalTo(labelStackView.snp.bottom)
+                $0.leading.equalToSuperview()
+                $0.trailing.equalToSuperview()
+                $0.bottom.equalToSuperview()
+            }
+        }
+        
+        contentsBottomLineView.do {
             $0.snp.makeConstraints {
                 $0.height.equalTo(1.0)
                 $0.leading.equalToSuperview()
@@ -100,11 +135,19 @@ class BaseTableViewCell: UITableViewCell {
                 $0.bottom.equalToSuperview()
             }
         }
+        
+        // contentsView - datePickerView
+        
+        datePickerView.do {
+            $0.snp.makeConstraints {
+                $0.edges.equalToSuperview()
+            }
+        }
+        
     }
     
     // MARK: dark / light mode 적용 시, 변경이 필요할 수 있음
     private func initView() {
-        backgroundColor = .clear
         titleLabel.do {
             // TODO: 폰트 변경
             $0.font = UIFont.systemFont(ofSize: 16.0)
@@ -126,7 +169,7 @@ class BaseTableViewCell: UITableViewCell {
             $0.textColor = .lightGray
         }
         
-        bottomView.do {
+        bottomLineView.do {
             $0.backgroundColor = .white216
         }
         
@@ -139,13 +182,17 @@ class BaseTableViewCell: UITableViewCell {
         onOffSwitch.do {
             $0.onTintColor = UIColor.navy3
         }
+        
+        contentsBottomLineView.do {
+            $0.backgroundColor = .white216
+        }
     }
     
     // MARK: - Life Cycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+                
         initLayout()
         initView()
     }

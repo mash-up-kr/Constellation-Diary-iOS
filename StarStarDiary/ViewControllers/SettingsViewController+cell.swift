@@ -26,7 +26,8 @@ struct SettingsViewCellItem {
     var value: String?
     var cellType: BaseTableViewCellType
     var isSwitchOn: Bool?
-    var canSelecte: Bool
+    var canSelect: Bool
+    var didExtension: Bool = false
 }
 
 extension SettingsViewController {
@@ -126,8 +127,8 @@ extension SettingsViewController {
         
         var canSelected: Bool {
             switch self {
-            case .luckAlerm: return false
-            case .questionAlarm: return false
+            case .luckAlerm: return true
+            case .questionAlarm: return true
             case .logout: return true
             case .appVersion: return true
             case .developerInfo: return true
