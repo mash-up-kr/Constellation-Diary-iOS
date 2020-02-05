@@ -16,7 +16,7 @@ class VarifyEmailViewController: UIViewController {
     
     private let titleLabel = UILabel()
     private let progressStepLabel = UILabel()
-    private let emailInputFormView = InputFormView(style: .email)
+    private let emailInputFormView = InputFormView(style: .emailWithImage)
     private let certificationNumberInputFormView = InputFormView(style: .certificationNumber)
     private let completionButton = UIButton()
     
