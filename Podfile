@@ -11,5 +11,6 @@ target 'StarStarDiary' do
   pod 'SnapKit', '~> 5.0.0'
   pod 'Then', '~> 2.6.0'
   pod 'Nuke', '~> 8.0'
+  pod 'Firebase/Analytics', '~> 6.16.0'
 
 end
