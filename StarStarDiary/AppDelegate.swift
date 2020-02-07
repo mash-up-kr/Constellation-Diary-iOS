@@ -8,6 +8,9 @@
 
 import UIKit
 import CoreData
+import Firebase
+import FirebaseMessaging
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,24 +18,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        // FIXME: Karen - FCM, 추후 Push 모듈화 예정
+        FirebaseApp.configure()
+        Messaging.messaging().delegate = self
+        UNUserNotificationCenter.current().delegate = self
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(options: authOptions,completionHandler: {_, _ in })
+        application.registerForRemoteNotifications()
+        //
+
         let bounds = UIScreen.main.bounds
         self.window = UIWindow(frame: bounds)
         
         // FIXME : 추후 로직 제거!!!!!!
         // 바로 메인으로 이동할 때는 요거 사용하기
-//        let navigationController = UINavigationController(rootViewController: MainViewController())
-//        self.window?.rootViewController = navigationController
+        let navigationController = UINavigationController(rootViewController: MainViewController())
+        self.window?.rootViewController = navigationController
         
         // FIXME : 필요할 경우 초기 API Call 이 추가되거나 분기 처리 방식이 변경될 수 있음
         
-        var rootViewController: UIViewController = ConstellationSelectionViewController()//OnBoardingViewController()
-        if UserDefaults.currentToken != nil {
-            let mainViewController = MainViewController()
-            rootViewController = UINavigationController(rootViewController: mainViewController)
-        }
-        
-        self.window?.rootViewController = rootViewController
+//        var rootViewController: UIViewController = ConstellationSelectionViewController()//OnBoardingViewController()
+//        if UserDefaults.currentToken != nil {
+//            let mainViewController = MainViewController()
+//            rootViewController = UINavigationController(rootViewController: mainViewController)
+//        }
+//
+//        self.window?.rootViewController = rootViewController
         self.window?.makeKeyAndVisible()
         return true
     }
@@ -104,4 +116,59 @@ func applicationDidEnterBackground(_ application: UIApplication) {
         }
     }
 
+}
+
+// MARK: - Push
+
+extension AppDelegate {
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print("\(#function)")
+//        Messaging.messaging().apnsToken = deviceToken
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("\(#function) error[\(error.localizedDescription)]")
+    }
+}
+
+// MARK: - MessagingDelegate
+
+extension AppDelegate: MessagingDelegate {
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+        print("\(#function) fcmToken[\(fcmToken)]")
+
+        let dataDict = ["token": fcmToken]
+        NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
+        
+        // FIXME: Karen - API 모듈 나오기 전, Test Code
+        // sign in with fcm token
+        let json: [String : Any] = ["fcmToken" : fcmToken,
+                                    "password" : "1234",
+                                    "userId" : "karen"]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+
+        let session = URLSession.shared
+        var request = URLRequest(url: URL(string: "https://byeol-byeol.kro.kr/users/sign-in")!)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("Bearer cbbb1a6e-8614-4a4d-a967-b0a42924e7ca", forHTTPHeaderField: "Authorization")
+        request.addValue("KST", forHTTPHeaderField: "Time-Zone")
+        request.httpBody = jsonData
+        
+        session.dataTask(with: request) { (data, response, error) in
+            if error == nil {
+                print(String(data: data!, encoding: .utf8)!)
+            }
+        }.resume()
+        //
+    }
+    
+}
+
+// MARK: - UNUserNotificationCenterDelegate
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+      print("\(#function)")
+    }
 }
