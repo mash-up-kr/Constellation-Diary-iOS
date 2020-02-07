@@ -12,5 +12,6 @@ target 'StarStarDiary' do
   pod 'Then', '~> 2.6.0'
   pod 'Nuke', '~> 8.0'
   pod 'Firebase/Analytics', '~> 6.16.0'
-
+  pod 'Firebase/Messaging', '~> 6.16.0'
+  
 end
