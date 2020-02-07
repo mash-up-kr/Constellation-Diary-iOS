@@ -631,7 +631,7 @@
 			baseConfigurationReference = C374176DB79A9B002599C37A /* Pods-StarStarDiary.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = StarStarDiary/StarStarDiary.entitlements;
+				CODE_SIGN_ENTITLEMENTS = StarStarDiary/Resources/StarStarDiary.entitlements;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 5BKN5926VM;
 				INFOPLIST_FILE = StarStarDiary/Resources/Info.plist;
@@ -653,7 +653,7 @@
 			baseConfigurationReference = B52A4D106A7F14CB5BEAE593 /* Pods-StarStarDiary.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = StarStarDiary/StarStarDiary.entitlements;
+				CODE_SIGN_ENTITLEMENTS = StarStarDiary/Resources/StarStarDiary.entitlements;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 5BKN5926VM;
 				INFOPLIST_FILE = StarStarDiary/Resources/Info.plist;
