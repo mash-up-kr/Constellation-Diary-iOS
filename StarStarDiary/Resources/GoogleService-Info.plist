@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>11959821783-k249asap7vbrhelc3g5qmpcjnnk7i0ke.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.11959821783-k249asap7vbrhelc3g5qmpcjnnk7i0ke</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAQ59Gdip9NLYFuebnIEwl0XlQPPxQUq-I</string>
+	<key>GCM_SENDER_ID</key>
+	<string>11959821783</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.mash-up.StarStarDiary</string>
+	<key>PROJECT_ID</key>
+	<string>kancho-byeolbyeol</string>
+	<key>STORAGE_BUCKET</key>
+	<string>kancho-byeolbyeol.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:11959821783:ios:455285c303d052c6155792</string>
+	<key>DATABASE_URL</key>
+	<string>https://kancho-byeolbyeol.firebaseio.com</string>
+</dict>
+</plist>
