@@ -8,10 +8,16 @@
 
 import Foundation
 
-
+protocol APIType {
+    typealias Token = String
+    typealias TimeZone = String
+    
+    var accessToken: Token { get }
+    var refreshToken: Token { get }
+    var timeZone: TimeZone { get }
+}
 
 enum API {
-    typealias Token = String
     
     case authenticationNumbersToFindPassword(ReqFindPasswordNumberDto)
     case authenticationToFindPassword(ReqValidationFindPasswordNumberDto)
@@ -19,29 +25,29 @@ enum API {
     case authenticationNumbersToSignUp(ReqSignUpNumberDto)
     case authenticationToSignUp(ReqValidationSignUpNumberDto)
     
-    case dailyQuestion(autherization: JWT, timeZone: String, date: String)
+    case dailyQuestion(date: String)
     
-    case diaries(autherization: JWT, timeZone: String, month: Int, year: Int)
-    case writeDiary(autherization: JWT, timeZone: String, request: ReqWriteDiaryDto)
-    case diary(autherization: JWT, timeZone: String, id: Int)
-    case modifyDiary(autherization: JWT, timeZone: String, diaryId: Int, request: ReqModifyDiaryDto)
-    case deleteDiary(autherization: JWT, id: Int)
+    case diaries(month: Int, year: Int)
+    case writeDiary(request: ReqWriteDiaryDto)
+    case diary(id: Int)
+    case modifyDiary(id: Int, request: ReqModifyDiaryDto)
+    case deleteDiary(id: Int)
     
-    case horoscopes(autherization: JWT, timeZone: String, constellation: String, date: String)
-    case horoscope(autherization: JWT, id: Int)
+    case horoscopes(constellation: String, date: String)
+    case horoscope(id: Int)
     
-    case modifyConstellations(authorization: JWT, timeZone: String, request: ReqModifyConstellationDto)
-    case modifyHoroscopeAlarm(authorization: JWT, timeZone: String, request: ReqModifyHoroscopeAlarmDto)
-    case modifyHoroscopeTime(authorization: JWT, timeZone: String, request: ReqModifyHoroscopeTimeDto)
-    case modifyPassword(authorization: JWT, request: ReqModifyPasswordDto)
-    case modifyQuestionAlarm(authorization: JWT, timeZone: String, request: ReqModifyQuestionAlarmDto)
-    case modifyQuestionTime(authorization: JWT, timeZone: String, request: ReqModifyQuestionTimeDto)
+    case modifyConstellations(request: ReqModifyConstellationDto)
+    case modifyHoroscopeAlarm(request: ReqModifyHoroscopeAlarmDto)
+    case modifyHoroscopeTime(request: ReqModifyHoroscopeTimeDto)
+    case modifyPassword(request: ReqModifyPasswordDto)
+    case modifyQuestionAlarm(request: ReqModifyQuestionAlarmDto)
+    case modifyQuestionTime(request: ReqModifyQuestionTimeDto)
     
     case checkId(id: String)
     case findId(email: String)
-    case signIn(timeZone: String, request: ReqSignInDto)
-    case signOut(authorization: JWT)
-    case signUp(authorization: JWT, timeZone: String, request: ReqSignUpDto)
+    case signIn(request: ReqSignInDto)
+    case signOut
+    case signUp(request: ReqSignUpDto)
     
-    case refreshToken(authorization: JWT)
+    case refreshToken
 }
