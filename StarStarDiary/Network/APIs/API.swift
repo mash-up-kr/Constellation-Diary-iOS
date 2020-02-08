@@ -23,3 +23,68 @@ enum API {
     case findId(email: String)
     case signIn(request: ReqSignInDto)
 }
+
+extension API: TargetType {
+    var timeZone: TimeZone {
+        // FIXME: 현재 타임존으로 설정
+        return "KST"
+    }
+    
+    var baseURL: URL {
+        URL(string: "https://byeol-byeol.kro.kr/")!
+    }
+    
+    var path: String {
+        switch self {
+        case .authenticationNumbersToFindPassword:
+            return "authentication-numbers/find-password"
+        case .authenticationToFindPassword:
+            return "authentication/find-password"
+        case .authenticationNumbersToSignUp:
+            return "authentication-numbers/sign-up"
+        case .authenticationToSignUp:
+            return "authentication/sign-up"
+        case .checkId:
+            return "users/check"
+        case .findId:
+            return "users/find-id"
+        case .signIn:
+            return "users/sign-in"
+        }
+    }
+    
+    var method: Moya.Method {
+        switch self {
+        case .checkId,
+             .findId:
+            return .get
+        case .authenticationNumbersToFindPassword,
+             .authenticationToFindPassword,
+             .authenticationNumbersToSignUp,
+             .authenticationToSignUp,
+             .signIn:
+            return .post
+        }
+    }
+    
+    var sampleData: Data {
+        Data()
+    }
+    
+    var task: Task {
+        // FIXME: Task적용할 예정
+        return .requestPlain
+    }
+    
+    var headers: [String : String]? {
+        var headers = ["Content-type": "application/json"]
+        switch self {
+        case .signIn:
+            headers["Time-Zone"] = timeZone
+        default: ()
+        }
+        return headers
+    }
+    
+    
+}

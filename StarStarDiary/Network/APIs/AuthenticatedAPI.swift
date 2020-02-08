@@ -37,6 +37,7 @@ enum AuthenticatedAPI {
     
     case refreshToken
 }
+
 extension AuthenticatedAPI: Authenticated {
     var accessToken: Token {
         return "Bearer cbbb1a6e-8614-4a4d-a967-b0a42924e7ca"
