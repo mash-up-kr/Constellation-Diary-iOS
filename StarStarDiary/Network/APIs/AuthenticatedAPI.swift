@@ -1,5 +1,5 @@
 //
-//  API.swift
+//  AuthenticatedAPI.swift
 //  StarStarDiary
 //
 //  Created by 이동영 on 2020/02/08.
@@ -8,23 +8,12 @@
 
 import Foundation
 
-protocol APIType {
-    typealias Token = String
-    typealias TimeZone = String
-    
+protocol Authenticated {
     var accessToken: Token { get }
     var refreshToken: Token { get }
-    var timeZone: TimeZone { get }
 }
 
-enum API {
-    
-    case authenticationNumbersToFindPassword(ReqFindPasswordNumberDto)
-    case authenticationToFindPassword(ReqValidationFindPasswordNumberDto)
-    
-    case authenticationNumbersToSignUp(ReqSignUpNumberDto)
-    case authenticationToSignUp(ReqValidationSignUpNumberDto)
-    
+enum AuthenticatedAPI {
     case dailyQuestion(date: String)
     
     case diaries(month: Int, year: Int)
@@ -43,11 +32,17 @@ enum API {
     case modifyQuestionAlarm(request: ReqModifyQuestionAlarmDto)
     case modifyQuestionTime(request: ReqModifyQuestionTimeDto)
     
-    case checkId(id: String)
-    case findId(email: String)
-    case signIn(request: ReqSignInDto)
     case signOut
     case signUp(request: ReqSignUpDto)
     
     case refreshToken
+}
+extension AuthenticatedAPI: Authenticated {
+    var accessToken: Token {
+        return "Bearer cbbb1a6e-8614-4a4d-a967-b0a42924e7ca"
+    }
+    
+    var refreshToken: Token {
+        return ""
+    }
 }
