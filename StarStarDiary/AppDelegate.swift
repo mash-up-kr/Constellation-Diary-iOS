@@ -151,7 +151,6 @@ extension AppDelegate: MessagingDelegate {
         var request = URLRequest(url: URL(string: "https://byeol-byeol.kro.kr/users/sign-in")!)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("Bearer cbbb1a6e-8614-4a4d-a967-b0a42924e7ca", forHTTPHeaderField: "Authorization")
         request.addValue("KST", forHTTPHeaderField: "Time-Zone")
         request.httpBody = jsonData
         
