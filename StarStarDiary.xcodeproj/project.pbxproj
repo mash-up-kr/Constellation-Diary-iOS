@@ -13,6 +13,32 @@
 		0E3272922389BDE000EF36B4 /* UIColor+Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */; };
 		0E3272962389C37300EF36B4 /* FortuneDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3272952389C37300EF36B4 /* FortuneDetailViewController.swift */; };
 		0E7960CF23EEAD4B008446CB /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960CE23EEAD4B008446CB /* API.swift */; };
+		0E7960F023EEAE58008446CB /* LocalTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960D423EEADFE008446CB /* LocalTime.swift */; };
+		0E7960F123EEAE58008446CB /* ResHoroscopeDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960D623EEADFE008446CB /* ResHoroscopeDto.swift */; };
+		0E7960F223EEAE58008446CB /* ResSimpleDiaryDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960D723EEADFE008446CB /* ResSimpleDiaryDto.swift */; };
+		0E7960F323EEAE58008446CB /* ResUserInfoDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960D823EEADFE008446CB /* ResUserInfoDto.swift */; };
+		0E7960F423EEAE58008446CB /* ResDailyQuestionDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960D923EEADFE008446CB /* ResDailyQuestionDto.swift */; };
+		0E7960F523EEAE58008446CB /* ResDiariesDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960DA23EEADFE008446CB /* ResDiariesDto.swift */; };
+		0E7960F623EEAE58008446CB /* ResTokenDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960DB23EEADFE008446CB /* ResTokenDto.swift */; };
+		0E7960F723EEAE58008446CB /* ResDiaryDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960DC23EEADFE008446CB /* ResDiaryDto.swift */; };
+		0E7960F823EEAE58008446CB /* ResUserDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960DD23EEADFE008446CB /* ResUserDto.swift */; };
+		0E7960F923EEAE58008446CB /* ResAuthenticationTokenDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960DE23EEADFE008446CB /* ResAuthenticationTokenDto.swift */; };
+		0E7960FA23EEAE58008446CB /* ResCheckUserDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960DF23EEADFE008446CB /* ResCheckUserDto.swift */; };
+		0E7960FB23EEAE58008446CB /* ResUserIdDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960E023EEADFE008446CB /* ResUserIdDto.swift */; };
+		0E7960FC23EEAE58008446CB /* ReqModifyHoroscopeTimeDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960E223EEADFE008446CB /* ReqModifyHoroscopeTimeDto.swift */; };
+		0E7960FD23EEAE58008446CB /* ReqModifyHoroscopeAlarmDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960E323EEADFE008446CB /* ReqModifyHoroscopeAlarmDto.swift */; };
+		0E7960FE23EEAE58008446CB /* ReqValidationSignUpNumberDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960E423EEADFE008446CB /* ReqValidationSignUpNumberDto.swift */; };
+		0E7960FF23EEAE58008446CB /* ReqModifyQuestionTimeDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960E523EEADFE008446CB /* ReqModifyQuestionTimeDto.swift */; };
+		0E79610023EEAE58008446CB /* ReqSignInDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960E623EEADFE008446CB /* ReqSignInDto.swift */; };
+		0E79610123EEAE58008446CB /* ReqFindPasswordNumberDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960E723EEADFE008446CB /* ReqFindPasswordNumberDto.swift */; };
+		0E79610223EEAE58008446CB /* ReqModifyConstellationDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960E823EEADFE008446CB /* ReqModifyConstellationDto.swift */; };
+		0E79610323EEAE58008446CB /* ReqSignUpNumberDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960E923EEADFE008446CB /* ReqSignUpNumberDto.swift */; };
+		0E79610423EEAE58008446CB /* ReqValidationFindPasswordNumberDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960EA23EEADFE008446CB /* ReqValidationFindPasswordNumberDto.swift */; };
+		0E79610523EEAE58008446CB /* ReqSignUpDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960EB23EEADFE008446CB /* ReqSignUpDto.swift */; };
+		0E79610623EEAE58008446CB /* ReqModifyPasswordDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960EC23EEADFE008446CB /* ReqModifyPasswordDto.swift */; };
+		0E79610723EEAE58008446CB /* ReqModifyQuestionAlarmDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960ED23EEADFE008446CB /* ReqModifyQuestionAlarmDto.swift */; };
+		0E79610823EEAE58008446CB /* ReqModifyDiaryDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960EE23EEADFE008446CB /* ReqModifyDiaryDto.swift */; };
+		0E79610923EEAE58008446CB /* ReqWriteDiaryDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960EF23EEADFE008446CB /* ReqWriteDiaryDto.swift */; };
 		0EDB40F023CA54350020B0EF /* Constellation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40EF23CA54350020B0EF /* Constellation.swift */; };
 		0EDB40F223CA54830020B0EF /* ConstellationSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40F123CA54830020B0EF /* ConstellationSelectionViewController.swift */; };
 		0EDB40F523CA56140020B0EF /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40F423CA56140020B0EF /* Reusable.swift */; };
@@ -542,6 +568,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E7960F023EEAE58008446CB /* LocalTime.swift in Sources */,
+				0E7960F123EEAE58008446CB /* ResHoroscopeDto.swift in Sources */,
+				0E7960F223EEAE58008446CB /* ResSimpleDiaryDto.swift in Sources */,
+				0E7960F323EEAE58008446CB /* ResUserInfoDto.swift in Sources */,
+				0E7960F423EEAE58008446CB /* ResDailyQuestionDto.swift in Sources */,
+				0E7960F523EEAE58008446CB /* ResDiariesDto.swift in Sources */,
+				0E7960F623EEAE58008446CB /* ResTokenDto.swift in Sources */,
+				0E7960F723EEAE58008446CB /* ResDiaryDto.swift in Sources */,
+				0E7960F823EEAE58008446CB /* ResUserDto.swift in Sources */,
+				0E7960F923EEAE58008446CB /* ResAuthenticationTokenDto.swift in Sources */,
+				0E7960FA23EEAE58008446CB /* ResCheckUserDto.swift in Sources */,
+				0E7960FB23EEAE58008446CB /* ResUserIdDto.swift in Sources */,
+				0E7960FC23EEAE58008446CB /* ReqModifyHoroscopeTimeDto.swift in Sources */,
+				0E7960FD23EEAE58008446CB /* ReqModifyHoroscopeAlarmDto.swift in Sources */,
+				0E7960FE23EEAE58008446CB /* ReqValidationSignUpNumberDto.swift in Sources */,
+				0E7960FF23EEAE58008446CB /* ReqModifyQuestionTimeDto.swift in Sources */,
+				0E79610023EEAE58008446CB /* ReqSignInDto.swift in Sources */,
+				0E79610123EEAE58008446CB /* ReqFindPasswordNumberDto.swift in Sources */,
+				0E79610223EEAE58008446CB /* ReqModifyConstellationDto.swift in Sources */,
+				0E79610323EEAE58008446CB /* ReqSignUpNumberDto.swift in Sources */,
+				0E79610423EEAE58008446CB /* ReqValidationFindPasswordNumberDto.swift in Sources */,
+				0E79610523EEAE58008446CB /* ReqSignUpDto.swift in Sources */,
+				0E79610623EEAE58008446CB /* ReqModifyPasswordDto.swift in Sources */,
+				0E79610723EEAE58008446CB /* ReqModifyQuestionAlarmDto.swift in Sources */,
+				0E79610823EEAE58008446CB /* ReqModifyDiaryDto.swift in Sources */,
+				0E79610923EEAE58008446CB /* ReqWriteDiaryDto.swift in Sources */,
 				DBAF024023AE2B480044E2DD /* Bundle+appVersion.swift in Sources */,
 				D5D0F67223890DC500DA3169 /* ViewController.swift in Sources */,
 				D5D0F67823890DC500DA3169 /* StarStarDiary.xcdatamodeld in Sources */,
