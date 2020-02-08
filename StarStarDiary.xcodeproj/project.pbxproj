@@ -40,6 +40,7 @@
 		0E79610823EEAE58008446CB /* ReqModifyDiaryDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960EE23EEADFE008446CB /* ReqModifyDiaryDto.swift */; };
 		0E79610923EEAE58008446CB /* ReqWriteDiaryDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960EF23EEADFE008446CB /* ReqWriteDiaryDto.swift */; };
 		0E79610C23EEB577008446CB /* AuthenticatedAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79610B23EEB577008446CB /* AuthenticatedAPI.swift */; };
+		0E79610E23EF2103008446CB /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79610D23EF2103008446CB /* String+.swift */; };
 		0EDB40F023CA54350020B0EF /* Constellation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40EF23CA54350020B0EF /* Constellation.swift */; };
 		0EDB40F223CA54830020B0EF /* ConstellationSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40F123CA54830020B0EF /* ConstellationSelectionViewController.swift */; };
 		0EDB40F523CA56140020B0EF /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40F423CA56140020B0EF /* Reusable.swift */; };
@@ -128,6 +129,7 @@
 		0E7960EE23EEADFE008446CB /* ReqModifyDiaryDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqModifyDiaryDto.swift; sourceTree = "<group>"; };
 		0E7960EF23EEADFE008446CB /* ReqWriteDiaryDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqWriteDiaryDto.swift; sourceTree = "<group>"; };
 		0E79610B23EEB577008446CB /* AuthenticatedAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatedAPI.swift; sourceTree = "<group>"; };
+		0E79610D23EF2103008446CB /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		0EDB40EF23CA54350020B0EF /* Constellation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constellation.swift; sourceTree = "<group>"; };
 		0EDB40F123CA54830020B0EF /* ConstellationSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstellationSelectionViewController.swift; sourceTree = "<group>"; };
 		0EDB40F423CA56140020B0EF /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 				0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */,
 				D5F23D2C23AA9D45002F8127 /* UserDefaults+.swift */,
 				0E160CD723ABED80000CA518 /* UITextField+.swift */,
+				0E79610D23EF2103008446CB /* String+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -596,6 +599,7 @@
 				0E7960FB23EEAE58008446CB /* ResUserIdDto.swift in Sources */,
 				0E7960FC23EEAE58008446CB /* ReqModifyHoroscopeTimeDto.swift in Sources */,
 				0E7960FD23EEAE58008446CB /* ReqModifyHoroscopeAlarmDto.swift in Sources */,
+				0E79610E23EF2103008446CB /* String+.swift in Sources */,
 				0E7960FE23EEAE58008446CB /* ReqValidationSignUpNumberDto.swift in Sources */,
 				0E7960FF23EEAE58008446CB /* ReqModifyQuestionTimeDto.swift in Sources */,
 				0E79610023EEAE58008446CB /* ReqSignInDto.swift in Sources */,

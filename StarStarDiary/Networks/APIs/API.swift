@@ -72,8 +72,24 @@ extension API: TargetType {
     }
     
     var task: Task {
-        // FIXME: Task적용할 예정
-        return .requestPlain
+        switch self {
+        case .authenticationNumbersToFindPassword(let dto):
+            return .requestJSONEncodable(dto)
+        case .authenticationToFindPassword(let dto):
+            return .requestJSONEncodable(dto)
+        case .authenticationNumbersToSignUp(let dto):
+            return .requestJSONEncodable(dto)
+        case .authenticationToSignUp(let dto):
+            return .requestJSONEncodable(dto)
+        case .checkId(let id):
+            return .requestParameters(parameters: ["user-id": id],
+                                      encoding: URLEncoding.default)
+        case .findId(let email):
+            return .requestParameters(parameters: ["email": email],
+                                      encoding: URLEncoding.default)
+        case .signIn(let dto):
+            return .requestJSONEncodable(dto)
+        }
     }
     
     var headers: [String : String]? {
@@ -85,6 +101,4 @@ extension API: TargetType {
         }
         return headers
     }
-    
-    
 }
