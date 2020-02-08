@@ -39,6 +39,7 @@
 		0E79610723EEAE58008446CB /* ReqModifyQuestionAlarmDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960ED23EEADFE008446CB /* ReqModifyQuestionAlarmDto.swift */; };
 		0E79610823EEAE58008446CB /* ReqModifyDiaryDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960EE23EEADFE008446CB /* ReqModifyDiaryDto.swift */; };
 		0E79610923EEAE58008446CB /* ReqWriteDiaryDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960EF23EEADFE008446CB /* ReqWriteDiaryDto.swift */; };
+		0E79610C23EEB577008446CB /* AuthenticatedAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79610B23EEB577008446CB /* AuthenticatedAPI.swift */; };
 		0EDB40F023CA54350020B0EF /* Constellation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40EF23CA54350020B0EF /* Constellation.swift */; };
 		0EDB40F223CA54830020B0EF /* ConstellationSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40F123CA54830020B0EF /* ConstellationSelectionViewController.swift */; };
 		0EDB40F523CA56140020B0EF /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40F423CA56140020B0EF /* Reusable.swift */; };
@@ -125,6 +126,7 @@
 		0E7960ED23EEADFE008446CB /* ReqModifyQuestionAlarmDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqModifyQuestionAlarmDto.swift; sourceTree = "<group>"; };
 		0E7960EE23EEADFE008446CB /* ReqModifyDiaryDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqModifyDiaryDto.swift; sourceTree = "<group>"; };
 		0E7960EF23EEADFE008446CB /* ReqWriteDiaryDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqWriteDiaryDto.swift; sourceTree = "<group>"; };
+		0E79610B23EEB577008446CB /* AuthenticatedAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatedAPI.swift; sourceTree = "<group>"; };
 		0EDB40EF23CA54350020B0EF /* Constellation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constellation.swift; sourceTree = "<group>"; };
 		0EDB40F123CA54830020B0EF /* ConstellationSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstellationSelectionViewController.swift; sourceTree = "<group>"; };
 		0EDB40F423CA56140020B0EF /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
@@ -272,8 +274,8 @@
 		0E7960CD23EEAD31008446CB /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				0E79610A23EEB55F008446CB /* APIs */,
 				0E7960D323EEADFE008446CB /* Dto */,
-				0E7960CE23EEAD4B008446CB /* API.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -325,6 +327,15 @@
 				0E7960EF23EEADFE008446CB /* ReqWriteDiaryDto.swift */,
 			);
 			path = Request;
+			sourceTree = "<group>";
+		};
+		0E79610A23EEB55F008446CB /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+				0E7960CE23EEAD4B008446CB /* API.swift */,
+				0E79610B23EEB577008446CB /* AuthenticatedAPI.swift */,
+			);
+			path = APIs;
 			sourceTree = "<group>";
 		};
 		0EDB40F323CA56060020B0EF /* Common */ = {
@@ -592,6 +603,7 @@
 				0E79610523EEAE58008446CB /* ReqSignUpDto.swift in Sources */,
 				0E79610623EEAE58008446CB /* ReqModifyPasswordDto.swift in Sources */,
 				0E79610723EEAE58008446CB /* ReqModifyQuestionAlarmDto.swift in Sources */,
+				0E79610C23EEB577008446CB /* AuthenticatedAPI.swift in Sources */,
 				0E79610823EEAE58008446CB /* ReqModifyDiaryDto.swift in Sources */,
 				0E79610923EEAE58008446CB /* ReqWriteDiaryDto.swift in Sources */,
 				DBAF024023AE2B480044E2DD /* Bundle+appVersion.swift in Sources */,
