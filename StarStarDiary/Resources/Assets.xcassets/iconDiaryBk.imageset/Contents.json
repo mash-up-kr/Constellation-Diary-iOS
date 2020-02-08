@@ -2,18 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "icList24.png"
+      "filename" : "iconDiaryBk.png",
+      "scale" : "1x"
     },
     {
-      "filename" : "icList24@2x.png",
-      "idiom" : "universal",
-      "scale" : "2x"
+      "filename" : "iconDiaryBk@2x.png",
+      "scale" : "2x",
+      "idiom" : "universal"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "icList24@3x.png"
+      "filename" : "iconDiaryBk@3x.png"
     }
   ],
   "info" : {
