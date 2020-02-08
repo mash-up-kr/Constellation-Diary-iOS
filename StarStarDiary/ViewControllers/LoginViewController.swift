@@ -58,7 +58,6 @@ extension LoginViewController {
     
     private func setupViews() {
         presentingViewController?.view.alpha = 0.54
-        
         view.do {
             let recognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
             $0.addGestureRecognizer(recognizer)
@@ -123,7 +122,7 @@ extension LoginViewController {
         findAccountButton.do {
             // FIXME: Asset Font로 수정 예정
             $0.addTarget(self, action: #selector(findAccountButtonDidTap), for: .touchUpInside)
-            $0.setTitle("아이디 찾기", for: .normal)
+            $0.setTitle("아이디/비번찾기", for: .normal)
             $0.setTitleColor(.buttonBlue, for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 12)
         }
@@ -141,7 +140,7 @@ extension LoginViewController {
             $0.addTarget(self, action: #selector(signInButtonDidTap), for: .touchUpInside)
             $0.setTitle("별별일기 시작하기", for: .normal)
             $0.titleLabel?.textColor = .white
-            $0.backgroundColor = .buttonNavy
+            $0.backgroundColor = .navy3
             $0.layer.cornerRadius = 5.0
             $0.alpha = 0
         }
