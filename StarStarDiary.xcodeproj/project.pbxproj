@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E160CD523AA51E6000CA518 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E160CD423AA51E6000CA518 /* LoginViewController.swift */; };
 		0E3272912389BDE000EF36B4 /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E32728F2389BDE000EF36B4 /* DateFormatter+.swift */; };
 		0E3272922389BDE000EF36B4 /* UIColor+Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */; };
 		0E3272962389C37300EF36B4 /* FortuneDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3272952389C37300EF36B4 /* FortuneDetailViewController.swift */; };
@@ -61,6 +62,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E160CD423AA51E6000CA518 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0E32728F2389BDE000EF36B4 /* DateFormatter+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+.swift"; sourceTree = "<group>"; };
 		0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Resource.swift"; sourceTree = "<group>"; };
 		0E3272952389C37300EF36B4 /* FortuneDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FortuneDetailViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				0EDB41A923CE25EE0020B0EF /* VarifyEmailViewController.swift */,
 				0EDB41AE23CE79240020B0EF /* SignUpViewController.swift */,
 				DBF6325023EF038B006E60FF /* DiaryCalendarViewController.swift */,
+				0E160CD423AA51E6000CA518 /* LoginViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -489,6 +492,9 @@
 				0EDB40FA23CA5D210020B0EF /* ConstellationCell.swift in Sources */,
 				DB9EA41523AE90A000F4488D /* DiaryListViewController.swift in Sources */,
 				9CF04A0023A92F5D00A85BEC /* SettingsViewController.swift in Sources */,
+
+				0E160CD523AA51E6000CA518 /* LoginViewController.swift in Sources */,
+
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
