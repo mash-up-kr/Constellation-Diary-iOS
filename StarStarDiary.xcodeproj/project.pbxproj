@@ -12,7 +12,7 @@
 		0E3272912389BDE000EF36B4 /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E32728F2389BDE000EF36B4 /* DateFormatter+.swift */; };
 		0E3272922389BDE000EF36B4 /* UIColor+Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */; };
 		0E3272962389C37300EF36B4 /* FortuneDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3272952389C37300EF36B4 /* FortuneDetailViewController.swift */; };
-		0E34EF1D23EB449100D2914D /* Dto in Resources */ = {isa = PBXBuildFile; fileRef = 0E34EF1C23EB449100D2914D /* Dto */; };
+		0E7960CF23EEAD4B008446CB /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960CE23EEAD4B008446CB /* API.swift */; };
 		0EDB40F023CA54350020B0EF /* Constellation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40EF23CA54350020B0EF /* Constellation.swift */; };
 		0EDB40F223CA54830020B0EF /* ConstellationSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40F123CA54830020B0EF /* ConstellationSelectionViewController.swift */; };
 		0EDB40F523CA56140020B0EF /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40F423CA56140020B0EF /* Reusable.swift */; };
@@ -73,7 +73,33 @@
 		0E32728F2389BDE000EF36B4 /* DateFormatter+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+.swift"; sourceTree = "<group>"; };
 		0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Resource.swift"; sourceTree = "<group>"; };
 		0E3272952389C37300EF36B4 /* FortuneDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FortuneDetailViewController.swift; sourceTree = "<group>"; };
-		0E34EF1C23EB449100D2914D /* Dto */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Dto; sourceTree = "<group>"; };
+		0E7960CE23EEAD4B008446CB /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		0E7960D423EEADFE008446CB /* LocalTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalTime.swift; sourceTree = "<group>"; };
+		0E7960D623EEADFE008446CB /* ResHoroscopeDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResHoroscopeDto.swift; sourceTree = "<group>"; };
+		0E7960D723EEADFE008446CB /* ResSimpleDiaryDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResSimpleDiaryDto.swift; sourceTree = "<group>"; };
+		0E7960D823EEADFE008446CB /* ResUserInfoDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResUserInfoDto.swift; sourceTree = "<group>"; };
+		0E7960D923EEADFE008446CB /* ResDailyQuestionDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResDailyQuestionDto.swift; sourceTree = "<group>"; };
+		0E7960DA23EEADFE008446CB /* ResDiariesDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResDiariesDto.swift; sourceTree = "<group>"; };
+		0E7960DB23EEADFE008446CB /* ResTokenDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResTokenDto.swift; sourceTree = "<group>"; };
+		0E7960DC23EEADFE008446CB /* ResDiaryDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResDiaryDto.swift; sourceTree = "<group>"; };
+		0E7960DD23EEADFE008446CB /* ResUserDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResUserDto.swift; sourceTree = "<group>"; };
+		0E7960DE23EEADFE008446CB /* ResAuthenticationTokenDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResAuthenticationTokenDto.swift; sourceTree = "<group>"; };
+		0E7960DF23EEADFE008446CB /* ResCheckUserDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResCheckUserDto.swift; sourceTree = "<group>"; };
+		0E7960E023EEADFE008446CB /* ResUserIdDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResUserIdDto.swift; sourceTree = "<group>"; };
+		0E7960E223EEADFE008446CB /* ReqModifyHoroscopeTimeDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqModifyHoroscopeTimeDto.swift; sourceTree = "<group>"; };
+		0E7960E323EEADFE008446CB /* ReqModifyHoroscopeAlarmDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqModifyHoroscopeAlarmDto.swift; sourceTree = "<group>"; };
+		0E7960E423EEADFE008446CB /* ReqValidationSignUpNumberDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqValidationSignUpNumberDto.swift; sourceTree = "<group>"; };
+		0E7960E523EEADFE008446CB /* ReqModifyQuestionTimeDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqModifyQuestionTimeDto.swift; sourceTree = "<group>"; };
+		0E7960E623EEADFE008446CB /* ReqSignInDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqSignInDto.swift; sourceTree = "<group>"; };
+		0E7960E723EEADFE008446CB /* ReqFindPasswordNumberDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqFindPasswordNumberDto.swift; sourceTree = "<group>"; };
+		0E7960E823EEADFE008446CB /* ReqModifyConstellationDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqModifyConstellationDto.swift; sourceTree = "<group>"; };
+		0E7960E923EEADFE008446CB /* ReqSignUpNumberDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqSignUpNumberDto.swift; sourceTree = "<group>"; };
+		0E7960EA23EEADFE008446CB /* ReqValidationFindPasswordNumberDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqValidationFindPasswordNumberDto.swift; sourceTree = "<group>"; };
+		0E7960EB23EEADFE008446CB /* ReqSignUpDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqSignUpDto.swift; sourceTree = "<group>"; };
+		0E7960EC23EEADFE008446CB /* ReqModifyPasswordDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqModifyPasswordDto.swift; sourceTree = "<group>"; };
+		0E7960ED23EEADFE008446CB /* ReqModifyQuestionAlarmDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqModifyQuestionAlarmDto.swift; sourceTree = "<group>"; };
+		0E7960EE23EEADFE008446CB /* ReqModifyDiaryDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqModifyDiaryDto.swift; sourceTree = "<group>"; };
+		0E7960EF23EEADFE008446CB /* ReqWriteDiaryDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqWriteDiaryDto.swift; sourceTree = "<group>"; };
 		0EDB40EF23CA54350020B0EF /* Constellation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constellation.swift; sourceTree = "<group>"; };
 		0EDB40F123CA54830020B0EF /* ConstellationSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstellationSelectionViewController.swift; sourceTree = "<group>"; };
 		0EDB40F423CA56140020B0EF /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
@@ -220,6 +246,64 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		0E7960CD23EEAD31008446CB /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				0E7960D323EEADFE008446CB /* Dto */,
+				0E7960CE23EEAD4B008446CB /* API.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		0E7960D323EEADFE008446CB /* Dto */ = {
+			isa = PBXGroup;
+			children = (
+				0E7960D423EEADFE008446CB /* LocalTime.swift */,
+				0E7960D523EEADFE008446CB /* Response */,
+				0E7960E123EEADFE008446CB /* Request */,
+			);
+			path = Dto;
+			sourceTree = "<group>";
+		};
+		0E7960D523EEADFE008446CB /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				0E7960D623EEADFE008446CB /* ResHoroscopeDto.swift */,
+				0E7960D723EEADFE008446CB /* ResSimpleDiaryDto.swift */,
+				0E7960D823EEADFE008446CB /* ResUserInfoDto.swift */,
+				0E7960D923EEADFE008446CB /* ResDailyQuestionDto.swift */,
+				0E7960DA23EEADFE008446CB /* ResDiariesDto.swift */,
+				0E7960DB23EEADFE008446CB /* ResTokenDto.swift */,
+				0E7960DC23EEADFE008446CB /* ResDiaryDto.swift */,
+				0E7960DD23EEADFE008446CB /* ResUserDto.swift */,
+				0E7960DE23EEADFE008446CB /* ResAuthenticationTokenDto.swift */,
+				0E7960DF23EEADFE008446CB /* ResCheckUserDto.swift */,
+				0E7960E023EEADFE008446CB /* ResUserIdDto.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		0E7960E123EEADFE008446CB /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				0E7960E223EEADFE008446CB /* ReqModifyHoroscopeTimeDto.swift */,
+				0E7960E323EEADFE008446CB /* ReqModifyHoroscopeAlarmDto.swift */,
+				0E7960E423EEADFE008446CB /* ReqValidationSignUpNumberDto.swift */,
+				0E7960E523EEADFE008446CB /* ReqModifyQuestionTimeDto.swift */,
+				0E7960E623EEADFE008446CB /* ReqSignInDto.swift */,
+				0E7960E723EEADFE008446CB /* ReqFindPasswordNumberDto.swift */,
+				0E7960E823EEADFE008446CB /* ReqModifyConstellationDto.swift */,
+				0E7960E923EEADFE008446CB /* ReqSignUpNumberDto.swift */,
+				0E7960EA23EEADFE008446CB /* ReqValidationFindPasswordNumberDto.swift */,
+				0E7960EB23EEADFE008446CB /* ReqSignUpDto.swift */,
+				0E7960EC23EEADFE008446CB /* ReqModifyPasswordDto.swift */,
+				0E7960ED23EEADFE008446CB /* ReqModifyQuestionAlarmDto.swift */,
+				0E7960EE23EEADFE008446CB /* ReqModifyDiaryDto.swift */,
+				0E7960EF23EEADFE008446CB /* ReqWriteDiaryDto.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
 		0EDB40F323CA56060020B0EF /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -305,6 +389,7 @@
 			children = (
 				D54F6D0223E4609D001DA319 /* Resources */,
 				0E34EF1C23EB449100D2914D /* Dto */,
+				0E7960CD23EEAD31008446CB /* Network */,
 				0EDB40F323CA56060020B0EF /* Common */,
 				D5D0F66F23890DC500DA3169 /* AppDelegate.swift */,
 				0E32727A2389621600EF36B4 /* ViewControllers */,
@@ -477,6 +562,7 @@
 				D5D0F67023890DC500DA3169 /* AppDelegate.swift in Sources */,
 				D54F6D0823E46339001DA319 /* UIFont+.swift in Sources */,
 				0EDB41AF23CE79240020B0EF /* SignUpViewController.swift in Sources */,
+				0E7960CF23EEAD4B008446CB /* API.swift in Sources */,
 				0E3272922389BDE000EF36B4 /* UIColor+Resource.swift in Sources */,
 				0E3272912389BDE000EF36B4 /* DateFormatter+.swift in Sources */,
 				0EEB412B23E481BB000AE851 /* FindIDViewController.swift in Sources */,
