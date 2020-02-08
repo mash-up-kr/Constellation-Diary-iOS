@@ -250,6 +250,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		0E32727D2389622700EF36B4 /* Networks */ = {
+			isa = PBXGroup;
+			children = (
+				0E79610A23EEB55F008446CB /* APIs */,
+				0E7960D323EEADFE008446CB /* Dto */,
+			);
+			path = Networks;
+			sourceTree = "<group>";
+		};
 		0E32728B2389BD3C00EF36B4 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,15 +281,6 @@
 				0E160CD723ABED80000CA518 /* UITextField+.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		0E7960CD23EEAD31008446CB /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				0E79610A23EEB55F008446CB /* APIs */,
-				0E7960D323EEADFE008446CB /* Dto */,
-			);
-			path = Network;
 			sourceTree = "<group>";
 		};
 		0E7960D323EEADFE008446CB /* Dto */ = {
