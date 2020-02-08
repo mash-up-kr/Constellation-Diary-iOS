@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "icList24.png"
+      "filename" : "thumbnailStarVirgo.png"
     },
     {
-      "filename" : "icList24@2x.png",
       "idiom" : "universal",
+      "filename" : "thumbnailStarVirgo@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "icList24@3x.png"
+      "filename" : "thumbnailStarVirgo@3x.png"
     }
   ],
   "info" : {
