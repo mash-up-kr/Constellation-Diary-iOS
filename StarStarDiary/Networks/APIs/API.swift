@@ -13,15 +13,15 @@ typealias Token = String
 typealias TimeZone = String
 
 enum API {
-    case authenticationNumbersToFindPassword(ReqFindPasswordNumberDto)
-    case authenticationToFindPassword(ReqValidationFindPasswordNumberDto)
+    case authenticationNumbersToFindPassword(email: String, userId: String)
+    case authenticationToFindPassword(email: String, number: Int, userId: String)
     
-    case authenticationNumbersToSignUp(ReqSignUpNumberDto)
-    case authenticationToSignUp(ReqValidationSignUpNumberDto)
+    case authenticationNumbersToSignUp(email: String)
+    case authenticationToSignUp(email: String, number: Int)
     
     case checkId(id: String)
     case findId(email: String)
-    case signIn(request: ReqSignInDto)
+    case signIn(fcmToken: String, password: String, userId: String)
 }
 
 extension API: TargetType {
@@ -73,22 +73,34 @@ extension API: TargetType {
     
     var task: Task {
         switch self {
-        case .authenticationNumbersToFindPassword(let dto):
-            return .requestJSONEncodable(dto)
-        case .authenticationToFindPassword(let dto):
-            return .requestJSONEncodable(dto)
-        case .authenticationNumbersToSignUp(let dto):
-            return .requestJSONEncodable(dto)
-        case .authenticationToSignUp(let dto):
-            return .requestJSONEncodable(dto)
+        case .authenticationNumbersToFindPassword(let email, let userId):
+            return .requestParameters(parameters: ["email": email,
+                                                   "userId": userId],
+                                      encoding: JSONEncoding.default)
+        case .authenticationToFindPassword(let email, let number, let userId):
+            return .requestParameters(parameters: ["email": email,
+                                                   "number": number,
+                                                   "userId": userId],
+                                      encoding: JSONEncoding.default)
+        case .authenticationNumbersToSignUp(let email):
+            return .requestParameters(parameters: ["email": email],
+                                      encoding: JSONEncoding.default)
+        case .authenticationToSignUp(let email, let number):
+            return .requestParameters(parameters: ["email": email,
+                                                   "number": number],
+                                      encoding: JSONEncoding.default)
         case .checkId(let id):
             return .requestParameters(parameters: ["user-id": id],
                                       encoding: URLEncoding.default)
         case .findId(let email):
             return .requestParameters(parameters: ["email": email],
                                       encoding: URLEncoding.default)
-        case .signIn(let dto):
-            return .requestJSONEncodable(dto)
+            
+        case .signIn(let fcmToken, let password, let userId):
+            return .requestParameters(parameters: ["fcmToken": fcmToken,
+                                                   "password": password,
+                                                   "userId":userId],
+                                      encoding: JSONEncoding.default)
         }
     }
     
