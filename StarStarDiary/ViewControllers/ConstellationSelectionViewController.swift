@@ -169,6 +169,7 @@ extension ConstellationSelectionViewController {
         constellationCollectionView.do {
             $0.backgroundColor = .clear
             $0.showsHorizontalScrollIndicator = false
+            $0.clipsToBounds = false
             $0.dataSource = self
             $0.delegate = self
             $0.contentInsetAdjustmentBehavior = .always

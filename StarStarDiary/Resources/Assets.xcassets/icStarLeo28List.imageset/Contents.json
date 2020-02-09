@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "icStarLeo28List.png",
+      "scale" : "1x",
+      "idiom" : "universal"
+    },
+    {
+      "scale" : "2x",
+      "filename" : "icStarLeo28List@2x.png",
+      "idiom" : "universal"
+    },
+    {
+      "filename" : "icStarLeo28List@3x.png",
+      "scale" : "3x",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}

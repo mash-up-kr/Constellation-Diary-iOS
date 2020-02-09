@@ -1,9 +1,9 @@
 {
   "images" : [
     {
+      "filename" : "thumbnailStarTaurus.png",
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "thumbnailStarTaurus.png"
+      "scale" : "1x"
     },
     {
       "scale" : "2x",
@@ -11,9 +11,9 @@
       "filename" : "thumbnailStarTaurus@2x.png"
     },
     {
+      "filename" : "thumbnailStarTaurus@3x.png",
       "scale" : "3x",
-      "idiom" : "universal",
-      "filename" : "thumbnailStarTaurus@3x.png"
+      "idiom" : "universal"
     }
   ],
   "info" : {

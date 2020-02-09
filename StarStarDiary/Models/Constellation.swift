@@ -47,7 +47,7 @@ enum Constellation: String, CaseIterable {
         switch self {
         case .aries: return UIImage(named: "thumbnailStarAries")
         case .taurus: return UIImage(named: "thumbnailStarTaurus")
-        case .gemini: return UIImage(named: "thumbnailStarGemini")
+        case .gemini: return UIImage(named: "thumbnailStarTwins")
         case .cancer: return UIImage(named: "thumbnailStarCancer")
         case .leo: return UIImage(named: "thumbnailStarLeo")
         case .virgo: return UIImage(named: "thumbnailStarVirgo")
@@ -62,18 +62,18 @@ enum Constellation: String, CaseIterable {
     
     var icon: UIImage? {
         switch self {
-        case .aries: return UIImage(named: "icStarAries40")
-        case .taurus: return UIImage(named: "icStarTaurus40")
-        case .gemini: return UIImage(named: "icStarGemini40")
-        case .cancer: return UIImage(named: "icStarCancer40")
-        case .leo: return UIImage(named: "icStarLeo40")
-        case .virgo: return UIImage(named: "icStarVirgo40")
-        case .libra : return UIImage(named: "icStarLibra40")
-        case .scorpio: return UIImage(named: "icStarScorpio40")
-        case .sagittarius: return UIImage(named: "icStarSagittarius40")
-        case .capricorn: return UIImage(named: "icStarCapricorn40")
-        case .aquarius: return UIImage(named: "icStarAquarius40")
-        case .pisces: return UIImage(named: "icStarPisces40")
+        case .aries: return UIImage(named: "icStarAries40White")
+        case .taurus: return UIImage(named: "icStarTaurus40White")
+        case .gemini: return UIImage(named: "icStarGemini40White")
+        case .cancer: return UIImage(named: "icStarCancer40White")
+        case .leo: return UIImage(named: "icStarLeo40White")
+        case .virgo: return UIImage(named: "icStarVirgo40White")
+        case .libra : return UIImage(named: "icStarLibra40White")
+        case .scorpio: return UIImage(named: "icStarScorpio40White")
+        case .sagittarius: return UIImage(named: "icStarSagittarius40White")
+        case .capricorn: return UIImage(named: "icStarCapricorn40White")
+        case .aquarius: return UIImage(named: "icStarAquarius40White")
+        case .pisces: return UIImage(named: "icStarPisces40White")
         }
     }
     
