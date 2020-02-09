@@ -78,6 +78,9 @@ final class SideMenuViewController: UIViewController {
             $0.setTitle("별자리", for: .normal)
             $0.setTitleColor(.black, for: .normal)
             $0.titleLabel?.textAlignment = .center
+            $0.addTarget(self,
+                         action: #selector(didTapConstellations(sender:)),
+                         for: .touchUpInside)
         }
 
         diaryListButton.do {
@@ -138,6 +141,16 @@ final class SideMenuViewController: UIViewController {
     }
 
     // MARK: - Event
+
+    @objc
+    private func didTapConstellations(sender: AnyObject?) {
+        let viewController = ConstellationSelectionViewController()
+        viewController.do {
+            $0.modalPresentationStyle = .fullScreen
+            $0.bind(type: .fortune)
+            self.present($0, animated: true, completion: nil)
+        }
+    }
 
     @objc
     private func didTapSettings(sender: AnyObject?) {
