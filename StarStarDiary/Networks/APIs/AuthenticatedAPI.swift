@@ -10,6 +10,8 @@ import Foundation
 import Moya
 
 protocol Authenticated {
+    typealias Token = String
+    
     var accessToken: Token { get }
     var refreshToken: Token { get }
 }

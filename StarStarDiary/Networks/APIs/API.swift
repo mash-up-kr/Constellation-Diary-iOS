@@ -10,9 +10,9 @@ import Foundation
 import Moya
 
 typealias Token = String
-typealias TimeZone = String
 
 enum API {
+    
     case authenticationNumbersToFindPassword(email: String, userId: String)
     case authenticationToFindPassword(email: String, number: Int, userId: String)
     
@@ -25,7 +25,7 @@ enum API {
 }
 
 extension API: TargetType {
-    var timeZone: TimeZone {
+    var timeZone: String {
         // FIXME: 현재 타임존으로 설정
         return "KST"
     }
