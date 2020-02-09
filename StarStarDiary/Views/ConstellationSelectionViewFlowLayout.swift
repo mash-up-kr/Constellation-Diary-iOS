@@ -10,8 +10,8 @@ import UIKit
 
 class ConstellationSelectionViewFlowLayout: UICollectionViewFlowLayout {
 
-    let activeDistance: CGFloat = 200
-    let zoomFactor: CGFloat = 0.12
+    private let activeDistance: CGFloat = 200
+    private let zoomFactor: CGFloat = 0.12
 
     override init() {
         super.init()
@@ -29,44 +29,43 @@ class ConstellationSelectionViewFlowLayout: UICollectionViewFlowLayout {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func prepare() {
-        guard let collectionView = collectionView else { fatalError() }
-        let verticalInsets = (collectionView.frame.height - collectionView.adjustedContentInset.top - collectionView.adjustedContentInset.bottom - itemSize.height) / 2
-        let horizontalInsets = (collectionView.frame.width - collectionView.adjustedContentInset.right - collectionView.adjustedContentInset.left - itemSize.width) / 2
-        sectionInset = UIEdgeInsets(top: verticalInsets, left: horizontalInsets, bottom: verticalInsets, right: horizontalInsets)
-
-        super.prepare()
-    }
-
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        guard let collectionView = collectionView else { return nil }
-        let rectAttributes = super.layoutAttributesForElements(in: rect)!
-            .map { $0.copy() as! UICollectionViewLayoutAttributes }
+        guard let collectionView = collectionView,
+            let layoutAttributes = super.layoutAttributesForElements(in: rect) else { return nil }
+
         let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.frame.size)
+        let rectAttributes = layoutAttributes.compactMap { $0.copy() as? UICollectionViewLayoutAttributes }
+        
+            rectAttributes
+                .filter { $0.frame.intersects(visibleRect) }
+                .forEach {
+                    let distance = visibleRect.midX - $0.center.x
+                    let normalizedDistance = distance / activeDistance
 
-        for attributes in rectAttributes where attributes.frame.intersects(visibleRect) {
-            let distance = visibleRect.midX - attributes.center.x
-            let normalizedDistance = distance / activeDistance
-
-            if distance.magnitude < activeDistance {
-                let zoom = 1 + zoomFactor * (1 - normalizedDistance.magnitude)
-                attributes.transform3D = CATransform3DMakeScale(zoom, zoom, 1)
-                attributes.zIndex = Int(zoom.rounded())
-            }
-        }
-
+                    if distance.magnitude < activeDistance {
+                        let zoom = 1 + zoomFactor * (1 - normalizedDistance.magnitude)
+                        $0.transform3D = CATransform3DMakeScale(zoom, zoom, 1)
+                        $0.zIndex = Int(zoom.rounded())
+                    }
+                }
         return rectAttributes
     }
 
-    override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
+    override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint,
+                                      withScrollingVelocity velocity: CGPoint) -> CGPoint {
         guard let collectionView = collectionView else { return .zero }
 
         // Add some snapping behaviour so that the zoomed cell is always centered
-        let targetRect = CGRect(x: proposedContentOffset.x, y: 0, width: collectionView.frame.width, height: collectionView.frame.height)
-        guard let rectAttributes = super.layoutAttributesForElements(in: targetRect) else { return .zero }
+        let origin = CGPoint(x: proposedContentOffset.x, y: 0)
+        let size = collectionView.frame.size
+        let targetRect = CGRect(origin: origin, size: size)
+
+        guard let rectAttributes = super.layoutAttributesForElements(in: targetRect) else {
+            return .zero
+        }
 
         var offsetAdjustment = CGFloat.greatestFiniteMagnitude
-        let horizontalCenter = proposedContentOffset.x + collectionView.frame.width / 2
+        let horizontalCenter = proposedContentOffset.x + size.width / 2
 
         for layoutAttributes in rectAttributes {
             let itemHorizontalCenter = layoutAttributes.center.x
@@ -79,12 +78,13 @@ class ConstellationSelectionViewFlowLayout: UICollectionViewFlowLayout {
     }
 
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        // Invalidate layout so that every cell get a chance to be zoomed when it reaches the center of the screen
         return true
     }
 
     override func invalidationContext(forBoundsChange newBounds: CGRect) -> UICollectionViewLayoutInvalidationContext {
-        let context = super.invalidationContext(forBoundsChange: newBounds) as! UICollectionViewFlowLayoutInvalidationContext
+        guard let context = super.invalidationContext(forBoundsChange: newBounds) as? UICollectionViewFlowLayoutInvalidationContext else {
+            fatalError()
+        }
         context.invalidateFlowLayoutDelegateMetrics = newBounds.size != collectionView?.bounds.size
         return context
     }

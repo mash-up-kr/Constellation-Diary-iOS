@@ -30,10 +30,7 @@ final class ConstellationSelectionViewController: UIViewController {
     }
 
     private var itemSize: CGSize {
-        return isHeightSmall ? CGSize(width: 225, height: 335) : CGSize(width: 240, height: 375)
-    }
-    private var heightForCollectionView: CGFloat {
-        return isHeightSmall ? 375 : 400
+        return isHeightSmall ? CGSize(width: 225, height: 335) : CGSize(width: 240, height: 357)
     }
     
     // MARK: - Life Cycle
@@ -47,7 +44,10 @@ final class ConstellationSelectionViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        constellationCollectionView.scrollToItem(at: IndexPath.init(item: fakeItemCount / 2, section: 0), at: .centeredHorizontally, animated: false)
+        let initialIndexPath = IndexPath(item: fakeItemCount / 2, section: 0)
+        constellationCollectionView.scrollToItem(at: initialIndexPath,
+                                                 at: .centeredHorizontally,
+                                                 animated: false)
     }
 }
 
@@ -115,7 +115,7 @@ extension ConstellationSelectionViewController {
             $0.collectionViewLayout = flowLayout
             $0.register(type: ConstellationCell.self)
         }
-        
+
         messageLabel.do {
             $0.text = "당신의 별자리를 선택해 주세요"
             $0.font = UIFont.font(.notoSerifCJKRegular, size: 14)
@@ -138,11 +138,13 @@ extension ConstellationSelectionViewController {
 // MARK: - UICollectionViewDataSource
 
 extension ConstellationSelectionViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
         return fakeItemCount
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(with: ConstellationCell.self,
                                                             for: indexPath) else {
             return ConstellationCell()
@@ -167,4 +169,5 @@ extension ConstellationSelectionViewController: UICollectionViewDelegate {
             selectedCell.isSelected = true
         }
     }
+
 }
