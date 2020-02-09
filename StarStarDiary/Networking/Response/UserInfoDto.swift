@@ -1,5 +1,5 @@
 //
-//  ReqModifyHoroscopeTimeDto.swift
+//  ResUserInfoDto.swift
 //  MashUpAPITest
 //
 //  Created by 이동영 on 2020/02/06.
@@ -8,6 +8,7 @@
 
 import Foundation
 
-struct ReqModifyHoroscopeTimeDto: Encodable {
-    let date: String
+struct UserInfoDto: Decodable {
+    let tokens: TokenDto
+    let user: UserDto
 }

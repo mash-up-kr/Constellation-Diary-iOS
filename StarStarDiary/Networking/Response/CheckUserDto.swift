@@ -1,5 +1,5 @@
 //
-//  ResUserIdDto.swift
+//  ResCheckUserDto.swift
 //  MashUpAPITest
 //
 //  Created by 이동영 on 2020/02/06.
@@ -8,6 +8,7 @@
 
 import Foundation
 
-struct ResUserIdDto: Decodable {
+struct CheckUserDto: Decodable {
+    let available: Bool
     let userId: String
 }

@@ -12,35 +12,21 @@
 		0E3272912389BDE000EF36B4 /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E32728F2389BDE000EF36B4 /* DateFormatter+.swift */; };
 		0E3272922389BDE000EF36B4 /* UIColor+Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */; };
 		0E3272962389C37300EF36B4 /* FortuneDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3272952389C37300EF36B4 /* FortuneDetailViewController.swift */; };
-		0E7960CF23EEAD4B008446CB /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960CE23EEAD4B008446CB /* API.swift */; };
-		0E7960F023EEAE58008446CB /* LocalTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960D423EEADFE008446CB /* LocalTime.swift */; };
-		0E7960F123EEAE58008446CB /* ResHoroscopeDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960D623EEADFE008446CB /* ResHoroscopeDto.swift */; };
-		0E7960F223EEAE58008446CB /* ResSimpleDiaryDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960D723EEADFE008446CB /* ResSimpleDiaryDto.swift */; };
-		0E7960F323EEAE58008446CB /* ResUserInfoDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960D823EEADFE008446CB /* ResUserInfoDto.swift */; };
-		0E7960F423EEAE58008446CB /* ResDailyQuestionDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960D923EEADFE008446CB /* ResDailyQuestionDto.swift */; };
-		0E7960F523EEAE58008446CB /* ResDiariesDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960DA23EEADFE008446CB /* ResDiariesDto.swift */; };
-		0E7960F623EEAE58008446CB /* ResTokenDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960DB23EEADFE008446CB /* ResTokenDto.swift */; };
-		0E7960F723EEAE58008446CB /* ResDiaryDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960DC23EEADFE008446CB /* ResDiaryDto.swift */; };
-		0E7960F823EEAE58008446CB /* ResUserDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960DD23EEADFE008446CB /* ResUserDto.swift */; };
-		0E7960F923EEAE58008446CB /* ResAuthenticationTokenDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960DE23EEADFE008446CB /* ResAuthenticationTokenDto.swift */; };
-		0E7960FA23EEAE58008446CB /* ResCheckUserDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960DF23EEADFE008446CB /* ResCheckUserDto.swift */; };
-		0E7960FB23EEAE58008446CB /* ResUserIdDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960E023EEADFE008446CB /* ResUserIdDto.swift */; };
-		0E7960FC23EEAE58008446CB /* ReqModifyHoroscopeTimeDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960E223EEADFE008446CB /* ReqModifyHoroscopeTimeDto.swift */; };
-		0E7960FD23EEAE58008446CB /* ReqModifyHoroscopeAlarmDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960E323EEADFE008446CB /* ReqModifyHoroscopeAlarmDto.swift */; };
-		0E7960FE23EEAE58008446CB /* ReqValidationSignUpNumberDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960E423EEADFE008446CB /* ReqValidationSignUpNumberDto.swift */; };
-		0E7960FF23EEAE58008446CB /* ReqModifyQuestionTimeDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960E523EEADFE008446CB /* ReqModifyQuestionTimeDto.swift */; };
-		0E79610023EEAE58008446CB /* ReqSignInDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960E623EEADFE008446CB /* ReqSignInDto.swift */; };
-		0E79610123EEAE58008446CB /* ReqFindPasswordNumberDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960E723EEADFE008446CB /* ReqFindPasswordNumberDto.swift */; };
-		0E79610223EEAE58008446CB /* ReqModifyConstellationDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960E823EEADFE008446CB /* ReqModifyConstellationDto.swift */; };
-		0E79610323EEAE58008446CB /* ReqSignUpNumberDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960E923EEADFE008446CB /* ReqSignUpNumberDto.swift */; };
-		0E79610423EEAE58008446CB /* ReqValidationFindPasswordNumberDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960EA23EEADFE008446CB /* ReqValidationFindPasswordNumberDto.swift */; };
-		0E79610523EEAE58008446CB /* ReqSignUpDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960EB23EEADFE008446CB /* ReqSignUpDto.swift */; };
-		0E79610623EEAE58008446CB /* ReqModifyPasswordDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960EC23EEADFE008446CB /* ReqModifyPasswordDto.swift */; };
-		0E79610723EEAE58008446CB /* ReqModifyQuestionAlarmDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960ED23EEADFE008446CB /* ReqModifyQuestionAlarmDto.swift */; };
-		0E79610823EEAE58008446CB /* ReqModifyDiaryDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960EE23EEADFE008446CB /* ReqModifyDiaryDto.swift */; };
-		0E79610923EEAE58008446CB /* ReqWriteDiaryDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7960EF23EEADFE008446CB /* ReqWriteDiaryDto.swift */; };
-		0E79610C23EEB577008446CB /* AuthenticatedAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79610B23EEB577008446CB /* AuthenticatedAPI.swift */; };
 		0E79610E23EF2103008446CB /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79610D23EF2103008446CB /* String+.swift */; };
+		0E79612423F04443008446CB /* AuthenticatedAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79612223F04442008446CB /* AuthenticatedAPI.swift */; };
+		0E79612523F04443008446CB /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79612323F04443008446CB /* API.swift */; };
+		0E79613123F0444C008446CB /* TokenDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79612623F0444B008446CB /* TokenDto.swift */; };
+		0E79613223F0444C008446CB /* UserDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79612723F0444B008446CB /* UserDto.swift */; };
+		0E79613323F0444C008446CB /* UserInfoDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79612823F0444B008446CB /* UserInfoDto.swift */; };
+		0E79613423F0444C008446CB /* DailyQuestionDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79612923F0444B008446CB /* DailyQuestionDto.swift */; };
+		0E79613523F0444C008446CB /* AuthenticationTokenDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79612A23F0444B008446CB /* AuthenticationTokenDto.swift */; };
+		0E79613623F0444C008446CB /* SimpleDiaryDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79612B23F0444C008446CB /* SimpleDiaryDto.swift */; };
+		0E79613723F0444C008446CB /* UserIdDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79612C23F0444C008446CB /* UserIdDto.swift */; };
+		0E79613823F0444C008446CB /* CheckUserDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79612D23F0444C008446CB /* CheckUserDto.swift */; };
+		0E79613923F0444C008446CB /* DiariesDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79612E23F0444C008446CB /* DiariesDto.swift */; };
+		0E79613A23F0444C008446CB /* DiaryDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79612F23F0444C008446CB /* DiaryDto.swift */; };
+		0E79613B23F0444C008446CB /* HoroscopeDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79613023F0444C008446CB /* HoroscopeDto.swift */; };
+		0E79613D23F04474008446CB /* LocalTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79613C23F04474008446CB /* LocalTime.swift */; };
 		0EDB40F023CA54350020B0EF /* Constellation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40EF23CA54350020B0EF /* Constellation.swift */; };
 		0EDB40F223CA54830020B0EF /* ConstellationSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40F123CA54830020B0EF /* ConstellationSelectionViewController.swift */; };
 		0EDB40F523CA56140020B0EF /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40F423CA56140020B0EF /* Reusable.swift */; };
@@ -50,9 +36,7 @@
 		0EDB41AC23CE2C1D0020B0EF /* InputFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB41AB23CE2C1D0020B0EF /* InputFormView.swift */; };
 		0EDB41AF23CE79240020B0EF /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB41AE23CE79240020B0EF /* SignUpViewController.swift */; };
 		0EEB411623E45962000AE851 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEB411523E45961000AE851 /* UIView+.swift */; };
-
 		0EEB412B23E481BB000AE851 /* FindIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEB412A23E481BB000AE851 /* FindIDViewController.swift */; };
-
 		9CF049FC23A918B400A85BEC /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF049FA23A918B400A85BEC /* SideMenuViewController.swift */; };
 		9CF049FD23A918B400A85BEC /* SideMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CF049FB23A918B400A85BEC /* SideMenuViewController.xib */; };
 		9CF04A0023A92F5D00A85BEC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF049FE23A92F5D00A85BEC /* SettingsViewController.swift */; };
@@ -101,35 +85,21 @@
 		0E32728F2389BDE000EF36B4 /* DateFormatter+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+.swift"; sourceTree = "<group>"; };
 		0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Resource.swift"; sourceTree = "<group>"; };
 		0E3272952389C37300EF36B4 /* FortuneDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FortuneDetailViewController.swift; sourceTree = "<group>"; };
-		0E7960CE23EEAD4B008446CB /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
-		0E7960D423EEADFE008446CB /* LocalTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalTime.swift; sourceTree = "<group>"; };
-		0E7960D623EEADFE008446CB /* ResHoroscopeDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResHoroscopeDto.swift; sourceTree = "<group>"; };
-		0E7960D723EEADFE008446CB /* ResSimpleDiaryDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResSimpleDiaryDto.swift; sourceTree = "<group>"; };
-		0E7960D823EEADFE008446CB /* ResUserInfoDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResUserInfoDto.swift; sourceTree = "<group>"; };
-		0E7960D923EEADFE008446CB /* ResDailyQuestionDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResDailyQuestionDto.swift; sourceTree = "<group>"; };
-		0E7960DA23EEADFE008446CB /* ResDiariesDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResDiariesDto.swift; sourceTree = "<group>"; };
-		0E7960DB23EEADFE008446CB /* ResTokenDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResTokenDto.swift; sourceTree = "<group>"; };
-		0E7960DC23EEADFE008446CB /* ResDiaryDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResDiaryDto.swift; sourceTree = "<group>"; };
-		0E7960DD23EEADFE008446CB /* ResUserDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResUserDto.swift; sourceTree = "<group>"; };
-		0E7960DE23EEADFE008446CB /* ResAuthenticationTokenDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResAuthenticationTokenDto.swift; sourceTree = "<group>"; };
-		0E7960DF23EEADFE008446CB /* ResCheckUserDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResCheckUserDto.swift; sourceTree = "<group>"; };
-		0E7960E023EEADFE008446CB /* ResUserIdDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResUserIdDto.swift; sourceTree = "<group>"; };
-		0E7960E223EEADFE008446CB /* ReqModifyHoroscopeTimeDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqModifyHoroscopeTimeDto.swift; sourceTree = "<group>"; };
-		0E7960E323EEADFE008446CB /* ReqModifyHoroscopeAlarmDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqModifyHoroscopeAlarmDto.swift; sourceTree = "<group>"; };
-		0E7960E423EEADFE008446CB /* ReqValidationSignUpNumberDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqValidationSignUpNumberDto.swift; sourceTree = "<group>"; };
-		0E7960E523EEADFE008446CB /* ReqModifyQuestionTimeDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqModifyQuestionTimeDto.swift; sourceTree = "<group>"; };
-		0E7960E623EEADFE008446CB /* ReqSignInDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqSignInDto.swift; sourceTree = "<group>"; };
-		0E7960E723EEADFE008446CB /* ReqFindPasswordNumberDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqFindPasswordNumberDto.swift; sourceTree = "<group>"; };
-		0E7960E823EEADFE008446CB /* ReqModifyConstellationDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqModifyConstellationDto.swift; sourceTree = "<group>"; };
-		0E7960E923EEADFE008446CB /* ReqSignUpNumberDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqSignUpNumberDto.swift; sourceTree = "<group>"; };
-		0E7960EA23EEADFE008446CB /* ReqValidationFindPasswordNumberDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqValidationFindPasswordNumberDto.swift; sourceTree = "<group>"; };
-		0E7960EB23EEADFE008446CB /* ReqSignUpDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqSignUpDto.swift; sourceTree = "<group>"; };
-		0E7960EC23EEADFE008446CB /* ReqModifyPasswordDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqModifyPasswordDto.swift; sourceTree = "<group>"; };
-		0E7960ED23EEADFE008446CB /* ReqModifyQuestionAlarmDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqModifyQuestionAlarmDto.swift; sourceTree = "<group>"; };
-		0E7960EE23EEADFE008446CB /* ReqModifyDiaryDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqModifyDiaryDto.swift; sourceTree = "<group>"; };
-		0E7960EF23EEADFE008446CB /* ReqWriteDiaryDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqWriteDiaryDto.swift; sourceTree = "<group>"; };
-		0E79610B23EEB577008446CB /* AuthenticatedAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatedAPI.swift; sourceTree = "<group>"; };
 		0E79610D23EF2103008446CB /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		0E79612223F04442008446CB /* AuthenticatedAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticatedAPI.swift; sourceTree = "<group>"; };
+		0E79612323F04443008446CB /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		0E79612623F0444B008446CB /* TokenDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenDto.swift; sourceTree = "<group>"; };
+		0E79612723F0444B008446CB /* UserDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDto.swift; sourceTree = "<group>"; };
+		0E79612823F0444B008446CB /* UserInfoDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoDto.swift; sourceTree = "<group>"; };
+		0E79612923F0444B008446CB /* DailyQuestionDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyQuestionDto.swift; sourceTree = "<group>"; };
+		0E79612A23F0444B008446CB /* AuthenticationTokenDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationTokenDto.swift; sourceTree = "<group>"; };
+		0E79612B23F0444C008446CB /* SimpleDiaryDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleDiaryDto.swift; sourceTree = "<group>"; };
+		0E79612C23F0444C008446CB /* UserIdDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserIdDto.swift; sourceTree = "<group>"; };
+		0E79612D23F0444C008446CB /* CheckUserDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckUserDto.swift; sourceTree = "<group>"; };
+		0E79612E23F0444C008446CB /* DiariesDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiariesDto.swift; sourceTree = "<group>"; };
+		0E79612F23F0444C008446CB /* DiaryDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryDto.swift; sourceTree = "<group>"; };
+		0E79613023F0444C008446CB /* HoroscopeDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoroscopeDto.swift; sourceTree = "<group>"; };
+		0E79613C23F04474008446CB /* LocalTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalTime.swift; sourceTree = "<group>"; };
 		0EDB40EF23CA54350020B0EF /* Constellation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constellation.swift; sourceTree = "<group>"; };
 		0EDB40F123CA54830020B0EF /* ConstellationSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstellationSelectionViewController.swift; sourceTree = "<group>"; };
 		0EDB40F423CA56140020B0EF /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
@@ -139,7 +109,6 @@
 		0EDB41AB23CE2C1D0020B0EF /* InputFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFormView.swift; sourceTree = "<group>"; };
 		0EDB41AE23CE79240020B0EF /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		0EEB411523E45961000AE851 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
-
 		0EEB412A23E481BB000AE851 /* FindIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIDViewController.swift; sourceTree = "<group>"; };
 		9CF049FA23A918B400A85BEC /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		9CF049FB23A918B400A85BEC /* SideMenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SideMenuViewController.xib; sourceTree = "<group>"; };
@@ -252,15 +221,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		0E32727D2389622700EF36B4 /* Networks */ = {
-			isa = PBXGroup;
-			children = (
-				0E79610A23EEB55F008446CB /* APIs */,
-				0E7960D323EEADFE008446CB /* Dto */,
-			);
-			path = Networks;
-			sourceTree = "<group>";
-		};
 		0E32728B2389BD3C00EF36B4 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -286,62 +246,41 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		0E7960D323EEADFE008446CB /* Dto */ = {
+		0E79611E23F04412008446CB /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				0E7960D423EEADFE008446CB /* LocalTime.swift */,
-				0E7960D523EEADFE008446CB /* Response */,
-				0E7960E123EEADFE008446CB /* Request */,
+				0E79612123F04435008446CB /* Response */,
+				0E79612023F0442B008446CB /* APIs */,
+				0E79613C23F04474008446CB /* LocalTime.swift */,
 			);
-			path = Dto;
+			path = Networking;
 			sourceTree = "<group>";
 		};
-		0E7960D523EEADFE008446CB /* Response */ = {
+		0E79612023F0442B008446CB /* APIs */ = {
 			isa = PBXGroup;
 			children = (
-				0E7960D623EEADFE008446CB /* ResHoroscopeDto.swift */,
-				0E7960D723EEADFE008446CB /* ResSimpleDiaryDto.swift */,
-				0E7960D823EEADFE008446CB /* ResUserInfoDto.swift */,
-				0E7960D923EEADFE008446CB /* ResDailyQuestionDto.swift */,
-				0E7960DA23EEADFE008446CB /* ResDiariesDto.swift */,
-				0E7960DB23EEADFE008446CB /* ResTokenDto.swift */,
-				0E7960DC23EEADFE008446CB /* ResDiaryDto.swift */,
-				0E7960DD23EEADFE008446CB /* ResUserDto.swift */,
-				0E7960DE23EEADFE008446CB /* ResAuthenticationTokenDto.swift */,
-				0E7960DF23EEADFE008446CB /* ResCheckUserDto.swift */,
-				0E7960E023EEADFE008446CB /* ResUserIdDto.swift */,
-			);
-			path = Response;
-			sourceTree = "<group>";
-		};
-		0E7960E123EEADFE008446CB /* Request */ = {
-			isa = PBXGroup;
-			children = (
-				0E7960E223EEADFE008446CB /* ReqModifyHoroscopeTimeDto.swift */,
-				0E7960E323EEADFE008446CB /* ReqModifyHoroscopeAlarmDto.swift */,
-				0E7960E423EEADFE008446CB /* ReqValidationSignUpNumberDto.swift */,
-				0E7960E523EEADFE008446CB /* ReqModifyQuestionTimeDto.swift */,
-				0E7960E623EEADFE008446CB /* ReqSignInDto.swift */,
-				0E7960E723EEADFE008446CB /* ReqFindPasswordNumberDto.swift */,
-				0E7960E823EEADFE008446CB /* ReqModifyConstellationDto.swift */,
-				0E7960E923EEADFE008446CB /* ReqSignUpNumberDto.swift */,
-				0E7960EA23EEADFE008446CB /* ReqValidationFindPasswordNumberDto.swift */,
-				0E7960EB23EEADFE008446CB /* ReqSignUpDto.swift */,
-				0E7960EC23EEADFE008446CB /* ReqModifyPasswordDto.swift */,
-				0E7960ED23EEADFE008446CB /* ReqModifyQuestionAlarmDto.swift */,
-				0E7960EE23EEADFE008446CB /* ReqModifyDiaryDto.swift */,
-				0E7960EF23EEADFE008446CB /* ReqWriteDiaryDto.swift */,
-			);
-			path = Request;
-			sourceTree = "<group>";
-		};
-		0E79610A23EEB55F008446CB /* APIs */ = {
-			isa = PBXGroup;
-			children = (
-				0E7960CE23EEAD4B008446CB /* API.swift */,
-				0E79610B23EEB577008446CB /* AuthenticatedAPI.swift */,
+				0E79612323F04443008446CB /* API.swift */,
+				0E79612223F04442008446CB /* AuthenticatedAPI.swift */,
 			);
 			path = APIs;
+			sourceTree = "<group>";
+		};
+		0E79612123F04435008446CB /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				0E79612A23F0444B008446CB /* AuthenticationTokenDto.swift */,
+				0E79612D23F0444C008446CB /* CheckUserDto.swift */,
+				0E79612923F0444B008446CB /* DailyQuestionDto.swift */,
+				0E79612E23F0444C008446CB /* DiariesDto.swift */,
+				0E79612F23F0444C008446CB /* DiaryDto.swift */,
+				0E79613023F0444C008446CB /* HoroscopeDto.swift */,
+				0E79612B23F0444C008446CB /* SimpleDiaryDto.swift */,
+				0E79612623F0444B008446CB /* TokenDto.swift */,
+				0E79612723F0444B008446CB /* UserDto.swift */,
+				0E79612C23F0444C008446CB /* UserIdDto.swift */,
+				0E79612823F0444B008446CB /* UserInfoDto.swift */,
+			);
+			path = Response;
 			sourceTree = "<group>";
 		};
 		0EDB40F323CA56060020B0EF /* Common */ = {
@@ -427,9 +366,8 @@
 		D5D0F66E23890DC500DA3169 /* StarStarDiary */ = {
 			isa = PBXGroup;
 			children = (
+				0E79611E23F04412008446CB /* Networking */,
 				D54F6D0223E4609D001DA319 /* Resources */,
-				0E34EF1C23EB449100D2914D /* Dto */,
-				0E7960CD23EEAD31008446CB /* Network */,
 				0EDB40F323CA56060020B0EF /* Common */,
 				D5D0F66F23890DC500DA3169 /* AppDelegate.swift */,
 				0E32727A2389621600EF36B4 /* ViewControllers */,
@@ -502,7 +440,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBF6324F23EDD77E006E60FF /* GoogleService-Info.plist in Resources */,
-				0E34EF1D23EB449100D2914D /* Dto in Resources */,
 				9CF049FD23A918B400A85BEC /* SideMenuViewController.xib in Resources */,
 				D5847DF423E56C8500D8BA8E /* KoreanYMJ-B.otf in Resources */,
 				D54F6D0D23E46475001DA319 /* NotoSansCJKkr-Medium.otf in Resources */,
@@ -585,38 +522,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E7960F023EEAE58008446CB /* LocalTime.swift in Sources */,
-				0E7960F123EEAE58008446CB /* ResHoroscopeDto.swift in Sources */,
-				0E7960F223EEAE58008446CB /* ResSimpleDiaryDto.swift in Sources */,
-				0E7960F323EEAE58008446CB /* ResUserInfoDto.swift in Sources */,
-				0E7960F423EEAE58008446CB /* ResDailyQuestionDto.swift in Sources */,
-				0E7960F523EEAE58008446CB /* ResDiariesDto.swift in Sources */,
-				0E7960F623EEAE58008446CB /* ResTokenDto.swift in Sources */,
-				0E7960F723EEAE58008446CB /* ResDiaryDto.swift in Sources */,
-				0E7960F823EEAE58008446CB /* ResUserDto.swift in Sources */,
-				0E7960F923EEAE58008446CB /* ResAuthenticationTokenDto.swift in Sources */,
-				0E7960FA23EEAE58008446CB /* ResCheckUserDto.swift in Sources */,
-				0E7960FB23EEAE58008446CB /* ResUserIdDto.swift in Sources */,
-				0E7960FC23EEAE58008446CB /* ReqModifyHoroscopeTimeDto.swift in Sources */,
-				0E7960FD23EEAE58008446CB /* ReqModifyHoroscopeAlarmDto.swift in Sources */,
 				0E79610E23EF2103008446CB /* String+.swift in Sources */,
-				0E7960FE23EEAE58008446CB /* ReqValidationSignUpNumberDto.swift in Sources */,
-				0E7960FF23EEAE58008446CB /* ReqModifyQuestionTimeDto.swift in Sources */,
-				0E79610023EEAE58008446CB /* ReqSignInDto.swift in Sources */,
-				0E79610123EEAE58008446CB /* ReqFindPasswordNumberDto.swift in Sources */,
-				0E79610223EEAE58008446CB /* ReqModifyConstellationDto.swift in Sources */,
-				0E79610323EEAE58008446CB /* ReqSignUpNumberDto.swift in Sources */,
-				0E79610423EEAE58008446CB /* ReqValidationFindPasswordNumberDto.swift in Sources */,
-				0E79610523EEAE58008446CB /* ReqSignUpDto.swift in Sources */,
-				0E79610623EEAE58008446CB /* ReqModifyPasswordDto.swift in Sources */,
-				0E79610723EEAE58008446CB /* ReqModifyQuestionAlarmDto.swift in Sources */,
-				0E79610C23EEB577008446CB /* AuthenticatedAPI.swift in Sources */,
-				0E79610823EEAE58008446CB /* ReqModifyDiaryDto.swift in Sources */,
-				0E79610923EEAE58008446CB /* ReqWriteDiaryDto.swift in Sources */,
 				DBAF024023AE2B480044E2DD /* Bundle+appVersion.swift in Sources */,
 				D5D0F67223890DC500DA3169 /* ViewController.swift in Sources */,
 				D5D0F67823890DC500DA3169 /* StarStarDiary.xcdatamodeld in Sources */,
 				D54F6CFF23DC824A001DA319 /* FortuneItem.swift in Sources */,
+				0E79613623F0444C008446CB /* SimpleDiaryDto.swift in Sources */,
 				DBF122F02389673300EFE5B2 /* WriteViewController.swift in Sources */,
 				0E3272962389C37300EF36B4 /* FortuneDetailViewController.swift in Sources */,
 				DBAF024823AE57B80044E2DD /* BaseTableViewHeaderFooterView.swift in Sources */,
@@ -626,33 +537,45 @@
 				0E3272962389C37300EF36B4 /* FortuneDetailViewController.swift in Sources */,
 				9CF049FC23A918B400A85BEC /* SideMenuViewController.swift in Sources */,
 				D54F6CF023BB53D4001DA319 /* Diary.swift in Sources */,
+				0E79613123F0444C008446CB /* TokenDto.swift in Sources */,
+				0E79613923F0444C008446CB /* DiariesDto.swift in Sources */,
+				0E79613223F0444C008446CB /* UserDto.swift in Sources */,
 				0EDB40F723CA568C0020B0EF /* UICollectionView+.swift in Sources */,
 				D5D0F67023890DC500DA3169 /* AppDelegate.swift in Sources */,
+				0E79612423F04443008446CB /* AuthenticatedAPI.swift in Sources */,
+				0E79613D23F04474008446CB /* LocalTime.swift in Sources */,
 				D54F6D0823E46339001DA319 /* UIFont+.swift in Sources */,
 				0EDB41AF23CE79240020B0EF /* SignUpViewController.swift in Sources */,
-				0E7960CF23EEAD4B008446CB /* API.swift in Sources */,
 				0E3272922389BDE000EF36B4 /* UIColor+Resource.swift in Sources */,
+				0E79613A23F0444C008446CB /* DiaryDto.swift in Sources */,
+				0E79613823F0444C008446CB /* CheckUserDto.swift in Sources */,
 				0E3272912389BDE000EF36B4 /* DateFormatter+.swift in Sources */,
 				0EEB412B23E481BB000AE851 /* FindIDViewController.swift in Sources */,
+				0E79613523F0444C008446CB /* AuthenticationTokenDto.swift in Sources */,
 				D54F6CF723BB60D4001DA319 /* Date+.swift in Sources */,
+				0E79613423F0444C008446CB /* DailyQuestionDto.swift in Sources */,
 				D54F6D0123DC95E5001DA319 /* FortuneItemView.swift in Sources */,
 				D54F6CFB23BB7499001DA319 /* DiaryTableHeaderView.swift in Sources */,
 				D5F23D2D23AA9D45002F8127 /* UserDefaults+.swift in Sources */,
 				D5847DF923F0104300D8BA8E /* ConstellationSelectionViewFlowLayout.swift in Sources */,
 				DBAF024523AE32940044E2DD /* BaseTableViewCell.swift in Sources */,
 				D544F2862389672C009B3967 /* MainViewController.swift in Sources */,
+				0E79613B23F0444C008446CB /* HoroscopeDto.swift in Sources */,
 				D54F6CFD23DC7EA4001DA319 /* FortuneHeaderView.swift in Sources */,
 				D54F6CEE23BB5353001DA319 /* DiaryTableViewCell.swift in Sources */,
 				0EDB41AC23CE2C1D0020B0EF /* InputFormView.swift in Sources */,
 				DBF6325123EF038B006E60FF /* DiaryCalendarViewController.swift in Sources */,
 				0EDB41AC23CE2C1D0020B0EF /* InputFormView.swift in Sources */,
 				0EDB41AA23CE25EE0020B0EF /* VarifyEmailViewController.swift in Sources */,
+				0E79612523F04443008446CB /* API.swift in Sources */,
 				0EDB41AA23CE25EE0020B0EF /* VarifyEmailViewController.swift in Sources */,
 				D544F28A23898405009B3967 /* DateFormatter+.swift in Sources */,
+				0E79613723F0444C008446CB /* UserIdDto.swift in Sources */,
 				D5F23D2F23AA9E4C002F8127 /* OnBoardingViewController.swift in Sources */,
 				0EDB40F523CA56140020B0EF /* Reusable.swift in Sources */,
 				0EDB40F223CA54830020B0EF /* ConstellationSelectionViewController.swift in Sources */,
 				0EEB411623E45962000AE851 /* UIView+.swift in Sources */,
+				0E79613323F0444C008446CB /* UserInfoDto.swift in Sources */,
 				DB09E1722389A4B400760C86 /* BaseNavigationView.swift in Sources */,
 				0EDB40F023CA54350020B0EF /* Constellation.swift in Sources */,
 				0EDB40FA23CA5D210020B0EF /* ConstellationCell.swift in Sources */,

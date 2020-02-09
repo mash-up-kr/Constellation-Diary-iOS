@@ -1,5 +1,5 @@
 //
-//  ResDiariesDto.swift
+//  ResSimpleDiaryDto.swift
 //  MashUpAPITest
 //
 //  Created by 이동영 on 2020/02/06.
@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct ResDiariesDto: Decodable {
-    let diaries: ResSimpleDiaryDto
-    let timeZone: String
+struct SimpleDiaryDto: Decodable {
+    let date: String
+    let id: Int
+    let title: String
 }

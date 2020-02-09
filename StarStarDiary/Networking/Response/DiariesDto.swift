@@ -1,5 +1,5 @@
 //
-//  ReqValidationSignUpNumberDto.swift
+//  ResDiariesDto.swift
 //  MashUpAPITest
 //
 //  Created by 이동영 on 2020/02/06.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ReqValidationSignUpNumberDto: Encodable {
-    let email: String
-    let number: Int
+struct DiariesDto: Decodable {
+    let diaries: SimpleDiaryDto
+    let timeZone: String
 }

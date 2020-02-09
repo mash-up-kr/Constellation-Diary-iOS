@@ -1,5 +1,5 @@
 //
-//  ReqModifyPasswordDto.swift
+//  ResUserIdDto.swift
 //  MashUpAPITest
 //
 //  Created by 이동영 on 2020/02/06.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct ReqModifyPasswordDto: Encodable {
-    let password: String
+struct UserIdDto: Decodable {
+    let userId: String
 }
