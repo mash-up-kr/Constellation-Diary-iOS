@@ -81,20 +81,21 @@ extension ConstellationCell {
             $0.height.equalTo(imageView.snp.width)
             $0.centerX.equalToSuperview()
         }
+        
     }
 }
 
 // MARK: - Attributes
 
 extension ConstellationCell {
-    func setUpAttribute() {
-        contentView.do {
-            $0.layer.cornerRadius = 5
-            $0.backgroundColor = UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.14)
+    
+    override var isSelected: Bool {
+        didSet {
+            self.backgroundView?.isHidden = self.isSelected
+            self.selectedBackgroundView?.isHidden = !self.isSelected
         }
-        self.contentView.layer.shadowColor = UIColor.white.cgColor
-        self.contentView.layer.shadowRadius = 5
-        
+    }
+    func setUpAttribute() {
         nameLabel.do {
             $0.font = .font(.notoSerifCJKMedium, size: 16)
             $0.textColor = .white
@@ -106,11 +107,25 @@ extension ConstellationCell {
             $0.textColor = UIColor(white: 1, alpha: 0.65)
             $0.textAlignment = .center
         }
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.init(white: 1, alpha: 0.14)
+        self.backgroundView = backgroundView
+
+        let shadowBackgroundView = UIView()
+        shadowBackgroundView.backgroundColor = .clear
+        shadowBackgroundView.layer.borderColor = UIColor.white.cgColor
+        shadowBackgroundView.layer.borderWidth = 1
+        shadowBackgroundView.layer.shadowColor = UIColor.white.cgColor
+        shadowBackgroundView.layer.shadowRadius = 8
+        shadowBackgroundView.layer.shadowOpacity = 1
+        shadowBackgroundView.layer.shadowOffset = .zero
+        shadowBackgroundView.layer.cornerRadius = 5
+
+        selectedBackgroundView = shadowBackgroundView
+
     }
 }
 
 // MARK: - Reusable
 
 extension ConstellationCell: Reusable {}
-
-
