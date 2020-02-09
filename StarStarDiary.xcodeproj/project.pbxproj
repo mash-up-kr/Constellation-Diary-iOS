@@ -243,14 +243,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		0E79611E23F04412008446CB /* Networking */ = {
+		0E79611E23F04412008446CB /* Networks */ = {
 			isa = PBXGroup;
 			children = (
 				0E79612123F04435008446CB /* Response */,
 				0E79612023F0442B008446CB /* APIs */,
 				0E79613C23F04474008446CB /* LocalTime.swift */,
 			);
-			path = Networking;
+			path = Networks;
 			sourceTree = "<group>";
 		};
 		0E79612023F0442B008446CB /* APIs */ = {
@@ -363,7 +363,7 @@
 		D5D0F66E23890DC500DA3169 /* StarStarDiary */ = {
 			isa = PBXGroup;
 			children = (
-				0E79611E23F04412008446CB /* Networking */,
+				0E79611E23F04412008446CB /* Networks */,
 				D54F6D0223E4609D001DA319 /* Resources */,
 				0EDB40F323CA56060020B0EF /* Common */,
 				D5D0F66F23890DC500DA3169 /* AppDelegate.swift */,
