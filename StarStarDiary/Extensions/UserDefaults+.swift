@@ -13,6 +13,7 @@ extension UserDefaults {
     private static let defaults = UserDefaults.standard
     private static let currentTokenKey = "currentToken"
     private static let refreshTokenKey = "refreshToken"
+    private static let constellationKey = "constellation"
 
     static var currentToken: String? = defaults.string(forKey: currentTokenKey) {
         willSet(newValue) {
@@ -26,4 +27,10 @@ extension UserDefaults {
         }
     }
 
+    static var constellation: Constellation = .aries {
+        willSet(newValue) {
+            defaults.set(newValue.rawValue, forKey: currentTokenKey)
+        }
+    }
+    
 }
