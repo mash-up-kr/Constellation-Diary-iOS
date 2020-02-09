@@ -88,13 +88,7 @@ extension ConstellationCell {
 // MARK: - Attributes
 
 extension ConstellationCell {
-    
-    override var isSelected: Bool {
-        didSet {
-            self.backgroundView?.isHidden = self.isSelected
-            self.selectedBackgroundView?.isHidden = !self.isSelected
-        }
-    }
+
     func setUpAttribute() {
         nameLabel.do {
             $0.font = .font(.notoSerifCJKMedium, size: 16)
@@ -109,20 +103,19 @@ extension ConstellationCell {
         }
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor.init(white: 1, alpha: 0.14)
+        backgroundView.layer.cornerRadius = 5
         self.backgroundView = backgroundView
 
-        let shadowBackgroundView = UIView()
-        shadowBackgroundView.backgroundColor = .clear
-        shadowBackgroundView.layer.borderColor = UIColor.white.cgColor
-        shadowBackgroundView.layer.borderWidth = 1
-        shadowBackgroundView.layer.shadowColor = UIColor.white.cgColor
-        shadowBackgroundView.layer.shadowRadius = 8
-        shadowBackgroundView.layer.shadowOpacity = 1
-        shadowBackgroundView.layer.shadowOffset = .zero
-        shadowBackgroundView.layer.cornerRadius = 5
-
-        selectedBackgroundView = shadowBackgroundView
-
+        let shadowBackgroundView = UIImageView()
+        shadowBackgroundView.image = UIImage(named: "cardSelect")
+        shadowBackgroundView.contentMode = .scaleToFill
+        self.selectedBackgroundView = shadowBackgroundView
+        
+        shadowBackgroundView.snp.makeConstraints {
+            $0.leading.top.equalToSuperview().inset(-8)
+            $0.trailing.bottom.equalToSuperview().offset(8)
+        }
+        
     }
 }
 

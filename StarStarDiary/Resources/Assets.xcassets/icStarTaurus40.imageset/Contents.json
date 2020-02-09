@@ -2,18 +2,18 @@
   "images" : [
     {
       "scale" : "1x",
-      "idiom" : "universal",
-      "filename" : "icStarTaurus40.png"
+      "filename" : "icStarTaurus40.png",
+      "idiom" : "universal"
     },
     {
-      "scale" : "2x",
       "filename" : "icStarTaurus40@2x.png",
+      "scale" : "2x",
       "idiom" : "universal"
     },
     {
-      "scale" : "3x",
+      "idiom" : "universal",
       "filename" : "icStarTaurus40@3x.png",
-      "idiom" : "universal"
+      "scale" : "3x"
     }
   ],
   "info" : {

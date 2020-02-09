@@ -1,8 +1,8 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
       "filename" : "icStarLeo40.png",
+      "idiom" : "universal",
       "scale" : "1x"
     },
     {
@@ -11,9 +11,9 @@
       "filename" : "icStarLeo40@2x.png"
     },
     {
-      "filename" : "icStarLeo40@3x.png",
+      "idiom" : "universal",
       "scale" : "3x",
-      "idiom" : "universal"
+      "filename" : "icStarLeo40@3x.png"
     }
   ],
   "info" : {
