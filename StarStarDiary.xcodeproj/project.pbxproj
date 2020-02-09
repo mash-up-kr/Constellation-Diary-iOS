@@ -43,6 +43,7 @@
 		D5847DF323E56C8500D8BA8E /* KoreanYMJ-M.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DEF23E56C8500D8BA8E /* KoreanYMJ-M.otf */; };
 		D5847DF423E56C8500D8BA8E /* KoreanYMJ-B.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DF023E56C8500D8BA8E /* KoreanYMJ-B.otf */; };
 		D5847DF523E56C8500D8BA8E /* KoreanYMJ-L.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DF123E56C8500D8BA8E /* KoreanYMJ-L.otf */; };
+		D5847DF923F0104300D8BA8E /* ConstellationSelectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5847DF823F0104300D8BA8E /* ConstellationSelectionViewFlowLayout.swift */; };
 		D5D0F67023890DC500DA3169 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D0F66F23890DC500DA3169 /* AppDelegate.swift */; };
 		D5D0F67223890DC500DA3169 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D0F67123890DC500DA3169 /* ViewController.swift */; };
 		D5D0F67523890DC500DA3169 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5D0F67323890DC500DA3169 /* Main.storyboard */; };
@@ -101,6 +102,7 @@
 		D5847DEF23E56C8500D8BA8E /* KoreanYMJ-M.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KoreanYMJ-M.otf"; sourceTree = "<group>"; };
 		D5847DF023E56C8500D8BA8E /* KoreanYMJ-B.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KoreanYMJ-B.otf"; sourceTree = "<group>"; };
 		D5847DF123E56C8500D8BA8E /* KoreanYMJ-L.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KoreanYMJ-L.otf"; sourceTree = "<group>"; };
+		D5847DF823F0104300D8BA8E /* ConstellationSelectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstellationSelectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		D5D0F66C23890DC500DA3169 /* StarStarDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarStarDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5D0F66F23890DC500DA3169 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D5D0F67123890DC500DA3169 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				D54F6CFA23BB7499001DA319 /* DiaryTableHeaderView.swift */,
 				D54F6CFC23DC7EA4001DA319 /* FortuneHeaderView.swift */,
 				D54F6D0023DC95E5001DA319 /* FortuneItemView.swift */,
+				D5847DF823F0104300D8BA8E /* ConstellationSelectionViewFlowLayout.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -470,6 +473,7 @@
 				D54F6D0123DC95E5001DA319 /* FortuneItemView.swift in Sources */,
 				D54F6CFB23BB7499001DA319 /* DiaryTableHeaderView.swift in Sources */,
 				D5F23D2D23AA9D45002F8127 /* UserDefaults+.swift in Sources */,
+				D5847DF923F0104300D8BA8E /* ConstellationSelectionViewFlowLayout.swift in Sources */,
 				DBAF024523AE32940044E2DD /* BaseTableViewCell.swift in Sources */,
 				D544F2862389672C009B3967 /* MainViewController.swift in Sources */,
 				D54F6CFD23DC7EA4001DA319 /* FortuneHeaderView.swift in Sources */,
