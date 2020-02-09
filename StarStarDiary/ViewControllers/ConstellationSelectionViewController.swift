@@ -47,7 +47,7 @@ final class ConstellationSelectionViewController: UIViewController {
 
 extension ConstellationSelectionViewController {
     private func setUpLayout() {
-        let safeArea = view.safeAreaLayoutGuide.layoutFrame
+        let safeArea = view.safeAreaLayoutGuide.snp
         view.do {
             $0.addSubview(backgrounImageView)
             $0.addSubview(constellationCollectionView)
@@ -60,22 +60,25 @@ extension ConstellationSelectionViewController {
         }
         
         constellationCollectionView.snp.makeConstraints {
-            $0.top.equalTo(safeArea.height * 0.2)
-            $0.bottom.equalToSuperview().inset(safeArea.height * 0.3)
+            $0.top.lessThanOrEqualTo(safeArea.top).offset(120)
             $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(420)
         }
         
         messageLabel.snp.makeConstraints {
-            $0.top.equalTo(constellationCollectionView.snp.bottom).offset(safeArea.height * 0.025)
-            $0.leading.trailing.equalToSuperview().inset(safeArea.width * 0.107)
-            $0.bottom.equalToSuperview().inset(safeArea.height * 0.265)
+            $0.top.equalTo(constellationCollectionView.snp.bottom).offset(30)
+            $0.top.equalTo(safeArea.bottom).inset(185)
+            $0.leading.trailing.equalToSuperview().inset(20)
         }
         
         startButton.snp.makeConstraints {
-            $0.top.equalTo(messageLabel.snp.bottom).offset(safeArea.height * 0.134)
-            $0.leading.trailing.equalToSuperview().inset(safeArea.width * 0.053)
-            $0.bottom.equalToSuperview().inset(safeArea.height * 0.067)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalTo(safeArea.bottom).inset(20)
+            $0.height.equalTo(52)
         }
+        messageLabel.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+        messageLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        
     }
 }
 
@@ -88,23 +91,26 @@ extension ConstellationSelectionViewController {
             $0.contentMode = .scaleAspectFill
         }
         
-        constellationCollectionView.do  {
+        constellationCollectionView.do {
             $0.backgroundColor = .clear
             $0.showsHorizontalScrollIndicator = false
             $0.dataSource = self
             $0.delegate = self
+            $0.contentInsetAdjustmentBehavior = .always
+            $0.collectionViewLayout = flowLayout
             $0.register(type: ConstellationCell.self)
         }
         
         messageLabel.do {
             $0.text = "당신의 별자리를 선택해 주세요"
-            // FIXME: 추후 변경
-            $0.font = .systemFont(ofSize: 14)
-            $0.textColor = .white
+            $0.font = UIFont.font(.notoSerifCJKRegular, size: 14)
+            $0.textColor = UIColor.init(white: 1, alpha: 0.65)
             $0.textAlignment = .center
+            $0.numberOfLines = 3
         }
         
         startButton.do {
+            $0.titleLabel?.font = UIFont.font(.notoSerifCJKRegular, size: 16)
             $0.setTitle("별별일기 시작하기", for: .normal)
             $0.backgroundColor = .white
             $0.setTitleColor(.black, for: .normal)
@@ -137,7 +143,8 @@ extension ConstellationSelectionViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(with: ConstellationCell.self, for: indexPath) else {
+        guard let cell = collectionView.dequeueReusableCell(with: ConstellationCell.self,
+                                                            for: indexPath) else {
             return ConstellationCell()
         }
         
