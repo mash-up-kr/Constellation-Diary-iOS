@@ -31,25 +31,25 @@ extension API: TargetType {
     }
     
     var baseURL: URL {
-        URL(string: "https://byeol-byeol.kro.kr/")!
+        URL(string: "https://byeol-byeol.kro.kr")!
     }
     
     var path: String {
         switch self {
         case .authenticationNumbersToFindPassword:
-            return "authentication-numbers/find-password"
+            return "/authentication-numbers/find-password"
         case .authenticationToFindPassword:
-            return "authentication/find-password"
+            return "/authentication/find-password"
         case .authenticationNumbersToSignUp:
-            return "authentication-numbers/sign-up"
+            return "/authentication-numbers/sign-up"
         case .authenticationToSignUp:
-            return "authentication/sign-up"
+            return "/authentication/sign-up"
         case .checkId:
-            return "users/check"
+            return "/users/check"
         case .findId:
-            return "users/find-id"
+            return "/users/find-id"
         case .signIn:
-            return "users/sign-in"
+            return "/users/sign-in"
         }
     }
     
