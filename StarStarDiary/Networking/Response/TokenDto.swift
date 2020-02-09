@@ -1,5 +1,5 @@
 //
-//  ResUserInfoDto.swift
+//  ResTokenDto.swift
 //  MashUpAPITest
 //
 //  Created by 이동영 on 2020/02/06.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ResUserInfoDto: Decodable {
-    let tokens: ResTokenDto
-    let user: ResUserDto
+struct TokenDto: Decodable {
+    let authenticationToken: String
+    let refreshToken: String
 }

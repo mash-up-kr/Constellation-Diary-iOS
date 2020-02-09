@@ -1,5 +1,5 @@
 //
-//  ReqModifyDiaryDto.swift
+//  ResDiaryDto.swift
 //  MashUpAPITest
 //
 //  Created by 이동영 on 2020/02/06.
@@ -8,7 +8,11 @@
 
 import Foundation
 
-struct ReqModifyDiaryDto: Encodable {
+struct DiaryDto: Decodable {
     let content: String
+    let date: String
+    let horoscopeId: Int
+    let id: Int
+    let timeZone: String
     let title: String
 }

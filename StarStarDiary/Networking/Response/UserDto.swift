@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ResUserDto: Decodable {
+struct UserDto: Decodable {
     let constellation: String
     let horoscopeAlarmFlag: Bool
     let horoscopeTime: LocalTime
