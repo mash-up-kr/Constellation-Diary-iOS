@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0E160CD523AA51E6000CA518 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E160CD423AA51E6000CA518 /* LoginViewController.swift */; };
 		0E160CD823ABED80000CA518 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E160CD723ABED80000CA518 /* UITextField+.swift */; };
+		0E2874C223F81E7300730C1E /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2874C123F81E7300730C1E /* NetworkError.swift */; };
 		0E3272912389BDE000EF36B4 /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E32728F2389BDE000EF36B4 /* DateFormatter+.swift */; };
 		0E3272922389BDE000EF36B4 /* UIColor+Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */; };
 		0E3272962389C37300EF36B4 /* FortuneDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3272952389C37300EF36B4 /* FortuneDetailViewController.swift */; };
@@ -83,6 +84,7 @@
 /* Begin PBXFileReference section */
 		0E160CD423AA51E6000CA518 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0E160CD723ABED80000CA518 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
+		0E2874C123F81E7300730C1E /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		0E32728F2389BDE000EF36B4 /* DateFormatter+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+.swift"; sourceTree = "<group>"; };
 		0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Resource.swift"; sourceTree = "<group>"; };
 		0E3272952389C37300EF36B4 /* FortuneDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FortuneDetailViewController.swift; sourceTree = "<group>"; };
@@ -171,6 +173,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E2874C023F81E6100730C1E /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				0E2874C123F81E7300730C1E /* NetworkError.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
 		0E32727A2389621600EF36B4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,6 +261,7 @@
 		0E79611E23F04412008446CB /* Networks */ = {
 			isa = PBXGroup;
 			children = (
+				0E2874C023F81E6100730C1E /* Error */,
 				0E79612123F04435008446CB /* Response */,
 				0E79612023F0442B008446CB /* APIs */,
 				0E79613C23F04474008446CB /* LocalTime.swift */,
@@ -584,6 +595,7 @@
 				0EDB40F023CA54350020B0EF /* Constellation.swift in Sources */,
 				0EDB40FA23CA5D210020B0EF /* ConstellationCell.swift in Sources */,
 				DB9EA41523AE90A000F4488D /* DiaryListViewController.swift in Sources */,
+				0E2874C223F81E7300730C1E /* NetworkError.swift in Sources */,
 				9CF04A0023A92F5D00A85BEC /* SettingsViewController.swift in Sources */,
 				0E160CD523AA51E6000CA518 /* LoginViewController.swift in Sources */,
 			);
