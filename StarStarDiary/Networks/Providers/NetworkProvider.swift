@@ -50,7 +50,7 @@ final class NetworkProvider: Provider {
     }
     
     func checkId(id: String,
-                 successHandler: @escaping () -> Void,
+                 successHandler: @escaping (CheckUserDto) -> Void,
                  errorHandler: @escaping (Error) -> Void) {
         request(.checkId(id: id),
                 completion: successHandler,
@@ -58,7 +58,7 @@ final class NetworkProvider: Provider {
     }
     
     func findId(email: String,
-                successHandler: @escaping () -> Void,
+                successHandler: @escaping (UserIdDto) -> Void,
                 errorHandler: @escaping (Error) -> Void) {
         request(.findId(email: email),
                 completion: successHandler,
@@ -68,7 +68,7 @@ final class NetworkProvider: Provider {
     func signIn(fcmToken: String,
                 password: String,
                 userId: String,
-                successHandler: @escaping () -> Void,
+                successHandler: @escaping (UserInfoDto) -> Void,
                 errorHandler: @escaping (Error) -> Void) {
         request(.signIn(fcmToken: fcmToken, password: password, userId: userId),
                 completion: successHandler,
