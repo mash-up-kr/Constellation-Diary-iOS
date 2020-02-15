@@ -13,7 +13,7 @@
 		0E3272922389BDE000EF36B4 /* UIColor+Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */; };
 		0E3272962389C37300EF36B4 /* FortuneDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3272952389C37300EF36B4 /* FortuneDetailViewController.swift */; };
 		0E79610E23EF2103008446CB /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79610D23EF2103008446CB /* String+.swift */; };
-		0E79612423F04443008446CB /* AuthenticatedAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79612223F04442008446CB /* AuthenticatedAPI.swift */; };
+		0E79612423F04443008446CB /* DiaryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79612223F04442008446CB /* DiaryAPI.swift */; };
 		0E79612523F04443008446CB /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79612323F04443008446CB /* API.swift */; };
 		0E79613123F0444C008446CB /* TokenDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79612623F0444B008446CB /* TokenDto.swift */; };
 		0E79613223F0444C008446CB /* UserDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79612723F0444B008446CB /* UserDto.swift */; };
@@ -27,6 +27,7 @@
 		0E79613A23F0444C008446CB /* DiaryDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79612F23F0444C008446CB /* DiaryDto.swift */; };
 		0E79613B23F0444C008446CB /* HoroscopeDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79613023F0444C008446CB /* HoroscopeDto.swift */; };
 		0E79613D23F04474008446CB /* LocalTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79613C23F04474008446CB /* LocalTime.swift */; };
+		0E79613F23F04FB1008446CB /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79613E23F04FB1008446CB /* NetworkService.swift */; };
 		0EDB40F023CA54350020B0EF /* Constellation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40EF23CA54350020B0EF /* Constellation.swift */; };
 		0EDB40F223CA54830020B0EF /* ConstellationSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40F123CA54830020B0EF /* ConstellationSelectionViewController.swift */; };
 		0EDB40F523CA56140020B0EF /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40F423CA56140020B0EF /* Reusable.swift */; };
@@ -86,7 +87,7 @@
 		0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Resource.swift"; sourceTree = "<group>"; };
 		0E3272952389C37300EF36B4 /* FortuneDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FortuneDetailViewController.swift; sourceTree = "<group>"; };
 		0E79610D23EF2103008446CB /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
-		0E79612223F04442008446CB /* AuthenticatedAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticatedAPI.swift; sourceTree = "<group>"; };
+		0E79612223F04442008446CB /* DiaryAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryAPI.swift; sourceTree = "<group>"; };
 		0E79612323F04443008446CB /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		0E79612623F0444B008446CB /* TokenDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenDto.swift; sourceTree = "<group>"; };
 		0E79612723F0444B008446CB /* UserDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDto.swift; sourceTree = "<group>"; };
@@ -100,6 +101,7 @@
 		0E79612F23F0444C008446CB /* DiaryDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryDto.swift; sourceTree = "<group>"; };
 		0E79613023F0444C008446CB /* HoroscopeDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoroscopeDto.swift; sourceTree = "<group>"; };
 		0E79613C23F04474008446CB /* LocalTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalTime.swift; sourceTree = "<group>"; };
+		0E79613E23F04FB1008446CB /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		0EDB40EF23CA54350020B0EF /* Constellation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constellation.swift; sourceTree = "<group>"; };
 		0EDB40F123CA54830020B0EF /* ConstellationSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstellationSelectionViewController.swift; sourceTree = "<group>"; };
 		0EDB40F423CA56140020B0EF /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 				0E79612123F04435008446CB /* Response */,
 				0E79612023F0442B008446CB /* APIs */,
 				0E79613C23F04474008446CB /* LocalTime.swift */,
+				0E79613E23F04FB1008446CB /* NetworkService.swift */,
 			);
 			path = Networks;
 			sourceTree = "<group>";
@@ -260,7 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				0E79612323F04443008446CB /* API.swift */,
-				0E79612223F04442008446CB /* AuthenticatedAPI.swift */,
+				0E79612223F04442008446CB /* DiaryAPI.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -542,7 +545,7 @@
 				0E79613223F0444C008446CB /* UserDto.swift in Sources */,
 				0EDB40F723CA568C0020B0EF /* UICollectionView+.swift in Sources */,
 				D5D0F67023890DC500DA3169 /* AppDelegate.swift in Sources */,
-				0E79612423F04443008446CB /* AuthenticatedAPI.swift in Sources */,
+				0E79612423F04443008446CB /* DiaryAPI.swift in Sources */,
 				0E79613D23F04474008446CB /* LocalTime.swift in Sources */,
 				D54F6D0823E46339001DA319 /* UIFont+.swift in Sources */,
 				0EDB41AF23CE79240020B0EF /* SignUpViewController.swift in Sources */,
@@ -574,6 +577,7 @@
 				D5F23D2F23AA9E4C002F8127 /* OnBoardingViewController.swift in Sources */,
 				0EDB40F523CA56140020B0EF /* Reusable.swift in Sources */,
 				0EDB40F223CA54830020B0EF /* ConstellationSelectionViewController.swift in Sources */,
+				0E79613F23F04FB1008446CB /* NetworkService.swift in Sources */,
 				0EEB411623E45962000AE851 /* UIView+.swift in Sources */,
 				0E79613323F0444C008446CB /* UserInfoDto.swift in Sources */,
 				DB09E1722389A4B400760C86 /* BaseNavigationView.swift in Sources */,

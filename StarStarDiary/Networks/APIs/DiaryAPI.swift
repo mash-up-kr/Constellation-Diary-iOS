@@ -16,7 +16,7 @@ protocol Authenticated {
     var refreshToken: Token { get }
 }
 
-enum AuthenticatedAPI {
+enum DiaryAPI {
     case dailyQuestions(date: String)
     
     case diaries(month: Int, year: Int)
@@ -41,7 +41,7 @@ enum AuthenticatedAPI {
     case refreshToken
 }
 
-extension AuthenticatedAPI: Authenticated {
+extension DiaryAPI: Authenticated {
     var accessToken: Token {
         // FIXME: - Token 가져오는 로직 추가 예정
         return "Bearer cbbb1a6e-8614-4a4d-a967-b0a42924e7ca"
@@ -58,7 +58,7 @@ extension AuthenticatedAPI: Authenticated {
     }
 }
 
-extension AuthenticatedAPI: TargetType {
+extension DiaryAPI: TargetType {
     var baseURL: URL {
         URL(string: "https://byeol-byeol.kro.kr")!
     }
