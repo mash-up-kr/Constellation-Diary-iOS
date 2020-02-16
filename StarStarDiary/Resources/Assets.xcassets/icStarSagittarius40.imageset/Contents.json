@@ -1,14 +1,14 @@
 {
   "images" : [
     {
+      "scale" : "1x",
       "idiom" : "universal",
-      "filename" : "icStarSagittarius40.png",
-      "scale" : "1x"
+      "filename" : "icStarSagittarius40.png"
     },
     {
       "idiom" : "universal",
-      "filename" : "icStarSagittarius40@2x.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "icStarSagittarius40@2x.png"
     },
     {
       "filename" : "icStarSagittarius40@3x.png",

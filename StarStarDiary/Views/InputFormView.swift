@@ -197,8 +197,10 @@ extension InputFormView.Style {
                                                      placeholder: "비밀번호 입력",
                                                      vaildMessage: "비밀번호 불일치")
     static let email = InputFormView.Style(title: "이메일",
-                                           placeholder: "이메일 입력",
-                                           verificationImage: #imageLiteral(resourceName: "icComplete24White"))
+                                           placeholder: "이메일 입력")
+    static let emailWithImage = InputFormView.Style(title: "이메일",
+                                                    placeholder: "이메일 입력",
+                                                    verificationImage: #imageLiteral(resourceName: "icComplete24White"))
     static let certificationNumber = InputFormView.Style(title: "인증번호",
                                                          placeholder: "인증번호 입력",
                                                          timerString: "3:00",
