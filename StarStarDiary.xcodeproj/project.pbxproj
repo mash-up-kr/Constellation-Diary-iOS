@@ -80,6 +80,7 @@
 		DBAF024823AE57B80044E2DD /* BaseTableViewHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF024723AE57B80044E2DD /* BaseTableViewHeaderFooterView.swift */; };
 		DBF122F02389673300EFE5B2 /* WriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF122EF2389673300EFE5B2 /* WriteViewController.swift */; };
 		DBF6324F23EDD77E006E60FF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DBF6324E23EDD77E006E60FF /* GoogleService-Info.plist */; };
+		DBF6325123EF038B006E60FF /* DiaryCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF6325023EF038B006E60FF /* DiaryCalendarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -161,6 +162,7 @@
 		DBF122EF2389673300EFE5B2 /* WriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteViewController.swift; sourceTree = "<group>"; };
 		DBF6324D23EDD433006E60FF /* StarStarDiary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StarStarDiary.entitlements; sourceTree = "<group>"; };
 		DBF6324E23EDD77E006E60FF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DBF6325023EF038B006E60FF /* DiaryCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCalendarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +211,7 @@
 				0EDB40F123CA54830020B0EF /* ConstellationSelectionViewController.swift */,
 				0EDB41A923CE25EE0020B0EF /* VarifyEmailViewController.swift */,
 				0EDB41AE23CE79240020B0EF /* SignUpViewController.swift */,
+				DBF6325023EF038B006E60FF /* DiaryCalendarViewController.swift */,
 				0E160CD423AA51E6000CA518 /* LoginViewController.swift */,
 				0EEB412A23E481BB000AE851 /* FindIDViewController.swift */,
 			);
@@ -592,6 +595,7 @@
 				D54F6CFD23DC7EA4001DA319 /* FortuneHeaderView.swift in Sources */,
 				D54F6CEE23BB5353001DA319 /* DiaryTableViewCell.swift in Sources */,
 				0EDB41AC23CE2C1D0020B0EF /* InputFormView.swift in Sources */,
+				DBF6325123EF038B006E60FF /* DiaryCalendarViewController.swift in Sources */,
 				0EDB41AC23CE2C1D0020B0EF /* InputFormView.swift in Sources */,
 				0EDB41AA23CE25EE0020B0EF /* VarifyEmailViewController.swift in Sources */,
 				0E79612523F04443008446CB /* API.swift in Sources */,
