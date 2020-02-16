@@ -93,7 +93,12 @@ final class DiaryListViewController: UIViewController {
     @objc
     private func didTapCalendar(sender: AnyObject?) {
         // FIXME: - 캘린더 화면으로 전환
-        self.dismiss(animated: true, completion: nil)
+//        self.dismiss(animated: true, completion: nil)
+        let viewController = DiaryCalendarViewController()
+        viewController.do {
+            $0.modalPresentationStyle = .fullScreen
+            self.present($0, animated: true, completion: nil)
+        }
     }
 }
 
