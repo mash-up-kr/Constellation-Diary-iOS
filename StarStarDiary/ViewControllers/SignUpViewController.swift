@@ -16,6 +16,9 @@ class SignUpViewController: UIViewController {
     
     private let titleLabel = UILabel()
     private let progressStepLabel = UILabel()
+    private let firstStepView = UIView()
+    private let secondStepView = UIView()
+    private let emailInputFormView = InputFormView(style: .email)
     private let idInputFormView = InputFormView(style: .id)
     private let passwordInputFormView = InputFormView(style: .password)
     private let confirmPasswordInputFormView = InputFormView(style: .confirmPassword)
@@ -29,6 +32,34 @@ class SignUpViewController: UIViewController {
         
         setUpLayout()
         setUpAttribute()
+        setupNavigationBar()
+    }
+    
+    private func setupNavigationBar() {
+        let backItem = UIBarButtonItem(image: UIImage(named: "icBack24"),
+                                       style: .plain,
+                                       target: self,
+                                       action: #selector(dismiss(animated:completion:)))
+        navigationItem.setLeftBarButton(backItem, animated: false)
+        let closeItem = UIBarButtonItem(image: UIImage(named: "icClose24"),
+                                          style: .plain,
+                                          target: self,
+                                          action: #selector(self.dismiss))
+        navigationItem.setRightBarButton(closeItem, animated: false)
+        navigationController?.navigationBar.do {
+            $0.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+            $0.shadowImage = UIImage()
+            $0.backgroundColor = UIColor.clear
+            $0.tintColor = .black
+        }
+    }
+    
+    private func addBackItem() {
+        let backItem = UIBarButtonItem(image: UIImage(named: "icBack24"),
+                                       style: .plain,
+                                       target: self,
+                                       action: #selector(dismiss(animated:completion:)))
+        navigationItem.setLeftBarButton(backItem, animated: false)
     }
 }
 
@@ -40,6 +71,13 @@ extension SignUpViewController {
             $0.addSubview(titleLabel)
             $0.addSubview(progressStepLabel)
             $0.addSubview(idInputFormView)
+        }
+        
+        firstStepView.do {
+            $0.addSubview(passwordInputFormView)
+        }
+        
+        secondStepView.do {
             $0.addSubview(passwordInputFormView)
             $0.addSubview(confirmPasswordInputFormView)
             $0.addSubview(completionButton)
@@ -88,13 +126,13 @@ extension SignUpViewController {
     func setUpAttribute() {
         titleLabel.do {
             $0.text = "회원가입"
-            $0.font = .systemFont(ofSize: 26)
+            $0.font = .font(.notoSerifCJKMedium, size: 26)
         }
         
         progressStepLabel.do {
-            $0.text = "2/2"
+            $0.text = "1/2"
             $0.textColor = .gray
-            $0.font = .systemFont(ofSize: 12)
+            $0.font = .font(.notoSerifCJKMedium, size: 12)
         }
         
         idInputFormView.do {
@@ -103,8 +141,8 @@ extension SignUpViewController {
         
         completionButton.do {
             $0.backgroundColor = .blue
-            $0.setTitle("별별일기 시작하기", for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 16)
+            $0.setTitle("다음", for: .normal)
+            $0.titleLabel?.font = .font(.notoSerifCJKMedium, size: 16)
             $0.layer.cornerRadius = 5
             $0.addTarget(self, action: #selector(completionButtonDidTap), for: .touchUpInside)
         }
@@ -114,6 +152,11 @@ extension SignUpViewController {
 // MARK: - Actions
 
 extension SignUpViewController {
+    @objc
+    func dismiss(_ sender: UIButton) {
+        navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
     @objc
     func completionButtonDidTap(_ sender: UIButton) {
         // TODO: 로직 구현

@@ -51,11 +51,7 @@ extension FindIDViewController {
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(386.0)
         }
     }
-}
 
-// MARK: - Attributes
-
-extension FindIDViewController {
     func setupAttribute() {
         navigationController?.navigationBar.do {
             $0.setBackgroundImage(UIImage(), for: .default)
@@ -74,9 +70,9 @@ extension FindIDViewController {
             $0.font = .boldSystemFont(ofSize: 26.0)
         }
         
-        emailInputFormView.do {
-            $0.inputTextField.delegate = self
-        }
+//        emailInputFormView.do {
+//            $0.inputTextField.delegate = self
+//        }
         
         nextButton.do {
             $0.titleLabel?.font = .systemFont(ofSize: 16)

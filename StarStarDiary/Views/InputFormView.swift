@@ -10,199 +10,265 @@ import UIKit
 import SnapKit
 import Then
 
+protocol InputFormViewDelegate: class {
+    func inputFormView(_ inputForView: InputFormView, didTimerEnded style: InputFormViewStyle)
+    func inputFormView(_ inputForView: InputFormView, didChanged text: String?)
+}
+
 final class InputFormView: UIView {
     
     // MARK: - UI
+    weak var delegate: InputFormViewDelegate?
+    
+    var inputText: String? {
+        return self.inputTextField.text
+    }
     
     let titleLabel = UILabel()
+    let actionButton: UIButton = UIButton(type: .system)
+    let lineView: UIView = UIView().then { $0.backgroundColor = .white216 }
     let inputTextField = UITextField()
+    private let verificationImageView: UIImageView = UIImageView()
+    private let messageLabel: UILabel = UILabel()
+    private let timerLabel: UILabel = UILabel()
+    var verified: Bool = false {
+        didSet {
+            let newValue = self.verified
+            if oldValue != newValue {
+                self.actionButton.isEnabled = newValue
+                self.messageLabel.isHidden = newValue
+                let color = newValue ? self.enableColor : self.disabledColor
+                self.actionButton.backgroundColor = color
+                self.lineView.backgroundColor = color
+            }
+        }
+    }
+    private var style: InputFormViewStyle = .email
     
-    var timerLabel: UILabel?
-    var actionButton: UIButton?
-    var verificationImageView: UIImageView?
-    var verificationMessageLabel: UILabel?
+    private var startDate: Date?
+    private var timer: Timer?
+    private var duration: TimeInterval = .zero
+    
+    private let disabledColor = UIColor.white216
+    private let enableColor = UIColor.buttonBlue
     
     // MARK: - Initialization
     
-    convenience init(frame: CGRect = .zero, style: Style) {
+    convenience init(frame: CGRect = .zero, style: InputFormViewStyle) {
         self.init(frame: frame)
         
-        setUpComponentsIfNeeded(style: style)
+        self.style = style
         configure(style: style)
         setupLayout()
         setupAttribute()
     }
     
-    // MARK: - Life Cycle
+    // MARK: - Configuration
     
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        
-        verificationImageView?.layer.cornerRadius = (verificationImageView?.bounds.width ?? 0)/2
+    func configure(style: InputFormViewStyle) {
+        titleLabel.text = style.title
+        inputTextField.placeholder = style.placeHolder
+        messageLabel.text = style.invalidMessage
+    }
+    
+    func startTimer(duration timeInterval: TimeInterval) {
+        startDate = Date()
+        self.duration = timeInterval
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
+        self.timerLabel.text = ""
+        self.timerLabel.isHidden = false
+    }
+    
+    @objc private func update() {
+        guard let startDate = startDate else {
+            self.resetTimer()
+            return
+        }
+        let endDate = startDate.advanced(by: duration)
+        let distance = Date().distance(to: endDate)
+        if distance <= 0 {
+            self.resetTimer()
+            self.delegate?.inputFormView(self, didTimerEnded: self.style)
+            return
+        } else {
+            let seconds = Int(distance.truncatingRemainder(dividingBy: 60))
+            let minutes = Int(distance / 60)
+            self.timerLabel.text = String(format: "%02d:%02d", minutes, seconds)
+        }
+    }
+    
+    private func resetTimer() {
+        self.timer?.invalidate()
+        self.timer = nil
+        self.startDate = nil
+        self.duration = .zero
     }
     
     // MARK: - Layouts
     
-    func setUpComponentsIfNeeded(style: Style) {
-        if style.timerString != nil && timerLabel == nil {
-            timerLabel = UILabel()
-        }
-        if style.verificationImage != nil && verificationImageView == nil {
-            verificationImageView = UIImageView()
-        }
-        if style.buttonTitle != nil && actionButton == nil {
-            actionButton = UIButton()
-        }
-        if style.vaildMessage != nil && verificationMessageLabel == nil {
-            verificationMessageLabel = UILabel()
-        }
-    }
-    
-    func setupLayout() {
+    private func setupLayout() {
         self.do {
             $0.addSubview(titleLabel)
             $0.addSubview(inputTextField)
             $0.addSubview(timerLabel)
             $0.addSubview(verificationImageView)
             $0.addSubview(actionButton)
-            $0.addSubview(verificationMessageLabel)
-            
+            $0.addSubview(lineView)
+            $0.addSubview(messageLabel)
         }
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.leading.equalToSuperview().inset(UIScreen.main.bounds.width * 5.3/100.0)
+            $0.leading.equalToSuperview()
         }
         
-        inputTextField.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
-            $0.leading.equalTo(titleLabel)
-            $0.width.equalToSuperview().multipliedBy(66.0/100.0)
-            $0.height.equalTo(35)
-        }
-        
-        timerLabel?.snp.makeConstraints {
+        timerLabel.snp.makeConstraints {
             $0.leading.equalTo(titleLabel.snp.trailing).offset(4)
             $0.top.bottom.equalTo(titleLabel)
         }
         
-        verificationImageView?.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(UIScreen.main.bounds.width * 5.3/100.0)
-            $0.width.equalToSuperview().multipliedBy(8.5/100.0)
-            $0.height.equalTo(verificationImageView!.snp.width)
+        inputTextField.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
+            $0.leading.equalToSuperview()
+            $0.trailing.equalTo(actionButton.snp.leading).offset(8)
+            $0.height.equalTo(35)
         }
         
-        actionButton?.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(UIScreen.main.bounds.width * 5.9/100.0)
-            $0.width.equalToSuperview().multipliedBy(22.9/100.0)
-            $0.height.equalTo(actionButton!.snp.width).multipliedBy(32.0/86.0)
+        verificationImageView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(14)
+            $0.trailing.equalToSuperview()
+            $0.width.equalTo(32)
+            $0.height.equalTo(32)
         }
         
-        verificationMessageLabel?.snp.makeConstraints {
+        actionButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(1)
+            $0.bottom.equalToSuperview().inset(12)
+            $0.width.equalTo(86)
+            $0.height.equalTo(32)
+        }
+        
+        messageLabel.snp.makeConstraints {
             $0.top.equalTo(inputTextField.snp.bottom).offset(2)
             $0.leading.equalTo(inputTextField)
+        }
+        
+        lineView.snp.makeConstraints {
+            $0.height.equalTo(1)
+            $0.top.equalTo(inputTextField.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
     }
     
     // MARK: - Attributes
     
-    func setupAttribute() {
+    private func setupAttribute() {
         titleLabel.do {
-            // FIXME: - 폰트 적용
-            $0.font = .boldSystemFont(ofSize: 12)
+            $0.font = .font(.notoSerifCJKMedium, size: 12)
             $0.textColor = .black
         }
         
         inputTextField.do {
-            // FIXME: - 폰트 적용
-            $0.font = .systemFont(ofSize: 18)
             $0.textColor = .black
-            // TODO: - underline이 있는 feature가 병합되면 추가할 예정
+            $0.font = .font(.notoSerifCJKMedium, size: 18)
+            $0.autocorrectionType = .no
+            $0.autocapitalizationType = .none
+            $0.spellCheckingType = .no
+            $0.delegate = self
         }
         
-        timerLabel?.do {
-            $0.textColor = .red
-            $0.font = .systemFont(ofSize: 10)
+        timerLabel.do {
+            $0.textColor = .coral255
+            $0.font = .font(.notoSerifCJKMedium, size: 10)
+            $0.isHidden = true
         }
         
-        verificationImageView?.do {
-            // FIXME: - 색상 적용
-            $0.backgroundColor = .blue
+        verificationImageView.do {
+            $0.backgroundColor = .buttonBlue
+            $0.layer.cornerRadius = 16
+            $0.contentMode = .center
+            $0.isHidden = true
+            $0.image = #imageLiteral(resourceName: "icComplete24White")
         }
         
-        actionButton?.do {
+        actionButton.do {
             $0.layer.cornerRadius = 16
             $0.setTitleColor(.white, for: .normal)
-            // FIXME: - 색상 적용
-            $0.backgroundColor = .blue
+            $0.backgroundColor = .buttonBlue
+            $0.titleLabel?.font = .font(.notoSerifCJKBold, size: 11)
+            $0.isEnabled = false
+            $0.isHidden = true
         }
         
-        verificationMessageLabel?.do {
-            $0.textColor = .red
-            // FIXME: - 폰트 적용
-            $0.font = .systemFont(ofSize: 10)
+        messageLabel.do {
+            $0.textColor = .coral255
+            $0.font = .font(.notoSerifCJKMedium, size: 10)
+            $0.isHidden = true
         }
     }
+}
+
+extension InputFormView: UITextFieldDelegate {
     
-    // MARK: - Configuration
-    
-    func configure(style: Style) {
-        titleLabel.text = style.title
-        inputTextField.placeholder = style.placeholder
-        timerLabel?.text = style.timerString
-        verificationImageView?.image = style.verificationImage
-        // FIXME: - 폰트 적용
-        actionButton?.titleLabel?.font = .systemFont(ofSize: 11)
-        actionButton?.setTitle(style.buttonTitle, for: .normal)
-        verificationMessageLabel?.text = style.vaildMessage
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        if let text = textField.text, style.checksValidate {
+            self.verified = style.isValid(text)
+        }
+        self.delegate?.inputFormView(self, didChanged: textField.text)
     }
 }
 
 // MARK: - Style
 
-extension InputFormView {
+enum InputFormViewStyle {
+    case id
+    case password
+    case confirmPassword
+    case email
+    case certificationNumber
     
-    struct Style {
-        let title: String
-        let placeholder: String
-        let timerString: String?
-        let verificationImage: UIImage?
-        let buttonTitle: String?
-        let vaildMessage: String?
-        
-        init(
-            title: String,
-            placeholder: String,
-            timerString: String? = nil,
-            verificationImage: UIImage? = nil,
-            buttonTitle: String? = nil,
-            vaildMessage: String? = nil
-        ) {
-            self.title = title
-            self.placeholder = placeholder
-            self.timerString = timerString
-            self.verificationImage = verificationImage
-            self.buttonTitle = buttonTitle
-            self.vaildMessage = vaildMessage
+    var title: String {
+        switch self {
+        case .id: return "아이디"
+        case .password: return "비밀번호"
+        case .confirmPassword: return "비밀번호 확인"
+        case .email: return "이메일"
+        case .certificationNumber: return "인증번호"
         }
     }
-}
-
-extension InputFormView.Style {
-    static let id = InputFormView.Style(title: "아이디",
-                                        placeholder: "아이디 입력",
-                                        vaildMessage: "아이디를 입력해주세요")
-    static let password = InputFormView.Style(title: "비밀번호", placeholder: "비밀번호 입력")
-    static let confirmPassword = InputFormView.Style(title: "비밀번호 확인",
-                                                     placeholder: "비밀번호 입력",
-                                                     vaildMessage: "비밀번호 불일치")
-    static let email = InputFormView.Style(title: "이메일",
-                                           placeholder: "이메일 입력")
-    static let emailWithImage = InputFormView.Style(title: "이메일",
-                                                    placeholder: "이메일 입력",
-                                                    verificationImage: #imageLiteral(resourceName: "icComplete24White"))
-    static let certificationNumber = InputFormView.Style(title: "인증번호",
-                                                         placeholder: "인증번호 입력",
-                                                         timerString: "3:00",
-                                                         vaildMessage: "인증번호를 다시 입력해주세요")
+    
+    var placeHolder: String {
+        switch self {
+        case .id, .email, .certificationNumber: return "\(self.title) 입력"
+        case .password, .confirmPassword: return "비밀번호 입력"
+        }
+    }
+    
+    var invalidMessage: String? {
+        switch self {
+        case .id: return "아이디를 입력하세요."
+        case .password: return nil
+        case .confirmPassword: return "비밀번호 불일치"
+        case .email: return "유효하지 않은 이메일"
+        case .certificationNumber: return "인증번호 오류"
+        }
+    }
+    
+    var checksValidate: Bool {
+        switch self {
+        case .id, .email: return true
+        case .password, .confirmPassword, .certificationNumber: return false
+        }
+    }
+    
+    func isValid(_ input: String) -> Bool {
+        switch self {
+        case .id: return input.count >= 4
+        case .email:
+           let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+           let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+           return emailPred.evaluate(with: input)
+        case .password, .confirmPassword, .certificationNumber: return true
+        }
+    }
 }

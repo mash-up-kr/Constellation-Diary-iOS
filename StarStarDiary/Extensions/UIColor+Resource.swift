@@ -18,6 +18,7 @@ extension UIColor {
     static let dim = UIColor(named: "Dim")
     static let navy3 = UIColor(named: "Navy3")
     static let buttonBlue = UIColor(named: "ButtonBlue")
+    static let coral255 = UIColor(named: "Coral255")
     static let blue189 = UIColor(named: "Blue189")
     static let buttonNavy = UIColor(named: "ButtonNavy")
 }

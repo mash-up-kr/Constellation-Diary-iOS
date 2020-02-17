@@ -11,10 +11,17 @@ import Foundation
 extension UserDefaults {
     
     private static let defaults = UserDefaults.standard
+    private static let fcmTokenKey = "fcmToken"
     private static let currentTokenKey = "currentToken"
     private static let refreshTokenKey = "refreshToken"
     private static let constellationKey = "constellation"
 
+    static var fcmToken: String? = defaults.string(forKey: fcmTokenKey) {
+        willSet(newValue) {
+            defaults.set(newValue, forKey: fcmTokenKey)
+        }
+    }
+    
     static var currentToken: String? = defaults.string(forKey: currentTokenKey) {
         willSet(newValue) {
             defaults.set(newValue, forKey: currentTokenKey)
