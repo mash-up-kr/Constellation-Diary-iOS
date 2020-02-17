@@ -22,6 +22,7 @@ class LoginViewController: UIViewController {
     private let idTextField = UITextField()
     private let passwordLabel = UILabel()
     private let passwordTextField = UITextField()
+    private let errorMessageLabel = UILabel()
     private let signInButton = UIButton()
     
     // MARK: - Life Cycle
@@ -94,6 +95,11 @@ extension LoginViewController {
             $0.text = "비밀번호"
             $0.font = UIFont.font(.notoSerifCJKMedium, size: 12)
         }
+        
+        errorMessageLabel.do {
+            $0.font = .font(.notoSerifCJKMedium, size: 10)
+            $0.textColor = .red
+        }
     }
     
     private func setupTextFields() {
@@ -102,12 +108,14 @@ extension LoginViewController {
             $0.underlined(with: .white216)
             $0.font = UIFont.font(.notoSerifCJKMedium, size: 18)
             $0.keyboardType = .emailAddress
+            $0.autocapitalizationType = .none
         }
         
         passwordTextField.do {
             $0.placeholder = "비밀번호 입력"
             $0.underlined(with: .white216)
             $0.font = UIFont.font(.notoSerifCJKMedium, size: 18)
+            $0.isSecureTextEntry = true
         }
     }
     
@@ -126,7 +134,7 @@ extension LoginViewController {
         }
         
         signUpButton.do {
-            $0.addTarget(self, action: #selector(signInButtonDidTap), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(signUpButtonDidTap(_:)), for: .touchUpInside)
             $0.setTitle("회원가입", for: .normal)
             $0.setTitleColor(.buttonBlue, for: .normal)
             $0.titleLabel?.font = UIFont.font(.notoSerifCJKMedium, size: 12)
@@ -226,19 +234,25 @@ extension LoginViewController {
     
     @objc
     private func signInButtonDidTap(_ button: UIButton) {
-        // TODO : - sign in
-        guard let token = UserDefaults.currentToken else {
-            return
-        }
-        guard let password = self.passwordTextField.text,
-            let id = self.idTextField.text else {
+        guard let token = UserDefaults.fcmToken,
+            let password = self.passwordTextField.text,
+            let userID = self.idTextField.text else {
                 return
         }
-        Provider.request(API.signIn(fcmToken: token, password: password, userId: id), completion: { (data: UserInfoDto) in
-            
-             print("data : \(data)")
-        }, failure: { (error) in
-             print("error : \(error)")
+        Provider.request(API.signIn(fcmToken: token, password: password, userId: userID), completion: { (data: UserInfoDto) in
+            UserDefaults.currentToken = data.tokens.authenticationToken
+            UserDefaults.refreshToken = data.tokens.refreshToken
+            UserManager.share.login(with: data.user)
+        }, failure: { [weak self] error in
+            guard let error = error as? ErrorData else { return }
+            self?.passwordTextField.text = nil
+            self?.idTextField.text = nil
+            switch error.code {
+            case 401:
+                self?.errorMessageLabel.text = "아이디/비밀번호가 맞지 않습니다."
+            default:
+                self?.errorMessageLabel.text = "로그인에 실패했습니다. 다시 시도해주세요."
+            }
         })
     }
     
@@ -267,6 +281,7 @@ extension LoginViewController {
             $0.addSubview(passwordLabel)
             $0.addSubview(passwordTextField)
             $0.addSubview(signInButton)
+            $0.addSubview(errorMessageLabel)
         }
         setupConstraints()
     }
@@ -299,12 +314,12 @@ extension LoginViewController {
         
         findAccountButton.snp.makeConstraints {
             $0.top.equalToSuperview().offset(screen.height * 9.1/100)
-            $0.trailing.equalTo(self.signUpButton.snp.leading).inset(12)
+            $0.trailing.equalTo(self.signUpButton.snp.leading).offset(-12)
         }
         
         signUpButton.snp.makeConstraints {
             $0.top.equalTo(findAccountButton)
-            $0.trailing.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().inset(20)
         }
         
         idLabel.snp.makeConstraints {
@@ -327,6 +342,11 @@ extension LoginViewController {
             $0.top.equalTo(passwordLabel.snp.bottom).offset(screen.height * 1.0/100)
             $0.leading.trailing.equalToSuperview().inset(screen.width * 5.3/100)
             $0.height.equalTo(screen.height * 5.3/100)
+        }
+        
+        errorMessageLabel.snp.makeConstraints {
+            $0.top.equalTo(passwordTextField.snp.bottom).offset(4)
+            $0.leading.equalTo(passwordTextField.snp.leading)
         }
         
         signInButton.snp.makeConstraints {

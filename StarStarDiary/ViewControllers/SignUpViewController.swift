@@ -88,13 +88,13 @@ extension SignUpViewController {
     func setUpAttribute() {
         titleLabel.do {
             $0.text = "회원가입"
-            $0.font = .systemFont(ofSize: 26)
+            $0.font = .font(.notoSerifCJKMedium, size: 26)
         }
         
         progressStepLabel.do {
-            $0.text = "2/2"
+            $0.text = "1/2"
             $0.textColor = .gray
-            $0.font = .systemFont(ofSize: 12)
+            $0.font = .font(.notoSerifCJKMedium, size: 12)
         }
         
         idInputFormView.do {
@@ -103,8 +103,8 @@ extension SignUpViewController {
         
         completionButton.do {
             $0.backgroundColor = .blue
-            $0.setTitle("별별일기 시작하기", for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 16)
+            $0.setTitle("다음", for: .normal)
+            $0.titleLabel?.font = .font(.notoSerifCJKMedium, size: 16)
             $0.layer.cornerRadius = 5
             $0.addTarget(self, action: #selector(completionButtonDidTap), for: .touchUpInside)
         }

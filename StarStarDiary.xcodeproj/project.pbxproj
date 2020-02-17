@@ -68,6 +68,7 @@
 		D5847DFE23FABD5200D8BA8E /* NanumMyeongjoExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DFB23FABD5100D8BA8E /* NanumMyeongjoExtraBold.otf */; };
 		D5847DFF23FABD5200D8BA8E /* NanumMyeongjo.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DFC23FABD5200D8BA8E /* NanumMyeongjo.otf */; };
 		D5A8C1B323FAC88200C596AF /* MoyaProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A8C1B223FAC88200C596AF /* MoyaProvider.swift */; };
+		D5A8C1B623FAD15F00C596AF /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A8C1B523FAD15F00C596AF /* UserManager.swift */; };
 		D5D0F67023890DC500DA3169 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D0F66F23890DC500DA3169 /* AppDelegate.swift */; };
 		D5D0F67223890DC500DA3169 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D0F67123890DC500DA3169 /* ViewController.swift */; };
 		D5D0F67523890DC500DA3169 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5D0F67323890DC500DA3169 /* Main.storyboard */; };
@@ -151,6 +152,7 @@
 		D5847DFB23FABD5100D8BA8E /* NanumMyeongjoExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumMyeongjoExtraBold.otf; sourceTree = "<group>"; };
 		D5847DFC23FABD5200D8BA8E /* NanumMyeongjo.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumMyeongjo.otf; sourceTree = "<group>"; };
 		D5A8C1B223FAC88200C596AF /* MoyaProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaProvider.swift; sourceTree = "<group>"; };
+		D5A8C1B523FAD15F00C596AF /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		D5D0F66C23890DC500DA3169 /* StarStarDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarStarDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5D0F66F23890DC500DA3169 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D5D0F67123890DC500DA3169 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -384,6 +386,14 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		D5A8C1B423FAD15500C596AF /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				D5A8C1B523FAD15F00C596AF /* UserManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		D5D0F66323890DC500DA3169 = {
 			isa = PBXGroup;
 			children = (
@@ -406,6 +416,7 @@
 		D5D0F66E23890DC500DA3169 /* StarStarDiary */ = {
 			isa = PBXGroup;
 			children = (
+				D5A8C1B423FAD15500C596AF /* Manager */,
 				0E79611E23F04412008446CB /* Networks */,
 				D54F6D0223E4609D001DA319 /* Resources */,
 				0EDB40F323CA56060020B0EF /* Common */,
@@ -607,6 +618,7 @@
 				D5847DF923F0104300D8BA8E /* ConstellationSelectionViewFlowLayout.swift in Sources */,
 				DBAF024523AE32940044E2DD /* BaseTableViewCell.swift in Sources */,
 				D544F2862389672C009B3967 /* MainViewController.swift in Sources */,
+				D5A8C1B623FAD15F00C596AF /* UserManager.swift in Sources */,
 				0E79613B23F0444C008446CB /* HoroscopeDto.swift in Sources */,
 				D54F6CFD23DC7EA4001DA319 /* FortuneHeaderView.swift in Sources */,
 				D54F6CEE23BB5353001DA319 /* DiaryTableViewCell.swift in Sources */,

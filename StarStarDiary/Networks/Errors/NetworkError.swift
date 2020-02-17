@@ -20,8 +20,8 @@ enum NetworkError: LocalizedError {
     }
 }
 
-struct ErrorData: Decodable {
+struct ErrorData: Decodable, Error {
     let code: Int?
-    let msg: String?
-    let timestamp: String?
+    let httpStatus: String?
+    let massage: String?
 }

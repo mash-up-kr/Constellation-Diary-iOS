@@ -49,7 +49,7 @@ private extension Provider {
                 guard let data = try? response.map(ErrorData.self) else {
                     preconditionFailure("Fail: \(response) does not found !!")
                 }
-                failure(NSError(domain: data.msg ?? "Unknown", code: data.code ?? -9999, userInfo: nil))
+                failure(data)
 
             default:
                 failure(NSError(domain: "Unknown", code: -9999, userInfo: nil))
