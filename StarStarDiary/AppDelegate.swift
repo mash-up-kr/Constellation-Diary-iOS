@@ -26,26 +26,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(options: authOptions,completionHandler: {_, _ in })
         application.registerForRemoteNotifications()
-        //
 
         let bounds = UIScreen.main.bounds
         self.window = UIWindow(frame: bounds)
         
-        // FIXME : 추후 로직 제거!!!!!!
-        // 바로 메인으로 이동할 때는 요거 사용하기
-        let rootViewController = UINavigationController(rootViewController: MainViewController())
-//        self.window?.rootViewController = rootViewController
-        
         // FIXME : 필요할 경우 초기 API Call 이 추가되거나 분기 처리 방식이 변경될 수 있음
         
-//        var rootViewController: UIViewController = ConstellationSelectionViewController().then { $0.bind(type: .select) }
+        var rootViewController: UIViewController = OnBoardingViewController()
         
-        //OnBoardingViewController()
-        
-//        if UserDefaults.currentToken != nil {
-//            let mainViewController = MainViewController()
-//            rootViewController = UINavigationController(rootViewController: mainViewController)
-//        }
+        if UserDefaults.currentToken != nil {
+            // 토큰 체크
+            let mainViewController = MainViewController()
+            rootViewController = UINavigationController(rootViewController: mainViewController)
+        }
 //
         self.window?.rootViewController = rootViewController
         self.window?.makeKeyAndVisible()

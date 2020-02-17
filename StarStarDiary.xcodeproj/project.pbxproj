@@ -64,6 +64,10 @@
 		D5847DF423E56C8500D8BA8E /* KoreanYMJ-B.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DF023E56C8500D8BA8E /* KoreanYMJ-B.otf */; };
 		D5847DF523E56C8500D8BA8E /* KoreanYMJ-L.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DF123E56C8500D8BA8E /* KoreanYMJ-L.otf */; };
 		D5847DF923F0104300D8BA8E /* ConstellationSelectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5847DF823F0104300D8BA8E /* ConstellationSelectionViewFlowLayout.swift */; };
+		D5847DFD23FABD5200D8BA8E /* NanumMyeongjo-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DFA23FABD5100D8BA8E /* NanumMyeongjo-Bold.otf */; };
+		D5847DFE23FABD5200D8BA8E /* NanumMyeongjoExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DFB23FABD5100D8BA8E /* NanumMyeongjoExtraBold.otf */; };
+		D5847DFF23FABD5200D8BA8E /* NanumMyeongjo.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DFC23FABD5200D8BA8E /* NanumMyeongjo.otf */; };
+		D5A8C1B323FAC88200C596AF /* MoyaProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A8C1B223FAC88200C596AF /* MoyaProvider.swift */; };
 		D5D0F67023890DC500DA3169 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D0F66F23890DC500DA3169 /* AppDelegate.swift */; };
 		D5D0F67223890DC500DA3169 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D0F67123890DC500DA3169 /* ViewController.swift */; };
 		D5D0F67523890DC500DA3169 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5D0F67323890DC500DA3169 /* Main.storyboard */; };
@@ -143,6 +147,10 @@
 		D5847DF023E56C8500D8BA8E /* KoreanYMJ-B.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KoreanYMJ-B.otf"; sourceTree = "<group>"; };
 		D5847DF123E56C8500D8BA8E /* KoreanYMJ-L.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KoreanYMJ-L.otf"; sourceTree = "<group>"; };
 		D5847DF823F0104300D8BA8E /* ConstellationSelectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstellationSelectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		D5847DFA23FABD5100D8BA8E /* NanumMyeongjo-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NanumMyeongjo-Bold.otf"; sourceTree = "<group>"; };
+		D5847DFB23FABD5100D8BA8E /* NanumMyeongjoExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumMyeongjoExtraBold.otf; sourceTree = "<group>"; };
+		D5847DFC23FABD5200D8BA8E /* NanumMyeongjo.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumMyeongjo.otf; sourceTree = "<group>"; };
+		D5A8C1B223FAC88200C596AF /* MoyaProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaProvider.swift; sourceTree = "<group>"; };
 		D5D0F66C23890DC500DA3169 /* StarStarDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarStarDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5D0F66F23890DC500DA3169 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D5D0F67123890DC500DA3169 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -191,6 +199,7 @@
 				0E2874C423F81F7B00730C1E /* Provider.swift */,
 				0E79613E23F04FB1008446CB /* NetworkProvider.swift */,
 				0E2874C623F8201600730C1E /* DiaryProvider.swift */,
+				D5A8C1B223FAC88200C596AF /* MoyaProvider.swift */,
 			);
 			path = Providers;
 			sourceTree = "<group>";
@@ -361,6 +370,9 @@
 		D54F6D0323E460B5001DA319 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				D5847DFC23FABD5200D8BA8E /* NanumMyeongjo.otf */,
+				D5847DFA23FABD5100D8BA8E /* NanumMyeongjo-Bold.otf */,
+				D5847DFB23FABD5100D8BA8E /* NanumMyeongjoExtraBold.otf */,
 				D5847DF023E56C8500D8BA8E /* KoreanYMJ-B.otf */,
 				D5847DEE23E56C8400D8BA8E /* KoreanYMJ-E.otf */,
 				D5847DF123E56C8500D8BA8E /* KoreanYMJ-L.otf */,
@@ -471,8 +483,10 @@
 				9CF049FD23A918B400A85BEC /* SideMenuViewController.xib in Resources */,
 				D5847DF423E56C8500D8BA8E /* KoreanYMJ-B.otf in Resources */,
 				D54F6D0D23E46475001DA319 /* NotoSansCJKkr-Medium.otf in Resources */,
+				D5847DFD23FABD5200D8BA8E /* NanumMyeongjo-Bold.otf in Resources */,
 				D5D0F67D23890DC600DA3169 /* LaunchScreen.storyboard in Resources */,
 				D54F6D0F23E46475001DA319 /* NotoSansCJKkr-Regular.otf in Resources */,
+				D5847DFE23FABD5200D8BA8E /* NanumMyeongjoExtraBold.otf in Resources */,
 				D5847DF323E56C8500D8BA8E /* KoreanYMJ-M.otf in Resources */,
 				D5D0F67A23890DC600DA3169 /* Assets.xcassets in Resources */,
 				D54F6D0E23E46475001DA319 /* NotoSansCJKkr-Bold.otf in Resources */,
@@ -480,6 +494,7 @@
 				D54F6CF523BB5DE2001DA319 /* Sample.json in Resources */,
 				D5847DF223E56C8500D8BA8E /* KoreanYMJ-E.otf in Resources */,
 				D5847DF523E56C8500D8BA8E /* KoreanYMJ-L.otf in Resources */,
+				D5847DFF23FABD5200D8BA8E /* NanumMyeongjo.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,6 +590,7 @@
 				D5D0F67023890DC500DA3169 /* AppDelegate.swift in Sources */,
 				0E79612423F04443008446CB /* DiaryAPI.swift in Sources */,
 				0E79613D23F04474008446CB /* LocalTime.swift in Sources */,
+				D5A8C1B323FAC88200C596AF /* MoyaProvider.swift in Sources */,
 				D54F6D0823E46339001DA319 /* UIFont+.swift in Sources */,
 				0EDB41AF23CE79240020B0EF /* SignUpViewController.swift in Sources */,
 				0E3272922389BDE000EF36B4 /* UIColor+Resource.swift in Sources */,

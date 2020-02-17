@@ -81,34 +81,33 @@ extension LoginViewController {
     private func setupLabels() {
         titleLabel.do {
             $0.text = "로그인"
-            // FIXME: Asset Font로 수정 예정
-            $0.font = .boldSystemFont(ofSize: 26)
+            $0.font = UIFont.font(.notoSerifCJKMedium, size: 26)
         }
         
         idLabel.do {
             $0.text = "아이디"
-            // FIXME: Asset Font로 수정 예정
             $0.font = .systemFont(ofSize: 12)
+            $0.font = UIFont.font(.notoSerifCJKMedium, size: 12)
         }
         
         passwordLabel.do {
             $0.text = "비밀번호"
-            // FIXME: Asset Font로 수정 예정
-            $0.font = .systemFont(ofSize: 12)
+            $0.font = UIFont.font(.notoSerifCJKMedium, size: 12)
         }
     }
     
     private func setupTextFields() {
         idTextField.do {
-            // FIXME: Asset Font로 수정 예정
             $0.placeholder = "아이디 입력"
             $0.underlined(with: .white216)
+            $0.font = UIFont.font(.notoSerifCJKMedium, size: 18)
+            $0.keyboardType = .emailAddress
         }
         
         passwordTextField.do {
-            // FIXME: Asset Font로 수정 예정
             $0.placeholder = "비밀번호 입력"
             $0.underlined(with: .white216)
+            $0.font = UIFont.font(.notoSerifCJKMedium, size: 18)
         }
     }
     
@@ -120,25 +119,23 @@ extension LoginViewController {
         }
         
         findAccountButton.do {
-            // FIXME: Asset Font로 수정 예정
             $0.addTarget(self, action: #selector(findAccountButtonDidTap), for: .touchUpInside)
             $0.setTitle("아이디/비번찾기", for: .normal)
             $0.setTitleColor(.buttonBlue, for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 12)
+            $0.titleLabel?.font = UIFont.font(.notoSerifCJKMedium, size: 12)
         }
         
         signUpButton.do {
-            // FIXME: Asset Font로 수정 예정
             $0.addTarget(self, action: #selector(signInButtonDidTap), for: .touchUpInside)
             $0.setTitle("회원가입", for: .normal)
             $0.setTitleColor(.buttonBlue, for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 12)
+            $0.titleLabel?.font = UIFont.font(.notoSerifCJKMedium, size: 12)
         }
         
         signInButton.do {
-            // FIXME: Asset Font로 수정 예정
             $0.addTarget(self, action: #selector(signInButtonDidTap), for: .touchUpInside)
             $0.setTitle("별별일기 시작하기", for: .normal)
+            $0.titleLabel?.font = UIFont.font(.notoSerifCJKMedium, size: 16)
             $0.titleLabel?.textColor = .white
             $0.backgroundColor = .navy3
             $0.layer.cornerRadius = 5.0
@@ -155,7 +152,7 @@ extension LoginViewController {
     
     private func showSignInView() {
         self.signInView.snp.makeConstraints {
-            $0.height.equalToSuperview().multipliedBy(94.6/100)
+            $0.top.equalTo(self.view.safeAreaLayoutGuide)
         }
         UIView.animate(withDuration: 0.2) {
             self.view.layoutIfNeeded()
@@ -213,19 +210,41 @@ extension LoginViewController {
     
     @objc
     private func findAccountButtonDidTap(_ button: UIButton) {
-        // TODO: 차후 로직 구현
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "아이디를 찾고 싶어요.", style: .default, handler: { [weak self] _ in
+            self?.present(FindIDViewController(), animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "비밀번호를 찾고 싶어요.", style: .default, handler: { [weak self] _ in
+            self?.present(FindIDViewController(), animated: true, completion: nil)
+        }))
     }
     
     @objc
     private func signUpButtonDidTap(_ button: UIButton) {
-        // TODO: 차후 로직 구현
+        self.present(SignUpViewController(), animated: true, completion: nil)
     }
     
     @objc
     private func signInButtonDidTap(_ button: UIButton) {
-        // TODO: 차후 로직 구현
+        // TODO : - sign in
+        guard let token = UserDefaults.currentToken else {
+            return
+        }
+        guard let password = self.passwordTextField.text,
+            let id = self.idTextField.text else {
+                return
+        }
+        Provider.request(API.signIn(fcmToken: token, password: password, userId: id), completion: { (data: UserInfoDto) in
+            
+             print("data : \(data)")
+        }, failure: { (error) in
+             print("error : \(error)")
+        })
     }
     
+    private func checkValidation() {
+        
+    }
 }
 
 // MARK: - Layouts
@@ -280,12 +299,12 @@ extension LoginViewController {
         
         findAccountButton.snp.makeConstraints {
             $0.top.equalToSuperview().offset(screen.height * 9.1/100)
-            $0.leading.equalToSuperview().offset(screen.width * 63.2/100)
+            $0.trailing.equalTo(self.signUpButton.snp.leading).inset(12)
         }
         
         signUpButton.snp.makeConstraints {
             $0.top.equalTo(findAccountButton)
-            $0.leading.equalTo(findAccountButton.snp.trailing).offset(screen.width * 3.2/100)
+            $0.trailing.equalToSuperview().offset(20)
         }
         
         idLabel.snp.makeConstraints {
@@ -311,9 +330,9 @@ extension LoginViewController {
         }
         
         signInButton.snp.makeConstraints {
-            $0.top.equalTo(passwordTextField.snp.bottom).offset(screen.height * 4.8/100)
-            $0.leading.trailing.equalToSuperview().inset(screen.width * 5.3/100)
-            $0.height.equalTo(screen.height * 6.4/100)
+            $0.top.equalTo(passwordTextField.snp.bottom).offset(48)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(52)
         }
     }
 }

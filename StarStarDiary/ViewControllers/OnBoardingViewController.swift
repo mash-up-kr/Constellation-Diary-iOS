@@ -40,13 +40,14 @@ class OnBoardingViewController: UIViewController {
     private func setupLables() {
         titleLabel.do {
             $0.text = "별별일기"
-            $0.font = UIFont.systemFont(ofSize: 32, weight: .bold)
+            $0.font = UIFont.font(.nanumMyeongjoBold, size: 30)
             $0.textColor = .white
             view.addSubview($0)
         }
         
         descriptionLabel.do {
-            $0.text = "당신만을 위한 별자리운세를\n매일 전해드릴게요."
+            $0.text = "별처럼 빛나는 당신의 하루,\n별자리 운세일기를 기록해보세요."
+            $0.font = UIFont.font(.notoSerifCJKRegular, size: 14)
             $0.numberOfLines = 2
             $0.textColor = .white
             $0.alpha = 0.7
@@ -57,7 +58,7 @@ class OnBoardingViewController: UIViewController {
     private func setupSignInButton() {
         loginButton.do {
             $0.setTitle("회원가입/로그인", for: .normal)
-            $0.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+            $0.titleLabel?.font = UIFont.font(.koreaYMJBold, size: 16)
             $0.setTitleColor(.black, for: .normal)
             $0.addTarget(self, action: #selector(didTapLoginButton(_:)), for: .touchUpInside)
             $0.backgroundColor = .white
@@ -72,13 +73,13 @@ class OnBoardingViewController: UIViewController {
         }
         
         titleLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(40)
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(121)
+            $0.leading.equalToSuperview().offset(32)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(112)
         }
         
         descriptionLabel.snp.makeConstraints {
             $0.leading.equalTo(titleLabel.snp.leading)
-            $0.top.equalTo(titleLabel.snp.bottom).offset(16)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(17)
         }
         
         loginButton.snp.makeConstraints {
