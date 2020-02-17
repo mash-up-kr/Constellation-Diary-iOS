@@ -13,6 +13,10 @@ struct UserInfoDto: Decodable {
     let user: UserDto
 }
 
+struct UserIdDto: Decodable {
+    let userId: String
+}
+
 struct TokenDto: Decodable {
     let authenticationToken: String
     let refreshToken: String

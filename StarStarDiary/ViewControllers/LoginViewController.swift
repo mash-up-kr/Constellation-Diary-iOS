@@ -225,11 +225,13 @@ extension LoginViewController {
         alert.addAction(UIAlertAction(title: "비밀번호를 찾고 싶어요.", style: .default, handler: { [weak self] _ in
             self?.present(FindIDViewController(), animated: true, completion: nil)
         }))
+        self.present(alert, animated: true, completion: nil)
     }
     
     @objc
     private func signUpButtonDidTap(_ button: UIButton) {
-        self.present(SignUpViewController(), animated: true, completion: nil)
+        let navi = MultiStepNavigationController(rootViewController: VarifyEmailViewController())
+        self.present(navi, animated: true, completion: nil)
     }
     
     @objc
