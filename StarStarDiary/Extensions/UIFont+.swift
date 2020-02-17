@@ -16,6 +16,7 @@ enum StarStarFonts: String {
     case notoSerifCJKRegular = "NotoSansCJKkr-Medium"
     case notoSerifCJKMedium = "NotoSansCJKkr-Regular"
     case notoSerifCJKBold = "NotoSansCJKkr-Bold"
+    case nanumMyeongjoBold = "NanumMyeongjo-Bold"
 }
 
 extension UIFont {

@@ -19,3 +19,9 @@ enum NetworkError: LocalizedError {
         }
     }
 }
+
+struct ErrorData: Decodable {
+    let code: Int?
+    let msg: String?
+    let timestamp: String?
+}
