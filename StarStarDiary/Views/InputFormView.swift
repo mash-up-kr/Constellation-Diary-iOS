@@ -11,8 +11,9 @@ import SnapKit
 import Then
 
 protocol InputFormViewDelegate: class {
-    func inputFormView(_ inputForView: InputFormView, didTimerEnded style: InputFormViewStyle)
-    func inputFormView(_ inputForView: InputFormView, didChanged text: String?)
+    func inputFormView(_ inputFormView: InputFormView, didTimerEnded style: InputFormViewStyle)
+    func inputFormView(_ inputFormView: InputFormView, didChanged text: String?)
+    func inputFormView(_ inputFormView: InputFormView, didTap button: UIButton)
 }
 
 final class InputFormView: UIView {
@@ -34,13 +35,12 @@ final class InputFormView: UIView {
     var verified: Bool = false {
         didSet {
             let newValue = self.verified
-            if oldValue != newValue {
-                self.actionButton.isEnabled = newValue
-                self.messageLabel.isHidden = newValue
-                let color = newValue ? self.enableColor : self.disabledColor
-                self.actionButton.backgroundColor = color
-                self.lineView.backgroundColor = color
-            }
+            self.actionButton.isEnabled = newValue
+            self.messageLabel.text = newValue ? "" : style.invalidMessage
+            
+            let color = newValue ? self.enableColor : self.disabledColor
+            self.actionButton.backgroundColor = color
+            self.lineView.backgroundColor = color
         }
     }
     private var style: InputFormViewStyle = .email
@@ -68,7 +68,6 @@ final class InputFormView: UIView {
     func configure(style: InputFormViewStyle) {
         titleLabel.text = style.title
         inputTextField.placeholder = style.placeHolder
-        messageLabel.text = style.invalidMessage
     }
     
     func startTimer(duration timeInterval: TimeInterval) {
@@ -95,6 +94,17 @@ final class InputFormView: UIView {
             let minutes = Int(distance / 60)
             self.timerLabel.text = String(format: "%02d:%02d", minutes, seconds)
         }
+    }
+    
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        if let text = textField.text, style.checksValidate {
+            self.verified = style.isValid(text)
+        }
+        self.delegate?.inputFormView(self, didChanged: textField.text)
+    }
+    
+    @objc private func didTapActionButton(_ button: UIButton) {
+        self.delegate?.inputFormView(self, didTap: button)
     }
     
     private func resetTimer() {
@@ -143,7 +153,7 @@ final class InputFormView: UIView {
         
         actionButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(1)
-            $0.bottom.equalToSuperview().inset(12)
+            $0.bottom.equalTo(lineView).inset(12)
             $0.width.equalTo(86)
             $0.height.equalTo(32)
         }
@@ -151,12 +161,14 @@ final class InputFormView: UIView {
         messageLabel.snp.makeConstraints {
             $0.top.equalTo(inputTextField.snp.bottom).offset(2)
             $0.leading.equalTo(inputTextField)
+            $0.bottom.equalToSuperview()
         }
         
         lineView.snp.makeConstraints {
             $0.height.equalTo(1)
             $0.top.equalTo(inputTextField.snp.bottom)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(15)
         }
     }
     
@@ -174,7 +186,7 @@ final class InputFormView: UIView {
             $0.autocorrectionType = .no
             $0.autocapitalizationType = .none
             $0.spellCheckingType = .no
-            $0.delegate = self
+            $0.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         }
         
         timerLabel.do {
@@ -194,27 +206,17 @@ final class InputFormView: UIView {
         actionButton.do {
             $0.layer.cornerRadius = 16
             $0.setTitleColor(.white, for: .normal)
-            $0.backgroundColor = .buttonBlue
+            $0.backgroundColor = .gray122
             $0.titleLabel?.font = .font(.notoSerifCJKBold, size: 11)
             $0.isEnabled = false
             $0.isHidden = true
+            $0.addTarget(self, action: #selector(didTapActionButton(_:)), for: .touchUpInside)
         }
         
         messageLabel.do {
             $0.textColor = .coral255
             $0.font = .font(.notoSerifCJKMedium, size: 10)
-            $0.isHidden = true
         }
-    }
-}
-
-extension InputFormView: UITextFieldDelegate {
-    
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
-        if let text = textField.text, style.checksValidate {
-            self.verified = style.isValid(text)
-        }
-        self.delegate?.inputFormView(self, didChanged: textField.text)
     }
 }
 

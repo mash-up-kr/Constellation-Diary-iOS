@@ -11,7 +11,7 @@ import SnapKit
 import Then
 import Moya
 
-class VarifyEmailViewController: UIViewController {
+class VerifyEmailViewController: UIViewController {
     
     // MARK: - UI
     
@@ -35,7 +35,7 @@ class VarifyEmailViewController: UIViewController {
 
 // MARK: - Layouts
 
-extension VarifyEmailViewController {
+extension VerifyEmailViewController {
     func setUpLayout() {
         view.do {
             $0.addSubview(titleLabel)
@@ -76,7 +76,7 @@ extension VarifyEmailViewController {
 
 // MARK: - Attributes
 
-extension VarifyEmailViewController {
+extension VerifyEmailViewController {
     func setUpAttribute() {
         titleLabel.do {
             $0.text = "회원가입"
@@ -91,15 +91,13 @@ extension VarifyEmailViewController {
         
         emailInputFormView.do {
             $0.setNeedsDisplay()
-            $0.actionButton.addTarget(self,
-                                       action: #selector(requestCertificationButtonDidTap),
-                                       for: .touchUpInside)
             $0.actionButton.setTitle("인증메일받기", for: .normal)
             $0.actionButton.isHidden = false
+            $0.delegate = self
         }
         
         completionButton.do {
-            $0.backgroundColor = .blue
+            $0.backgroundColor = .buttonBlue
             $0.setTitle("다음", for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 16)
             $0.layer.cornerRadius = 5
@@ -108,22 +106,51 @@ extension VarifyEmailViewController {
             $0.isHidden = true
         }
         
-        certificationNumberInputFormView.isHidden = true
+        certificationNumberInputFormView.do {
+            $0.isHidden = true
+            $0.delegate = self
+        }
     }
 }
 
 // MARK: - Actions
 
-extension VarifyEmailViewController {
-    @objc
-    func requestCertificationButtonDidTap(_ sender: UIButton) {
-        guard let email = emailInputFormView.inputText else { return }
-        Provider.request(API.authenticationNumbersToSignUp(email: email), completion: { _ in
-            self.emailInputFormView.actionButton.setTitle("다시 전송", for: .normal)
-            self.certificationNumberInputFormView.isHidden = false
-            self.certificationNumberInputFormView.inputTextField.becomeFirstResponder()
-            self.certificationNumberInputFormView.startTimer(duration: 180)
-            self.emailInputFormView.inputTextField.isUserInteractionEnabled = false
+extension VerifyEmailViewController: InputFormViewDelegate {
+    func inputFormView(_ inputFormView: InputFormView, didTap button: UIButton) {
+        if inputFormView === self.emailInputFormView {
+            self.requestCertification(inputFormView)
+        }
+    }
+    
+    func inputFormView(_ inputFormView: InputFormView, didTimerEnded style: InputFormViewStyle) {
+        if inputFormView === self.certificationNumberInputFormView {
+            inputFormView.verified = false
+        }
+    }
+    
+    func inputFormView(_ inputFormView: InputFormView, didChanged text: String?) {
+        let verified = inputFormView.verified
+        if inputFormView === self.emailInputFormView {
+            inputFormView.actionButton.backgroundColor = verified ? .buttonBlue : .gray122
+            inputFormView.actionButton.isEnabled = verified
+        } else if inputFormView === self.certificationNumberInputFormView {
+            guard let text = inputFormView.inputText, text.count >= 6 else { return }
+            updateCompletionButton(enable: true)
+        }
+    }
+
+    func requestCertification(_ inputFormView: InputFormView) {
+        guard let email = inputFormView.inputText else { return }
+        Provider.request(API.authenticationNumbersToSignUp(email: email), completion: {[weak self] _ in
+            inputFormView.actionButton.setTitle("다시 전송", for: .normal)
+            self.map {
+                $0.certificationNumberInputFormView.isHidden = false
+                $0.certificationNumberInputFormView.inputTextField.becomeFirstResponder()
+                $0.certificationNumberInputFormView.startTimer(duration: 180)
+                $0.emailInputFormView.inputTextField.isUserInteractionEnabled = false
+                self?.completionButton.isHidden = false
+                self?.updateCompletionButton(enable: false)
+            }
         }, failure: {
             print($0)
         })
@@ -134,12 +161,18 @@ extension VarifyEmailViewController {
         guard let email = emailInputFormView.inputText,
             let numberString = certificationNumberInputFormView.inputText,
             let number = Int(numberString) else { return }
-        Provider.request(API.authenticationToSignUp(email: email, number: number), completion: { (data: AuthenticationTokenDto) in
+        Provider.request(API.authenticationToSignUp(email: email, number: number), completion: { [weak self] (data: AuthenticationTokenDto) in
 //            UserDefaults.currentToken = data.token
-            self.navigationController?.pushViewController(SignUpViewController(), animated: true)
-        }, failure: { _ in
-            self.certificationNumberInputFormView.verified = false
-            self.certificationNumberInputFormView.inputTextField.text = nil
+            self?.navigationController?.pushViewController(SignUpViewController(), animated: true)
+        }, failure: { [weak self] _ in
+            self?.certificationNumberInputFormView.verified = false
+            self?.certificationNumberInputFormView.inputTextField.text = nil
+            self?.updateCompletionButton(enable: false)
         })
+    }
+    
+    private func updateCompletionButton(enable: Bool) {
+        completionButton.isEnabled = enable
+        completionButton.backgroundColor = enable ? .buttonBlue : .gray122
     }
 }

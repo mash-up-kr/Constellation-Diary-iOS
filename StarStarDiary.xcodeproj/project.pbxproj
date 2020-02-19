@@ -34,7 +34,7 @@
 		0EDB40F523CA56140020B0EF /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40F423CA56140020B0EF /* Reusable.swift */; };
 		0EDB40F723CA568C0020B0EF /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40F623CA568C0020B0EF /* UICollectionView+.swift */; };
 		0EDB40FA23CA5D210020B0EF /* ConstellationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40F923CA5D210020B0EF /* ConstellationCell.swift */; };
-		0EDB41AA23CE25EE0020B0EF /* VarifyEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB41A923CE25EE0020B0EF /* VarifyEmailViewController.swift */; };
+		0EDB41AA23CE25EE0020B0EF /* VerifyEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB41A923CE25EE0020B0EF /* VerifyEmailViewController.swift */; };
 		0EDB41AC23CE2C1D0020B0EF /* InputFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB41AB23CE2C1D0020B0EF /* InputFormView.swift */; };
 		0EDB41AF23CE79240020B0EF /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB41AE23CE79240020B0EF /* SignUpViewController.swift */; };
 		0EEB411623E45962000AE851 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEB411523E45961000AE851 /* UIView+.swift */; };
@@ -115,7 +115,7 @@
 		0EDB40F423CA56140020B0EF /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		0EDB40F623CA568C0020B0EF /* UICollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+.swift"; sourceTree = "<group>"; };
 		0EDB40F923CA5D210020B0EF /* ConstellationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstellationCell.swift; sourceTree = "<group>"; };
-		0EDB41A923CE25EE0020B0EF /* VarifyEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VarifyEmailViewController.swift; sourceTree = "<group>"; };
+		0EDB41A923CE25EE0020B0EF /* VerifyEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyEmailViewController.swift; sourceTree = "<group>"; };
 		0EDB41AB23CE2C1D0020B0EF /* InputFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFormView.swift; sourceTree = "<group>"; };
 		0EDB41AE23CE79240020B0EF /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		0EEB411523E45961000AE851 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
@@ -218,7 +218,7 @@
 				DBAF024123AE2C9B0044E2DD /* SettingsViewController+cell.swift */,
 				DB9EA41423AE90A000F4488D /* DiaryListViewController.swift */,
 				0EDB40F123CA54830020B0EF /* ConstellationSelectionViewController.swift */,
-				0EDB41A923CE25EE0020B0EF /* VarifyEmailViewController.swift */,
+				0EDB41A923CE25EE0020B0EF /* VerifyEmailViewController.swift */,
 				0EDB41AE23CE79240020B0EF /* SignUpViewController.swift */,
 				DBF6325023EF038B006E60FF /* DiaryCalendarViewController.swift */,
 				0E160CD423AA51E6000CA518 /* LoginViewController.swift */,
@@ -623,9 +623,9 @@
 				DBF6325123EF038B006E60FF /* DiaryCalendarViewController.swift in Sources */,
 				0EDB41AC23CE2C1D0020B0EF /* InputFormView.swift in Sources */,
 				D5A8C1B823FADA2900C596AF /* MultiStepNavigationController.swift in Sources */,
-				0EDB41AA23CE25EE0020B0EF /* VarifyEmailViewController.swift in Sources */,
+				0EDB41AA23CE25EE0020B0EF /* VerifyEmailViewController.swift in Sources */,
 				0E79612523F04443008446CB /* API.swift in Sources */,
-				0EDB41AA23CE25EE0020B0EF /* VarifyEmailViewController.swift in Sources */,
+				0EDB41AA23CE25EE0020B0EF /* VerifyEmailViewController.swift in Sources */,
 				D544F28A23898405009B3967 /* DateFormatter+.swift in Sources */,
 				D5F23D2F23AA9E4C002F8127 /* OnBoardingViewController.swift in Sources */,
 				0EDB40F523CA56140020B0EF /* Reusable.swift in Sources */,
