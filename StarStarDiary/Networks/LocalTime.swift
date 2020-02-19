@@ -8,9 +8,20 @@
 
 import Foundation
 
-struct LocalTime: Decodable {
+struct LocalTime: Encodable {
     let hour: Int
     let minute: Int
-    let nano: Int
     let second: Int
+    
+    init(time: String) {
+        let splitTimes = time.split(separator: ":").map({ Int(String($0)) ?? 0 })
+        self.hour = splitTimes[0]
+        self.minute = splitTimes[1]
+        self.second = splitTimes[2]
+    }
+    
+    func toString() -> String {
+        return "\(hour):\(minute):\(second)"
+    }
+
 }

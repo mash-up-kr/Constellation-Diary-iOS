@@ -11,8 +11,9 @@ import SnapKit
 import Then
 
 protocol InputFormViewDelegate: class {
-    func inputFormView(_ inputForView: InputFormView, didTimerEnded style: InputFormViewStyle)
-    func inputFormView(_ inputForView: InputFormView, didChanged text: String?)
+    func inputFormView(_ inputFormView: InputFormView, didTimerEnded style: InputFormViewStyle)
+    func inputFormView(_ inputFormView: InputFormView, didChanged text: String?)
+    func inputFormView(_ inputFormView: InputFormView, didTap button: UIButton)
 }
 
 final class InputFormView: UIView {
@@ -34,13 +35,12 @@ final class InputFormView: UIView {
     var verified: Bool = false {
         didSet {
             let newValue = self.verified
-            if oldValue != newValue {
-                self.actionButton.isEnabled = newValue
-                self.messageLabel.isHidden = newValue
-                let color = newValue ? self.enableColor : self.disabledColor
-                self.actionButton.backgroundColor = color
-                self.lineView.backgroundColor = color
-            }
+            self.actionButton.isEnabled = newValue
+            self.messageLabel.text = newValue ? "" : style.invalidMessage
+            
+            let color = newValue ? self.enableColor : self.disabledColor
+            self.actionButton.backgroundColor = color
+            self.lineView.backgroundColor = color
         }
     }
     private var style: InputFormViewStyle = .email
@@ -68,7 +68,7 @@ final class InputFormView: UIView {
     func configure(style: InputFormViewStyle) {
         titleLabel.text = style.title
         inputTextField.placeholder = style.placeHolder
-        messageLabel.text = style.invalidMessage
+        inputTextField.isSecureTextEntry = style.isSecureTextEntry
     }
     
     func startTimer(duration timeInterval: TimeInterval) {
@@ -77,6 +77,10 @@ final class InputFormView: UIView {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
         self.timerLabel.text = ""
         self.timerLabel.isHidden = false
+    }
+
+    func stopTimer() {
+        resetTimer()
     }
     
     @objc private func update() {
@@ -95,6 +99,17 @@ final class InputFormView: UIView {
             let minutes = Int(distance / 60)
             self.timerLabel.text = String(format: "%02d:%02d", minutes, seconds)
         }
+    }
+    
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        if let text = textField.text, style.checksValidate {
+            self.verified = style.isValid(text)
+        }
+        self.delegate?.inputFormView(self, didChanged: textField.text)
+    }
+    
+    @objc private func didTapActionButton(_ button: UIButton) {
+        self.delegate?.inputFormView(self, didTap: button)
     }
     
     private func resetTimer() {
@@ -143,7 +158,7 @@ final class InputFormView: UIView {
         
         actionButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(1)
-            $0.bottom.equalToSuperview().inset(12)
+            $0.bottom.equalTo(lineView).inset(12)
             $0.width.equalTo(86)
             $0.height.equalTo(32)
         }
@@ -151,12 +166,14 @@ final class InputFormView: UIView {
         messageLabel.snp.makeConstraints {
             $0.top.equalTo(inputTextField.snp.bottom).offset(2)
             $0.leading.equalTo(inputTextField)
+            $0.bottom.equalToSuperview()
         }
         
         lineView.snp.makeConstraints {
             $0.height.equalTo(1)
             $0.top.equalTo(inputTextField.snp.bottom)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(15)
         }
     }
     
@@ -174,7 +191,7 @@ final class InputFormView: UIView {
             $0.autocorrectionType = .no
             $0.autocapitalizationType = .none
             $0.spellCheckingType = .no
-            $0.delegate = self
+            $0.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         }
         
         timerLabel.do {
@@ -194,27 +211,17 @@ final class InputFormView: UIView {
         actionButton.do {
             $0.layer.cornerRadius = 16
             $0.setTitleColor(.white, for: .normal)
-            $0.backgroundColor = .buttonBlue
+            $0.backgroundColor = .gray122
             $0.titleLabel?.font = .font(.notoSerifCJKBold, size: 11)
             $0.isEnabled = false
             $0.isHidden = true
+            $0.addTarget(self, action: #selector(didTapActionButton(_:)), for: .touchUpInside)
         }
         
         messageLabel.do {
             $0.textColor = .coral255
             $0.font = .font(.notoSerifCJKMedium, size: 10)
-            $0.isHidden = true
         }
-    }
-}
-
-extension InputFormView: UITextFieldDelegate {
-    
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
-        if let text = textField.text, style.checksValidate {
-            self.verified = style.isValid(text)
-        }
-        self.delegate?.inputFormView(self, didChanged: textField.text)
     }
 }
 
@@ -247,7 +254,7 @@ enum InputFormViewStyle {
     var invalidMessage: String? {
         switch self {
         case .id: return "아이디를 입력하세요."
-        case .password: return nil
+        case .password: return "비밀번호는 영문자 숫자를 포함한 6~12 글자여야 합니다."
         case .confirmPassword: return "비밀번호 불일치"
         case .email: return "유효하지 않은 이메일"
         case .certificationNumber: return "인증번호 오류"
@@ -256,19 +263,30 @@ enum InputFormViewStyle {
     
     var checksValidate: Bool {
         switch self {
-        case .id, .email: return true
-        case .password, .confirmPassword, .certificationNumber: return false
+        case .id, .email, .password: return true
+        case .confirmPassword, .certificationNumber: return false
+        }
+    }
+    
+    var isSecureTextEntry: Bool {
+        switch self {
+        case .id, .email, .certificationNumber: return false
+        case .password, .confirmPassword: return true
         }
     }
     
     func isValid(_ input: String) -> Bool {
         switch self {
         case .id: return input.count >= 4
+        case .password:
+            let passRegEx = "[A-Za-z0-9]{6,12}"
+            let passPred = NSPredicate(format:"SELF MATCHES %@", passRegEx)
+            return passPred.evaluate(with: input)
         case .email:
            let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
            let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
            return emailPred.evaluate(with: input)
-        case .password, .confirmPassword, .certificationNumber: return true
+        case .confirmPassword, .certificationNumber: return true
         }
     }
 }

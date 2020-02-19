@@ -230,7 +230,7 @@ extension LoginViewController {
     
     @objc
     private func signUpButtonDidTap(_ button: UIButton) {
-        let navi = MultiStepNavigationController(rootViewController: VarifyEmailViewController())
+        let navi = MultiStepNavigationController(rootViewController: VerifyEmailViewController())
         self.present(navi, animated: true, completion: nil)
     }
     
