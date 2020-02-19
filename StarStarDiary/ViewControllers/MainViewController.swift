@@ -84,6 +84,7 @@ final class MainViewController: UIViewController {
             $0.shadowImage = UIImage()
             $0.backgroundColor = UIColor.clear
             $0.tintColor = .white
+            $0.barStyle = .black
         }
     }
     

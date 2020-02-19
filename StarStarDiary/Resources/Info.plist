@@ -4,17 +4,6 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>NotoSansCJKkr-Bold.otf</string>
-		<string>KoreanYMJ-E.otf</string>
-		<string>KoreanYMJ-B.otf</string>
-		<string>KoreanYMJ-L.otf</string>
-		<string>KoreanYMJ-M.otf</string>
-		<string>NotoSansCJKkr-Medium.otf</string>
-		<string>NotoSansCJKkr-Regular.otf</string>
-		<string>NanumMyeongjo-Bold.otf</string>
-	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -31,17 +20,28 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>NotoSansCJKkr-Bold.otf</string>
+		<string>KoreanYMJ-E.otf</string>
+		<string>KoreanYMJ-B.otf</string>
+		<string>KoreanYMJ-L.otf</string>
+		<string>KoreanYMJ-M.otf</string>
+		<string>NotoSansCJKkr-Medium.otf</string>
+		<string>NotoSansCJKkr-Regular.otf</string>
+		<string>NanumMyeongjo-Bold.otf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleLightContent</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>

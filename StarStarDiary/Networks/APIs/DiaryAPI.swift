@@ -43,13 +43,11 @@ enum DiaryAPI {
 
 extension DiaryAPI: Authenticated {
     var accessToken: Token {
-        // FIXME: - Token 가져오는 로직 추가 예정
-        return "Bearer cbbb1a6e-8614-4a4d-a967-b0a42924e7ca"
+        return "Bearer \(UserDefaults.currentToken ?? "cbbb1a6e-8614-4a4d-a967-b0a42924e7ca")"
     }
     
     var refreshToken: Token {
-        // FIXME: - Token 가져오는 로직 추가 예정
-        return ""
+        return "Bearer \(UserDefaults.refreshToken ?? "")"
     }
     
     var timeZone: String {

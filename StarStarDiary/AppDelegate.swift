@@ -29,19 +29,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let bounds = UIScreen.main.bounds
         self.window = UIWindow(frame: bounds)
-        
-        // FIXME : 필요할 경우 초기 API Call 이 추가되거나 분기 처리 방식이 변경될 수 있음
-        
+
         var rootViewController: UIViewController = OnBoardingViewController()
-        
+
         if UserDefaults.currentToken != nil {
             // 토큰 체크
             let mainViewController = MainViewController()
             rootViewController = UINavigationController(rootViewController: mainViewController)
         }
-//
         self.window?.rootViewController = rootViewController
         self.window?.makeKeyAndVisible()
+        
         return true
     }
 
