@@ -68,6 +68,7 @@ final class InputFormView: UIView {
     func configure(style: InputFormViewStyle) {
         titleLabel.text = style.title
         inputTextField.placeholder = style.placeHolder
+        inputTextField.isSecureTextEntry = style.isSecureTextEntry
     }
     
     func startTimer(duration timeInterval: TimeInterval) {
@@ -76,6 +77,10 @@ final class InputFormView: UIView {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
         self.timerLabel.text = ""
         self.timerLabel.isHidden = false
+    }
+
+    func stopTimer() {
+        resetTimer()
     }
     
     @objc private func update() {
@@ -249,7 +254,7 @@ enum InputFormViewStyle {
     var invalidMessage: String? {
         switch self {
         case .id: return "아이디를 입력하세요."
-        case .password: return nil
+        case .password: return "비밀번호는 영문자 숫자를 포함한 6~12 글자여야 합니다."
         case .confirmPassword: return "비밀번호 불일치"
         case .email: return "유효하지 않은 이메일"
         case .certificationNumber: return "인증번호 오류"
@@ -258,19 +263,30 @@ enum InputFormViewStyle {
     
     var checksValidate: Bool {
         switch self {
-        case .id, .email: return true
-        case .password, .confirmPassword, .certificationNumber: return false
+        case .id, .email, .password: return true
+        case .confirmPassword, .certificationNumber: return false
+        }
+    }
+    
+    var isSecureTextEntry: Bool {
+        switch self {
+        case .id, .email, .certificationNumber: return false
+        case .password, .confirmPassword: return true
         }
     }
     
     func isValid(_ input: String) -> Bool {
         switch self {
         case .id: return input.count >= 4
+        case .password:
+            let passRegEx = "[A-Za-z0-9]{6,12}"
+            let passPred = NSPredicate(format:"SELF MATCHES %@", passRegEx)
+            return passPred.evaluate(with: input)
         case .email:
            let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
            let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
            return emailPred.evaluate(with: input)
-        case .password, .confirmPassword, .certificationNumber: return true
+        case .confirmPassword, .certificationNumber: return true
         }
     }
 }

@@ -162,8 +162,9 @@ extension VerifyEmailViewController: InputFormViewDelegate {
             let numberString = certificationNumberInputFormView.inputText,
             let number = Int(numberString) else { return }
         Provider.request(API.authenticationToSignUp(email: email, number: number), completion: { [weak self] (data: AuthenticationTokenDto) in
-//            UserDefaults.currentToken = data.token
-            self?.navigationController?.pushViewController(SignUpViewController(), animated: true)
+            self?.certificationNumberInputFormView.stopTimer()
+            let nextVC = SignUpViewController(token: data.token, email: email)
+            self?.navigationController?.pushViewController(nextVC, animated: true)
         }, failure: { [weak self] _ in
             self?.certificationNumberInputFormView.verified = false
             self?.certificationNumberInputFormView.inputTextField.text = nil
@@ -173,6 +174,6 @@ extension VerifyEmailViewController: InputFormViewDelegate {
     
     private func updateCompletionButton(enable: Bool) {
         completionButton.isEnabled = enable
-        completionButton.backgroundColor = enable ? .buttonBlue : .gray122
+        completionButton.backgroundColor = enable ? .navy3 : .gray122
     }
 }
