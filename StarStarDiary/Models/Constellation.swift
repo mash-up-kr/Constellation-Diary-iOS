@@ -20,7 +20,7 @@ enum Constellation: String, CaseIterable {
     case sagittarius = "사수자리"
     case capricorn = "염소자리"
     case aquarius = "물병자리"
-    case pisces = "물고기 자리"
+    case pisces = "물고기자리"
     
     var name: String {
         return self.rawValue

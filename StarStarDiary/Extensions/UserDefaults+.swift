@@ -36,7 +36,7 @@ extension UserDefaults {
 
     static var constellation: Constellation = .aries {
         willSet(newValue) {
-            defaults.set(newValue.rawValue, forKey: currentTokenKey)
+            defaults.set(newValue.rawValue, forKey: constellationKey)
         }
     }
     

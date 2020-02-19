@@ -38,6 +38,7 @@ final class ConstellationSelectionViewController: UIViewController {
     // MARK: - UI
     
     private let backgrounImageView = UIImageView()
+    private let backgroundAlphaView = UIView()
     private let constellationCollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: UICollectionViewFlowLayout().then { $0.scrollDirection = .horizontal }
@@ -66,6 +67,10 @@ final class ConstellationSelectionViewController: UIViewController {
     }
     
     // MARK: - Life Cycle
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,17 +104,39 @@ final class ConstellationSelectionViewController: UIViewController {
     @objc private func didTapSelect(_ sender: UIButton) {
         // 선택하지 않았을 경우에 대한 피드백 필요? 아니면 바로 선택된 상태로 시작?
         guard let constellation = currentConstellation else { return }
-        // TODO :- API Call
-        UserDefaults.constellation = constellation
-        switch type {
-        case .select:
-            dismiss(animated: true, completion: nil)
-        case .fortune:
-            // 운세 보기 화면으로 넘어가기
-            dismiss(animated: true, completion: nil)
-        }
+        Provider.request(.modifyConstellations(constellation: constellation.name), completion: { [weak self] (data: UserDto) in
+            UserManager.share.login(with: data)
+            UserDefaults.constellation = constellation
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                switch self.type {
+                case .select:
+                    self.showMain()
+                case .fortune:
+                    // 운세 보기 화면으로 넘어가기
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
+        }, failure: { _ in
+            // TODO :- API Call
+        })
+        
     }
 
+    private func showMain() {
+        guard let window = self.view.window else { return }
+        let mainViewController = MainViewController()
+        let navi = UINavigationController(rootViewController: mainViewController)
+        
+        UIView.transition(from: self.view,
+                          to: navi.view,
+                          duration: 0.3,
+                          options: [.transitionCrossDissolve],
+                          completion: { _ in
+                            window.rootViewController = navi
+                            window.makeKeyAndVisible()
+                        })
+    }
 }
 
 // MARK: - Layouts
@@ -119,12 +146,17 @@ extension ConstellationSelectionViewController {
         let safeArea = view.safeAreaLayoutGuide.snp
         view.do {
             $0.addSubview(backgrounImageView)
+            $0.addSubview(backgroundAlphaView)
             $0.addSubview(constellationCollectionView)
             $0.addSubview(messageLabel)
             $0.addSubview(startButton)
         }
         
         backgrounImageView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        backgroundAlphaView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
         
@@ -164,6 +196,10 @@ extension ConstellationSelectionViewController {
         backgrounImageView.do {
             $0.image = UIImage(named: "bg_main")
             $0.contentMode = .scaleAspectFill
+        }
+        
+        backgroundAlphaView.do {
+            $0.backgroundColor = UIColor(white: 0, alpha: 0.4)
         }
 
         constellationCollectionView.do {
