@@ -8,27 +8,31 @@
 
 import UIKit
 
-enum FortuneItem: CaseIterable {
+enum FortuneType: CaseIterable {
     case clothes
     case number
     case word
-    case item
+    case exercise
     
     var image: UIImage? {
-        return UIImage(named: "icClothes48")
-    }
-    
-    var title: String {
         switch self {
         case .clothes:
-            return "스카프"
+            return UIImage(named: "icClothes48")
         case .number:
-            return "3"
+            return UIImage(named: "iconNumber")
         case .word:
-            return "운동"
-        case .item:
-            return "아령"
+            return UIImage(named: "iconWords")
+        case .exercise:
+            return UIImage(named: "iconWorkout")
         }
+    
     }
 
+}
+
+struct FortuneItem {
+    
+    let type: FortuneType
+    let text: String
+    
 }

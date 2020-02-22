@@ -28,8 +28,8 @@ final class FortuneItemView: UIView {
     }
 
     func bind(item: FortuneItem) {
-        imageView.image = item.image
-        label.text = item.title
+        imageView.image = item.type.image
+        label.text = item.text
     }
 
     private func setupViews() {

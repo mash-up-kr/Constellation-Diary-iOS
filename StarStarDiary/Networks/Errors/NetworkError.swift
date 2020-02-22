@@ -24,4 +24,9 @@ struct ErrorData: Decodable, Error {
     let code: Int?
     let httpStatus: String?
     let massage: String?
+    
+    static let errorCodeUnauthrozed = 4101
+    static let errorCodeNoData = 4007
+    
+    
 }

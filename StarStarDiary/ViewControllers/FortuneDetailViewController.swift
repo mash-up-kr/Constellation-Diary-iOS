@@ -58,8 +58,8 @@ final class FortuneDetailViewController: UIViewController {
     
     // MARK: - Configure
     
-    func bind(items: [FortuneItem], viewType: FortuneViewType) {
-        fortuneHeaderView.bind(items: FortuneItem.allCases)
+    func bind(data: HoroscopeDto, viewType: FortuneViewType) {
+        fortuneHeaderView.bind(horoscope: data)
         self.viewType = viewType
         completeButton.setTitle(viewType.title, for: .normal)
     }

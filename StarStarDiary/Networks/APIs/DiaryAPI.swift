@@ -17,10 +17,10 @@ protocol Authenticated {
 }
 
 enum DiaryAPI {
-    case dailyQuestions(date: String)
+    case dailyQuestions
     
     case diaries(month: Int, year: Int)
-    case writeDiary(content: String, date: String, horoscopeId: Int, title: String)
+    case writeDiary(content: String, horoscopeId: Int, title: String)
     case diary(id: Int)
     case modifyDiary(id: Int, content: String, title: String)
     case deleteDiary(id: Int)
@@ -132,16 +132,19 @@ extension DiaryAPI: TargetType {
     
     var task: Task {
         switch self {
-        case .dailyQuestions(let date):
+        case .dailyQuestions:
+            //FIXME
+            let date = Date().addingTimeInterval(-100000).utc
+            print(date)
             return .requestParameters(parameters: ["date": date],
                                       encoding: URLEncoding.default)
         case .diaries(let month, let year):
             return .requestParameters(parameters: ["month": month,
                                                    "year": year],
                                       encoding: URLEncoding.default)
-        case .writeDiary(let content, let date, let horoscopeId, let title):
+        case .writeDiary(let content,let horoscopeId, let title):
             return .requestParameters(parameters: ["content": content,
-                                                   "date": date,
+                                                   "date": Date().utc,
                                                    "horoscopeId": horoscopeId,
                                                    "title": title],
                                       encoding: JSONEncoding.default)

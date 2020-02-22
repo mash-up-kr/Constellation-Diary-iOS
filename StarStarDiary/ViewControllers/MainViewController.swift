@@ -14,47 +14,126 @@ final class MainViewController: UIViewController {
 
     // MARK: - Properties
 
-    private let writeButton: UIButton       =       UIButton(frame: .zero)
+    private let writeDiaryLabel: UILabel       =       UILabel(frame: .zero)
     private let titleLabel: UILabel         =       UILabel(frame: .zero)
     private let editImageView: UIImageView  =       UIImageView(frame: .zero)
     private let fortuneHeaderView: FortuneHeaderView = FortuneHeaderView(frame: .zero)
     private let backgroundImageView: UIImageView = UIImageView(frame: .zero)
-    
-    // MARK: - Methods
+    private var diary: DiaryDto?
+    private var horoscope: HoroscopeDto?
+    private let backgroundAlphaView = UIView()
     
     // MARK: Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        requestFortune()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
-    // MARK: privates
+        setupNavigationBar()
+    }
     
-    // FIXME : - rename method properly.
-    private func bindDiary() {
-        titleLabel.text = "오늘 하루\n어떠셨나요?"
-        fortuneHeaderView.bind(items: FortuneItem.allCases)
+    func bind(questionDTO: DailyQuestionDto) {
+        setTitle(questionDTO.question)
+        if questionDTO.existDiary {
+            Provider.request(DiaryAPI.diary(id: questionDTO.diaryId),
+                             completion: { (data: DiaryDto) in
+                                self.bind(diary: data)
+                            })
+        }
+    }
+    
+}
+
+extension MainViewController: FortuneDetailViewDelegate {
+    func fortuneDeatilView(_ viewController: FortuneDetailViewController,
+                           didTap button: UIButton,
+                           with type: FortuneViewType) {
+        didTapNewDiary()
     }
 
-    private func setupView() {
+}
+
+private extension MainViewController {
+    
+    func setTitle(_ text: String) {
+         let attributedString = NSMutableAttributedString(string: text)
+         let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 0.31
+        paragraphStyle.minimumLineHeight = 43
+         attributedString.addAttribute(
+             .paragraphStyle,
+             value: paragraphStyle,
+             range: NSRange(location: 0, length: attributedString.length
+         ))
+        self.titleLabel.attributedText = attributedString
+    }
+    
+    func bind(diary: DiaryDto) {
+        self.diary = diary
+        setTitle(diary.title)
+    }
+    
+    func bind(horoscope: HoroscopeDto) {
+        self.horoscope = horoscope
+        fortuneHeaderView.bind(horoscope: horoscope)
+        fortuneHeaderView.isHidden = false
+    }
+    
+    func requestFortune() {
+        Provider.request(DiaryAPI.horoscopes(constellation: UserDefaults.constellation.rawValue,
+                                             date: Date().utc),
+                                             completion: { (data: HoroscopeDto) in
+                                                self.bind(horoscope: data)
+                                            })
+    }
+    
+    // MARK: actions
+    
+    @objc func openFortuneView() {
+        guard let horoscope = self.horoscope else { return }
+        let fortuneViewController = FortuneDetailViewController()
+        fortuneViewController.bind(data: horoscope, viewType: .writeDirary)
+        fortuneViewController.delegate = self
+        navigationController?.present(fortuneViewController, animated: true, completion: nil)
+    }
+
+    @objc func didTapMenuItem() {
+        // TODO : open side menu view controller
+        let viewController = SideMenuViewController()
+        viewController.modalPresentationStyle = .overFullScreen
+        navigationController?.present(viewController, animated: false)
+    }
+
+    @objc func didTapStorageItem() {
+        let viewController = DiaryListViewController()
+        viewController.modalPresentationStyle = .fullScreen
+        navigationController?.present(viewController, animated: true)
+    }
+
+    @objc func didTapNewDiary() {
+        self.navigationController?.pushViewController(WriteViewController(), animated: true)
+    }
+}
+
+private extension MainViewController {
+
+    func setupView() {
         view.backgroundColor = .black
         setupBackgroundImageView()
-        setupNavigationBar()
+        setupBackgroundAlphaView()
         setupTitleLabel()
-        setupWriteButton()
+        setupWriteLabel()
         setupFortuneView()
         setupContainerView()
         setupGestures()
-        bindDiary()
     }
     
-    private func setupBackgroundImageView() {
+    func setupBackgroundImageView() {
         backgroundImageView.do {
             $0.image = UIImage(named: "bg_main")
             $0.contentMode = .scaleAspectFill
@@ -65,7 +144,7 @@ final class MainViewController: UIViewController {
         }
     }
 
-    private func setupNavigationBar() {
+    func setupNavigationBar() {
         let menuItem = UIBarButtonItem(image: UIImage(named: "icMenu24"),
                                        style: .plain,
                                        target: self,
@@ -79,6 +158,7 @@ final class MainViewController: UIViewController {
         let logoImageView = UIImageView(image: UIImage(named: "icStarVirgo40White"))
         logoImageView.contentMode = .scaleAspectFit
         navigationItem.titleView = logoImageView
+        navigationController?.setNavigationBarHidden(false, animated: false)
         navigationController?.navigationBar.do {
             $0.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
             $0.shadowImage = UIImage()
@@ -88,7 +168,7 @@ final class MainViewController: UIViewController {
         }
     }
     
-    private func setupTitleLabel() {
+    func setupTitleLabel() {
         titleLabel.do {
             $0.isUserInteractionEnabled = true
             $0.textColor = .white
@@ -97,31 +177,43 @@ final class MainViewController: UIViewController {
         }
     }
     
-    private func setupWriteButton() {
-        writeButton.do {
-            $0.titleLabel?.font = UIFont.font(.notoSerifCJKMedium, size: 16)
-            $0.setTitle("일기작성 >", for: .normal)
-            $0.setTitleColor(UIColor(white: 1, alpha: 0.7), for: .normal)
+    func setupWriteLabel() {
+        
+        writeDiaryLabel.do {
+            $0.font = UIFont.font(.notoSerifCJKMedium, size: 16)
+            $0.text = "일기작성 >"
+            $0.textColor = UIColor(white: 1, alpha: 0.7)
         }
     }
     
-    private func setupFortuneView() {
+    func setupFortuneView() {
         fortuneHeaderView.do {
             $0.clipsToBounds = true
             $0.layer.cornerRadius = 10
             $0.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             $0.isUserInteractionEnabled = true
+            $0.isHidden = true
             view.addSubview($0)
 
             $0.snp.makeConstraints { make in
                 make.leading.trailing.equalToSuperview()
-                make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(182.0)
                 make.bottom.equalToSuperview()
             }
         }
     }
+    
+    func setupBackgroundAlphaView() {
+        
+        backgroundAlphaView.do {
+            $0.backgroundColor = UIColor(white: 0, alpha: 0.4)
+            view.addSubview($0)
+            $0.snp.makeConstraints {
+                $0.edges.equalToSuperview()
+            }
+        }
+    }
 
-    private func setupContainerView() {
+    func setupContainerView() {
         let stackView = UIStackView()
         stackView.do {
             $0.axis = .vertical
@@ -129,7 +221,7 @@ final class MainViewController: UIViewController {
             $0.distribution = .equalSpacing
             $0.spacing = 25
             $0.addArrangedSubview(titleLabel)
-            $0.addArrangedSubview(writeButton)
+            $0.addArrangedSubview(writeDiaryLabel)
             $0.isUserInteractionEnabled = true
             view.addSubview($0)
             let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTapNewDiary))
@@ -144,7 +236,7 @@ final class MainViewController: UIViewController {
         }
     }
     
-    private func setupGestures() {
+    func setupGestures() {
         let swipeGestureRecognizer = UISwipeGestureRecognizer(
             target: self,
             action: #selector(openFortuneView)
@@ -156,39 +248,6 @@ final class MainViewController: UIViewController {
             action: #selector(openFortuneView)
         )
         fortuneHeaderView.addGestureRecognizer(tapGestureRecognizer)
-    }
-
-    // MARK: actions
-    
-    @objc private func openFortuneView() {
-        let fortuneViewController = FortuneDetailViewController()
-        fortuneViewController.bind(items: FortuneItem.allCases, viewType: .writeDirary)
-        fortuneViewController.delegate = self
-        navigationController?.present(fortuneViewController, animated: true, completion: nil)
-    }
-
-    @objc private func didTapMenuItem() {
-        // TODO : open side menu view controller
-        let viewController = SideMenuViewController()
-        viewController.modalPresentationStyle = .overFullScreen
-        navigationController?.present(viewController, animated: false)
-    }
-
-    @objc private func didTapStorageItem() {
-        let viewController = DiaryListViewController()
-        viewController.modalPresentationStyle = .fullScreen
-        navigationController?.present(viewController, animated: true)
-    }
-
-    @objc private func didTapNewDiary() {
-        self.navigationController?.pushViewController(WriteViewController(), animated: true)
-    }
-
-}
-
-extension MainViewController: FortuneDetailViewDelegate {
-    func fortuneDeatilView(_ viewController: FortuneDetailViewController, didTap button: UIButton, with type: FortuneViewType) {
-        didTapNewDiary()
     }
 
 }

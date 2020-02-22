@@ -36,12 +36,13 @@ final class FortuneHeaderView: UIView {
         setUpConstraints()
     }
     
-    func bind(items: [FortuneItem]) {
-        items.forEach {
+    func bind(horoscope: HoroscopeDto) {
+        horoscope.items.forEach {
             let itemView = FortuneItemView()
             itemView.bind(item: $0)
             fortuneItemsView.addArrangedSubview(itemView)
         }
+        titleLabel.text = "\(horoscope.constellation) 운세"
     }
     
     private func setUpAttributes() {
@@ -61,15 +62,12 @@ final class FortuneHeaderView: UIView {
         titleLabel.do {
             $0.font = UIFont.systemFont(ofSize: 20, weight: .bold)
             $0.textColor = .black
-            // TODO: - 실제 데이터 모델과 바인드
-            $0.text = "별자리 운세"
         }
         
         suggestionLabel.do {
             $0.font = UIFont.systemFont(ofSize: 13)
             $0.textColor = .gray122
-            // TODO: - 실제 데이터 모델과 바인드
-            $0.text = "행운의 소품을 확인하세요."
+            $0.text = "행운의 키워드를 확인하세요."
         }
         
         fortuneItemsView.do {
@@ -91,6 +89,7 @@ final class FortuneHeaderView: UIView {
         
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(drawerHandleView.snp.bottom).offset(16)
+            $0.height.greaterThanOrEqualTo(29)
             $0.centerX.equalToSuperview()
         }
         
