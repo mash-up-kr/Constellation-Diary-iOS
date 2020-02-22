@@ -16,6 +16,9 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    private var requestCount: Int = 0
+    private let maxRetryCount: Int = 3
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -26,19 +29,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(options: authOptions,completionHandler: {_, _ in })
         application.registerForRemoteNotifications()
-
-        let bounds = UIScreen.main.bounds
-        self.window = UIWindow(frame: bounds)
-
-        var rootViewController: UIViewController = OnBoardingViewController()
-
-        if UserDefaults.currentToken != nil {
-            // 토큰 체크
-            let mainViewController = MainViewController()
-            rootViewController = UINavigationController(rootViewController: mainViewController)
-        }
-        self.window?.rootViewController = rootViewController
-        self.window?.makeKeyAndVisible()
+        
+        UserDefaults.currentToken = "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMzODQifQ.eyJpc3MiOiJBUEkgU2VydmVyIiwic3ViIjoiQXV0aGVudGljYXRpb24gVG9rZW4iLCJleHAiOjE1ODI0NjM3MjgsImlhdCI6MTU4MjM3NzMyOCwidXNlcklkIjoicnVyZTExMTQiLCJpZCI6NH0.mBORyzTwY-KeveJ6C2g3mv-hAGXIb2v1D_1bkKTEOSVCUVJIl_7IsFUOPxVTjBM_"
+        UserDefaults.refreshToken =  "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMzODQifQ.eyJpc3MiOiJBUEkgU2VydmVyIiwic3ViIjoiUmVmcmVzaCBUb2tlbiIsImV4cCI6MTU4NDk2OTMyOCwiaWF0IjoxNTgyMzc3MzI4LCJ1c2VySWQiOiJydXJlMTExNCIsImlkIjo0fQ.3eaDfm9np9O0xsuSifJOusUl6yv1pUwBsByCWqwywF3c0cihUegjFwI8LYmrri9V"
+        
+        
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.navigateInitialViewController()
         
         return true
     }
@@ -171,4 +168,46 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
         completionHandler()
     }
+}
+
+private extension AppDelegate {
+    
+    func navigateInitialViewController() {
+        if UserDefaults.currentToken == nil {
+            navigateOnBoarding()
+            return
+        } else {
+            requestDailyQuestion()
+        }
+    }
+    
+    func requestDailyQuestion() {
+        Provider.request(.dailyQuestions, completion: { [weak self] (data: DailyQuestionDto) in
+            let mainViewController = MainViewController()
+            mainViewController.bind(questionDTO: data)
+            self?.window?.rootViewController = UINavigationController(rootViewController: mainViewController)
+            self?.window?.makeKeyAndVisible()
+        }, failure: { [weak self] error in
+            self?.requestCount += 1
+            guard let strongSelf = self,
+                strongSelf.requestCount < strongSelf.maxRetryCount,
+                error.code == ErrorData.errorCodeUnauthrozed else {
+                    self?.navigateOnBoarding()
+                return
+            }
+            Provider.request(.refreshToken, completion: { [weak self] (tokens: TokenDto) in
+                UserDefaults.currentToken = tokens.authenticationToken
+                UserDefaults.refreshToken = tokens.refreshToken
+                self?.requestDailyQuestion()
+            }, failure: { [weak self] _ in
+                self?.navigateOnBoarding()
+            })
+        })
+    }
+    
+    func navigateOnBoarding() {
+        self.window?.rootViewController = OnBoardingViewController()
+        self.window?.makeKeyAndVisible()
+    }
+    
 }

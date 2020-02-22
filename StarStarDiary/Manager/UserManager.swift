@@ -17,4 +17,8 @@ final class UserManager {
         self.user = user
     }
     
+    func checkTokenValidation() {
+        
+    }
+    
 }

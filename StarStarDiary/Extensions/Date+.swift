@@ -18,4 +18,8 @@ extension Date {
         return components.weekday == 1
     }
     
+    var utc: String {
+        return DateFormatter.utc.string(from: self)
+    }
+    
 }
