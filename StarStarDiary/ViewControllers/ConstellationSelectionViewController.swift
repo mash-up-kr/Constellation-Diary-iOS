@@ -92,7 +92,7 @@ final class ConstellationSelectionViewController: UIViewController {
             let item = constellations.firstIndex(of: UserDefaults.constellation) ?? 0
             initialIndexPath.item = fakeItemCount / 2 + item
             constellationCollectionView.selectItem(at: initialIndexPath,
-                                                   animated: true,
+                                                   animated: false,
                                                    scrollPosition: .centeredHorizontally)
         } else {
             constellationCollectionView.scrollToItem(at: initialIndexPath,
@@ -102,11 +102,10 @@ final class ConstellationSelectionViewController: UIViewController {
     }
     
     @objc private func didTapSelect(_ sender: UIButton) {
-        // 선택하지 않았을 경우에 대한 피드백 필요? 아니면 바로 선택된 상태로 시작?
         guard let constellation = currentConstellation else { return }
+        UserDefaults.constellation = constellation
         Provider.request(.modifyConstellations(constellation: constellation.name), completion: { [weak self] (data: UserDto) in
             UserManager.share.login(with: data)
-            UserDefaults.constellation = constellation
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 switch self.type {

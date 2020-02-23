@@ -29,6 +29,7 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         requestFortune()
+        registerObserver()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,6 +51,7 @@ final class MainViewController: UIViewController {
 }
 
 extension MainViewController: FortuneDetailViewDelegate {
+
     func fortuneDeatilView(_ viewController: FortuneDetailViewController,
                            didTap button: UIButton,
                            with type: FortuneViewType) {
@@ -103,7 +105,6 @@ private extension MainViewController {
     }
 
     @objc func didTapMenuItem() {
-        // TODO : open side menu view controller
         let viewController = SideMenuViewController()
         viewController.modalPresentationStyle = .overFullScreen
         navigationController?.present(viewController, animated: false)
@@ -116,7 +117,11 @@ private extension MainViewController {
     }
 
     @objc func didTapNewDiary() {
-        self.navigationController?.pushViewController(WriteViewController(), animated: true)
+        let diaryViewController = WriteViewController()
+        if let diary = self.diary {
+            diaryViewController.bind(diary: diary)
+        }
+        self.navigationController?.pushViewController(diaryViewController, animated: true)
     }
 }
 
@@ -155,9 +160,6 @@ private extension MainViewController {
                                           target: self,
                                           action: #selector(didTapStorageItem))
         navigationItem.setRightBarButton(storageItem, animated: false)
-        let logoImageView = UIImageView(image: UIImage(named: "icStarVirgo40White"))
-        logoImageView.contentMode = .scaleAspectFit
-        navigationItem.titleView = logoImageView
         navigationController?.setNavigationBarHidden(false, animated: false)
         navigationController?.navigationBar.do {
             $0.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
@@ -166,6 +168,13 @@ private extension MainViewController {
             $0.tintColor = .white
             $0.barStyle = .black
         }
+        setupNavigationTitleView()
+    }
+    
+    @objc func setupNavigationTitleView() {
+        let logoImageView = UIImageView(image: UserDefaults.constellation.icon)
+        logoImageView.contentMode = .scaleAspectFit
+        navigationItem.titleView = logoImageView
     }
     
     func setupTitleLabel() {
@@ -231,7 +240,7 @@ private extension MainViewController {
 
         stackView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(104)
+            $0.top.equalTo(view.snp.bottom).multipliedBy(0.2)
             $0.leading.equalToSuperview().inset(32.0)
         }
     }
@@ -250,4 +259,7 @@ private extension MainViewController {
         fortuneHeaderView.addGestureRecognizer(tapGestureRecognizer)
     }
 
+    func registerObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(setupNavigationTitleView), name: .didChangeConstellation, object: nil)
+    }
 }
