@@ -51,8 +51,7 @@ extension DiaryAPI: Authenticated {
     }
     
     var timeZone: String {
-        // FIXME: - timeZone 가져오는 로직 추가 예정
-        return "KST"
+        return "UTC"
     }
 }
 
@@ -71,7 +70,7 @@ extension DiaryAPI: TargetType {
             return "/diaries"
         case .diary(let id):
             return "/diaries/\(id)"
-        case .modifyDiary(let id):
+        case .modifyDiary(let id, _, _):
             return "/diaries/\(id)"
         case .deleteDiary(let id):
             return "/diaries/\(id)"
@@ -133,10 +132,7 @@ extension DiaryAPI: TargetType {
     var task: Task {
         switch self {
         case .dailyQuestions:
-            //FIXME
-            let date = Date().addingTimeInterval(-100000).utc
-            print(date)
-            return .requestParameters(parameters: ["date": date],
+            return .requestParameters(parameters: ["date": Date().utc],
                                       encoding: URLEncoding.default)
         case .diaries(let month, let year):
             return .requestParameters(parameters: ["month": month,

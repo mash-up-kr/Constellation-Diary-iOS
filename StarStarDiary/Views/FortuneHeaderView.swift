@@ -1,5 +1,5 @@
 //
-//  FortuneHeaderView.swift
+//  HoroscopeHeaderView.swift
 //  StarStarDiary
 //
 //  Created by juhee on 2020/01/25.
@@ -9,7 +9,7 @@
 import UIKit
 
 
-final class FortuneHeaderView: UIView {
+final class HoroscopeHeaderView: UIView {
     
     var isDrawerHidden: Bool = false {
         didSet {
@@ -20,7 +20,7 @@ final class FortuneHeaderView: UIView {
     private let drawerHandleView = UIView()
     private let titleLabel = UILabel()
     private let suggestionLabel = UILabel()
-    private let fortuneItemsView = UIStackView()
+    private let horoscopeItemsView = UIStackView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,9 +38,9 @@ final class FortuneHeaderView: UIView {
     
     func bind(horoscope: HoroscopeDto) {
         horoscope.items.forEach {
-            let itemView = FortuneItemView()
+            let itemView = HoroscopeItemView()
             itemView.bind(item: $0)
-            fortuneItemsView.addArrangedSubview(itemView)
+            horoscopeItemsView.addArrangedSubview(itemView)
         }
         titleLabel.text = "\(horoscope.constellation) 운세"
     }
@@ -51,7 +51,7 @@ final class FortuneHeaderView: UIView {
             $0.addSubview(drawerHandleView)
             $0.addSubview(titleLabel)
             $0.addSubview(suggestionLabel)
-            $0.addSubview(fortuneItemsView)
+            $0.addSubview(horoscopeItemsView)
         }
         
         drawerHandleView.do {
@@ -70,7 +70,7 @@ final class FortuneHeaderView: UIView {
             $0.text = "행운의 키워드를 확인하세요."
         }
         
-        fortuneItemsView.do {
+        horoscopeItemsView.do {
             $0.backgroundColor = .black
             $0.spacing = 4
             $0.distribution = .fillEqually
@@ -98,7 +98,7 @@ final class FortuneHeaderView: UIView {
             $0.centerX.equalToSuperview()
         }
         
-        fortuneItemsView.snp.makeConstraints {
+        horoscopeItemsView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(suggestionLabel.snp.bottom).offset(16)
             $0.height.equalTo(70)

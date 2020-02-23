@@ -1,5 +1,5 @@
 //
-//  FortuneItemView.swift
+//  HoroscopeItemView.swift
 //  StarStarDiary
 //
 //  Created by juhee on 2020/01/26.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class FortuneItemView: UIView {
+final class HoroscopeItemView: UIView {
 
     private let imageView: UIImageView = UIImageView(frame: .zero)
     private let label: UILabel = UILabel(frame: .zero)
@@ -27,7 +27,7 @@ final class FortuneItemView: UIView {
         setupConstraints()
     }
 
-    func bind(item: FortuneItem) {
+    func bind(item: HoroscopeItem) {
         imageView.image = item.type.image
         label.text = item.text
     }

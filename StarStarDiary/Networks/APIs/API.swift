@@ -26,8 +26,7 @@ enum API {
 
 extension API: TargetType {
     var timeZone: String {
-        // FIXME: 현재 타임존으로 설정
-        return "KST"
+        return "UTC"
     }
     
     var baseURL: URL {

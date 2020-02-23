@@ -1,5 +1,5 @@
 //
-//  FortuneItem.swift
+//  HoroscopeItem.swift
 //  StarStarDiary
 //
 //  Created by juhee on 2020/01/25.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum FortuneType: CaseIterable {
+enum HoroscopeType: CaseIterable {
     case clothes
     case number
     case word
@@ -30,9 +30,9 @@ enum FortuneType: CaseIterable {
 
 }
 
-struct FortuneItem {
+struct HoroscopeItem {
     
-    let type: FortuneType
+    let type: HoroscopeType
     let text: String
     
 }

@@ -13,42 +13,166 @@ class BaseNavigationView: UIView {
     
     // MARK: - Private Property
 
-    private let btnLeft = UIButton(frame: .zero)
-    private let btnRight = UIButton(frame: .zero)
-    private let btnTitle = UIButton(frame: .zero)
+    // FIXME : 버튼이 추가될 경우를 생각해서 stackview로 변경하기
+    private let buttonLeft = UIButton(type: .system)
+    private let buttonSubRight = UIButton(type: .system)
+    private let buttonRight = UIButton(type: .system)
+    private let buttonTitle = UIButton(type: .system)
     private let bottomLineView = UIView(frame: .zero)
+    
+    private let buttonSize: CGFloat = 24.0
+    private let horizontalGap: CGFloat = 20.0
+    private let buttonGap: CGFloat = 16.0
     
     // MARK: - Init
     
-    private func initLayout() {
-        self.addSubview(btnLeft)
-        self.addSubview(btnRight)
-        self.addSubview(btnTitle)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        initLayout()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        
+        initLayout()
+    }
+
+}
+
+extension BaseNavigationView {
+    
+    func button(for type: BaseNavigationButtonType) -> UIButton {
+        switch type {
+        case .title:
+            return self.buttonTitle
+        case .left:
+            return self.buttonLeft
+        case .right:
+            return self.buttonRight
+        case .subRight:
+            return self.buttonSubRight
+        }
+    }
+    
+    @discardableResult
+    func setButton(type: BaseNavigationButtonType, image: UIImage?, addTargetType: AddTargetType) -> UIButton {
+        let button = self.button(for: type)
+        button.do {
+            $0.setImage(image, for: .normal)
+            $0.addTarget(addTargetType.target,
+                              action: addTargetType.action,
+                              for: addTargetType.for)
+            $0.isHidden = false
+        }
+        return button
+    }
+    
+    @discardableResult
+    func setButton(type: BaseNavigationButtonType, title: String, color: UIColor? = .black, addTargetType: AddTargetType? = nil) -> UIButton {
+        let button = self.button(for: type)
+        button.do {
+            $0.tintColor = color
+            $0.setTitle(title, for: .normal)
+            if let addTargetType = addTargetType {
+                $0.addTarget(addTargetType.target,
+                                  action: addTargetType.action,
+                                  for: addTargetType.for)
+            }
+            $0.isHidden = false
+        }
+        return button
+    }
+    
+    func updateButton(type: BaseNavigationButtonType, isEnabled: Bool) {
+        button(for: type).do {
+            $0.isEnabled = false
+        }
+    }
+    
+    func setBackgroundColor(color: UIColor) {
+        self.backgroundColor = color
+    }
+    
+    func setTitle(title: String?, titleColor: UIColor, font: UIFont? = nil, addTargetType: AddTargetType? = nil) {
+        buttonTitle.do {
+            $0.setTitle(title, for: .normal)
+            $0.setTitleColor(titleColor, for: .normal)
+            $0.titleLabel?.font = font ?? UIFont.font(.koreaYMJBold, size: 16)
+            $0.isEnabled = addTargetType != nil
+            if let addTargetType = addTargetType {
+                $0.addTarget(addTargetType.target,
+                                  action: addTargetType.action,
+                                  for: addTargetType.for)
+            }
+        }
+    }
+
+    func setTitle(image: UIImage?, addTargetType: AddTargetType? = nil) {
+        buttonTitle.do {
+            $0.setImage(image, for: .normal)
+            $0.isEnabled = addTargetType != nil
+            if let addTargetType = addTargetType {
+                $0.addTarget(addTargetType.target,
+                                  action: addTargetType.action,
+                                  for: addTargetType.for)
+            }
+        }
+    }
+    
+    func setBottomLine(isHidden: Bool) {
+        bottomLineView.isHidden = isHidden
+        
+        if isHidden == false {
+            bottomLineView.backgroundColor = .white216
+        }
+    }
+
+}
+
+private extension BaseNavigationView {
+    
+    func initLayout() {
+        self.addSubview(buttonLeft)
+        self.addSubview(buttonRight)
+        self.addSubview(buttonSubRight)
+        self.addSubview(buttonTitle)
         self.addSubview(bottomLineView)
         
-        btnLeft.do { (button) in
-            button.snp.makeConstraints { (make) in
+        buttonLeft.do {
+            $0.snp.makeConstraints { (make) in
                 make.centerY.equalToSuperview()
-                make.height.width.equalTo(24.0)
-                make.leading.equalTo(self.snp.leading).offset(20.0)
+                make.height.width.equalTo(buttonSize)
+                make.leading.equalTo(self.snp.leading).offset(horizontalGap)
             }
+            $0.isHidden = true
+            $0.tintColor = .black
         }
         
-        btnRight.do { (button) in
-            button.snp.makeConstraints { (make) in
-                make.centerY.equalToSuperview()
-                make.height.width.equalTo(24.0)
-                make.trailing.equalTo(self.snp.trailing).inset(20.0)
+        buttonRight.do {
+            $0.snp.makeConstraints { (make) in
+                make.centerY.height.equalToSuperview()
+                make.leading.greaterThanOrEqualTo(buttonSubRight.snp.trailing).offset(buttonGap)
+                make.trailing.equalTo(self.snp.trailing).inset(horizontalGap)
             }
+            $0.isHidden = true
+            $0.tintColor = .black
         }
         
-        btnTitle.do { (button) in
+        buttonSubRight.do {
+            $0.snp.makeConstraints { maker in
+                maker.centerY.height.equalToSuperview()
+            }
+            $0.isHidden = true
+            $0.tintColor = .black
+        }
+        
+        buttonTitle.do { (button) in
             button.snp.makeConstraints { (make) in
                 make.center.equalToSuperview()
-                make.leading.equalTo(btnLeft.snp.trailing).offset(16.0)
-                make.trailing.equalTo(btnRight.snp.leading).inset(-16.0)
             }
             button.titleLabel?.textAlignment = .center
+            button.tintColor = .black
         }
         
         bottomLineView.do {
@@ -61,53 +185,12 @@ class BaseNavigationView: UIView {
         }
 
     }
-    
-    // MARK: - Life Cycle
 
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-//        fatalError("init(coder:) has not been implemented")
-        
-        initLayout()
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        initLayout()
-    }
-    
-    // MARK: - Public Function
-    
-    public func setBtnLeft(image: UIImage?, addTargetType: AddTargetType) {
-        btnLeft.setImage(image, for: .normal)
-        btnLeft.addTarget(addTargetType.target,
-                          action: addTargetType.action,
-                          for: addTargetType.for)
-    }
-    
-    public func setBtnRight(image: UIImage?, addTargetType: AddTargetType) {
-        btnRight.setImage(image, for: .normal)
-        btnRight.addTarget(addTargetType.target,
-                          action: addTargetType.action,
-                          for: addTargetType.for)
-    }
-    
-    public func setBackgroundColor(color: UIColor) {
-        self.backgroundColor = color
-    }
-    
-    public func setTitle(title: String?, titleColor: UIColor, image: UIImage?) {
-        btnTitle.setTitle(title, for: .normal)
-        btnTitle.setTitleColor(titleColor, for: .normal)
-        btnTitle.setImage(image, for: .normal)
-    }
-    
-    public func setBottomLine(isHidden: Bool) {
-        bottomLineView.isHidden = isHidden
-        
-        if isHidden == false {
-            bottomLineView.backgroundColor = .white216
-        }
-    }
+}
+
+enum BaseNavigationButtonType {
+    case left
+    case right
+    case subRight
+    case title
 }

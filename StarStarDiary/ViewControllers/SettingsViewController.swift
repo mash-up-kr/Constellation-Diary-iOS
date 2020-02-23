@@ -47,8 +47,8 @@ class SettingsViewController: UIViewController {
 
         navigationView.do {
             $0.setBackgroundColor(color: .clear)
-            $0.setBtnLeft(image: UIImage(named: "icClose24"), addTargetType: leftTargetType)
-            $0.setTitle(title: "설정", titleColor: .black, image: nil)
+            $0.setButton(type: .left, image: UIImage(named: "icClose24"), addTargetType: leftTargetType)
+            $0.setTitle(title: "설정", titleColor: .black)
             $0.setBottomLine(isHidden: false)
         }
     }

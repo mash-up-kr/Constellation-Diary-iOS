@@ -147,7 +147,7 @@ final class SideMenuViewController: UIViewController {
         let viewController = ConstellationSelectionViewController()
         viewController.do {
             $0.modalPresentationStyle = .fullScreen
-            $0.bind(type: .fortune)
+            $0.bind(type: .horoscope)
             self.present($0, animated: true, completion: nil)
         }
     }

@@ -30,9 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UNUserNotificationCenter.current().requestAuthorization(options: authOptions,completionHandler: {_, _ in })
         application.registerForRemoteNotifications()
         
-        UserDefaults.currentToken = "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMzODQifQ.eyJpc3MiOiJBUEkgU2VydmVyIiwic3ViIjoiQXV0aGVudGljYXRpb24gVG9rZW4iLCJleHAiOjE1ODI0NjM3MjgsImlhdCI6MTU4MjM3NzMyOCwidXNlcklkIjoicnVyZTExMTQiLCJpZCI6NH0.mBORyzTwY-KeveJ6C2g3mv-hAGXIb2v1D_1bkKTEOSVCUVJIl_7IsFUOPxVTjBM_"
-        UserDefaults.refreshToken =  "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMzODQifQ.eyJpc3MiOiJBUEkgU2VydmVyIiwic3ViIjoiUmVmcmVzaCBUb2tlbiIsImV4cCI6MTU4NDk2OTMyOCwiaWF0IjoxNTgyMzc3MzI4LCJ1c2VySWQiOiJydXJlMTExNCIsImlkIjo0fQ.3eaDfm9np9O0xsuSifJOusUl6yv1pUwBsByCWqwywF3c0cihUegjFwI8LYmrri9V"
-        
+//        UserDefaults.currentToken = "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMzODQifQ.eyJpc3MiOiJBUEkgU2VydmVyIiwic3ViIjoiQXV0aGVudGljYXRpb24gVG9rZW4iLCJleHAiOjE1ODI0NjM3MjgsImlhdCI6MTU4MjM3NzMyOCwidXNlcklkIjoicnVyZTExMTQiLCJpZCI6NH0.mBORyzTwY-KeveJ6C2g3mv-hAGXIb2v1D_1bkKTEOSVCUVJIl_7IsFUOPxVTjBM_"
+//        UserDefaults.refreshToken =  "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMzODQifQ.eyJpc3MiOiJBUEkgU2VydmVyIiwic3ViIjoiUmVmcmVzaCBUb2tlbiIsImV4cCI6MTU4NDk2OTMyOCwiaWF0IjoxNTgyMzc3MzI4LCJ1c2VySWQiOiJydXJlMTExNCIsImlkIjo0fQ.3eaDfm9np9O0xsuSifJOusUl6yv1pUwBsByCWqwywF3c0cihUegjFwI8LYmrri9V"
+//        
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.navigateInitialViewController()

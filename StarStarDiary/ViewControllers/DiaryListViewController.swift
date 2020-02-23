@@ -41,18 +41,18 @@ final class DiaryListViewController: UIViewController {
     
     private func initNavigationView() {
         navigationView.do {
-            $0.setTitle(title: "일기장", titleColor: .black, image: nil)
+            $0.setTitle(title: "일기장", titleColor: .black)
             $0.setBackgroundColor(color: .white)
             
             let leftTargetType: AddTargetType = (self,
                                                  #selector(didTapClose(sender:)),
                                                  .touchUpInside)
-            $0.setBtnLeft(image: UIImage(named: "icClose24"), addTargetType: leftTargetType)
+            $0.setButton(type: .left, image: UIImage(named: "icClose24"), addTargetType: leftTargetType)
             
             let rightTargetType: AddTargetType = (self,
                                                   #selector(didTapCalendar(sender:)),
                                                   .touchUpInside)
-            $0.setBtnRight(image: UIImage(named: "icCalendar24"), addTargetType: rightTargetType)
+            $0.setButton(type: .right, image: UIImage(named: "icCalendar24"), addTargetType: rightTargetType)
         }
         
     }

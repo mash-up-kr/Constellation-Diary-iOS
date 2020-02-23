@@ -16,11 +16,12 @@ import Then
 
 typealias AddTargetType = (target: Any?, action: Selector, for: UIControl.Event)
 
-class WriteViewController: UIViewController {
+final class WriteViewController: UIViewController {
 
     // MARK: - Private Property
     
     private var diary: DiaryDto?
+    private var horoscope: HoroscopeDto?
     
     private let navigationView = BaseNavigationView(frame: .zero)
     private let headerView = UIView(frame: .zero)
@@ -54,11 +55,94 @@ class WriteViewController: UIViewController {
         self.diary = diary
         self.titleTextField.text = diary.title
         self.contentsTextView.text = diary.content
+        self.placeHodlerButton.isHidden = true
+    }
+    
+    func bind(horoscope: HoroscopeDto) {
+        self.horoscope = horoscope
+        let subRightTargetType: AddTargetType = (self, #selector(showHoroscope(sender:)), .touchUpInside)
+        navigationView.setButton(type: .subRight, title: "운세", addTargetType: subRightTargetType)
+    }
+
+}
+
+extension WriteViewController: UITextViewDelegate {
+    
+    func textViewDidChange(_ textView: UITextView) {
+        if textView.text.isEmpty == false {
+            navigationView.button(for: .right).isEnabled = true
+        } else {
+           navigationView.button(for: .right).isEnabled = false
+       }
+    }
+
+}
+
+private extension WriteViewController {
+
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        if textField.text?.isEmpty == false {
+            navigationView.button(for: .right).do {
+                $0.isEnabled = true
+                $0.tintColor = .buttonBlue
+            }
+        } else {
+            navigationView.button(for: .right).do {
+                $0.isEnabled = false
+                $0.tintColor = .gray122
+            }
+        }
+    }
+
+    // MARK: - Event
+    @objc
+    func didTap(_ sender: UIButton) {
+        placeHodlerButton.isHidden = true
+        contentsTextView.becomeFirstResponder()
+    }
+    
+    @objc
+    func close(sender: AnyObject?) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc
+    func done(sender: AnyObject?) {
+        guard let horoscopeId = self.diary?.horoscopeId ?? self.horoscope?.id,
+            let title = titleTextField.text,
+            let contents = contentsTextView.text
+        else { return }
+        
+        var api = DiaryAPI.writeDiary(content: contents, horoscopeId: horoscopeId, title: title)
+        if let diaryId = self.diary?.id {
+            api = DiaryAPI.modifyDiary(id: diaryId, content: contents, title: title)
+        }
+        Provider.request(api, completion: { [weak self] (data: DiaryDto) in
+                            _ = self?.navigationController?.viewControllers
+                                .map { ($0 as? MainViewController)?.bind(diary: data) }
+                            self?.navigationController?.popViewController(animated: true)
+        })
+    }
+
+    @objc
+    func showHoroscope(sender: AnyObject?) {
+        let horoscopeViewController = HoroscopeDetailViewController()
+        if let horoscope = self.horoscope {
+            horoscopeViewController.bind(data: horoscope, viewType: .writeDirary)
+            navigationController?.present(horoscopeViewController, animated: true, completion: nil)
+            return
+        }
+        
+        guard let horoscopeId = self.diary?.horoscopeId else { return }
+        Provider.request(DiaryAPI.horoscope(id: horoscopeId), completion: { [weak self] (data: HoroscopeDto) in
+            horoscopeViewController.bind(data: data, viewType: .writeDirary)
+            self?.navigationController?.present(horoscopeViewController, animated: true, completion: nil)
+        })
     }
 
     // MARK: - Init
     
-    private func initViews() {
+    func initViews() {
         view.do {
             $0.addSubview(navigationView)
             $0.addSubview(headerView)
@@ -75,12 +159,20 @@ class WriteViewController: UIViewController {
             $0.addSubview(placeHodlerButton)
         }
         headerViewBottomLine.backgroundColor = .white216
-        // FIXME : 폰트적용
         titleTextField.do {
-            $0.font = UIFont.systemFont(ofSize: 20)
+            $0.font = UIFont.font(.koreaYMJBold, size: 20)
             $0.placeholder = "제목"
+            $0.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         }
-        contentsTextView.font = UIFont.systemFont(ofSize: 16)
+        contentsTextView.do {
+            let style = NSMutableParagraphStyle()
+            style.minimumLineHeight = 23
+            let attributes = [NSAttributedString.Key.paragraphStyle : style]
+            $0.attributedText = NSAttributedString(string: $0.text, attributes: attributes)
+            $0.font = UIFont.font(.notoSerifCJKRegular, size: 16)
+            $0.delegate = self
+        }
+
         placeHodlerButton.do {
             $0.titleLabel?.font = UIFont.systemFont(ofSize: 16)
             $0.setTitle(contentsPlaceHolder, for: .normal)
@@ -91,7 +183,7 @@ class WriteViewController: UIViewController {
         }
     }
 
-    private func initLayout() {
+    func initLayout() {
         navigationView.snp.makeConstraints {
             $0.height.equalTo(44.0)
             $0.top.equalTo(view.snp.topMargin)
@@ -135,36 +227,20 @@ class WriteViewController: UIViewController {
         }
     }
     
-    private func initNavigationView() {
+    func initNavigationView() {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
         let leftTargetType: AddTargetType = (self, #selector(close(sender:)), .touchUpInside)
         let rightTargetType: AddTargetType = (self, #selector(done(sender:)), .touchUpInside)
         
         navigationView.setBackgroundColor(color: .clear) // test
-        navigationView.setTitle(title: "일기 작성하기", titleColor: .black, image: nil) // test
-        navigationView.setBtnLeft(image: UIImage(named: "icClose24"), addTargetType: leftTargetType)
-        navigationView.setBtnRight(image: UIImage(named: "icComplete24"), addTargetType: rightTargetType)
-    }
-    
-    // MARK: - Event
-    @objc
-    private func didTap(_ sender: UIButton) {
-        placeHodlerButton.isHidden = true
-        contentsTextView.becomeFirstResponder()
-    }
-    
-    @objc
-    private func close(sender: AnyObject?) {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-    @objc
-    private func done(sender: AnyObject?) {
-        let title = titleTextField.text
-        let contents = contentsTextView.text
-        // TODO: - API call
-        self.navigationController?.popViewController(animated: true)
+        navigationView.setTitle(title: "일기 작성하기", titleColor: .black)
+        navigationView.setButton(type: .left, image: UIImage(named: "icClose24"), addTargetType: leftTargetType)
+        let completeButton = navigationView.setButton(type: .right, title: "완료", color: .gray122, addTargetType: rightTargetType)
+        completeButton.do {
+            $0.isEnabled = false
+            $0.tintColor = .gray122
+        }
     }
 
 }

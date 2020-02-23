@@ -13,7 +13,7 @@ struct HoroscopeDto: Decodable {
     let constellation: String
     let content: String
     let date: String
-    let items: [FortuneItem]
+    let items: [HoroscopeItem]
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -34,15 +34,15 @@ struct HoroscopeDto: Decodable {
         date = try values.decode(String.self, forKey: .date)
         content = try values.decode(String.self, forKey: .content)
         
-        var items: [FortuneItem] = []
+        var items: [HoroscopeItem] = []
         let exercise = try values.decode(String.self, forKey: .exercise)
         let numeral = try values.decode(String.self, forKey: .numeral)
         let stylist = try values.decode(String.self, forKey: .stylist)
         let word = try values.decode(String.self, forKey: .word)
-        items.append(FortuneItem(type: .exercise, text: exercise))
-        items.append(FortuneItem(type: .number, text: numeral))
-        items.append(FortuneItem(type: .clothes, text: stylist))
-        items.append(FortuneItem(type: .word, text: word))
+        items.append(HoroscopeItem(type: .exercise, text: exercise))
+        items.append(HoroscopeItem(type: .number, text: numeral))
+        items.append(HoroscopeItem(type: .clothes, text: stylist))
+        items.append(HoroscopeItem(type: .word, text: word))
         self.items = items
     }
 }
