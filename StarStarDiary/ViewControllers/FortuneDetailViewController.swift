@@ -1,5 +1,5 @@
 //
-//  FortuneDetailViewController.swift
+//  HoroscopeDetailViewController.swift
 //  StarStarDiary
 //
 //  Created by 이동영 on 2019/11/23.
@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-enum FortuneViewType {
+enum HoroscopeViewType {
     case writeDirary
     case selectConstellation
     
@@ -24,22 +24,22 @@ enum FortuneViewType {
     }
 }
 
-protocol FortuneDetailViewDelegate: class {
-    func fortuneDeatilView(_ viewController: FortuneDetailViewController, didTap button: UIButton, with type: FortuneViewType)
+protocol HoroscopeDetailViewDelegate: class {
+    func horoscopeDeatilView(_ viewController: HoroscopeDetailViewController, didTap button: UIButton, with type: HoroscopeViewType)
 }
 
-final class FortuneDetailViewController: UIViewController {
+final class HoroscopeDetailViewController: UIViewController {
     
-    weak var delegate: FortuneDetailViewDelegate?
+    weak var delegate: HoroscopeDetailViewDelegate?
     
     // MARK: - UI
     
-    private let fortuneHeaderView = FortuneHeaderView(frame: .zero)
+    private let horoscopeHeaderView = HoroscopeHeaderView(frame: .zero)
     private let seperatorView = UIView()
     private let detailLabel = UILabel()
     private let completeButton = UIButton()
     
-    private var viewType: FortuneViewType = .writeDirary
+    private var viewType: HoroscopeViewType = .writeDirary
     
     // MARK: - Life Cycle
     
@@ -58,27 +58,27 @@ final class FortuneDetailViewController: UIViewController {
     
     // MARK: - Configure
     
-    func bind(data: HoroscopeDto, viewType: FortuneViewType) {
-        fortuneHeaderView.bind(horoscope: data)
+    func bind(data: HoroscopeDto, viewType: HoroscopeViewType) {
+        horoscopeHeaderView.bind(horoscope: data)
         self.viewType = viewType
         completeButton.setTitle(viewType.title, for: .normal)
     }
     
     @objc private func didTapCompleteButton(_ sender: UIButton) {
         dismiss(animated: true) {
-            self.delegate?.fortuneDeatilView(self, didTap: sender, with: self.viewType)
+            self.delegate?.horoscopeDeatilView(self, didTap: sender, with: self.viewType)
         }
     }
     
 }
 // MARK: - Layout & Attributes
 
-extension FortuneDetailViewController {
+extension HoroscopeDetailViewController {
     
     private func setUpAttributes() {
         view.do {
             $0.backgroundColor = .white
-            $0.addSubview(fortuneHeaderView)
+            $0.addSubview(horoscopeHeaderView)
             $0.addSubview(seperatorView)
             $0.addSubview(detailLabel)
             $0.addSubview(completeButton)
@@ -108,7 +108,7 @@ extension FortuneDetailViewController {
     }
     
     private func setUpConstraints() {
-        fortuneHeaderView.snp.makeConstraints {
+        horoscopeHeaderView.snp.makeConstraints {
             $0.leading.trailing.top.equalToSuperview()
             $0.bottom.equalTo(seperatorView.snp.top).offset(6)
         }

@@ -17,7 +17,7 @@ final class MainViewController: UIViewController {
     private let writeDiaryLabel: UILabel       =       UILabel(frame: .zero)
     private let titleLabel: UILabel         =       UILabel(frame: .zero)
     private let editImageView: UIImageView  =       UIImageView(frame: .zero)
-    private let fortuneHeaderView: FortuneHeaderView = FortuneHeaderView(frame: .zero)
+    private let horoscopeHeaderView: HoroscopeHeaderView = HoroscopeHeaderView(frame: .zero)
     private let backgroundImageView: UIImageView = UIImageView(frame: .zero)
     private var diary: DiaryDto?
     private var horoscope: HoroscopeDto?
@@ -28,7 +28,7 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        requestFortune()
+        requesthoroscope()
         registerObserver()
     }
     
@@ -48,13 +48,18 @@ final class MainViewController: UIViewController {
         }
     }
     
+    func bind(diary: DiaryDto) {
+        self.diary = diary
+        setTitle(diary.title)
+    }
+    
 }
 
-extension MainViewController: FortuneDetailViewDelegate {
+extension MainViewController: HoroscopeDetailViewDelegate {
 
-    func fortuneDeatilView(_ viewController: FortuneDetailViewController,
+    func horoscopeDeatilView(_ viewController: HoroscopeDetailViewController,
                            didTap button: UIButton,
-                           with type: FortuneViewType) {
+                           with type: HoroscopeViewType) {
         didTapNewDiary()
     }
 
@@ -75,18 +80,13 @@ private extension MainViewController {
         self.titleLabel.attributedText = attributedString
     }
     
-    func bind(diary: DiaryDto) {
-        self.diary = diary
-        setTitle(diary.title)
-    }
-    
     func bind(horoscope: HoroscopeDto) {
         self.horoscope = horoscope
-        fortuneHeaderView.bind(horoscope: horoscope)
-        fortuneHeaderView.isHidden = false
+        horoscopeHeaderView.bind(horoscope: horoscope)
+        horoscopeHeaderView.isHidden = false
     }
     
-    func requestFortune() {
+    func requesthoroscope() {
         Provider.request(DiaryAPI.horoscopes(constellation: UserDefaults.constellation.rawValue,
                                              date: Date().utc),
                                              completion: { (data: HoroscopeDto) in
@@ -96,12 +96,12 @@ private extension MainViewController {
     
     // MARK: actions
     
-    @objc func openFortuneView() {
+    @objc func openhoroscopeView() {
         guard let horoscope = self.horoscope else { return }
-        let fortuneViewController = FortuneDetailViewController()
-        fortuneViewController.bind(data: horoscope, viewType: .writeDirary)
-        fortuneViewController.delegate = self
-        navigationController?.present(fortuneViewController, animated: true, completion: nil)
+        let horoscopeViewController = HoroscopeDetailViewController()
+        horoscopeViewController.bind(data: horoscope, viewType: .writeDirary)
+        horoscopeViewController.delegate = self
+        navigationController?.present(horoscopeViewController, animated: true, completion: nil)
     }
 
     @objc func didTapMenuItem() {
@@ -121,6 +121,9 @@ private extension MainViewController {
         if let diary = self.diary {
             diaryViewController.bind(diary: diary)
         }
+        if let horoscope = self.horoscope {
+            diaryViewController.bind(horoscope: horoscope)
+        }
         self.navigationController?.pushViewController(diaryViewController, animated: true)
     }
 }
@@ -133,7 +136,7 @@ private extension MainViewController {
         setupBackgroundAlphaView()
         setupTitleLabel()
         setupWriteLabel()
-        setupFortuneView()
+        setuphoroscopeView()
         setupContainerView()
         setupGestures()
     }
@@ -195,8 +198,8 @@ private extension MainViewController {
         }
     }
     
-    func setupFortuneView() {
-        fortuneHeaderView.do {
+    func setuphoroscopeView() {
+        horoscopeHeaderView.do {
             $0.clipsToBounds = true
             $0.layer.cornerRadius = 10
             $0.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
@@ -248,15 +251,15 @@ private extension MainViewController {
     func setupGestures() {
         let swipeGestureRecognizer = UISwipeGestureRecognizer(
             target: self,
-            action: #selector(openFortuneView)
+            action: #selector(openhoroscopeView)
         )
         swipeGestureRecognizer.direction = .up
         view.addGestureRecognizer(swipeGestureRecognizer)
         let tapGestureRecognizer = UITapGestureRecognizer(
             target: self,
-            action: #selector(openFortuneView)
+            action: #selector(openhoroscopeView)
         )
-        fortuneHeaderView.addGestureRecognizer(tapGestureRecognizer)
+        horoscopeHeaderView.addGestureRecognizer(tapGestureRecognizer)
     }
 
     func registerObserver() {

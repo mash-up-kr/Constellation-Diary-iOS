@@ -10,13 +10,13 @@ import UIKit
 
 enum ConstellationSelectionViewType {
     case select
-    case fortune
+    case horoscope
     
     var buttonTitle: String {
         switch self {
         case .select:
             return "별별일기 시작하기"
-        case .fortune:
+        case .horoscope:
             return "별자리 운세보기"
         }
     }
@@ -25,7 +25,7 @@ enum ConstellationSelectionViewType {
         switch self {
         case .select:
             return "당신의 별자리를 선택해 주세요"
-        case .fortune:
+        case .horoscope:
             return "원하는 별자리를 선택해 주세요"
         }
     }
@@ -111,7 +111,7 @@ final class ConstellationSelectionViewController: UIViewController {
                 switch self.type {
                 case .select:
                     self.showMain()
-                case .fortune:
+                case .horoscope:
                     // 운세 보기 화면으로 넘어가기
                     self.dismiss(animated: true, completion: nil)
                 }
