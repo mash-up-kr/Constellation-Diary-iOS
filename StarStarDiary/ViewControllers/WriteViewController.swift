@@ -20,6 +20,8 @@ class WriteViewController: UIViewController {
 
     // MARK: - Private Property
     
+    private var diary: DiaryDto?
+    
     private let navigationView = BaseNavigationView(frame: .zero)
     private let headerView = UIView(frame: .zero)
     private let bodyView = UIView(frame: .zero)
@@ -46,6 +48,12 @@ class WriteViewController: UIViewController {
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+    }
+    
+    func bind(diary: DiaryDto) {
+        self.diary = diary
+        self.titleTextField.text = diary.title
+        self.contentsTextView.text = diary.content
     }
 
     // MARK: - Init

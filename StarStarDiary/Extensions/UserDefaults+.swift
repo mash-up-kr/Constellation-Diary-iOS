@@ -38,6 +38,14 @@ extension UserDefaults {
         willSet(newValue) {
             defaults.set(newValue.rawValue, forKey: constellationKey)
         }
+        didSet {
+            NotificationCenter.default.post(name: .didChangeConstellation, object: nil)
+        }
     }
     
+}
+
+extension Notification.Name {
+    
+    static let didChangeConstellation: Notification.Name = Notification.Name("didChangeConstellation")
 }
