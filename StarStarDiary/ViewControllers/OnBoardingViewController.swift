@@ -91,7 +91,6 @@ class OnBoardingViewController: UIViewController {
     }
     
     @objc private func didTapLoginButton(_ sender: Any?) {
-        // FiXME :- 동영이 코드 머지되면 붙일 예정
         let loginViewController = LoginViewController()
         loginViewController.modalPresentationStyle = .overFullScreen
         present(loginViewController, animated: true, completion: nil)

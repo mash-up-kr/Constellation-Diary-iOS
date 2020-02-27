@@ -10,22 +10,34 @@ import UIKit
 import SnapKit
 import Then
 
-enum HoroscopeViewType {
-    case writeDirary
-    case selectConstellation
-    
-    var title: String {
-        switch self {
-        case .writeDirary:
-            return "일기 쓰러 가기"
-        case .selectConstellation:
-            return "별자리 선택하기"
-        }
-    }
+protocol HoroscopeDetailViewDelegate: class {
+    func horoscopeDeatilView(_ viewController: HoroscopeDetailViewController, didTap button: UIButton)
 }
 
-protocol HoroscopeDetailViewDelegate: class {
-    func horoscopeDeatilView(_ viewController: HoroscopeDetailViewController, didTap button: UIButton, with type: HoroscopeViewType)
+enum HoroscopeDetailViewType {
+    case writeDiary(diary: DiaryDto?)
+    case changeConstellation
+    case detail
+    
+    var buttonTitle: String {
+        switch self {
+        case .writeDiary(let diary):
+        return diary == nil ? "일기 작성하기" : "일기 보기"
+        case .changeConstellation:
+            return "별자리 변경하기"
+        case .detail:
+            return ""
+        }
+    }
+    
+    var isButtonHidden: Bool {
+        switch self {
+        case .writeDiary, .changeConstellation:
+            return false
+        case .detail:
+            return true
+        }
+    }
 }
 
 final class HoroscopeDetailViewController: UIViewController {
@@ -38,9 +50,8 @@ final class HoroscopeDetailViewController: UIViewController {
     private let seperatorView = UIView()
     private let detailLabel = UILabel()
     private let completeButton = UIButton()
-    
-    private var viewType: HoroscopeViewType = .writeDirary
-    
+    private var type: HoroscopeDetailViewType?
+
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -48,34 +59,34 @@ final class HoroscopeDetailViewController: UIViewController {
         
         setUpAttributes()
         setUpConstraints()
-        // TOFO: - 실제 데이터 바인딩)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     // MARK: - Configure
     
-    func bind(data: HoroscopeDto, viewType: HoroscopeViewType) {
+    func bind(data: HoroscopeDto, type: HoroscopeDetailViewType) {
         horoscopeHeaderView.bind(horoscope: data)
-        self.viewType = viewType
-        completeButton.setTitle(viewType.title, for: .normal)
+        detailLabel.text = data.content
+        completeButton.setTitle(type.buttonTitle, for: .normal)
+        completeButton.isHidden = type.isButtonHidden
     }
     
     @objc private func didTapCompleteButton(_ sender: UIButton) {
         dismiss(animated: true) {
-            self.delegate?.horoscopeDeatilView(self, didTap: sender, with: self.viewType)
+            self.delegate?.horoscopeDeatilView(self, didTap: sender)
         }
     }
     
 }
 // MARK: - Layout & Attributes
 
-extension HoroscopeDetailViewController {
+private extension HoroscopeDetailViewController {
     
-    private func setUpAttributes() {
+     func setUpAttributes() {
         view.do {
             $0.backgroundColor = .white
             $0.addSubview(horoscopeHeaderView)
@@ -90,14 +101,8 @@ extension HoroscopeDetailViewController {
         
         detailLabel.do {
             $0.numberOfLines = 0
-            $0.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+            $0.font = UIFont.font(.notoSerifCJKRegular, size: 15)
             $0.textColor = .black
-            // FIXME: - 실제 데이터 모델과 바인드
-            $0.text = """
-            활기찬 한 주가 되겠네요. 한 주를 시작하는 월요일부터 기운이 넘치는 주간입니다. 유난히 친구를 많이 만나게 됩니다.
-            
-            즐거운 시간이 많겠지만 건강관리는 좀 하셔야 합니다. 특정한 목적을 가진 만남은 좋지 않습니다. 취미나 동호회활동은 약간 기대에 모자란 정도입니다.
-            """
         }
         
         completeButton.do {
@@ -107,7 +112,7 @@ extension HoroscopeDetailViewController {
         }
     }
     
-    private func setUpConstraints() {
+    func setUpConstraints() {
         horoscopeHeaderView.snp.makeConstraints {
             $0.leading.trailing.top.equalToSuperview()
             $0.bottom.equalTo(seperatorView.snp.top).offset(6)

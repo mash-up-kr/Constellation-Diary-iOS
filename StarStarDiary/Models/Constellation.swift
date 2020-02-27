@@ -77,6 +77,23 @@ enum Constellation: String, CaseIterable {
         }
     }
     
+    var iconBlack: UIImage? {
+        switch self {
+        case .aries: return UIImage(named: "icStarAries40")
+        case .taurus: return UIImage(named: "icStarTaurus40")
+        case .gemini: return UIImage(named: "icStarGemini40")
+        case .cancer: return UIImage(named: "icStarCancer40")
+        case .leo: return UIImage(named: "icStarLeo40")
+        case .virgo: return UIImage(named: "icStarVirgo40")
+        case .libra : return UIImage(named: "icStarLibra40")
+        case .scorpio: return UIImage(named: "icStarScorpio40")
+        case .sagittarius: return UIImage(named: "icStarSagittarius40")
+        case .capricorn: return UIImage(named: "icStarCapricorn40")
+        case .aquarius: return UIImage(named: "icStarAquarius40")
+        case .pisces: return UIImage(named: "icStarPisces40")
+        }
+    }
+    
     var desc: String {
         switch self {
         case .aries:

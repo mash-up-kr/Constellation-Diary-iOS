@@ -58,8 +58,7 @@ final class MainViewController: UIViewController {
 extension MainViewController: HoroscopeDetailViewDelegate {
 
     func horoscopeDeatilView(_ viewController: HoroscopeDetailViewController,
-                           didTap button: UIButton,
-                           with type: HoroscopeViewType) {
+                           didTap button: UIButton) {
         didTapNewDiary()
     }
 
@@ -99,7 +98,7 @@ private extension MainViewController {
     @objc func openhoroscopeView() {
         guard let horoscope = self.horoscope else { return }
         let horoscopeViewController = HoroscopeDetailViewController()
-        horoscopeViewController.bind(data: horoscope, viewType: .writeDirary)
+        horoscopeViewController.bind(data: horoscope, type: .writeDiary(diary: self.diary))
         horoscopeViewController.delegate = self
         navigationController?.present(horoscopeViewController, animated: true, completion: nil)
     }
@@ -108,12 +107,6 @@ private extension MainViewController {
         let viewController = SideMenuViewController()
         viewController.modalPresentationStyle = .overFullScreen
         navigationController?.present(viewController, animated: false)
-    }
-
-    @objc func didTapStorageItem() {
-        let viewController = DiaryListViewController()
-        viewController.modalPresentationStyle = .fullScreen
-        navigationController?.present(viewController, animated: true)
     }
 
     @objc func didTapNewDiary() {
@@ -158,11 +151,6 @@ private extension MainViewController {
                                        target: self,
                                        action: #selector(didTapMenuItem))
         navigationItem.setLeftBarButton(menuItem, animated: false)
-        let storageItem = UIBarButtonItem(image: UIImage(named: "icBook24"),
-                                          style: .plain,
-                                          target: self,
-                                          action: #selector(didTapStorageItem))
-        navigationItem.setRightBarButton(storageItem, animated: false)
         navigationController?.setNavigationBarHidden(false, animated: false)
         navigationController?.navigationBar.do {
             $0.setBackgroundImage(UIImage(), for: UIBarMetrics.default)

@@ -241,16 +241,18 @@ extension LoginViewController {
             let userID = self.idTextField.text else {
                 return
         }
-        Provider.request(API.signIn(fcmToken: token, password: password, userId: userID), completion: { (data: UserInfoDto) in
+        Provider.request(API.signIn(fcmToken: token, password: password, userId: userID), completion: { [weak self] (data: UserInfoDto) in
             UserDefaults.currentToken = data.tokens.authenticationToken
             UserDefaults.refreshToken = data.tokens.refreshToken
             UserManager.share.login(with: data.user)
+            self?.navigateMain()
+            
         }, failure: { [weak self] error in
             guard let error = error as? ErrorData else { return }
             self?.passwordTextField.text = nil
             self?.idTextField.text = nil
             switch error.code {
-            case 401:
+            case 4015:
                 self?.errorMessageLabel.text = "아이디/비밀번호가 맞지 않습니다."
             default:
                 self?.errorMessageLabel.text = "로그인에 실패했습니다. 다시 시도해주세요."
@@ -258,8 +260,22 @@ extension LoginViewController {
         })
     }
     
-    private func checkValidation() {
-        
+    private func navigateMain() {
+        // FIXME
+        DispatchQueue.main.async {
+            guard let window = self.view.window else { return }
+            let mainViewController = MainViewController()
+            let navi = UINavigationController(rootViewController: mainViewController)
+            
+            UIView.transition(from: self.view,
+                              to: navi.view,
+                              duration: 0.3,
+                              options: [.transitionCrossDissolve],
+                              completion: { _ in
+                                window.rootViewController = navi
+                                window.makeKeyAndVisible()
+                            })
+        }
     }
 }
 
