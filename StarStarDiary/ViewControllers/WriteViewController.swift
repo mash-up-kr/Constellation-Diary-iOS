@@ -61,7 +61,7 @@ final class WriteViewController: UIViewController {
     func bind(horoscope: HoroscopeDto) {
         self.horoscope = horoscope
         let subRightTargetType: AddTargetType = (self, #selector(showHoroscope(sender:)), .touchUpInside)
-        navigationView.setButton(type: .subRight, title: "운세", addTargetType: subRightTargetType)
+        navigationView.setButton(type: .subRight, image: UIImage(named: "horoscope24"), addTargetType: subRightTargetType)
     }
 
 }
@@ -128,15 +128,16 @@ private extension WriteViewController {
     func showHoroscope(sender: AnyObject?) {
         let horoscopeViewController = HoroscopeDetailViewController()
         if let horoscope = self.horoscope {
-            horoscopeViewController.bind(data: horoscope, viewType: .writeDirary)
+            horoscopeViewController.bind(data: horoscope, type: .detail)
             navigationController?.present(horoscopeViewController, animated: true, completion: nil)
             return
         }
         
         guard let horoscopeId = self.diary?.horoscopeId else { return }
         Provider.request(DiaryAPI.horoscope(id: horoscopeId), completion: { [weak self] (data: HoroscopeDto) in
-            horoscopeViewController.bind(data: data, viewType: .writeDirary)
-            self?.navigationController?.present(horoscopeViewController, animated: true, completion: nil)
+            guard let self = self else { return }
+            horoscopeViewController.bind(data: data, type: .detail)
+            self.navigationController?.present(horoscopeViewController, animated: true, completion: nil)
         })
     }
 

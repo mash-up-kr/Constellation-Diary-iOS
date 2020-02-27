@@ -190,7 +190,7 @@ extension SignUpViewController {
         window.rootViewController?.dismiss(animated: false, completion: nil)
         let selectVC = ConstellationSelectionViewController()
         selectVC.bind(type: .select)
-        window.rootViewController = selectVC
+        window.rootViewController = UINavigationController(rootViewController: selectVC)
         window.makeKeyAndVisible()
         
         selectVC.view.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)

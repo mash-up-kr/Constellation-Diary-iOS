@@ -79,50 +79,89 @@ final class ConstellationSelectionViewController: UIViewController {
         }
         setUpLayout()
         setUpAttribute()
+        setupNavigationBar()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         scrollToInitialItem()
+    }
+    
+    func setupNavigationBar() {
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        if self.type == .horoscope {
+            let closeButton = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(self.close))
+            closeButton.tintColor = .white
+            navigationItem.setLeftBarButton(closeButton, animated: false)
+        }
+        navigationController?.navigationBar.do {
+            $0.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+            $0.shadowImage = UIImage()
+            $0.backgroundColor = UIColor.clear
+            $0.tintColor = .white
+            $0.barStyle = .black
+        }
+    }
+    
+    @objc func close() {
+        self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
     private func scrollToInitialItem() {
         var initialIndexPath = IndexPath(item: fakeItemCount / 2, section: 0)
         if UserDefaults.currentToken != nil {
-            let item = constellations.firstIndex(of: UserDefaults.constellation) ?? 0
+            let constellation = UserDefaults.constellation
+            messageLabel.text = constellation.desc
+            currentConstellation = constellation
+            let item = constellations.firstIndex(of: constellation) ?? 0
             initialIndexPath.item = fakeItemCount / 2 + item
-            constellationCollectionView.selectItem(at: initialIndexPath,
-                                                   animated: false,
-                                                   scrollPosition: .centeredHorizontally)
-        } else {
-            constellationCollectionView.scrollToItem(at: initialIndexPath,
-                                                     at: .centeredHorizontally,
-                                                     animated: false)
+        }
+
+        constellationCollectionView.performBatchUpdates(nil) { _ in
+            self.constellationCollectionView.selectItem(at: initialIndexPath,
+                                               animated: false,
+                                               scrollPosition: .centeredHorizontally)
         }
     }
     
-    @objc private func didTapSelect(_ sender: UIButton) {
-        guard let constellation = currentConstellation else { return }
+    private func select(constellation: Constellation) {
         UserDefaults.constellation = constellation
         Provider.request(.modifyConstellations(constellation: constellation.name), completion: { [weak self] (data: UserDto) in
             UserManager.share.login(with: data)
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                switch self.type {
-                case .select:
-                    self.showMain()
-                case .horoscope:
-                    // 운세 보기 화면으로 넘어가기
-                    self.dismiss(animated: true, completion: nil)
+            if let self = self, self.type == .horoscope {
+                DispatchQueue.main.async { [weak self] in
+                    self?.navigateMainView()
                 }
+            }
+        }, failure: { _ in
+        })
+    }
+    
+    private func navigateHoroscopeDetailView(with constellation: Constellation) {
+        Provider.request(.horoscopes(constellation: constellation.name, date: Date().utc), completion: { [weak self] (data: HoroscopeDto) in
+            DispatchQueue.main.async { [weak self] in
+                let detailView = HoroscopeDetailViewController()
+                detailView.delegate = self
+                detailView.bind(data: data, type: .changeConstellation)
+                self?.navigationController?.pushViewController(detailView, animated: true)
             }
         }, failure: { _ in
             // TODO :- API Call
         })
+    }
+    
+    @objc private func didTapSelect(_ sender: UIButton) {
+        guard let constellation = currentConstellation else { return }
         
+        switch type {
+        case .select:
+            select(constellation: constellation)
+        case .horoscope:
+            navigateHoroscopeDetailView(with: constellation)
+        }
     }
 
-    private func showMain() {
+    private func navigateMainView() {
         guard let window = self.view.window else { return }
         let mainViewController = MainViewController()
         let navi = UINavigationController(rootViewController: mainViewController)
@@ -268,6 +307,18 @@ extension ConstellationSelectionViewController: UICollectionViewDelegate {
         if let selectedCell = collectionView.cellForItem(at: indexPath) {
             selectedCell.isSelected = true
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    }
+
+}
+
+extension ConstellationSelectionViewController: HoroscopeDetailViewDelegate {
+
+    func horoscopeDeatilView(_ viewController: HoroscopeDetailViewController, didTap button: UIButton) {
+        guard let constellation = self.currentConstellation else { return }
+        self.select(constellation: constellation)
     }
 
 }

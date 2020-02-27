@@ -30,6 +30,7 @@ final class SideMenuViewController: UIViewController {
 
         initView()
         initBtn()
+        registerObserver()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -41,6 +42,10 @@ final class SideMenuViewController: UIViewController {
     }
 
     // MARK: - Init
+
+    func registerObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(updateConstellation), name: .didChangeConstellation, object: nil)
+    }
     
     // FIXME: - 스토리보드 > snapKit 변경 작업시, 객체생성 함수 init+a() 그 외 setUp+a()
 
@@ -50,9 +55,7 @@ final class SideMenuViewController: UIViewController {
         view.backgroundColor = .dim
         menuBackgroundView.backgroundColor = .white
 
-        // FIXME: - 유저 데이터로 변경해야함
         constellationTextLabel.do {
-            $0.text = "처녀자리"
             $0.textAlignment = .center
         }
 
@@ -62,10 +65,8 @@ final class SideMenuViewController: UIViewController {
             $0.adjustsFontSizeToFitWidth = true
             $0.textAlignment = .center
         }
-
-        constellationImageView.do {
-            $0.image = UIImage(named: "Virgo")
-        }
+    
+        updateConstellation()
     }
 
     private func initBtn() {
@@ -146,9 +147,9 @@ final class SideMenuViewController: UIViewController {
     private func didTapConstellations(sender: AnyObject?) {
         let viewController = ConstellationSelectionViewController()
         viewController.do {
-            $0.modalPresentationStyle = .fullScreen
+            let navi = UINavigationController(rootViewController: $0)
             $0.bind(type: .horoscope)
-            self.present($0, animated: true, completion: nil)
+            self.present(navi, animated: true, completion: nil)
         }
     }
 
@@ -169,4 +170,11 @@ final class SideMenuViewController: UIViewController {
             self.present($0, animated: true, completion: nil)
         }
     }
+    
+    @objc func updateConstellation() {
+        let constellation = UserDefaults.constellation
+        constellationTextLabel.text = constellation.name
+        constellationImageView.image = constellation.iconBlack
+    }
+    
 }

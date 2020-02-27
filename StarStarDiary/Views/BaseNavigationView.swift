@@ -64,6 +64,7 @@ extension BaseNavigationView {
                               action: addTargetType.action,
                               for: addTargetType.for)
             $0.isHidden = false
+            $0.tintColor = .black
         }
         return button
     }
@@ -146,17 +147,15 @@ private extension BaseNavigationView {
                 make.leading.equalTo(self.snp.leading).offset(horizontalGap)
             }
             $0.isHidden = true
-            $0.tintColor = .black
         }
         
         buttonRight.do {
             $0.snp.makeConstraints { (make) in
                 make.centerY.height.equalToSuperview()
-                make.leading.greaterThanOrEqualTo(buttonSubRight.snp.trailing).offset(buttonGap)
+                make.leading.equalTo(buttonSubRight.snp.trailing).offset(buttonGap)
                 make.trailing.equalTo(self.snp.trailing).inset(horizontalGap)
             }
             $0.isHidden = true
-            $0.tintColor = .black
         }
         
         buttonSubRight.do {
@@ -164,7 +163,6 @@ private extension BaseNavigationView {
                 maker.centerY.height.equalToSuperview()
             }
             $0.isHidden = true
-            $0.tintColor = .black
         }
         
         buttonTitle.do { (button) in
