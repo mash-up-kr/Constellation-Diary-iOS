@@ -43,6 +43,7 @@
 		9CF049FD23A918B400A85BEC /* SideMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CF049FB23A918B400A85BEC /* SideMenuViewController.xib */; };
 		9CF04A0023A92F5D00A85BEC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF049FE23A92F5D00A85BEC /* SettingsViewController.swift */; };
 		ADCC22B4D25855423D8EE10D /* Pods_StarStarDiary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A57C3B489FC848FFBB6107E7 /* Pods_StarStarDiary.framework */; };
+		D5406081240FED7900E8EECB /* splash.json in Resources */ = {isa = PBXBuildFile; fileRef = D5406080240FED7800E8EECB /* splash.json */; };
 		D544F2862389672C009B3967 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D544F2852389672C009B3967 /* MainViewController.swift */; };
 		D544F28A23898405009B3967 /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D544F28923898405009B3967 /* DateFormatter+.swift */; };
 		D54F6CEE23BB5353001DA319 /* DiaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54F6CED23BB5353001DA319 /* DiaryTableViewCell.swift */; };
@@ -126,6 +127,7 @@
 		A57C3B489FC848FFBB6107E7 /* Pods_StarStarDiary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StarStarDiary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B52A4D106A7F14CB5BEAE593 /* Pods-StarStarDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarStarDiary.release.xcconfig"; path = "Target Support Files/Pods-StarStarDiary/Pods-StarStarDiary.release.xcconfig"; sourceTree = "<group>"; };
 		C374176DB79A9B002599C37A /* Pods-StarStarDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarStarDiary.debug.xcconfig"; path = "Target Support Files/Pods-StarStarDiary/Pods-StarStarDiary.debug.xcconfig"; sourceTree = "<group>"; };
+		D5406080240FED7800E8EECB /* splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash.json; sourceTree = "<group>"; };
 		D544F2852389672C009B3967 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D544F28923898405009B3967 /* DateFormatter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DateFormatter+.swift"; path = "StarStarDiary/Extensions/DateFormatter+.swift"; sourceTree = SOURCE_ROOT; };
 		D54F6CED23BB5353001DA319 /* DiaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTableViewCell.swift; sourceTree = "<group>"; };
@@ -289,7 +291,6 @@
 				0E2874C023F81E6100730C1E /* Errors */,
 				0E79612123F04435008446CB /* Responses */,
 				0E79612023F0442B008446CB /* APIs */,
-				0E79613C23F04474008446CB /* LocalTime.swift */,
 			);
 			path = Networks;
 			sourceTree = "<group>";
@@ -315,6 +316,7 @@
 				0E79612B23F0444C008446CB /* SimpleDiaryDto.swift */,
 				0E79612623F0444B008446CB /* TokenDto.swift */,
 				0E79612723F0444B008446CB /* UserDto.swift */,
+				0E79613C23F04474008446CB /* LocalTime.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -362,6 +364,7 @@
 				DBF6324D23EDD433006E60FF /* StarStarDiary.entitlements */,
 				DBF6324E23EDD77E006E60FF /* GoogleService-Info.plist */,
 				D54F6CF423BB5DE2001DA319 /* Sample.json */,
+				D5406080240FED7800E8EECB /* splash.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -489,6 +492,7 @@
 			files = (
 				DBF6324F23EDD77E006E60FF /* GoogleService-Info.plist in Resources */,
 				9CF049FD23A918B400A85BEC /* SideMenuViewController.xib in Resources */,
+				D5406081240FED7900E8EECB /* splash.json in Resources */,
 				D5847DF423E56C8500D8BA8E /* KoreanYMJ-B.otf in Resources */,
 				D54F6D0D23E46475001DA319 /* NotoSansCJKkr-Medium.otf in Resources */,
 				D5847DFD23FABD5200D8BA8E /* NanumMyeongjo-Bold.otf in Resources */,

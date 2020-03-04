@@ -14,4 +14,5 @@ target 'StarStarDiary' do
   pod 'Firebase/Analytics', '~> 6.16.0'
   pod 'Firebase/Messaging', '~> 6.16.0'
   pod 'FSCalendar', '~> 2.8.1'
+  pod 'lottie-ios'
 end
