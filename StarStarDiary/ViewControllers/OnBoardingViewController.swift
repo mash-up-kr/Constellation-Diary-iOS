@@ -31,7 +31,7 @@ class OnBoardingViewController: UIViewController {
     
     private func setupBackground() {
         backgrounImageView.do {
-            $0.image = UIImage(named: "bg_main")
+            $0.image = UIImage(named: "bgMain")
             $0.contentMode = .scaleAspectFill
             view.addSubview($0)
         }

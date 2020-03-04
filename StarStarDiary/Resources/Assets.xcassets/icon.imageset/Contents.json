@@ -2,18 +2,18 @@
   "images" : [
     {
       "scale" : "1x",
-      "filename" : "horoscope24.png",
-      "idiom" : "universal"
-    },
-    {
-      "filename" : "horoscope24@2x.png",
       "idiom" : "universal",
-      "scale" : "2x"
+      "filename" : "icon.png"
     },
     {
+      "scale" : "2x",
+      "idiom" : "universal",
+      "filename" : "icon@2x.png"
+    },
+    {
+      "idiom" : "universal",
       "scale" : "3x",
-      "idiom" : "universal",
-      "filename" : "horoscope24@3x.png"
+      "filename" : "icon@3x.png"
     }
   ],
   "info" : {
