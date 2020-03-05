@@ -44,6 +44,9 @@
 		9CF04A0023A92F5D00A85BEC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF049FE23A92F5D00A85BEC /* SettingsViewController.swift */; };
 		ADCC22B4D25855423D8EE10D /* Pods_StarStarDiary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A57C3B489FC848FFBB6107E7 /* Pods_StarStarDiary.framework */; };
 		D5406081240FED7900E8EECB /* splash.json in Resources */ = {isa = PBXBuildFile; fileRef = D5406080240FED7800E8EECB /* splash.json */; };
+		D54060832411337A00E8EECB /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54060822411337A00E8EECB /* SplashViewController.swift */; };
+		D540608524113C0E00E8EECB /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = D540608424113C0E00E8EECB /* loading.json */; };
+		D540608724113C3C00E8EECB /* background.json in Resources */ = {isa = PBXBuildFile; fileRef = D540608624113C3C00E8EECB /* background.json */; };
 		D544F2862389672C009B3967 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D544F2852389672C009B3967 /* MainViewController.swift */; };
 		D544F28A23898405009B3967 /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D544F28923898405009B3967 /* DateFormatter+.swift */; };
 		D54F6CEE23BB5353001DA319 /* DiaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54F6CED23BB5353001DA319 /* DiaryTableViewCell.swift */; };
@@ -58,10 +61,10 @@
 		D54F6D0D23E46475001DA319 /* NotoSansCJKkr-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D54F6D0A23E46473001DA319 /* NotoSansCJKkr-Medium.otf */; };
 		D54F6D0E23E46475001DA319 /* NotoSansCJKkr-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D54F6D0B23E46474001DA319 /* NotoSansCJKkr-Bold.otf */; };
 		D54F6D0F23E46475001DA319 /* NotoSansCJKkr-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D54F6D0C23E46475001DA319 /* NotoSansCJKkr-Regular.otf */; };
-		D5847DF223E56C8500D8BA8E /* KoreanYMJ-E.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DEE23E56C8400D8BA8E /* KoreanYMJ-E.otf */; };
-		D5847DF323E56C8500D8BA8E /* KoreanYMJ-M.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DEF23E56C8500D8BA8E /* KoreanYMJ-M.otf */; };
-		D5847DF423E56C8500D8BA8E /* KoreanYMJ-B.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DF023E56C8500D8BA8E /* KoreanYMJ-B.otf */; };
-		D5847DF523E56C8500D8BA8E /* KoreanYMJ-L.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DF123E56C8500D8BA8E /* KoreanYMJ-L.otf */; };
+		D5847DF223E56C8500D8BA8E /* KoreanYMJE.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DEE23E56C8400D8BA8E /* KoreanYMJE.otf */; };
+		D5847DF323E56C8500D8BA8E /* KoreanYMJM.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DEF23E56C8500D8BA8E /* KoreanYMJM.otf */; };
+		D5847DF423E56C8500D8BA8E /* KoreanYMJB.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DF023E56C8500D8BA8E /* KoreanYMJB.otf */; };
+		D5847DF523E56C8500D8BA8E /* KoreanYMJL.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DF123E56C8500D8BA8E /* KoreanYMJL.otf */; };
 		D5847DF923F0104300D8BA8E /* ConstellationSelectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5847DF823F0104300D8BA8E /* ConstellationSelectionViewFlowLayout.swift */; };
 		D5847DFD23FABD5200D8BA8E /* NanumMyeongjo-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DFA23FABD5100D8BA8E /* NanumMyeongjo-Bold.otf */; };
 		D5847DFE23FABD5200D8BA8E /* NanumMyeongjoExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DFB23FABD5100D8BA8E /* NanumMyeongjoExtraBold.otf */; };
@@ -128,6 +131,9 @@
 		B52A4D106A7F14CB5BEAE593 /* Pods-StarStarDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarStarDiary.release.xcconfig"; path = "Target Support Files/Pods-StarStarDiary/Pods-StarStarDiary.release.xcconfig"; sourceTree = "<group>"; };
 		C374176DB79A9B002599C37A /* Pods-StarStarDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarStarDiary.debug.xcconfig"; path = "Target Support Files/Pods-StarStarDiary/Pods-StarStarDiary.debug.xcconfig"; sourceTree = "<group>"; };
 		D5406080240FED7800E8EECB /* splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash.json; sourceTree = "<group>"; };
+		D54060822411337A00E8EECB /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		D540608424113C0E00E8EECB /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
+		D540608624113C3C00E8EECB /* background.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = background.json; sourceTree = "<group>"; };
 		D544F2852389672C009B3967 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D544F28923898405009B3967 /* DateFormatter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DateFormatter+.swift"; path = "StarStarDiary/Extensions/DateFormatter+.swift"; sourceTree = SOURCE_ROOT; };
 		D54F6CED23BB5353001DA319 /* DiaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTableViewCell.swift; sourceTree = "<group>"; };
@@ -142,10 +148,10 @@
 		D54F6D0A23E46473001DA319 /* NotoSansCJKkr-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansCJKkr-Medium.otf"; sourceTree = "<group>"; };
 		D54F6D0B23E46474001DA319 /* NotoSansCJKkr-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansCJKkr-Bold.otf"; sourceTree = "<group>"; };
 		D54F6D0C23E46475001DA319 /* NotoSansCJKkr-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansCJKkr-Regular.otf"; sourceTree = "<group>"; };
-		D5847DEE23E56C8400D8BA8E /* KoreanYMJ-E.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KoreanYMJ-E.otf"; sourceTree = "<group>"; };
-		D5847DEF23E56C8500D8BA8E /* KoreanYMJ-M.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KoreanYMJ-M.otf"; sourceTree = "<group>"; };
-		D5847DF023E56C8500D8BA8E /* KoreanYMJ-B.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KoreanYMJ-B.otf"; sourceTree = "<group>"; };
-		D5847DF123E56C8500D8BA8E /* KoreanYMJ-L.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KoreanYMJ-L.otf"; sourceTree = "<group>"; };
+		D5847DEE23E56C8400D8BA8E /* KoreanYMJE.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = KoreanYMJE.otf; sourceTree = "<group>"; };
+		D5847DEF23E56C8500D8BA8E /* KoreanYMJM.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = KoreanYMJM.otf; sourceTree = "<group>"; };
+		D5847DF023E56C8500D8BA8E /* KoreanYMJB.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = KoreanYMJB.otf; sourceTree = "<group>"; };
+		D5847DF123E56C8500D8BA8E /* KoreanYMJL.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = KoreanYMJL.otf; sourceTree = "<group>"; };
 		D5847DF823F0104300D8BA8E /* ConstellationSelectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstellationSelectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		D5847DFA23FABD5100D8BA8E /* NanumMyeongjo-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NanumMyeongjo-Bold.otf"; sourceTree = "<group>"; };
 		D5847DFB23FABD5100D8BA8E /* NanumMyeongjoExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumMyeongjoExtraBold.otf; sourceTree = "<group>"; };
@@ -226,6 +232,7 @@
 				0E160CD423AA51E6000CA518 /* LoginViewController.swift */,
 				0EEB412A23E481BB000AE851 /* FindIDViewController.swift */,
 				D5A8C1B723FADA2900C596AF /* MultiStepNavigationController.swift */,
+				D54060822411337A00E8EECB /* SplashViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -365,6 +372,8 @@
 				DBF6324E23EDD77E006E60FF /* GoogleService-Info.plist */,
 				D54F6CF423BB5DE2001DA319 /* Sample.json */,
 				D5406080240FED7800E8EECB /* splash.json */,
+				D540608424113C0E00E8EECB /* loading.json */,
+				D540608624113C3C00E8EECB /* background.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -375,10 +384,10 @@
 				D5847DFC23FABD5200D8BA8E /* NanumMyeongjo.otf */,
 				D5847DFA23FABD5100D8BA8E /* NanumMyeongjo-Bold.otf */,
 				D5847DFB23FABD5100D8BA8E /* NanumMyeongjoExtraBold.otf */,
-				D5847DF023E56C8500D8BA8E /* KoreanYMJ-B.otf */,
-				D5847DEE23E56C8400D8BA8E /* KoreanYMJ-E.otf */,
-				D5847DF123E56C8500D8BA8E /* KoreanYMJ-L.otf */,
-				D5847DEF23E56C8500D8BA8E /* KoreanYMJ-M.otf */,
+				D5847DF023E56C8500D8BA8E /* KoreanYMJB.otf */,
+				D5847DEE23E56C8400D8BA8E /* KoreanYMJE.otf */,
+				D5847DF123E56C8500D8BA8E /* KoreanYMJL.otf */,
+				D5847DEF23E56C8500D8BA8E /* KoreanYMJM.otf */,
 				D54F6D0B23E46474001DA319 /* NotoSansCJKkr-Bold.otf */,
 				D54F6D0A23E46473001DA319 /* NotoSansCJKkr-Medium.otf */,
 				D54F6D0C23E46475001DA319 /* NotoSansCJKkr-Regular.otf */,
@@ -493,19 +502,21 @@
 				DBF6324F23EDD77E006E60FF /* GoogleService-Info.plist in Resources */,
 				9CF049FD23A918B400A85BEC /* SideMenuViewController.xib in Resources */,
 				D5406081240FED7900E8EECB /* splash.json in Resources */,
-				D5847DF423E56C8500D8BA8E /* KoreanYMJ-B.otf in Resources */,
+				D5847DF423E56C8500D8BA8E /* KoreanYMJB.otf in Resources */,
 				D54F6D0D23E46475001DA319 /* NotoSansCJKkr-Medium.otf in Resources */,
+				D540608724113C3C00E8EECB /* background.json in Resources */,
 				D5847DFD23FABD5200D8BA8E /* NanumMyeongjo-Bold.otf in Resources */,
 				D5D0F67D23890DC600DA3169 /* LaunchScreen.storyboard in Resources */,
 				D54F6D0F23E46475001DA319 /* NotoSansCJKkr-Regular.otf in Resources */,
+				D540608524113C0E00E8EECB /* loading.json in Resources */,
 				D5847DFE23FABD5200D8BA8E /* NanumMyeongjoExtraBold.otf in Resources */,
-				D5847DF323E56C8500D8BA8E /* KoreanYMJ-M.otf in Resources */,
+				D5847DF323E56C8500D8BA8E /* KoreanYMJM.otf in Resources */,
 				D5D0F67A23890DC600DA3169 /* Assets.xcassets in Resources */,
 				D54F6D0E23E46475001DA319 /* NotoSansCJKkr-Bold.otf in Resources */,
 				D5D0F67523890DC500DA3169 /* Main.storyboard in Resources */,
 				D54F6CF523BB5DE2001DA319 /* Sample.json in Resources */,
-				D5847DF223E56C8500D8BA8E /* KoreanYMJ-E.otf in Resources */,
-				D5847DF523E56C8500D8BA8E /* KoreanYMJ-L.otf in Resources */,
+				D5847DF223E56C8500D8BA8E /* KoreanYMJE.otf in Resources */,
+				D5847DF523E56C8500D8BA8E /* KoreanYMJL.otf in Resources */,
 				D5847DFF23FABD5200D8BA8E /* NanumMyeongjo.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -598,6 +609,7 @@
 				0E79613123F0444C008446CB /* TokenDto.swift in Sources */,
 				0E79613923F0444C008446CB /* DiariesDto.swift in Sources */,
 				0E79613223F0444C008446CB /* UserDto.swift in Sources */,
+				D54060832411337A00E8EECB /* SplashViewController.swift in Sources */,
 				0EDB40F723CA568C0020B0EF /* UICollectionView+.swift in Sources */,
 				D5D0F67023890DC500DA3169 /* AppDelegate.swift in Sources */,
 				0E79612423F04443008446CB /* DiaryAPI.swift in Sources */,

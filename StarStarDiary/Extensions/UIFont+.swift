@@ -9,10 +9,10 @@
 import UIKit
 
 enum StarStarFonts: String {
-    case koreaYMJBold = "KoreanYMJ-B"
-    case koreaYMJMedium = "KoreanYMJ-M"
-    case koreaYMJE = "KoreanYMJ-E"
-    case koreaYMJL = "KoreanYMJ-L"
+    case koreaYMJBold = "KoreanYMJB"
+    case koreaYMJMedium = "KoreanYMJM"
+    case koreaYMJE = "KoreanYMJE"
+    case koreaYMJL = "KoreanYMJL"
     case notoSerifCJKRegular = "NotoSansCJKkr-Medium"
     case notoSerifCJKMedium = "NotoSansCJKkr-Regular"
     case notoSerifCJKBold = "NotoSansCJKkr-Bold"

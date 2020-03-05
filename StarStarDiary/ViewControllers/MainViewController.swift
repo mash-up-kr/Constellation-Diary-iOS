@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Lottie
 
 
 final class MainViewController: UIViewController {
@@ -22,8 +23,13 @@ final class MainViewController: UIViewController {
     private var diary: DiaryDto?
     private var horoscope: HoroscopeDto?
     private let backgroundAlphaView = UIView()
+    private let lottieView = AnimationView()
     
     // MARK: Life cycle
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +42,7 @@ final class MainViewController: UIViewController {
         super.viewWillAppear(animated)
 
         setupNavigationBar()
+        lottieView.play()
     }
     
     func bind(questionDTO: DailyQuestionDto) {
@@ -58,7 +65,7 @@ final class MainViewController: UIViewController {
 extension MainViewController: HoroscopeDetailViewDelegate {
 
     func horoscopeDeatilView(_ viewController: HoroscopeDetailViewController,
-                           didTap button: UIButton) {
+                             didTap button: UIButton) {
         didTapNewDiary()
     }
 
@@ -67,16 +74,17 @@ extension MainViewController: HoroscopeDetailViewDelegate {
 private extension MainViewController {
     
     func setTitle(_ text: String) {
-         let attributedString = NSMutableAttributedString(string: text)
-         let paragraphStyle = NSMutableParagraphStyle()
+        let attributedString = NSMutableAttributedString(string: text)
+        let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 0.31
         paragraphStyle.minimumLineHeight = 43
-         attributedString.addAttribute(
-             .paragraphStyle,
-             value: paragraphStyle,
-             range: NSRange(location: 0, length: attributedString.length
-         ))
+        attributedString.addAttribute(
+            .paragraphStyle,
+            value: paragraphStyle,
+            range: NSRange(location: 0, length: attributedString.length
+        ))
         self.titleLabel.attributedText = attributedString
+        self.titleLabel.layoutIfNeeded()
     }
     
     func bind(horoscope: HoroscopeDto) {
@@ -125,8 +133,8 @@ private extension MainViewController {
 
     func setupView() {
         view.backgroundColor = .black
-        setupBackgroundImageView()
-        setupBackgroundAlphaView()
+        setupLottieView()
+//        setupBackgroundAlphaView()
         setupTitleLabel()
         setupWriteLabel()
         setuphoroscopeView()
@@ -141,6 +149,20 @@ private extension MainViewController {
             view.addSubview($0)
             $0.snp.makeConstraints { imageView in
                 imageView.edges.equalToSuperview()
+            }
+        }
+    }
+
+    func setupLottieView() {
+        lottieView.do {
+            $0.contentMode = .scaleAspectFill
+            let animation = Animation.named("background")
+            $0.animation = animation
+            $0.backgroundBehavior = .pauseAndRestore
+            $0.loopMode = .loop
+            view.addSubview($0)
+            $0.snp.makeConstraints { lottie in
+                lottie.edges.equalToSuperview()
             }
         }
     }

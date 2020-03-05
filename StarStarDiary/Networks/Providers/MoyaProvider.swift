@@ -29,6 +29,12 @@ struct Provider {
             self.task($0, completion: completion, failure: failure)
         }
     }
+    
+    static func request(_ service: DiaryAPI, completion: @escaping ((Bool) -> Void), failure: @escaping ((ErrorData) -> Void) = defaultFailureHandler) {
+        diaryProvider.request(service) {
+            self.task($0, completion: completion, failure: failure)
+        }
+    }
 
     static func request<T: Decodable>(_ service: API, completion: @escaping ResultCompletion<T>, failure: @escaping ((ErrorData) -> Void) = defaultFailureHandler) {
         provider.request(service) { result in
