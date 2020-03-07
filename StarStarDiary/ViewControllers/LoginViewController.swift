@@ -8,7 +8,9 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController {
+    
+    weak var navigationDelegate: NavigationDelegate?
     
     // MARK: - UI
     
@@ -138,20 +140,14 @@ extension LoginViewController {
     }
     
     private func navigateMain() {
-        // FIXME
-        DispatchQueue.main.async {
-            guard let window = self.view.window else { return }
+        dismiss(animated: true) { [weak self] in
+            guard let strongSelf = self else { return }
             let mainViewController = MainViewController()
+
             let navi = UINavigationController(rootViewController: mainViewController)
-            
-            UIView.transition(from: self.view,
-                              to: navi.view,
-                              duration: 0.3,
-                              options: [.transitionCrossDissolve],
-                              completion: { _ in
-                                window.rootViewController = navi
-                                window.makeKeyAndVisible()
-                            })
+            navi.modalPresentationStyle = .fullScreen
+            navi.modalTransitionStyle = .crossDissolve
+            strongSelf.navigationDelegate?.navigationDelegate(strongSelf, request: navi)
         }
     }
 }
@@ -214,6 +210,8 @@ private extension LoginViewController {
             $0.placeholder = "아이디 입력"
             $0.font = UIFont.font(.notoSerifCJKMedium, size: 18)
             $0.keyboardType = .emailAddress
+            $0.autocorrectionType = .no
+            $0.spellCheckingType = .no
             $0.autocapitalizationType = .none
             addUnderline(to: $0)
             view.addSubview($0)
@@ -223,6 +221,9 @@ private extension LoginViewController {
             $0.placeholder = "비밀번호 입력"
             $0.font = UIFont.font(.notoSerifCJKMedium, size: 18)
             $0.isSecureTextEntry = true
+            $0.autocorrectionType = .no
+            $0.spellCheckingType = .no
+            $0.autocapitalizationType = .none
             addUnderline(to: $0)
             view.addSubview($0)
         }

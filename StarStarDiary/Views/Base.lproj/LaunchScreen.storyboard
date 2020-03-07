@@ -23,14 +23,13 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bgMain" translatesAutoresizingMaskIntoConstraints="NO" id="2Ki-gD-UHh">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" fixedFrame="YES" text="별별일기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zmf-k9-2QV">
-                                <rect key="frame" x="40" y="173" width="108" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="별별일기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zmf-k9-2QV">
+                                <rect key="frame" x="40" y="172.5" width="108" height="30"/>
                                 <fontDescription key="fontDescription" name="KoreanYMJ-B" family="KoreanYMJB" pointSize="30"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Rl-6D-OMr">
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Rl-6D-OMr">
                                 <rect key="frame" x="40" y="220.5" width="251" height="42"/>
                                 <attributedString key="attributedText">
                                     <fragment>
@@ -51,7 +50,7 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="img_star" translatesAutoresizingMaskIntoConstraints="NO" id="yhp-T4-bSe">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_star" translatesAutoresizingMaskIntoConstraints="NO" id="yhp-T4-bSe">
                                 <rect key="frame" x="131" y="149.5" width="82" height="42"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="2sp-ei-3Gk"/>
@@ -61,9 +60,13 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Zmf-k9-2QV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="9Xd-dd-agk"/>
                             <constraint firstAttribute="bottom" secondItem="2Ki-gD-UHh" secondAttribute="bottom" id="AKB-mw-PLI"/>
+                            <constraint firstItem="8Rl-6D-OMr" firstAttribute="top" secondItem="Zmf-k9-2QV" secondAttribute="bottom" constant="18" id="If1-gh-4al"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Zmf-k9-2QV" secondAttribute="top" multiplier="5:1" id="JwG-oG-bGA"/>
                             <constraint firstItem="2Ki-gD-UHh" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="K09-Gh-vui"/>
                             <constraint firstItem="2Ki-gD-UHh" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailing" id="Yzf-Mj-EIn"/>
+                            <constraint firstItem="Zmf-k9-2QV" firstAttribute="bottom" secondItem="yhp-T4-bSe" secondAttribute="bottom" constant="11" id="gRG-JE-shc"/>
                             <constraint firstItem="yhp-T4-bSe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="131" id="n11-8V-g9b"/>
                             <constraint firstItem="8Rl-6D-OMr" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="40" id="uba-fR-zAB"/>
                             <constraint firstItem="2Ki-gD-UHh" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="xKh-fl-P0N"/>

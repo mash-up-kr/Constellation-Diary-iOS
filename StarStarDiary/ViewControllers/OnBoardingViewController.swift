@@ -9,7 +9,12 @@
 import UIKit
 import SnapKit
 
-class OnBoardingViewController: UIViewController {
+protocol NavigationDelegate: class {
+    func navigationDelegate(_ viewController: UIViewController, request toViewController: UIViewController)
+}
+
+
+final class OnBoardingViewController: UIViewController {
     
     private let backgrounImageView = UIImageView()
     private let titleLabel = UILabel()
@@ -106,7 +111,25 @@ class OnBoardingViewController: UIViewController {
     @objc private func didTapLoginButton(_ sender: Any?) {
         let loginViewController = LoginViewController()
         loginViewController.modalPresentationStyle = .formSheet
+        loginViewController.navigationDelegate = self
         present(loginViewController, animated: true, completion: nil)
+    }
+
+}
+
+extension OnBoardingViewController: NavigationDelegate {
+
+    func navigationDelegate(_ viewController: UIViewController, request toViewController: UIViewController) {
+        UIView.animate(withDuration: 0.3) {
+            self.view.alpha = 0.3
+        }
+        UIView.transition(from: self.view,
+                          to: toViewController.view,
+                          duration: 0.3,
+                          options: [.transitionCrossDissolve],
+                          completion: { _ in
+                            self.view.window?.rootViewController = toViewController
+                        })
     }
 
 }

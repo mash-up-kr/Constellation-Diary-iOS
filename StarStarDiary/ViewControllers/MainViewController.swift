@@ -19,10 +19,8 @@ final class MainViewController: UIViewController {
     private let titleLabel: UILabel         =       UILabel(frame: .zero)
     private let editImageView: UIImageView  =       UIImageView(frame: .zero)
     private let horoscopeHeaderView: HoroscopeHeaderView = HoroscopeHeaderView(frame: .zero)
-    private let backgroundImageView: UIImageView = UIImageView(frame: .zero)
     private var diary: DiaryDto?
     private var horoscope: HoroscopeDto?
-    private let backgroundAlphaView = UIView()
     private let lottieView = AnimationView()
     
     // MARK: Life cycle
@@ -36,6 +34,11 @@ final class MainViewController: UIViewController {
         setupView()
         requesthoroscope()
         registerObserver()
+        if let dailyQuestion = UserManager.share.dailyQuestion {
+            bind(questionDTO: dailyQuestion)
+        } else {
+            requestDailyQuestion()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,13 +87,20 @@ private extension MainViewController {
             range: NSRange(location: 0, length: attributedString.length
         ))
         self.titleLabel.attributedText = attributedString
-        self.titleLabel.layoutIfNeeded()
+        self.titleLabel.sizeToFit()
     }
     
     func bind(horoscope: HoroscopeDto) {
         self.horoscope = horoscope
         horoscopeHeaderView.bind(horoscope: horoscope)
         horoscopeHeaderView.isHidden = false
+    }
+
+    func requestDailyQuestion() {
+        Provider.request(.dailyQuestions, completion: {[weak self] (data: DailyQuestionDto) in
+            UserManager.share.updateDailyQuestion(with: data)
+            self?.bind(questionDTO: data)
+        })
     }
     
     func requesthoroscope() {
@@ -134,23 +144,11 @@ private extension MainViewController {
     func setupView() {
         view.backgroundColor = .black
         setupLottieView()
-//        setupBackgroundAlphaView()
         setupTitleLabel()
         setupWriteLabel()
         setuphoroscopeView()
         setupContainerView()
         setupGestures()
-    }
-    
-    func setupBackgroundImageView() {
-        backgroundImageView.do {
-            $0.image = UIImage(named: "bgMain")
-            $0.contentMode = .scaleAspectFill
-            view.addSubview($0)
-            $0.snp.makeConstraints { imageView in
-                imageView.edges.equalToSuperview()
-            }
-        }
     }
 
     func setupLottieView() {
@@ -223,23 +221,12 @@ private extension MainViewController {
             }
         }
     }
-    
-    func setupBackgroundAlphaView() {
-        
-        backgroundAlphaView.do {
-            $0.backgroundColor = UIColor(white: 0, alpha: 0.4)
-            view.addSubview($0)
-            $0.snp.makeConstraints {
-                $0.edges.equalToSuperview()
-            }
-        }
-    }
 
     func setupContainerView() {
         let stackView = UIStackView()
         stackView.do {
             $0.axis = .vertical
-            $0.alignment = .leading
+            $0.alignment = .fill
             $0.distribution = .equalSpacing
             $0.spacing = 25
             $0.addArrangedSubview(titleLabel)

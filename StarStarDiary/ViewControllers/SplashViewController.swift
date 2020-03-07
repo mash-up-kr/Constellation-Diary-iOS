@@ -17,8 +17,6 @@ class SplashViewController: UIViewController {
     
     private var requestCount: Int = 0
     private let maxRetryCount: Int = 3
-    
-    private var dailyQuestion: DailyQuestionDto?
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -82,7 +80,7 @@ private extension SplashViewController {
     }
     
     func navigateInitialViewController() {
-        if let dailyQuestion = self.dailyQuestion {
+        if let dailyQuestion = UserManager.share.dailyQuestion {
             navigateMain(dailyQuestion: dailyQuestion)
         } else {
             navigateOnBoarding()
@@ -91,7 +89,6 @@ private extension SplashViewController {
     
     func navigateMain(dailyQuestion: DailyQuestionDto) {
         let mainViewController = MainViewController()
-        mainViewController.bind(questionDTO: dailyQuestion)
         let navi = UINavigationController(rootViewController: mainViewController)
         navi.modalTransitionStyle = .crossDissolve
         navi.modalPresentationStyle = .fullScreen
@@ -107,7 +104,7 @@ private extension SplashViewController {
 
     func requestDailyQuestion() {
         Provider.request(.dailyQuestions, completion: {[weak self] (data: DailyQuestionDto) in
-            self?.dailyQuestion = data
+            UserManager.share.updateDailyQuestion(with: data)
         }, failure: { [weak self] error in
             self?.requestCount += 1
             guard let strongSelf = self,

@@ -188,7 +188,9 @@ private extension SettingsViewController {
         alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
             Provider.request(.signOut, completion: { success in
                 if success {
-                    guard let window = self.view.window else { return }
+                    UserDefaults.currentToken = nil
+                    UserDefaults.refreshToken = nil
+                    UserDefaults.fcmToken = nil
                     let onBoardingViewController = OnBoardingViewController()
                     
                     UIView.transition(from: self.view,
@@ -196,8 +198,7 @@ private extension SettingsViewController {
                                       duration: 0.3,
                                       options: [.transitionCrossDissolve],
                                       completion: { _ in
-                                        window.rootViewController = onBoardingViewController
-                                        window.makeKeyAndVisible()
+                                        self.view.window?.rootViewController = onBoardingViewController
                                     })
                 }
             })
