@@ -120,27 +120,6 @@ extension AppDelegate: MessagingDelegate {
         UserDefaults.fcmToken = fcmToken
         let dataDict = ["token": fcmToken]
         NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
-        
-        // FIXME: Karen - API 모듈 나오기 전, Test Code
-        // sign in with fcm token
-        let json: [String : Any] = ["fcmToken" : fcmToken,
-                                    "password" : "1234",
-                                    "userId" : "karen"]
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
-
-        let session = URLSession.shared
-        var request = URLRequest(url: URL(string: "https://byeol-byeol.kro.kr/users/sign-in")!)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("KST", forHTTPHeaderField: "Time-Zone")
-        request.httpBody = jsonData
-        
-        session.dataTask(with: request) { (data, response, error) in
-            if error == nil {
-                print(String(data: data!, encoding: .utf8)!)
-            }
-        }.resume()
-        //
     }
     
 }

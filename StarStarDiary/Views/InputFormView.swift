@@ -229,7 +229,8 @@ final class InputFormView: UIView {
 
 enum InputFormViewStyle {
     case id
-    case password
+    case signUpPassword
+    case signInPassword
     case confirmPassword
     case email
     case certificationNumber
@@ -237,7 +238,7 @@ enum InputFormViewStyle {
     var title: String {
         switch self {
         case .id: return "아이디"
-        case .password: return "비밀번호"
+        case .signUpPassword, .signInPassword: return "비밀번호"
         case .confirmPassword: return "비밀번호 확인"
         case .email: return "이메일"
         case .certificationNumber: return "인증번호"
@@ -247,15 +248,16 @@ enum InputFormViewStyle {
     var placeHolder: String {
         switch self {
         case .id, .email, .certificationNumber: return "\(self.title) 입력"
-        case .password, .confirmPassword: return "비밀번호 입력"
+        case .signUpPassword, .signInPassword, .confirmPassword: return "비밀번호 입력"
         }
     }
     
     var invalidMessage: String? {
         switch self {
         case .id: return "아이디를 입력하세요."
-        case .password: return "비밀번호는 영문자 숫자를 포함한 6~12 글자여야 합니다."
+        case .signUpPassword: return "비밀번호는 영문자 숫자를 포함한 6~12 글자여야 합니다."
         case .confirmPassword: return "비밀번호 불일치"
+        case .signInPassword: return "아이디/비밀번호가 맞지 않습니다."
         case .email: return "유효하지 않은 이메일"
         case .certificationNumber: return "인증번호 오류"
         }
@@ -263,22 +265,22 @@ enum InputFormViewStyle {
     
     var checksValidate: Bool {
         switch self {
-        case .id, .email, .password: return true
-        case .confirmPassword, .certificationNumber: return false
+        case .id, .email, .signUpPassword: return true
+        case .signInPassword, .confirmPassword, .certificationNumber: return false
         }
     }
     
     var isSecureTextEntry: Bool {
         switch self {
         case .id, .email, .certificationNumber: return false
-        case .password, .confirmPassword: return true
+        case .signInPassword, .signUpPassword, .confirmPassword: return true
         }
     }
     
     func isValid(_ input: String) -> Bool {
         switch self {
         case .id: return input.count >= 4
-        case .password:
+        case .signUpPassword:
             let passRegEx = "[A-Za-z0-9]{6,12}"
             let passPred = NSPredicate(format:"SELF MATCHES %@", passRegEx)
             return passPred.evaluate(with: input)
@@ -286,7 +288,7 @@ enum InputFormViewStyle {
            let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
            let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
            return emailPred.evaluate(with: input)
-        case .confirmPassword, .certificationNumber: return true
+        case .signInPassword, .confirmPassword, .certificationNumber: return true
         }
     }
 }

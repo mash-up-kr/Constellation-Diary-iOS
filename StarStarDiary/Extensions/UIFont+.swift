@@ -13,8 +13,8 @@ enum StarStarFonts: String {
     case koreaYMJMedium = "KoreanYMJM"
     case koreaYMJE = "KoreanYMJE"
     case koreaYMJL = "KoreanYMJL"
-    case notoSerifCJKRegular = "NotoSansCJKkr-Medium"
-    case notoSerifCJKMedium = "NotoSansCJKkr-Regular"
+    case notoSerifCJKRegular = "NotoSansCJKkr-Regular"
+    case notoSerifCJKMedium = "NotoSansCJKkr-Medium"
     case notoSerifCJKBold = "NotoSansCJKkr-Bold"
     case nanumMyeongjoBold = "NanumMyeongjo-Bold"
 }

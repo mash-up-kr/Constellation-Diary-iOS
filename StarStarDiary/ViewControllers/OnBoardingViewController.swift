@@ -105,9 +105,8 @@ class OnBoardingViewController: UIViewController {
     
     @objc private func didTapLoginButton(_ sender: Any?) {
         let loginViewController = LoginViewController()
-        loginViewController.modalPresentationStyle = .overFullScreen
+        loginViewController.modalPresentationStyle = .formSheet
         present(loginViewController, animated: true, completion: nil)
-        
     }
 
 }
