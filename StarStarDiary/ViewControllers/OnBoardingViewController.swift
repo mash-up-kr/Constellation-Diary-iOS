@@ -9,13 +9,22 @@
 import UIKit
 import SnapKit
 
-class OnBoardingViewController: UIViewController {
+protocol NavigationDelegate: class {
+    func navigationDelegate(_ viewController: UIViewController, request toViewController: UIViewController)
+}
+
+
+final class OnBoardingViewController: UIViewController {
     
     private let backgrounImageView = UIImageView()
     private let titleLabel = UILabel()
     private let descriptionLabel = UILabel()
     private let loginButton = UIButton()
-
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,14 +49,23 @@ class OnBoardingViewController: UIViewController {
     private func setupLables() {
         titleLabel.do {
             $0.text = "별별일기"
-            $0.font = UIFont.font(.nanumMyeongjoBold, size: 30)
+            $0.font = UIFont.font(.koreaYMJBold, size: 30)
             $0.textColor = .white
             view.addSubview($0)
         }
         
         descriptionLabel.do {
-            $0.text = "별처럼 빛나는 당신의 하루,\n별자리 운세일기를 기록해보세요."
-            $0.font = UIFont.font(.notoSerifCJKRegular, size: 14)
+            let attributedString = NSMutableAttributedString(string: "별처럼 빛나는 당신의 하루,\n별자리 운세일기를 기록해보세요.")
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = 0.31
+            paragraphStyle.minimumLineHeight = 43
+            attributedString.addAttribute(
+                .paragraphStyle,
+                value: paragraphStyle,
+                range: NSRange(location: 0, length: attributedString.length
+            ))
+            $0.attributedText = attributedString
+            $0.font = UIFont.font(.koreaYMJBold, size: 15)
             $0.numberOfLines = 2
             $0.textColor = .white
             $0.alpha = 0.7
@@ -92,9 +110,26 @@ class OnBoardingViewController: UIViewController {
     
     @objc private func didTapLoginButton(_ sender: Any?) {
         let loginViewController = LoginViewController()
-        loginViewController.modalPresentationStyle = .overFullScreen
+        loginViewController.modalPresentationStyle = .formSheet
+        loginViewController.navigationDelegate = self
         present(loginViewController, animated: true, completion: nil)
-        
+    }
+
+}
+
+extension OnBoardingViewController: NavigationDelegate {
+
+    func navigationDelegate(_ viewController: UIViewController, request toViewController: UIViewController) {
+        UIView.animate(withDuration: 0.3) {
+            self.view.alpha = 0.3
+        }
+        UIView.transition(from: self.view,
+                          to: toViewController.view,
+                          duration: 0.3,
+                          options: [.transitionCrossDissolve],
+                          completion: { _ in
+                            self.view.window?.rootViewController = toViewController
+                        })
     }
 
 }

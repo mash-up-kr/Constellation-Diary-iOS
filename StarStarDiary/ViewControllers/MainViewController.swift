@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Lottie
 
 
 final class MainViewController: UIViewController {
@@ -18,24 +19,33 @@ final class MainViewController: UIViewController {
     private let titleLabel: UILabel         =       UILabel(frame: .zero)
     private let editImageView: UIImageView  =       UIImageView(frame: .zero)
     private let horoscopeHeaderView: HoroscopeHeaderView = HoroscopeHeaderView(frame: .zero)
-    private let backgroundImageView: UIImageView = UIImageView(frame: .zero)
     private var diary: DiaryDto?
     private var horoscope: HoroscopeDto?
-    private let backgroundAlphaView = UIView()
+    private let lottieView = AnimationView()
     
     // MARK: Life cycle
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         requesthoroscope()
         registerObserver()
+        if let dailyQuestion = UserManager.share.dailyQuestion {
+            bind(questionDTO: dailyQuestion)
+        } else {
+            requestDailyQuestion()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         setupNavigationBar()
+        lottieView.play()
     }
     
     func bind(questionDTO: DailyQuestionDto) {
@@ -58,7 +68,7 @@ final class MainViewController: UIViewController {
 extension MainViewController: HoroscopeDetailViewDelegate {
 
     func horoscopeDeatilView(_ viewController: HoroscopeDetailViewController,
-                           didTap button: UIButton) {
+                             didTap button: UIButton) {
         didTapNewDiary()
     }
 
@@ -67,22 +77,30 @@ extension MainViewController: HoroscopeDetailViewDelegate {
 private extension MainViewController {
     
     func setTitle(_ text: String) {
-         let attributedString = NSMutableAttributedString(string: text)
-         let paragraphStyle = NSMutableParagraphStyle()
+        let attributedString = NSMutableAttributedString(string: text)
+        let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 0.31
         paragraphStyle.minimumLineHeight = 43
-         attributedString.addAttribute(
-             .paragraphStyle,
-             value: paragraphStyle,
-             range: NSRange(location: 0, length: attributedString.length
-         ))
+        attributedString.addAttribute(
+            .paragraphStyle,
+            value: paragraphStyle,
+            range: NSRange(location: 0, length: attributedString.length
+        ))
         self.titleLabel.attributedText = attributedString
+        self.titleLabel.sizeToFit()
     }
     
     func bind(horoscope: HoroscopeDto) {
         self.horoscope = horoscope
         horoscopeHeaderView.bind(horoscope: horoscope)
         horoscopeHeaderView.isHidden = false
+    }
+
+    func requestDailyQuestion() {
+        Provider.request(.dailyQuestions, completion: {[weak self] (data: DailyQuestionDto) in
+            UserManager.share.updateDailyQuestion(with: data)
+            self?.bind(questionDTO: data)
+        })
     }
     
     func requesthoroscope() {
@@ -125,22 +143,24 @@ private extension MainViewController {
 
     func setupView() {
         view.backgroundColor = .black
-        setupBackgroundImageView()
-        setupBackgroundAlphaView()
+        setupLottieView()
         setupTitleLabel()
         setupWriteLabel()
         setuphoroscopeView()
         setupContainerView()
         setupGestures()
     }
-    
-    func setupBackgroundImageView() {
-        backgroundImageView.do {
-            $0.image = UIImage(named: "bgMain")
+
+    func setupLottieView() {
+        lottieView.do {
             $0.contentMode = .scaleAspectFill
+            let animation = Animation.named("background")
+            $0.animation = animation
+            $0.backgroundBehavior = .pauseAndRestore
+            $0.loopMode = .loop
             view.addSubview($0)
-            $0.snp.makeConstraints { imageView in
-                imageView.edges.equalToSuperview()
+            $0.snp.makeConstraints { lottie in
+                lottie.edges.equalToSuperview()
             }
         }
     }
@@ -201,23 +221,12 @@ private extension MainViewController {
             }
         }
     }
-    
-    func setupBackgroundAlphaView() {
-        
-        backgroundAlphaView.do {
-            $0.backgroundColor = UIColor(white: 0, alpha: 0.4)
-            view.addSubview($0)
-            $0.snp.makeConstraints {
-                $0.edges.equalToSuperview()
-            }
-        }
-    }
 
     func setupContainerView() {
         let stackView = UIStackView()
         stackView.do {
             $0.axis = .vertical
-            $0.alignment = .leading
+            $0.alignment = .fill
             $0.distribution = .equalSpacing
             $0.spacing = 25
             $0.addArrangedSubview(titleLabel)

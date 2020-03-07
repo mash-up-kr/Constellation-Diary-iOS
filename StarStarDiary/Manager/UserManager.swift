@@ -12,9 +12,14 @@ final class UserManager {
     static let share = UserManager()
     
     private (set) var user: UserDto?
+    private (set) var dailyQuestion: DailyQuestionDto?
     
     func login(with user: UserDto) {
         self.user = user
+    }
+    
+    func updateDailyQuestion(with dailyQuestion: DailyQuestionDto) {
+        self.dailyQuestion = dailyQuestion
     }
     
     func checkTokenValidation() {

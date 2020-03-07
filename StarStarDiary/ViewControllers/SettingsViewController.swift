@@ -68,16 +68,10 @@ class SettingsViewController: UIViewController {
     
     private func initVar() {
         for section in SectionMenu.allCases {
-            var cellItems: [SettingsViewCellItem] = []
-            
-            for cell in CellMenu.allCases where cell.sectionMenuType == section {
-                cellItems.append(SettingsViewCellItem(index: cell.rawValue,
-                                          title: cell.titleString,
-                                          subTitle: cell.subTitleString,
-                                          value: cell.valueString,
-                                          cellType: cell.cellType,
-                                          isSwitchOn: cell.isSwitchOn,
-                                          canSelect: cell.canSelected))
+            let cellItems = CellMenu.allCases
+                .filter { $0.sectionMenuType == section }
+                .map {
+                    settingsViewCellItem(with: $0)
             }
             
             items.sections.append(SectionItem(index: section.rawValue,
@@ -177,16 +171,39 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let cellItem = items.sections[indexPath.section].cells[indexPath.row]
-        guard let menuType = CellMenu(rawValue: indexPath.row),
-            let sectionType = SectionMenu(rawValue: indexPath.section) else {
-            return
-        }
         
-        if sectionType == .alarm {
-            items.sections[indexPath.section].cells[indexPath.row].didExtension = !cellItem.didExtension
-            tableView.reloadRows(at: [indexPath], with: .none)
-        } else {
-            // TODO: cell 별 메뉴 이동
+        switch cellItem.menu {
+        case .logout:
+            presentLogoutAlert()
+        default:
+            ()
         }
     }
+}
+
+private extension SettingsViewController {
+    
+    func presentLogoutAlert() {
+        let alert = UIAlertController(title: nil, message: "로그아웃 하시겠습니까?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+            Provider.request(.signOut, completion: { success in
+                if success {
+                    UserDefaults.currentToken = nil
+                    UserDefaults.refreshToken = nil
+                    UserDefaults.fcmToken = nil
+                    let onBoardingViewController = OnBoardingViewController()
+                    
+                    UIView.transition(from: self.view,
+                                      to: onBoardingViewController.view,
+                                      duration: 0.3,
+                                      options: [.transitionCrossDissolve],
+                                      completion: { _ in
+                                        self.view.window?.rootViewController = onBoardingViewController
+                                    })
+                }
+            })
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+    
 }

@@ -30,7 +30,7 @@ class SignUpViewController: UIViewController {
     private let titleLabel = UILabel()
     private let progressStepLabel = UILabel()
     private let idInputFormView = InputFormView(style: .id)
-    private let passwordInputFormView = InputFormView(style: .password)
+    private let passwordInputFormView = InputFormView(style: .signUpPassword)
     private let confirmPasswordInputFormView = InputFormView(style: .confirmPassword)
     private let completionButton = UIButton()
     
