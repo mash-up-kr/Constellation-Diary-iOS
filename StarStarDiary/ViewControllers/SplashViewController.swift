@@ -28,7 +28,7 @@ class SplashViewController: UIViewController {
         //        UserDefaults.refreshToken =  "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMzODQifQ.eyJpc3MiOiJBUEkgU2VydmVyIiwic3ViIjoiUmVmcmVzaCBUb2tlbiIsImV4cCI6MTU4NDk2OTMyOCwiaWF0IjoxNTgyMzc3MzI4LCJ1c2VySWQiOiJydXJlMTExNCIsImlkIjo0fQ.3eaDfm9np9O0xsuSifJOusUl6yv1pUwBsByCWqwywF3c0cihUegjFwI8LYmrri9V"
         self.setupView()
         if UserDefaults.currentToken != nil {
-            requestDailyQuestion()
+            requestUser()
         }
     }
     
@@ -102,9 +102,10 @@ private extension SplashViewController {
         self.present(onboardingViewController, animated: true, completion: nil)
     }
 
-    func requestDailyQuestion() {
-        Provider.request(.dailyQuestions, completion: {[weak self] (data: DailyQuestionDto) in
-            UserManager.share.updateDailyQuestion(with: data)
+    func requestUser() {
+        Provider.request(.users, completion: {[weak self] (data: UserDto) in
+            UserManager.share.login(with: data)
+            self?.requestDailyQuestion()
         }, failure: { [weak self] error in
             self?.requestCount += 1
             guard let strongSelf = self,
@@ -113,6 +114,12 @@ private extension SplashViewController {
                 return
             }
             strongSelf.requestRefreshToken()
+        })
+    }
+
+    func requestDailyQuestion() {
+        Provider.request(.dailyQuestions, completion: {(data: DailyQuestionDto) in
+            UserManager.share.updateDailyQuestion(with: data)
         })
     }
     

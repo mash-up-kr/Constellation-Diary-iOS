@@ -110,7 +110,7 @@ final class OnBoardingViewController: UIViewController {
     
     @objc private func didTapLoginButton(_ sender: Any?) {
         let loginViewController = LoginViewController()
-        loginViewController.modalPresentationStyle = .formSheet
+        loginViewController.modalPresentationStyle = .pageSheet
         loginViewController.navigationDelegate = self
         present(loginViewController, animated: true, completion: nil)
     }

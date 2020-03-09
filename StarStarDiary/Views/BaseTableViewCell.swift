@@ -1,5 +1,5 @@
 //
-//  SettingsTableViewCell.swift
+//  SettingBaseTableViewCell.swift
 //  StarStarDiary
 //
 //  Created by suhyun on 2019/12/21.
@@ -9,205 +9,197 @@
 import UIKit
 import SnapKit
 
-enum BaseTableViewCellType {
+enum SettingBaseTableViewCellType {
     case hasOnlyTitle
     case hasValue
     case hasSwitch
     case hasArrow
+    
+    var accessoryType: UITableViewCell.AccessoryType {
+        switch self {
+        case .hasOnlyTitle, .hasSwitch, .hasValue:
+            return .none
+        case .hasArrow:
+            return .disclosureIndicator
+        }
+    }
+
 }
 
-class BaseTableViewCell: UITableViewCell {
+protocol SettingBaseTableViewCellDelegate: class {
+    func settingBaseTableViewCell(_ cell: SettingBaseTableViewCell, didChange uiSwitch: UISwitch)
+    func settingBaseTableViewCell(_ cell: SettingBaseTableViewCell, didChange datePicker: UIDatePicker)
+}
 
-    // Common
+class SettingBaseTableViewCell: UITableViewCell {
+    
+    weak var delegate: SettingBaseTableViewCellDelegate?
+
     private var titleLabel = UILabel(frame: .zero)
     private var bottomLineView = UIView(frame: .zero)
-    
-    // contentsView
-    private var contentsView = UIView(frame: .zero)
-    private var contentsBottomLineView = UIView(frame: .zero)
-    
-    // contentsView - datePicker
-    private var datePickerView = UIDatePicker(frame: .zero)
-    
-    // cellType에 따라서 바뀌는 Components
     private var labelStackView = UIStackView(frame: .zero)
     private var subTitleLabel = UILabel(frame: .zero)
     private var valueLabel = UILabel(frame: .zero)
     private var onOffSwitch = UISwitch(frame: .zero)
+    private var contentsView = UIView(frame: .zero)
+    private var contentsBottomLineView = UIView(frame: .zero)
+    private (set) var datePickerView = UIDatePicker(frame: .zero)
     
-    // MARK: - Public Set
-    
-    public func setEntity(titleString: String?, subTitleString: String?, valueString: String?, isSwitchOn: Bool?, canSelect: Bool, cellType: BaseTableViewCellType) {
+    // MARK: - Internal Set
+
+    func setEntity(titleString: String?, subTitleString: String?, valueString: String?, isOn: Bool = false, cellType: SettingBaseTableViewCellType, didExtension: Bool) {
         
         titleLabel.text = titleString
         subTitleLabel.text = subTitleString
         valueLabel.text = valueString
-        selectionStyle = canSelect ? .default : .none
-        
-        if let isSwitchOn = isSwitchOn {
-            onOffSwitch.isOn = isSwitchOn
-            bringSubviewToFront(onOffSwitch)
-        }
-        
-        switch cellType {
-        case .hasOnlyTitle:
-            onOffSwitch.isHidden = true
-            accessoryType = .none
-        case .hasValue:
-            onOffSwitch.isHidden = true
-            accessoryType = .none
-        case .hasSwitch:
-            onOffSwitch.isHidden = false
-            accessoryType = .none
-        case .hasArrow:
-            onOffSwitch.isHidden = true
-            accessoryType = .disclosureIndicator
-        }
+        onOffSwitch.isHidden = cellType != .hasSwitch
+        onOffSwitch.isOn = isOn
+        accessoryType = cellType.accessoryType
+        contentView.isHidden = !didExtension
+        selectionStyle = cellType == .hasSwitch ? .none : .default
     }
     
-    public func setDatePicker(mode: UIDatePicker.Mode) {
-        datePickerView.datePickerMode = mode
+    func setEntity(with cellItem: SettingsViewCellItem) {
+        self.setEntity(titleString: cellItem.title,
+                       subTitleString: cellItem.subTitle,
+                       valueString: cellItem.value,
+                       isOn: cellItem.isOn,
+                       cellType: cellItem.cellType,
+                       didExtension: cellItem.didExtension)
     }
-    
+
     // MARK: - Init
     
-    private func initLayout() {
-        self.addSubview(titleLabel)
-        self.addSubview(bottomLineView)
-        self.addSubview(onOffSwitch)
-        self.addSubview(labelStackView)
-        labelStackView.addArrangedSubview(subTitleLabel)
-        labelStackView.addArrangedSubview(valueLabel)
+    override func awakeFromNib() {
+        super.awakeFromNib()
         
-        self.addSubview(contentsView)
-        self.addSubview(contentsBottomLineView)
-        contentsView.addSubview(datePickerView)
+        setupViews()
+        setupConstraints()
+    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        titleLabel.do {
-            $0.snp.makeConstraints {
-                $0.leading.equalTo(self.snp.leading).offset(24.0)
-                $0.trailing.equalTo(labelStackView.snp.leading).offset(-8.0)
-                $0.top.equalToSuperview()
-                $0.height.equalTo(72.0)
-            }
+        setupViews()
+        setupConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        
+        setupViews()
+        setupConstraints()
+    }
+
+}
+
+private extension SettingBaseTableViewCell {
+    
+    func setupConstraints() {
+        titleLabel.snp.makeConstraints {
+            $0.leading.equalTo(self.snp.leading).offset(20.0)
+            $0.top.equalToSuperview()
+            $0.height.equalTo(72.0)
         }
         
-        labelStackView.do {
-            $0.snp.makeConstraints {
-                $0.trailing.equalTo(self.snp.trailing).inset(24.0)
-                $0.top.equalTo(self.snp.top)
-                $0.height.equalTo(titleLabel.snp.height)
-            }
+        onOffSwitch.snp.makeConstraints {
+            $0.trailing.equalTo(self.snp.trailing).inset(20.0)
+            $0.centerY.equalTo(titleLabel)
         }
         
-        onOffSwitch.do {
-            $0.snp.makeConstraints {
-                $0.trailing.equalTo(self.snp.trailing).inset(24.0)
-                $0.centerY.equalTo(labelStackView.snp.centerY)
-            }
+        labelStackView.snp.makeConstraints {
+            $0.leading.equalTo(titleLabel.snp.trailing).offset(8.0)
+            $0.trailing.equalTo(self.snp.trailing).inset(20.0)
+            $0.top.equalTo(self.snp.top)
+            $0.height.equalTo(titleLabel.snp.height)
         }
         
-        bottomLineView.do {
-            $0.snp.makeConstraints {
-                $0.height.equalTo(1.0)
-                $0.leading.equalToSuperview()
-                $0.trailing.equalToSuperview()
-                $0.bottom.equalTo(labelStackView.snp.bottom)
-            }
+        bottomLineView.snp.makeConstraints {
+            $0.height.equalTo(1.0)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(labelStackView)
         }
         
-        // contentsView
-        
-        contentsView.do {
-            $0.snp.makeConstraints {
-                $0.top.equalTo(labelStackView.snp.bottom)
-                $0.leading.equalToSuperview()
-                $0.trailing.equalToSuperview()
-                $0.bottom.equalToSuperview()
-            }
+        contentsView.snp.makeConstraints {
+            $0.top.equalTo(labelStackView.snp.bottom)
+            $0.leading.equalToSuperview()
+            $0.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview()
         }
         
-        contentsBottomLineView.do {
-            $0.snp.makeConstraints {
-                $0.height.equalTo(1.0)
-                $0.leading.equalToSuperview()
-                $0.trailing.equalToSuperview()
-                $0.bottom.equalToSuperview()
-            }
+        contentsBottomLineView.snp.makeConstraints {
+            $0.height.equalTo(1.0)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
-        
-        // contentsView - datePickerView
-        
-        datePickerView.do {
-            $0.snp.makeConstraints {
-                $0.edges.equalToSuperview()
-            }
+
+        datePickerView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
-        
+
     }
     
     // MARK: dark / light mode 적용 시, 변경이 필요할 수 있음
-    private func initView() {
+    func setupViews() {
         titleLabel.do {
-            // TODO: 폰트 변경
-            $0.font = UIFont.systemFont(ofSize: 16.0)
+            $0.font = UIFont.font(.notoSerifCJKMedium, size: 16.0)
             $0.textColor = .black
             $0.sizeToFit()
+            self.addSubview($0)
         }
         
         subTitleLabel.do {
-            // TODO: 폰트 변경
-            $0.font = UIFont.systemFont(ofSize: 14.0)
+            $0.font = UIFont.font(.notoSerifCJKMedium, size: 14.0)
             $0.textAlignment = .left
             $0.textColor = UIColor.buttonBlue
+            self.addSubview($0)
         }
         
         valueLabel.do {
-            // TODO: 폰트 변경
-            $0.font = UIFont.systemFont(ofSize: 14.0)
+            $0.font = UIFont.font(.notoSerifCJKMedium, size: 14.0)
             $0.textAlignment = .right
             $0.textColor = .lightGray
         }
-        
+    
         bottomLineView.do {
             $0.backgroundColor = .white216
+            self.addSubview($0)
         }
         
         labelStackView.do {
             $0.distribution = .equalCentering
             $0.spacing = 8.0
             $0.axis = .horizontal
+            $0.addArrangedSubview(subTitleLabel)
+            $0.addArrangedSubview(valueLabel)
+            self.addSubview($0)
         }
         
         onOffSwitch.do {
             $0.onTintColor = UIColor.navy3
+            $0.addTarget(self, action: #selector(didChangeValue(switch:)), for: .valueChanged)
+            self.addSubview($0)
         }
         
         contentsBottomLineView.do {
             $0.backgroundColor = .white216
         }
-    }
-    
-    // MARK: - Life Cycle
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-                
-        initLayout()
-        initView()
-    }
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        initLayout()
-        initView()
+        contentsView.do {
+            $0.addSubview(datePickerView)
+            $0.addSubview(contentsBottomLineView)
+            self.addSubview($0)
+        }
+        
+        datePickerView.do {
+            $0.datePickerMode = .time
+            $0.locale = Locale.current
+            $0.timeZone = TimeZone.current
+        }
+
     }
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
-        initLayout()
-        initView()
+    @objc func didChangeValue(switch uiSwitch: UISwitch) {
+        delegate?.settingBaseTableViewCell(self, didChange: uiSwitch)
     }
+
 }

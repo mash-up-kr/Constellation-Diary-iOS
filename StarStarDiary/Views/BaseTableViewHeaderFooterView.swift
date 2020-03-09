@@ -21,7 +21,7 @@ class BaseTableViewHeaderFooterView: UITableViewHeaderFooterView {
     
     public func setEntity(title: String,
                           titleColor: UIColor?,
-                          font: UIFont = UIFont.systemFont(ofSize: 12.0)) {
+                          font: UIFont = .font(StarStarFonts.notoSerifCJKRegular, size: 12.0)) {
         if title.isEmpty {
             bottomView.backgroundColor = .white216
             bottomView.isHidden = false
@@ -48,9 +48,9 @@ class BaseTableViewHeaderFooterView: UITableViewHeaderFooterView {
         
         titleLabel.do {
             $0.snp.makeConstraints {
-                $0.leading.equalTo(self.snp.leading).offset(24.0)
-                $0.trailing.equalTo(self.snp.trailing).inset(24.0)
-                $0.bottom.equalTo(self.snp.bottom)
+                $0.leading.equalTo(self.snp.leading).offset(20.0)
+                $0.trailing.equalTo(self.snp.trailing).inset(20.0)
+                $0.centerY.equalToSuperview()
             }
         }
         
@@ -65,7 +65,7 @@ class BaseTableViewHeaderFooterView: UITableViewHeaderFooterView {
     }
     
     private func initView() {
-        baseView.backgroundColor = .white
+        baseView.backgroundColor = .clear
     }
     
     // MARK: - Life Cycle

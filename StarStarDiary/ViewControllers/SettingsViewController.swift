@@ -11,8 +11,10 @@ import SnapKit
 
 class SettingsViewController: UIViewController {
     
-    private var navigationView = BaseNavigationView(frame: .zero)
-    private var tableView = UITableView(frame: .zero)
+    private let headerFooterViewIdentifier = "BaseTableViewHeaderFooterView"
+    private let cellIdentifier = "BaseTableViewCell"
+    private let navigationView = BaseNavigationView(frame: .zero)
+    private let tableView = UITableView(frame: .zero)
     
     // MARK: - Var
     
@@ -58,17 +60,17 @@ class SettingsViewController: UIViewController {
             $0.delegate = self
             $0.dataSource = self
             $0.backgroundColor = .clear
-            $0.register(BaseTableViewCell.self, forCellReuseIdentifier: "BaseTableViewCell")
+            $0.register(SettingBaseTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
             $0.register(BaseTableViewHeaderFooterView.self,
-                        forHeaderFooterViewReuseIdentifier: "BaseTableViewHeaderFooterView")
+                        forHeaderFooterViewReuseIdentifier: headerFooterViewIdentifier)
             $0.separatorStyle = .none
             $0.bounces = false
         }
     }
     
     private func initVar() {
-        for section in SectionMenu.allCases {
-            let cellItems = CellMenu.allCases
+        for section in SettingSectionType.allCases {
+            let cellItems = SettingCellType.allCases
                 .filter { $0.sectionMenuType == section }
                 .map {
                     settingsViewCellItem(with: $0)
@@ -95,6 +97,10 @@ class SettingsViewController: UIViewController {
         initVar()
         initView()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
 
 }
 
@@ -106,75 +112,63 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        for sectionItem in items.sections where sectionItem.index == section {
-            return sectionItem.cells.count
-        }
-        
-        return 0
+        return items.sections[section].cells.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BaseTableViewCell",
-                                                 for: indexPath) as! BaseTableViewCell
-        let cellItem = items.sections[indexPath.section].cells[indexPath.row]
-        cell.setEntity(titleString: cellItem.title,
-                       subTitleString: cellItem.subTitle,
-                       valueString: cellItem.value,
-                       isSwitchOn: cellItem.isSwitchOn,
-                       canSelect: cellItem.canSelect,
-                       cellType: cellItem.cellType)
-        
-        if cellItem.isSwitchOn != nil {
-            cell.selectionStyle = .none
-            cell.setDatePicker(mode: .time)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? SettingBaseTableViewCell else {
+            preconditionFailure("Cannot typecast dequeueReusableCell with \(cellIdentifier) to BaseTableViewCell for \(indexPath)")
         }
-    
+        cell.setEntity(with: items.sections[indexPath.section].cells[indexPath.row])
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let cellItem = items.sections[indexPath.section].cells[indexPath.row]
-        
-        if cellItem.didExtension {
-            return 288.0
-        } else {
-            return 72.0
-        }
+        return cellItem.didExtension ? 288.0 : 72
     }
     
     // MARK: - HeaderFooter
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerFooterViewIdentifier) as? BaseTableViewHeaderFooterView else {
+            return nil
+        }
         let sectionItem = items.sections[section]
-        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "BaseTableViewHeaderFooterView") as! BaseTableViewHeaderFooterView
         view.setEntity(title: sectionItem.title,
                        titleColor: .gray122,
                        font: UIFont.systemFont(ofSize: 12.0))
-        
+
         return view
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard let sectionMenuType = SectionMenu(rawValue: section) else {
+        guard let sectionMenuType = SettingSectionType(rawValue: section) else {
             return 0.0
         }
-        
-        switch sectionMenuType {
-        case .alarm: return 32.0
-        case .normal: return 0.0
-        }
+        return sectionMenuType.headerViewHeight
     }
     
     // MARK: Event
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var cellItem = items.sections[indexPath.section].cells[indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let cellItem = items.sections[indexPath.section].cells[indexPath.row]
-        
         switch cellItem.menu {
+        case .horoscopeNotification, .questionNotification:
+            guard let cell = tableView.cellForRow(at: indexPath) as? SettingBaseTableViewCell else {
+                return
+            }
+            cellItem.subTitle = cell.datePickerView.date.description
+            cellItem.didExtension.toggle()
+            items.sections[indexPath.section].cells[indexPath.row] = cellItem
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+//            cellItem
         case .logout:
             presentLogoutAlert()
+        case .feedback:
+            openMail()
         default:
             ()
         }
@@ -182,6 +176,20 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 private extension SettingsViewController {
+//    func presentEditNotification(type: PushNotificationType) {
+//        let editNotificationViewController = EditNotificationViewController()
+//        editNotificationViewController.bind(type: type)
+//        let navigationController = UINavigationController(rootViewController: editNotificationViewController)
+//        navigationController.modalPresentationStyle = .pageSheet
+//        present(navigationController, animated: true, completion: nil)
+//    }
+    
+    func openMail() {
+        let email = "caution.dev@gmail.com"
+        if let url = URL(string: "mailto:\(email)") {
+            UIApplication.shared.open(url)
+        }
+    }
     
     func presentLogoutAlert() {
         let alert = UIAlertController(title: nil, message: "로그아웃 하시겠습니까?", preferredStyle: .alert)
@@ -203,6 +211,7 @@ private extension SettingsViewController {
                 }
             })
         }))
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
     }
     

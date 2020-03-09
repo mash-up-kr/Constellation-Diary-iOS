@@ -48,8 +48,6 @@
 		D540608524113C0E00E8EECB /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = D540608424113C0E00E8EECB /* loading.json */; };
 		D540608724113C3C00E8EECB /* background.json in Resources */ = {isa = PBXBuildFile; fileRef = D540608624113C3C00E8EECB /* background.json */; };
 		D544F2862389672C009B3967 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D544F2852389672C009B3967 /* MainViewController.swift */; };
-		D544F28A23898405009B3967 /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D544F28923898405009B3967 /* DateFormatter+.swift */; };
-		D54F6CEE23BB5353001DA319 /* DiaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54F6CED23BB5353001DA319 /* DiaryTableViewCell.swift */; };
 		D54F6CF023BB53D4001DA319 /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54F6CEF23BB53D4001DA319 /* Diary.swift */; };
 		D54F6CF523BB5DE2001DA319 /* Sample.json in Resources */ = {isa = PBXBuildFile; fileRef = D54F6CF423BB5DE2001DA319 /* Sample.json */; };
 		D54F6CF723BB60D4001DA319 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54F6CF623BB60D4001DA319 /* Date+.swift */; };
@@ -69,6 +67,7 @@
 		D5847DFD23FABD5200D8BA8E /* NanumMyeongjo-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DFA23FABD5100D8BA8E /* NanumMyeongjo-Bold.otf */; };
 		D5847DFE23FABD5200D8BA8E /* NanumMyeongjoExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DFB23FABD5100D8BA8E /* NanumMyeongjoExtraBold.otf */; };
 		D5847DFF23FABD5200D8BA8E /* NanumMyeongjo.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DFC23FABD5200D8BA8E /* NanumMyeongjo.otf */; };
+		D58CBF05241689AD00C66FE7 /* DiaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58CBF04241689AD00C66FE7 /* DiaryTableViewCell.swift */; };
 		D5A8C1B323FAC88200C596AF /* MoyaProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A8C1B223FAC88200C596AF /* MoyaProvider.swift */; };
 		D5A8C1B623FAD15F00C596AF /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A8C1B523FAD15F00C596AF /* UserManager.swift */; };
 		D5A8C1B823FADA2900C596AF /* MultiStepNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A8C1B723FADA2900C596AF /* MultiStepNavigationController.swift */; };
@@ -136,7 +135,6 @@
 		D540608624113C3C00E8EECB /* background.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = background.json; sourceTree = "<group>"; };
 		D544F2852389672C009B3967 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D544F28923898405009B3967 /* DateFormatter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DateFormatter+.swift"; path = "StarStarDiary/Extensions/DateFormatter+.swift"; sourceTree = SOURCE_ROOT; };
-		D54F6CED23BB5353001DA319 /* DiaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTableViewCell.swift; sourceTree = "<group>"; };
 		D54F6CEF23BB53D4001DA319 /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Diary.swift; path = StarStarDiary/Views/Diary.swift; sourceTree = SOURCE_ROOT; };
 		D54F6CF423BB5DE2001DA319 /* Sample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Sample.json; sourceTree = "<group>"; };
 		D54F6CF623BB60D4001DA319 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
@@ -156,6 +154,7 @@
 		D5847DFA23FABD5100D8BA8E /* NanumMyeongjo-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NanumMyeongjo-Bold.otf"; sourceTree = "<group>"; };
 		D5847DFB23FABD5100D8BA8E /* NanumMyeongjoExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumMyeongjoExtraBold.otf; sourceTree = "<group>"; };
 		D5847DFC23FABD5200D8BA8E /* NanumMyeongjo.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumMyeongjo.otf; sourceTree = "<group>"; };
+		D58CBF04241689AD00C66FE7 /* DiaryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryTableViewCell.swift; sourceTree = "<group>"; };
 		D5A8C1B223FAC88200C596AF /* MoyaProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaProvider.swift; sourceTree = "<group>"; };
 		D5A8C1B523FAD15F00C596AF /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		D5A8C1B723FADA2900C596AF /* MultiStepNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiStepNavigationController.swift; sourceTree = "<group>"; };
@@ -247,7 +246,6 @@
 				D5D0F67B23890DC600DA3169 /* LaunchScreen.storyboard */,
 				DBAF024323AE32940044E2DD /* BaseTableViewCell.swift */,
 				DBAF024723AE57B80044E2DD /* BaseTableViewHeaderFooterView.swift */,
-				D54F6CED23BB5353001DA319 /* DiaryTableViewCell.swift */,
 				D54F6CFA23BB7499001DA319 /* DiaryTableHeaderView.swift */,
 				D54F6CFC23DC7EA4001DA319 /* FortuneHeaderView.swift */,
 				D54F6D0023DC95E5001DA319 /* FortuneItemView.swift */,
@@ -339,6 +337,7 @@
 		0EDB40F823CA5D0E0020B0EF /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				D58CBF04241689AD00C66FE7 /* DiaryTableViewCell.swift */,
 				0EDB40F923CA5D210020B0EF /* ConstellationCell.swift */,
 			);
 			path = Cell;
@@ -600,10 +599,8 @@
 				0E3272962389C37300EF36B4 /* FortuneDetailViewController.swift in Sources */,
 				DBAF024823AE57B80044E2DD /* BaseTableViewHeaderFooterView.swift in Sources */,
 				DBAF024223AE2C9B0044E2DD /* SettingsViewController+cell.swift in Sources */,
-				0E3272962389C37300EF36B4 /* FortuneDetailViewController.swift in Sources */,
 				0E160CD823ABED80000CA518 /* UITextField+.swift in Sources */,
 				0E2874C723F8201600730C1E /* DiaryProvider.swift in Sources */,
-				0E3272962389C37300EF36B4 /* FortuneDetailViewController.swift in Sources */,
 				9CF049FC23A918B400A85BEC /* SideMenuViewController.swift in Sources */,
 				D54F6CF023BB53D4001DA319 /* Diary.swift in Sources */,
 				0E79613123F0444C008446CB /* TokenDto.swift in Sources */,
@@ -634,15 +631,14 @@
 				D5A8C1B623FAD15F00C596AF /* UserManager.swift in Sources */,
 				0E79613B23F0444C008446CB /* HoroscopeDto.swift in Sources */,
 				D54F6CFD23DC7EA4001DA319 /* FortuneHeaderView.swift in Sources */,
-				D54F6CEE23BB5353001DA319 /* DiaryTableViewCell.swift in Sources */,
 				0EDB41AC23CE2C1D0020B0EF /* InputFormView.swift in Sources */,
 				DBF6325123EF038B006E60FF /* DiaryCalendarViewController.swift in Sources */,
+				D58CBF05241689AD00C66FE7 /* DiaryTableViewCell.swift in Sources */,
 				0EDB41AC23CE2C1D0020B0EF /* InputFormView.swift in Sources */,
 				D5A8C1B823FADA2900C596AF /* MultiStepNavigationController.swift in Sources */,
 				0EDB41AA23CE25EE0020B0EF /* VerifyEmailViewController.swift in Sources */,
 				0E79612523F04443008446CB /* API.swift in Sources */,
 				0EDB41AA23CE25EE0020B0EF /* VerifyEmailViewController.swift in Sources */,
-				D544F28A23898405009B3967 /* DateFormatter+.swift in Sources */,
 				D5F23D2F23AA9E4C002F8127 /* OnBoardingViewController.swift in Sources */,
 				0EDB40F523CA56140020B0EF /* Reusable.swift in Sources */,
 				0EDB40F223CA54830020B0EF /* ConstellationSelectionViewController.swift in Sources */,
