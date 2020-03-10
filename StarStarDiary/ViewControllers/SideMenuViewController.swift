@@ -146,9 +146,9 @@ final class SideMenuViewController: UIViewController {
     private func didTapConstellations(sender: AnyObject?) {
         let viewController = ConstellationSelectionViewController()
         viewController.do {
-            let navi = UINavigationController(rootViewController: $0)
             $0.bind(type: .horoscope)
-            $0.modalPresentationStyle = .fullScreen
+            let navi = UINavigationController(rootViewController: $0)
+            navi.modalPresentationStyle = .fullScreen
             self.present(navi, animated: true, completion: nil)
         }
     }

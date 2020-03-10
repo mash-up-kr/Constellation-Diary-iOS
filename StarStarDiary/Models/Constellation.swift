@@ -17,7 +17,7 @@ enum Constellation: String, CaseIterable {
     case virgo = "처녀자리"
     case libra = "천칭자리"
     case scorpio = "전갈자리"
-    case sagittarius = "사수자리"
+    case sagittarius = "궁수자리"
     case capricorn = "염소자리"
     case aquarius = "물병자리"
     case pisces = "물고기자리"

@@ -20,71 +20,6 @@ class SettingsViewController: UIViewController {
     
     private var items = SettingsViewItem()
     
-    // MARK: - Event
-
-    @objc
-    private func onClose(sender: AnyObject?) {
-        dismiss(animated: true, completion: nil)
-    }
-
-    // MARK: - Init
-    
-    private func initLayout() {
-        view.addSubview(navigationView)
-        view.addSubview(tableView)
-        
-        navigationView.snp.makeConstraints {
-            $0.leading.trailing.top.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(44.0)
-        }
-        
-        tableView.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
-            $0.top.equalTo(navigationView.snp.bottom)
-        }
-    }
-
-    private func initNavigationView() {
-        let leftTargetType: AddTargetType = (self, #selector(onClose(sender:)), .touchUpInside)
-
-        navigationView.do {
-            $0.setBackgroundColor(color: .clear)
-            $0.setButton(type: .left, image: UIImage(named: "icClose24"), addTargetType: leftTargetType)
-            $0.setTitle(title: "설정", titleColor: .black)
-            $0.setBottomLine(isHidden: false)
-        }
-    }
-    
-    private func initTableView() {
-        tableView.do {
-            $0.delegate = self
-            $0.dataSource = self
-            $0.backgroundColor = .clear
-            $0.register(SettingBaseTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
-            $0.register(BaseTableViewHeaderFooterView.self,
-                        forHeaderFooterViewReuseIdentifier: headerFooterViewIdentifier)
-            $0.separatorStyle = .none
-            $0.bounces = false
-        }
-    }
-    
-    private func initVar() {
-        for section in SettingSectionType.allCases {
-            let cellItems = SettingCellType.allCases
-                .filter { $0.sectionMenuType == section }
-                .map {
-                    settingsViewCellItem(with: $0)
-            }
-            
-            items.sections.append(SectionItem(index: section.rawValue,
-                                              title: section.titleString,
-                                              cells: cellItems))
-        }
-    }
-
-    private func initView() {
-        view.backgroundColor = .white
-    }
     
     // MARK: - Life Cycle
 
@@ -96,10 +31,6 @@ class SettingsViewController: UIViewController {
         initTableView()
         initVar()
         initView()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
     }
 
 }
@@ -120,12 +51,12 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             preconditionFailure("Cannot typecast dequeueReusableCell with \(cellIdentifier) to BaseTableViewCell for \(indexPath)")
         }
         cell.setEntity(with: items.sections[indexPath.section].cells[indexPath.row])
+        cell.delegate = self
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cellItem = items.sections[indexPath.section].cells[indexPath.row]
-        return cellItem.didExtension ? 288.0 : 72
+        return cellItem(for: indexPath).didExtension ? 288.0 : 72
     }
     
     // MARK: - HeaderFooter
@@ -152,7 +83,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: Event
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var cellItem = items.sections[indexPath.section].cells[indexPath.row]
+        var cellItem = self.cellItem(for: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
         
         switch cellItem.menu {
@@ -164,7 +95,6 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             cellItem.didExtension.toggle()
             items.sections[indexPath.section].cells[indexPath.row] = cellItem
             tableView.reloadRows(at: [indexPath], with: .automatic)
-//            cellItem
         case .logout:
             presentLogoutAlert()
         case .feedback:
@@ -175,6 +105,43 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+extension SettingsViewController: SettingBaseTableViewCellDelegate {
+    func settingBaseTableViewCell(_ cell: SettingBaseTableViewCell, didChange uiSwitch: UISwitch) {
+        guard let indexPath = self.tableView.indexPath(for: cell) else { return }
+        let item = self.cellItem(for: indexPath)
+        switch item.menu {
+        case .horoscopeNotification:
+            Provider.request(.modifyHoroscopeAlarm(isOn: uiSwitch.isOn), completion: { (data: UserDto) in
+                UserManager.share.login(with: data)
+            })
+        case .questionNotification:
+            Provider.request(.modifyQuestionAlarm(isOn: uiSwitch.isOn), completion: { (data: UserDto) in
+                UserManager.share.login(with: data)
+            })
+        default:
+            return
+        }
+    }
+    
+    func settingBaseTableViewCell(_ cell: SettingBaseTableViewCell, didChange datePicker: UIDatePicker) {
+        guard let indexPath = self.tableView.indexPath(for: cell) else { return }
+        let item = self.cellItem(for: indexPath)
+        switch item.menu {
+        case .horoscopeNotification:
+            Provider.request(.modifyHoroscopeTime(date: datePicker.date), completion: { (data: UserDto) in
+                UserManager.share.login(with: data)
+            })
+        case .questionNotification:
+            Provider.request(.modifyQuestionTime(date: datePicker.date), completion: { (data: UserDto) in
+                UserManager.share.login(with: data)
+            })
+        default:
+            return
+        }
+    }
+    
+}
+
 private extension SettingsViewController {
 //    func presentEditNotification(type: PushNotificationType) {
 //        let editNotificationViewController = EditNotificationViewController()
@@ -183,6 +150,10 @@ private extension SettingsViewController {
 //        navigationController.modalPresentationStyle = .pageSheet
 //        present(navigationController, animated: true, completion: nil)
 //    }
+    
+    func cellItem(for indexPath: IndexPath) -> SettingsViewCellItem {
+        return items.sections[indexPath.section].cells[indexPath.row]
+    }
     
     func openMail() {
         let email = "caution.dev@gmail.com"
@@ -215,4 +186,69 @@ private extension SettingsViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    // MARK: - Event
+
+    @objc
+    func onClose(sender: AnyObject?) {
+        dismiss(animated: true, completion: nil)
+    }
+
+    // MARK: - Init
+    
+    func initLayout() {
+        view.addSubview(navigationView)
+        view.addSubview(tableView)
+        
+        navigationView.snp.makeConstraints {
+            $0.leading.trailing.top.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(44.0)
+        }
+        
+        tableView.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.top.equalTo(navigationView.snp.bottom)
+        }
+    }
+
+    func initNavigationView() {
+        let leftTargetType: AddTargetType = (self, #selector(onClose(sender:)), .touchUpInside)
+
+        navigationView.do {
+            $0.setBackgroundColor(color: .clear)
+            $0.setButton(type: .left, image: UIImage(named: "icClose24"), addTargetType: leftTargetType)
+            $0.setTitle(title: "설정", titleColor: .black)
+            $0.setBottomLine(isHidden: false)
+        }
+    }
+    
+    func initTableView() {
+        tableView.do {
+            $0.delegate = self
+            $0.dataSource = self
+            $0.backgroundColor = .clear
+            $0.register(SettingBaseTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+            $0.register(BaseTableViewHeaderFooterView.self,
+                        forHeaderFooterViewReuseIdentifier: headerFooterViewIdentifier)
+            $0.separatorStyle = .none
+            $0.bounces = false
+        }
+    }
+    
+    func initVar() {
+        for section in SettingSectionType.allCases {
+            let cellItems = SettingCellType.allCases
+                .filter { $0.sectionMenuType == section }
+                .map {
+                    settingsViewCellItem(with: $0)
+            }
+            
+            items.sections.append(SectionItem(index: section.rawValue,
+                                              title: section.titleString,
+                                              cells: cellItems))
+        }
+    }
+
+    func initView() {
+        view.backgroundColor = .white
+    }
 }

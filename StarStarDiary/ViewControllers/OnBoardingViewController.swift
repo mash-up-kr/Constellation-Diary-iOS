@@ -123,13 +123,7 @@ extension OnBoardingViewController: NavigationDelegate {
         UIView.animate(withDuration: 0.3) {
             self.view.alpha = 0.3
         }
-        UIView.transition(from: self.view,
-                          to: toViewController.view,
-                          duration: 0.3,
-                          options: [.transitionCrossDissolve],
-                          completion: { _ in
-                            self.view.window?.rootViewController = toViewController
-                        })
+        present(toViewController, animated: true, completion: nil)
     }
 
 }

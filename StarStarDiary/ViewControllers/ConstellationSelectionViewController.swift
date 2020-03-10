@@ -51,6 +51,7 @@ final class ConstellationSelectionViewController: UIViewController {
     private var type = ConstellationSelectionViewType.select
     private var constellations = Constellation.allCases
     private var currentConstellation: Constellation?
+    private var horoscopes: [Constellation: HoroscopeDto] = [:]
     private lazy var fakeItemCount = self.constellations.count * 50
     
     private var isHeightSmall: Bool {
@@ -138,16 +139,24 @@ final class ConstellationSelectionViewController: UIViewController {
     }
     
     private func navigateHoroscopeDetailView(with constellation: Constellation) {
-        Provider.request(.horoscopes(constellation: constellation.name, date: Date().utc), completion: { [weak self] (data: HoroscopeDto) in
-            DispatchQueue.main.async { [weak self] in
-                let detailView = HoroscopeDetailViewController()
-                detailView.delegate = self
-                detailView.bind(data: data, type: .changeConstellation)
-                self?.navigationController?.pushViewController(detailView, animated: true)
-            }
-        }, failure: { _ in
-            // TODO :- API Call
-        })
+        if let horoscope = self.horoscopes[constellation] {
+            let detailView = HoroscopeDetailViewController()
+            detailView.delegate = self
+            detailView.bind(data: horoscope, type: .changeConstellation)
+            self.present(detailView, animated: true, completion: nil)
+        } else {
+            Provider.request(.horoscopes(constellation: constellation.name, date: Date()), completion: { [weak self] (data: HoroscopeDto) in
+                DispatchQueue.main.async { [weak self] in
+                    self?.horoscopes[constellation] = data
+                    let detailView = HoroscopeDetailViewController()
+                    detailView.delegate = self
+                    detailView.bind(data: data, type: .changeConstellation)
+                    self?.present(detailView, animated: true, completion: nil)
+                }
+            }, failure: { _ in
+                // TODO :- API Call
+            })
+        }
     }
     
     @objc private func didTapSelect(_ sender: UIButton) {

@@ -26,7 +26,7 @@ enum DiaryAPI {
     case modifyDiary(id: Int, content: String, title: String)
     case deleteDiary(id: Int)
     
-    case horoscopes(constellation: String, date: String)
+    case horoscopes(constellation: String, date: Date)
     case horoscope(id: Int)
     
     case modifyPassword(password: String)
@@ -159,10 +159,8 @@ extension DiaryAPI: TargetType {
             return .requestPlain
         case .horoscopes(let constellation, let date):
             return .requestParameters(parameters: ["constellation": constellation,
-                                                   "date": date],
+                                                   "date": date.utc],
                                       encoding: URLEncoding.default)
-        case .horoscope:
-            return .requestPlain
         case .modifyConstellations(let constellation):
             return .requestParameters(parameters: ["constellation": constellation],
                                       encoding: JSONEncoding.default)

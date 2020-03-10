@@ -105,7 +105,7 @@ private extension MainViewController {
     
     func requesthoroscope() {
         Provider.request(DiaryAPI.horoscopes(constellation: UserDefaults.constellation.rawValue,
-                                             date: Date().utc),
+                                             date: Date()),
                                              completion: { (data: HoroscopeDto) in
                                                 self.bind(horoscope: data)
                                             })
