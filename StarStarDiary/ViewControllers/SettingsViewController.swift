@@ -19,7 +19,8 @@ class SettingsViewController: UIViewController {
     // MARK: - Var
     
     private var items = SettingsViewItem()
-    
+    private var horoscopeTime: Date = UserManager.share.user?.horoscopeTime.date ?? Date()
+    private var questionTime: Date = UserManager.share.user?.questionTime.date ?? Date()
     
     // MARK: - Life Cycle
 
@@ -50,7 +51,15 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? SettingBaseTableViewCell else {
             preconditionFailure("Cannot typecast dequeueReusableCell with \(cellIdentifier) to BaseTableViewCell for \(indexPath)")
         }
-        cell.setEntity(with: items.sections[indexPath.section].cells[indexPath.row])
+        var item = cellItem(for: indexPath)
+        if item.menu == .horoscopeNotification {
+            cell.datePickerView.date = horoscopeTime
+            item.subTitle = item.isOn ? horoscopeTime.time : ""
+        } else if item.menu == .questionNotification {
+            cell.datePickerView.date = questionTime
+            item.subTitle = item.isOn ? questionTime.time : ""
+        }
+        cell.setEntity(with: item)
         cell.delegate = self
         return cell
     }
@@ -88,51 +97,62 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch cellItem.menu {
         case .horoscopeNotification, .questionNotification:
-            guard let cell = tableView.cellForRow(at: indexPath) as? SettingBaseTableViewCell else {
-                return
-            }
-            cellItem.subTitle = cell.datePickerView.date.description
             cellItem.didExtension.toggle()
-            items.sections[indexPath.section].cells[indexPath.row] = cellItem
-            tableView.reloadRows(at: [indexPath], with: .automatic)
+            updateItem(at: indexPath, with: cellItem)
         case .logout:
             presentLogoutAlert()
         case .feedback:
             openMail()
-        default:
-            ()
+        case .developerInfo:
+            presetDeveloperInfoAlert()
+        case .appVersion:
+            return
         }
     }
+
 }
 
 extension SettingsViewController: SettingBaseTableViewCellDelegate {
     func settingBaseTableViewCell(_ cell: SettingBaseTableViewCell, didChange uiSwitch: UISwitch) {
         guard let indexPath = self.tableView.indexPath(for: cell) else { return }
-        let item = self.cellItem(for: indexPath)
+        var item = self.cellItem(for: indexPath)
+        item.isOn = uiSwitch.isOn
+        item.didExtension = uiSwitch.isOn
         switch item.menu {
         case .horoscopeNotification:
+            item.subTitle = uiSwitch.isOn ? horoscopeTime.time : ""
             Provider.request(.modifyHoroscopeAlarm(isOn: uiSwitch.isOn), completion: { (data: UserDto) in
                 UserManager.share.login(with: data)
             })
         case .questionNotification:
+            item.subTitle = uiSwitch.isOn ? questionTime.time : ""
             Provider.request(.modifyQuestionAlarm(isOn: uiSwitch.isOn), completion: { (data: UserDto) in
                 UserManager.share.login(with: data)
             })
         default:
             return
         }
+        updateItem(at: indexPath, with: item)
     }
     
     func settingBaseTableViewCell(_ cell: SettingBaseTableViewCell, didChange datePicker: UIDatePicker) {
-        guard let indexPath = self.tableView.indexPath(for: cell) else { return }
-        let item = self.cellItem(for: indexPath)
+        let pickerDate = Calendar.current.dateComponents(in: TimeZone.current, from: datePicker.date)
+        guard let indexPath = self.tableView.indexPath(for: cell),
+            let hour = pickerDate.hour,
+            let minute = pickerDate.minute else { return }
+        var item = self.cellItem(for: indexPath)
+        guard let date = Calendar.current.date(bySettingHour: hour, minute: minute, second: 0, of: Date()) else { return }
+        item.subTitle = date.time
+        cell.setEntity(with: item)
         switch item.menu {
         case .horoscopeNotification:
-            Provider.request(.modifyHoroscopeTime(date: datePicker.date), completion: { (data: UserDto) in
+            self.horoscopeTime = date
+            Provider.request(.modifyHoroscopeTime(date: date), completion: { (data: UserDto) in
                 UserManager.share.login(with: data)
             })
         case .questionNotification:
-            Provider.request(.modifyQuestionTime(date: datePicker.date), completion: { (data: UserDto) in
+            self.questionTime = date
+            Provider.request(.modifyQuestionTime(date: date), completion: { (data: UserDto) in
                 UserManager.share.login(with: data)
             })
         default:
@@ -143,13 +163,11 @@ extension SettingsViewController: SettingBaseTableViewCellDelegate {
 }
 
 private extension SettingsViewController {
-//    func presentEditNotification(type: PushNotificationType) {
-//        let editNotificationViewController = EditNotificationViewController()
-//        editNotificationViewController.bind(type: type)
-//        let navigationController = UINavigationController(rootViewController: editNotificationViewController)
-//        navigationController.modalPresentationStyle = .pageSheet
-//        present(navigationController, animated: true, completion: nil)
-//    }
+    
+    func updateItem(at indexPath: IndexPath, with item: SettingsViewCellItem) {
+        items.sections[indexPath.section].cells[indexPath.row] = item
+        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
     
     func cellItem(for indexPath: IndexPath) -> SettingsViewCellItem {
         return items.sections[indexPath.section].cells[indexPath.row]
@@ -183,6 +201,21 @@ private extension SettingsViewController {
             })
         }))
         alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func presetDeveloperInfoAlert() {
+        let alert = UIAlertController(title: "안녕하세요, 별별일기 팀입니다.",
+                                      message: """
+                                                저희는 개발 동아리인 Mash Up 8기 활동으로 이 프로젝트를 진행했습니다.
+                                                즐겁게 써주시고, 좋은 의견 부탁드립니다. 감사합니다 :)
+                                                디자이너: 이정은, 남궁욱, 고은이
+                                                백엔드: 이동준, 신혜란
+                                                iOS: 김주희, 임수현, 이동영
+                                                Android: 이해창, 이진성, 최민정
+                                                """,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
     }
     

@@ -194,12 +194,17 @@ private extension SettingBaseTableViewCell {
             $0.datePickerMode = .time
             $0.locale = Locale.current
             $0.timeZone = TimeZone.current
+            $0.addTarget(self, action: #selector(self.didChangeValue(datepicker:)), for: .valueChanged)
         }
 
     }
     
     @objc func didChangeValue(switch uiSwitch: UISwitch) {
         delegate?.settingBaseTableViewCell(self, didChange: uiSwitch)
+    }
+
+    @objc func didChangeValue(datepicker: UIDatePicker) {
+        delegate?.settingBaseTableViewCell(self, didChange: datepicker)
     }
 
 }
