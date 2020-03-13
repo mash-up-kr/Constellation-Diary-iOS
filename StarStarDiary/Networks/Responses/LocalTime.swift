@@ -23,5 +23,12 @@ struct LocalTime: Encodable {
     func toString() -> String {
         return "\(hour):\(minute):\(second)"
     }
+    
+    var date: Date {
+        guard let date = Calendar.current.date(bySettingHour: hour, minute: minute, second: second, of: Date()) else {
+            preconditionFailure()
+        }
+        return date
+    }
 
 }

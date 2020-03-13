@@ -22,4 +22,11 @@ extension Date {
         return DateFormatter.utc.string(from: self)
     }
     
+    var time: String {
+        let localeFormatter = DateFormatter.defaultInstance
+        localeFormatter.dateStyle = .none
+        localeFormatter.timeStyle = .short
+        return localeFormatter.string(from: self)
+    }
+    
 }

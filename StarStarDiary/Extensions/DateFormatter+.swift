@@ -20,7 +20,7 @@ extension DateFormatter {
     }()
     
     static let utc: DateFormatter = {
-        let dateFormatter = defaultInstance
+        let dateFormatter: DateFormatter = DateFormatter()
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         return dateFormatter

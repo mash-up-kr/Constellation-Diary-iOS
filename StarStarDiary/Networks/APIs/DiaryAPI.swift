@@ -17,23 +17,25 @@ protocol Authenticated {
 }
 
 enum DiaryAPI {
-    case dailyQuestions
+    case users
     
+    case dailyQuestions
     case diaries(month: Int, year: Int)
     case writeDiary(content: String, horoscopeId: Int, title: String)
     case diary(id: Int)
     case modifyDiary(id: Int, content: String, title: String)
     case deleteDiary(id: Int)
     
-    case horoscopes(constellation: String, date: String)
+    case horoscopes(constellation: String, date: Date)
     case horoscope(id: Int)
     
-    case modifyConstellations(constellation: String)
-    case modifyHoroscopeAlarm(horoscopeAlarm: Bool)
-    case modifyHoroscopeTime(date: String)
     case modifyPassword(password: String)
-    case modifyQuestionAlarm(modifyQuestionAlarm: Bool)
-    case modifyQuestionTime(date: String)
+    
+    case modifyConstellations(constellation: String)
+    case modifyHoroscopeAlarm(isOn: Bool)
+    case modifyHoroscopeTime(date: Date)
+    case modifyQuestionAlarm(isOn: Bool)
+    case modifyQuestionTime(date: Date)
     
     case signOut
     case signUp(constellation: String, email: String, password: String, userId: String)
@@ -62,6 +64,8 @@ extension DiaryAPI: TargetType {
     
     var path: String {
         switch self {
+        case .users:
+            return "/users"
         case .dailyQuestions:
             return "/daily-questions"
         case .diaries:
@@ -106,7 +110,8 @@ extension DiaryAPI: TargetType {
              .diary,
              .horoscopes,
              .horoscope,
-             .refreshToken:
+             .refreshToken,
+             .users:
             return .get
         case .writeDiary,
              .signOut,
@@ -131,6 +136,8 @@ extension DiaryAPI: TargetType {
     
     var task: Task {
         switch self {
+        case .users, .diary, .horoscope, .signOut, .refreshToken:
+            return .requestPlain
         case .dailyQuestions:
             return .requestParameters(parameters: ["date": Date().utc],
                                       encoding: URLEncoding.default)
@@ -144,8 +151,6 @@ extension DiaryAPI: TargetType {
                                                    "horoscopeId": horoscopeId,
                                                    "title": title],
                                       encoding: JSONEncoding.default)
-        case .diary:
-            return .requestPlain
         case .modifyDiary( _, let content, let title):
             return .requestParameters(parameters: ["content": content,
                                                    "title": title],
@@ -154,44 +159,36 @@ extension DiaryAPI: TargetType {
             return .requestPlain
         case .horoscopes(let constellation, let date):
             return .requestParameters(parameters: ["constellation": constellation,
-                                                   "date": date],
+                                                   "date": date.utc],
                                       encoding: URLEncoding.default)
-        case .horoscope:
-            return .requestPlain
         case .modifyConstellations(let constellation):
             return .requestParameters(parameters: ["constellation": constellation],
                                       encoding: JSONEncoding.default)
-        case .modifyHoroscopeAlarm(let horoscopeAlarm):
-            return .requestParameters(parameters: ["horoscopeAlarm": horoscopeAlarm],
+        case .modifyHoroscopeAlarm(let isOn):
+            return .requestParameters(parameters: ["horoscopeAlarm": isOn],
                                       encoding: JSONEncoding.default)
-        case .modifyHoroscopeTime(let date):
-            return .requestParameters(parameters: ["date": date],
+        case .modifyHoroscopeTime(let date), .modifyQuestionTime(let date):
+            return .requestParameters(parameters: ["date": date.utc],
                                       encoding: JSONEncoding.default)
         case .modifyPassword(let password):
             return .requestParameters(parameters: ["password": password],
                                       encoding: JSONEncoding.default)
-        case .modifyQuestionAlarm(let modifyQuestionAlarm):
-            return .requestParameters(parameters: ["modifyQuestionAlarm": modifyQuestionAlarm],
+        case .modifyQuestionAlarm(let isOn):
+            return .requestParameters(parameters: ["modifyQuestionAlarm": isOn],
                                       encoding: JSONEncoding.default)
-        case .modifyQuestionTime(let date):
-            return .requestParameters(parameters: ["date": date],
-                                      encoding: JSONEncoding.default)
-        case .signOut:
-            return .requestPlain
         case .signUp(let constellation, let email, let password, let userId):
             return .requestParameters(parameters: ["constellation": constellation,
                                                    "email": email,
                                                    "password": password,
                                                    "userId": userId],
                                       encoding: JSONEncoding.default)
-        case .refreshToken:
-            return .requestPlain
         }
     }
     
     var headers: [String : String]? {
         switch self {
-        case .dailyQuestions,
+        case .users,
+             .dailyQuestions,
              .diaries,
              .writeDiary,
              .diary,

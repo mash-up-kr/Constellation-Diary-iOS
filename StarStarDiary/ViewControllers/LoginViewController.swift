@@ -127,10 +127,9 @@ extension LoginViewController {
             self?.navigateMain()
             
         }, failure: { [weak self] error in
-            guard let error = error as? ErrorData else { return }
             self?.passwordTextField.text = nil
             self?.idTextField.text = nil
-            switch error.code {
+            switch (error as ErrorData).code {
             case 4015:
                 self?.errorMessageLabel.text = "아이디/비밀번호가 맞지 않습니다."
             default:

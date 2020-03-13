@@ -50,8 +50,6 @@ final class SideMenuViewController: UIViewController {
     // FIXME: - 스토리보드 > snapKit 변경 작업시, 객체생성 함수 init+a() 그 외 setUp+a()
 
     private func initView() {
-        dimView.alpha = 0.0
-
         view.backgroundColor = .dim
         menuBackgroundView.backgroundColor = .white
 
@@ -65,16 +63,17 @@ final class SideMenuViewController: UIViewController {
             $0.adjustsFontSizeToFitWidth = true
             $0.textAlignment = .center
         }
+
+        dimView.do {
+            $0.alpha = 0.0
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hide))
+            $0.addGestureRecognizer(tapGesture)
+        }
     
         updateConstellation()
     }
 
     private func initBtn() {
-        
-        // MARK: - Menu 가 닫히는 액션이 정확히 어떤 액션을 통해서 닫혀야하는지 확인 필요.
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hide))
-        self.view.addGestureRecognizer(tapGesture)
-
         constellationButton.do {
             $0.setTitle("별자리", for: .normal)
             $0.setTitleColor(.black, for: .normal)
@@ -147,8 +146,9 @@ final class SideMenuViewController: UIViewController {
     private func didTapConstellations(sender: AnyObject?) {
         let viewController = ConstellationSelectionViewController()
         viewController.do {
-            let navi = UINavigationController(rootViewController: $0)
             $0.bind(type: .horoscope)
+            let navi = UINavigationController(rootViewController: $0)
+            navi.modalPresentationStyle = .fullScreen
             self.present(navi, animated: true, completion: nil)
         }
     }
