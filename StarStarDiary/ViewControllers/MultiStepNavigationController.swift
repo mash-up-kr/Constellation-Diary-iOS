@@ -10,11 +10,12 @@ import UIKit
 
 class MultiStepNavigationController: UINavigationController {
 
+    private let drawerHandleView = UIView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationBar()
+        setupNavigationViews()
         self.delegate = self
-        // Do any additional setup after loading the view.
     }
 
     lazy var backItem = UIBarButtonItem(image: UIImage(named: "icBack24"),
@@ -27,15 +28,6 @@ class MultiStepNavigationController: UINavigationController {
                                      target: self,
                                      action: #selector(self.dismiss(_:)))
     
-    private func setupNavigationBar() {
-        self.navigationBar.do {
-            $0.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-            $0.shadowImage = UIImage()
-            $0.backgroundColor = UIColor.clear
-            $0.tintColor = .black
-        }
-    }
-    
     @objc private func pop(_ sender: UIBarButtonItem) {
         self.popViewController(animated: true)
     }
@@ -44,13 +36,34 @@ class MultiStepNavigationController: UINavigationController {
         self.dismiss(animated: true)
     }
     
+    private func setupNavigationViews() {
+        self.navigationBar.do {
+            $0.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+            $0.shadowImage = UIImage()
+            $0.backgroundColor = UIColor.clear
+            $0.tintColor = .black
+        }
+        self.drawerHandleView.do {
+            $0.backgroundColor = .black
+            $0.layer.cornerRadius = 1.5
+            view.addSubview($0)
+
+            $0.snp.makeConstraints { drawer in
+                drawer.centerX.equalToSuperview()
+                drawer.top.equalToSuperview().offset(20)
+                drawer.width.equalTo(24)
+                drawer.height.equalTo(3)
+            }
+        }
+    }
+    
 }
 
 extension MultiStepNavigationController: UINavigationControllerDelegate {
-    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        viewController.navigationItem.setRightBarButton(closeItem, animated: false)
-        if self.viewControllers.first != viewController {
-            viewController.navigationItem.setLeftBarButton(backItem, animated: false)
-        }
+    
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        let leftButtonItem = self.viewControllers.first == viewController ? self.closeItem : self.backItem
+        viewController.navigationItem.setLeftBarButton(leftButtonItem, animated: false)
     }
+    
 }

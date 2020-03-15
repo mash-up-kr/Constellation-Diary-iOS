@@ -11,43 +11,20 @@ import SnapKit
 import Then
 import Moya
 
-class VerifyEmailViewController: UIViewController {
+class VerifyEmailViewController: FormBaseViewController {
     
     // MARK: - UI
     
-    private let titleLabel = UILabel()
     private let progressStepLabel = UILabel()
     private let emailInputFormView = InputFormView(style: .email)
     private let certificationNumberInputFormView = InputFormView(style: .certificationNumber)
-    private let completionButton = UIButton()
-    
-    // MARK: - Properties
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .white
-        
-        setUpLayout()
-        setUpAttribute()
-    }
 
-}
-
-// MARK: - Layouts
-
-extension VerifyEmailViewController {
-    func setUpLayout() {
+    override func setupConstraints() {
+        super.setupConstraints()
         view.do {
-            $0.addSubview(titleLabel)
             $0.addSubview(progressStepLabel)
             $0.addSubview(emailInputFormView)
             $0.addSubview(certificationNumberInputFormView)
-            $0.addSubview(completionButton)
-        }
-        
-        titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(64)
-            $0.leading.equalToSuperview().offset(20)
         }
         
         progressStepLabel.snp.makeConstraints {
@@ -65,22 +42,16 @@ extension VerifyEmailViewController {
             $0.leading.trailing.equalToSuperview().inset(20)
         }
         
-        completionButton.snp.makeConstraints {
-            $0.height.equalTo(52)
+        nextButton.snp.makeConstraints {
             $0.top.equalTo(certificationNumberInputFormView.snp.bottom).offset(48)
-            $0.leading.trailing.equalToSuperview().inset(20)
         }
         
     }
-}
-
-// MARK: - Attributes
-
-extension VerifyEmailViewController {
-    func setUpAttribute() {
+    
+    override func setupAttributes() {
+        super.setupAttributes()
         titleLabel.do {
             $0.text = "회원가입"
-            $0.font = .font(.notoSerifCJKMedium, size: 26)
         }
         
         progressStepLabel.do {
@@ -96,20 +67,17 @@ extension VerifyEmailViewController {
             $0.delegate = self
         }
         
-        completionButton.do {
-            $0.backgroundColor = .buttonBlue
-            $0.setTitle("다음", for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 16)
-            $0.layer.cornerRadius = 5
-            $0.addTarget(self, action: #selector(completionButtonDidTap), for: .touchUpInside)
-            $0.isEnabled = false
-            $0.isHidden = true
-        }
-        
         certificationNumberInputFormView.do {
             $0.isHidden = true
             $0.delegate = self
         }
+        
+        nextButton.do {
+            $0.setTitle("다음", for: .normal)
+            $0.addTarget(self, action: #selector(completionButtonDidTap), for: .touchUpInside)
+            $0.isHidden = true
+        }
+        inputFormViews.append(contentsOf: [self.emailInputFormView, self.certificationNumberInputFormView])
     }
 }
 
@@ -135,7 +103,7 @@ extension VerifyEmailViewController: InputFormViewDelegate {
             inputFormView.actionButton.isEnabled = verified
         } else if inputFormView === self.certificationNumberInputFormView {
             guard let text = inputFormView.inputText, text.count >= 6 else { return }
-            updateCompletionButton(enable: true)
+            updateNextButton(enable: true)
         }
     }
 
@@ -148,8 +116,8 @@ extension VerifyEmailViewController: InputFormViewDelegate {
                 $0.certificationNumberInputFormView.inputTextField.becomeFirstResponder()
                 $0.certificationNumberInputFormView.startTimer(duration: 180)
                 $0.emailInputFormView.inputTextField.isUserInteractionEnabled = false
-                self?.completionButton.isHidden = false
-                self?.updateCompletionButton(enable: false)
+                self?.nextButton.isHidden = false
+                self?.updateNextButton(enable: false)
             }
         }, failure: {
             print($0)
@@ -168,12 +136,8 @@ extension VerifyEmailViewController: InputFormViewDelegate {
         }, failure: { [weak self] _ in
             self?.certificationNumberInputFormView.verified = false
             self?.certificationNumberInputFormView.inputTextField.text = nil
-            self?.updateCompletionButton(enable: false)
+            self?.updateNextButton(enable: false)
         })
     }
-    
-    private func updateCompletionButton(enable: Bool) {
-        completionButton.isEnabled = enable
-        completionButton.backgroundColor = enable ? .navy3 : .gray122
-    }
+
 }

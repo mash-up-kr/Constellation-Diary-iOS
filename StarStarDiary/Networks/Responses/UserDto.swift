@@ -59,7 +59,3 @@ struct UserDto: Codable {
     }
 
 }
-
-struct SimpleResponse: Codable {
-    
-}

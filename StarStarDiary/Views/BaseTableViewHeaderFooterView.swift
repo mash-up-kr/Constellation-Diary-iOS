@@ -35,12 +35,13 @@ class BaseTableViewHeaderFooterView: UITableViewHeaderFooterView {
     
     // MARK: - Init
     
-    private func initLayout() {
+    private func initView() {
         self.addSubview(baseView)
-        baseView.addSubview(titleLabel)
-        baseView.addSubview(bottomView)
 
         baseView.do {
+            $0.backgroundColor = .clear
+            $0.addSubview(titleLabel)
+            $0.addSubview(bottomView)
             $0.snp.makeConstraints {
                 $0.edges.equalTo(self.snp.edges)
             }
@@ -64,30 +65,23 @@ class BaseTableViewHeaderFooterView: UITableViewHeaderFooterView {
         }
     }
     
-    private func initView() {
-        baseView.backgroundColor = .clear
-    }
-    
     // MARK: - Life Cycle
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         
-        initLayout()
         initView()
     }
     
     convenience init() {
         self.init()
         
-        initLayout()
         initView()
     }
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
-        initLayout()
         initView()
     }
 }

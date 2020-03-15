@@ -29,9 +29,11 @@ final class InputFormView: UIView {
     let actionButton: UIButton = UIButton(type: .system)
     let lineView: UIView = UIView().then { $0.backgroundColor = .white216 }
     let inputTextField = UITextField()
+    
     private let verificationImageView: UIImageView = UIImageView()
     private let messageLabel: UILabel = UILabel()
     private let timerLabel: UILabel = UILabel()
+    
     var verified: Bool = false {
         didSet {
             let newValue = self.verified
@@ -51,6 +53,7 @@ final class InputFormView: UIView {
     
     private let disabledColor = UIColor.white216
     private let enableColor = UIColor.buttonBlue
+    private let errorColor = UIColor.coral255
     
     // MARK: - Initialization
     
@@ -101,10 +104,15 @@ final class InputFormView: UIView {
         }
     }
     
-    @objc private func textFieldDidChange(_ textField: UITextField) {
+    @objc private func didEditingEndOnExit(_ textField: UITextField) {
         if let text = textField.text, style.checksValidate {
             self.verified = style.isValid(text)
         }
+        self.delegate?.inputFormView(self, didChanged: textField.text)
+    }
+    
+    @objc private func didEditingChanged(_ textField: UITextField) {
+        self.lineView.backgroundColor = textField.isEditing ? self.enableColor : self.disabledColor
         self.delegate?.inputFormView(self, didChanged: textField.text)
     }
     
@@ -191,7 +199,10 @@ final class InputFormView: UIView {
             $0.autocorrectionType = .no
             $0.autocapitalizationType = .none
             $0.spellCheckingType = .no
-            $0.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+            $0.addTarget(self, action: #selector(didEditingEndOnExit), for: .editingDidEndOnExit)
+            $0.addTarget(self, action: #selector(didEditingChanged), for: .editingDidBegin)
+            $0.addTarget(self, action: #selector(didEditingChanged), for: .editingDidEnd)
+            $0.addTarget(self, action: #selector(didEditingChanged), for: .editingChanged)
         }
         
         timerLabel.do {
@@ -219,7 +230,7 @@ final class InputFormView: UIView {
         }
         
         messageLabel.do {
-            $0.textColor = .coral255
+            $0.textColor = errorColor
             $0.font = .font(.notoSerifCJKMedium, size: 10)
         }
     }
@@ -231,64 +242,70 @@ enum InputFormViewStyle {
     case id
     case signUpPassword
     case signInPassword
+    case resetPassword
     case confirmPassword
     case email
     case certificationNumber
+    case findID
     
     var title: String {
         switch self {
         case .id: return "아이디"
         case .signUpPassword, .signInPassword: return "비밀번호"
         case .confirmPassword: return "비밀번호 확인"
-        case .email: return "이메일"
+        case .email, .findID: return "이메일"
         case .certificationNumber: return "인증번호"
+        case .resetPassword: return "새로운 비밀번호"
         }
     }
     
     var placeHolder: String {
         switch self {
-        case .id, .email, .certificationNumber: return "\(self.title) 입력"
+        case .id, .email, .findID, .certificationNumber: return "\(self.title) 입력"
         case .signUpPassword, .signInPassword, .confirmPassword: return "비밀번호 입력"
+        case .resetPassword: return "새로운 비밀번호 입력"
         }
     }
     
     var invalidMessage: String? {
         switch self {
         case .id: return "아이디를 입력하세요."
-        case .signUpPassword: return "비밀번호는 영문자 숫자를 포함한 6~12 글자여야 합니다."
+        case .signUpPassword, .resetPassword: return "비밀번호는 영문자 숫자를 포함한 6~12 글자여야 합니다."
         case .confirmPassword: return "비밀번호 불일치"
         case .signInPassword: return "아이디/비밀번호가 맞지 않습니다."
         case .email: return "유효하지 않은 이메일"
         case .certificationNumber: return "인증번호 오류"
+        case .findID: return "아이디를 찾을 수 없습니다."
         }
     }
     
     var checksValidate: Bool {
         switch self {
-        case .id, .email, .signUpPassword: return true
+        case .id, .email, .findID, .signUpPassword, .resetPassword: return true
         case .signInPassword, .confirmPassword, .certificationNumber: return false
         }
     }
     
     var isSecureTextEntry: Bool {
         switch self {
-        case .id, .email, .certificationNumber: return false
-        case .signInPassword, .signUpPassword, .confirmPassword: return true
+        case .id, .email, .findID, .certificationNumber: return false
+        case .signInPassword, .signUpPassword, .confirmPassword, .resetPassword: return true
         }
     }
     
     func isValid(_ input: String) -> Bool {
         switch self {
         case .id: return input.count >= 4
-        case .signUpPassword:
+        case .signUpPassword, .resetPassword:
             let passRegEx = "[A-Za-z0-9]{6,12}"
             let passPred = NSPredicate(format:"SELF MATCHES %@", passRegEx)
             return passPred.evaluate(with: input)
-        case .email:
+        case .email, .findID:
            let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
            let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
            return emailPred.evaluate(with: input)
         case .signInPassword, .confirmPassword, .certificationNumber: return true
         }
     }
+
 }

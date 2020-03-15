@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: FormBaseViewController {
     
     init(token: Token, email: String) {
         self.token = token
@@ -27,69 +27,50 @@ class SignUpViewController: UIViewController {
     
     // MARK: - UI
     
-    private let titleLabel = UILabel()
     private let progressStepLabel = UILabel()
     private let idInputFormView = InputFormView(style: .id)
     private let passwordInputFormView = InputFormView(style: .signUpPassword)
     private let confirmPasswordInputFormView = InputFormView(style: .confirmPassword)
-    private let completionButton = UIButton()
-    
-    // MARK: - Properties
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .white
+
+    override func setupAttributes() {
+        super.setupAttributes()
         
-        setUpLayout()
-        setUpAttribute()
-        setupNavigationBar()
-    }
-
-    private func setupNavigationBar() {
-        let backItem = UIBarButtonItem(image: UIImage(named: "icBack24"),
-                                       style: .plain,
-                                       target: self,
-                                       action: #selector(dismiss(animated:completion:)))
-        navigationItem.setLeftBarButton(backItem, animated: false)
-        let closeItem = UIBarButtonItem(image: UIImage(named: "icClose24"),
-                                          style: .plain,
-                                          target: self,
-                                          action: #selector(self.dismiss))
-        navigationItem.setRightBarButton(closeItem, animated: false)
-        navigationController?.navigationBar.do {
-            $0.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-            $0.shadowImage = UIImage()
-            $0.backgroundColor = UIColor.clear
-            $0.tintColor = .black
+        titleLabel.do {
+            $0.text = "회원가입"
         }
+        
+        progressStepLabel.do {
+            $0.text = "1/2"
+            $0.textColor = .gray
+            $0.font = .font(.notoSerifCJKMedium, size: 12)
+        }
+        
+        idInputFormView.do {
+            $0.delegate = self
+        }
+        
+        passwordInputFormView.do {
+            $0.delegate = self
+        }
+        
+        confirmPasswordInputFormView.do {
+            $0.delegate = self
+        }
+        
+        nextButton.do {
+            $0.setTitle("별별일기 시작하기", for: .normal)
+            $0.addTarget(self, action: #selector(completionButtonDidTap), for: .touchUpInside)
+        }
+        inputFormViews.append(contentsOf: [self.idInputFormView, self.passwordInputFormView, self.confirmPasswordInputFormView])
     }
-    
-    private func addBackItem() {
-        let backItem = UIBarButtonItem(image: UIImage(named: "icBack24"),
-                                       style: .plain,
-                                       target: self,
-                                       action: #selector(dismiss(animated:completion:)))
-        navigationItem.setLeftBarButton(backItem, animated: false)
-    }
-}
 
-// MARK: - Layouts
-
-extension SignUpViewController {
-
-    func setUpLayout() {
+    override func setupConstraints() {
+        super.setupConstraints()
         view.do {
-            $0.addSubview(titleLabel)
             $0.addSubview(progressStepLabel)
             $0.addSubview(idInputFormView)
             $0.addSubview(passwordInputFormView)
             $0.addSubview(confirmPasswordInputFormView)
-            $0.addSubview(completionButton)
-        }
-        
-        titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(64)
-            $0.leading.equalToSuperview().offset(20)
         }
         
         progressStepLabel.snp.makeConstraints {
@@ -112,51 +93,11 @@ extension SignUpViewController {
             $0.leading.trailing.equalToSuperview().inset(20)
         }
         
-        completionButton.snp.makeConstraints {
-            $0.height.equalTo(52)
+        nextButton.snp.makeConstraints {
             $0.top.equalTo(confirmPasswordInputFormView.snp.bottom).offset(48)
-            $0.leading.trailing.equalToSuperview().inset(20)
-        }
-        
-    }
-}
-
-// MARK: - Attributes
-
-extension SignUpViewController {
-    func setUpAttribute() {
-        titleLabel.do {
-            $0.text = "회원가입"
-            $0.font = .font(.notoSerifCJKMedium, size: 26)
-        }
-        
-        progressStepLabel.do {
-            $0.text = "1/2"
-            $0.textColor = .gray
-            $0.font = .font(.notoSerifCJKMedium, size: 12)
-        }
-        
-        idInputFormView.do {
-            $0.delegate = self
-        }
-        
-        passwordInputFormView.do {
-            $0.delegate = self
-        }
-        
-        confirmPasswordInputFormView.do {
-            $0.delegate = self
-        }
-        
-        completionButton.do {
-            $0.backgroundColor = .gray122
-            $0.isEnabled = false
-            $0.setTitle("별별일기 시작하기", for: .normal)
-            $0.titleLabel?.font = .font(.notoSerifCJKMedium, size: 16)
-            $0.layer.cornerRadius = 5
-            $0.addTarget(self, action: #selector(completionButtonDidTap), for: .touchUpInside)
         }
     }
+
 }
 
 // MARK: - Actions
@@ -205,6 +146,7 @@ extension SignUpViewController {
 }
 
 extension SignUpViewController: InputFormViewDelegate {
+
     func inputFormView(_ inputFormView: InputFormView, didTimerEnded style: InputFormViewStyle) {}
     func inputFormView(_ inputFormView: InputFormView, didTap button: UIButton) {}
     
@@ -212,13 +154,11 @@ extension SignUpViewController: InputFormViewDelegate {
         if inputFormView === confirmPasswordInputFormView {
             inputFormView.verified = passwordInputFormView.verified && confirmPasswordInputFormView.inputText == self.passwordInputFormView.inputText
         }
-        
-        let allVerified = [idInputFormView, passwordInputFormView, confirmPasswordInputFormView]
-                          .reduce(true, { $0 && $1.verified })
-        completionButton.isEnabled = allVerified
-        completionButton.backgroundColor = allVerified ? .navy3 : .gray122
     }
     
-    
+    func inputFormView(_ inputFormView: InputFormView, didExitEditing text: String?) {
+        let allVerified = self.inputFormViews.allSatisfy { $0.verified }
+        updateNextButton(enable: allVerified)
+    }
     
 }

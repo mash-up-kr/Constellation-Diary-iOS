@@ -29,7 +29,7 @@ enum DiaryAPI {
     case horoscopes(constellation: String, date: Date)
     case horoscope(id: Int)
     
-    case modifyPassword(password: String)
+    case modifyPassword(token: String, password: String)
     
     case modifyConstellations(constellation: String)
     case modifyHoroscopeAlarm(isOn: Bool)
@@ -45,7 +45,12 @@ enum DiaryAPI {
 
 extension DiaryAPI: Authenticated {
     var accessToken: Token {
-        return "Bearer \(UserDefaults.currentToken ?? "cbbb1a6e-8614-4a4d-a967-b0a42924e7ca")"
+        switch self {
+        case .modifyPassword(let token, _):
+            return "Bearer \(token)"
+        default:
+            return "Bearer \(UserDefaults.currentToken ?? "cbbb1a6e-8614-4a4d-a967-b0a42924e7ca")"
+        }
     }
     
     var refreshToken: Token {
@@ -170,7 +175,7 @@ extension DiaryAPI: TargetType {
         case .modifyHoroscopeTime(let date), .modifyQuestionTime(let date):
             return .requestParameters(parameters: ["date": date.utc],
                                       encoding: JSONEncoding.default)
-        case .modifyPassword(let password):
+        case .modifyPassword(_, let password):
             return .requestParameters(parameters: ["password": password],
                                       encoding: JSONEncoding.default)
         case .modifyQuestionAlarm(let isOn):

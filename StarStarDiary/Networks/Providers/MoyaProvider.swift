@@ -64,17 +64,17 @@ private extension Provider {
                 completion(data)
 
             case 400..<500:
-                guard let data = try? response.map(ErrorData.self) else {
+                guard let data = try? response.map(ErrorResponse.self) else {
                     preconditionFailure("Fail: \(response) does not found !!")
                 }
-                failure(data)
+                failure(data.error)
 
             default:
-                failure(ErrorData(code: -9999, httpStatus: "Unknown", massage: nil))
+                failure(ErrorData(code: -9999, httpStatus: "Unknown", message: nil))
             }
 
         case let .failure(error):
-            failure(ErrorData(code: error.errorCode, httpStatus: "failure", massage: nil))
+            failure(ErrorData(code: error.errorCode, httpStatus: "failure", message: nil))
         }
     }
     
@@ -86,15 +86,16 @@ private extension Provider {
             case 200..<300:
                 completion(true)
             case 400..<500:
-                guard let data = try? response.map(ErrorData.self) else {
+                guard let data = try? response.map(ErrorResponse.self) else {
                     preconditionFailure("Fail: \(response) does not found !!")
                 }
-                failure(data)
+                
+                failure(data.error)
             default:
-                failure(ErrorData(code: -9999, httpStatus: "Unknown", massage: nil))
+                failure(ErrorData(code: -9999, httpStatus: "Unknown", message: nil))
             }
         case let .failure(error):
-            failure(ErrorData(code: error.errorCode, httpStatus: "failure", massage: nil))
+            failure(ErrorData(code: error.errorCode, httpStatus: "failure", message: nil))
         }
     }
 
