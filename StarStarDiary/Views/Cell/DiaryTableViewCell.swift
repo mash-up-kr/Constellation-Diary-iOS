@@ -49,6 +49,31 @@ final class DiaryTableViewCell: UITableViewCell {
         dateLabel.textColor = dateTextColor
     }
     
+    // MARK: - Karen.
+    // bind(diary: Diary) 와 동일한 기능을 하는 함수.
+    // Diary 구조체는 sample로 존재했던 것으로, 우선 서버 데이터를 받아온 구조체를 위한 bind 함수 구현.
+    func bind(diary: SimpleDiaryDto) {
+        let dateFormatter = DateFormatter.defaultInstance
+        dateFormatter.locale = Locale.init(identifier: "ko")
+        dateFormatter.dateStyle = .full
+        dateFormatter.timeStyle = .none
+        
+        dateFormatter.dateFormat = "a HH:MM"
+        timeLabel.text = dateFormatter.string(from: diary.date)
+        
+        dateFormatter.dateFormat = "E"
+        dayLabel.text = dateFormatter.string(from: diary.date)
+        
+        dateFormatter.dateFormat = "dd"
+        dateLabel.text = dateFormatter.string(from: diary.date)
+        
+        titleLabel.text = diary.title
+        
+        let dateTextColor: UIColor = diary.date.isSunDay ? .red : .black
+        dayLabel.textColor = dateTextColor
+        dateLabel.textColor = dateTextColor
+    }
+    
     private func setup() {
         addSubview(dateLabel)
         addSubview(dayLabel)
