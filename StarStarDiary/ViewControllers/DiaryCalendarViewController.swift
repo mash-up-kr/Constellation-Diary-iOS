@@ -31,7 +31,8 @@ class DiaryCalendarViewController: UIViewController {
     private let reuseIdentifier: String = "diary_cell"
 
     // FIXME: mock up data
-    private var monthlyDiary = sampleDiary
+    private var monthlyItems: [SimpleDiaryDto] = [] // all of month
+    private var items: [SimpleDiaryDto] = [] // all of day
     
     // MARK: - Init
     
@@ -190,6 +191,12 @@ class DiaryCalendarViewController: UIViewController {
             $0.dataSource = self
             $0.appearance.todayColor = UIColor.gray197
             $0.appearance.titleTodayColor = .black
+            
+            let weekday = ["일", "월", "화", "수", "목", "금", "토"]
+            for (index, weekdayLabel) in $0.appearance.calendar.calendarWeekdayView.weekdayLabels.enumerated() {
+                weekdayLabel.text = weekday[index]
+                weekdayLabel.textColor = (index == 0) ? .systemRed : UIColor.gray153
+            }
         }
     }
     
@@ -210,6 +217,15 @@ class DiaryCalendarViewController: UIViewController {
         }
     }
     
+    private func setCalendar() {
+        getDiariesOfMonth(date: calendar.currentPage) { [weak self] diraiesOfMonth in
+            guard let self = self else { return }
+            self.monthlyItems = diraiesOfMonth ?? []
+            
+            self.refreshDiaryList(currentDay: Date()) // 현재 날짜에 작성된 list
+        }
+    }
+    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -221,12 +237,43 @@ class DiaryCalendarViewController: UIViewController {
         initCalendar()
         initButton()
         initTableView()
+        
+        setCalendar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         changeCurrentPage(currentDate: calendar.currentPage)
+    }
+    
+    // MARK: - APIs
+    
+    func getDiariesOfMonth(date: Date, completion: @escaping ([SimpleDiaryDto]?) -> Void) {
+        let cal = Calendar.current
+        let year = cal.component(.year, from: date)
+        let month = cal.component(.month, from: date)
+        
+        Provider.request(DiaryAPI.diaries(month: month, year: year), completion: { (diaries: DiariesDto) in
+            completion(diaries.diaries)
+        }) { error in
+            print(error)
+            completion(nil)
+        }
+    }
+    
+    // MARK: - Refresh UI
+    
+    private func refreshDiaryList(currentDay: Date) {
+        items = monthlyItems.filter({ (diary) -> Bool in
+            let cal = Calendar.current
+            let currentDay = cal.component(.day, from: currentDay)
+            let diaryDay = cal.component(.day, from: diary.date)
+
+            return currentDay == diaryDay ? true : false
+        })
+        
+        tableView.reloadData()
     }
     
     // MARK: - Events
@@ -243,7 +290,14 @@ class DiaryCalendarViewController: UIViewController {
 
     @objc
     private func didClickedTodayButton(sender: AnyObject?) {
-        print(#function)
+        let current = Date()
+        calendar.setCurrentPage(current, animated: true)
+        getDiariesOfMonth(date: current) { [weak self] diraiesOfMonth in
+            guard let self = self else { return }
+            self.monthlyItems = diraiesOfMonth ?? []
+            
+            self.refreshDiaryList(currentDay: current) // 현재 날짜에 작성된 list
+        }
     }
     
     private func changeCurrentPage(currentDate: Date?) {
@@ -272,6 +326,17 @@ extension DiaryCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
         print(calendar.currentPage)
 
         changeCurrentPage(currentDate: calendar.currentPage)
+        
+        getDiariesOfMonth(date: calendar.currentPage) { [weak self] diraiesOfMonth in
+            guard let self = self else { return }
+            self.monthlyItems = diraiesOfMonth ?? []
+        }
+    }
+    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        print(date)
+        
+        refreshDiaryList(currentDay: date)
     }
     
     func calendar(_ calendar: FSCalendar, imageFor date: Date) -> UIImage? {
@@ -282,21 +347,16 @@ extension DiaryCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
 // MARK: - UITableViewDelegate, UITableViewDataSource
 
 extension DiaryCalendarViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        print("[caution]: numberOfSections \(monthlyDiary.count)")
-        return monthlyDiary.count
-    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return monthlyDiary[section].diary.count
+        return items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let diaryData = monthlyDiary[indexPath.section].diary[indexPath.row]
         guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? DiaryTableViewCell else {
             return UITableViewCell()
         }
-        cell.bind(diary: diaryData)
+        cell.bind(diary: items[indexPath.row])
         return cell
     }
     
