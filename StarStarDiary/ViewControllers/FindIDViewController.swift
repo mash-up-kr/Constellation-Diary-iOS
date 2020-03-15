@@ -8,116 +8,114 @@
 
 import UIKit
 
-final class FindIDViewController: UIViewController {
+final class FindIDViewController: FormBaseViewController {
     
     // MARK: - UI
-    
-    private let titleLabel = UILabel()
-    private let emailInputFormView = InputFormView(style: .email)
-    private let nextButton = UIButton()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setupLayout()
-        setupAttribute()
-    }
-}
 
-// MARK: - Layouts
+    private let emailInputFormView = InputFormView(style: .findID)
+    private let findPasswordButton = UIButton()
+    
+    private var userID: String?
 
-extension FindIDViewController {
-    func setupLayout() {
+    override func setupConstraints() {
+        super.setupConstraints()
         view.do {
-            $0.backgroundColor = .white
-            $0.addSubview(titleLabel)
             $0.addSubview(emailInputFormView)
-            $0.addSubview(nextButton)
-        }
-        
-        titleLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(64.0)
-            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(20.0)
+            $0.addSubview(findPasswordButton)
         }
         
         emailInputFormView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(32.0)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(32)
+            $0.leading.trailing.equalToSuperview().inset(20)
         }
         
         nextButton.snp.makeConstraints {
-            $0.top.equalTo(emailInputFormView.snp.bottom).offset(138.0)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20.0)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(386.0)
+            $0.top.equalTo(emailInputFormView.snp.bottom).offset(48)
+        }
+        
+        findPasswordButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(20)
+            $0.centerY.equalTo(titleLabel)
+        }
+    }
+    
+    override func setupAttributes() {
+        super.setupAttributes()
+        titleLabel.do {
+            $0.text = "아이디 찾기"
+        }
+        
+        emailInputFormView.do {
+            $0.delegate = self
+        }
+        
+        nextButton.do {
+            $0.setTitle("다음", for: .normal)
+            $0.addTarget(self, action: #selector(nextButtonDidTap), for: .touchUpInside)
+        }
+    
+        findPasswordButton.do {
+            $0.isHidden = true
+            $0.setTitle("비밀번호 찾기", for: .normal)
+            $0.setTitleColor(.buttonBlue, for: .normal)
+            $0.titleLabel?.font = UIFont.font(.notoSerifCJKMedium, size: 12)
+            $0.addTarget(self, action: #selector(didTapFindPasswordButton), for: .touchUpInside)
         }
     }
 
-    func setupAttribute() {
-        navigationController?.navigationBar.do {
-            $0.setBackgroundImage(UIImage(), for: .default)
-            $0.shadowImage = UIImage()
-        }
-        
-        navigationItem.do{
-            $0.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icClose24"),
-                                                    style: .plain, target: self,
-                                                    action: #selector(closeButtonDidTap))
-            $0.rightBarButtonItem?.tintColor = .black
-        }
-        
-        titleLabel.do {
-            $0.text = "아이디 찾기"
-            $0.font = .boldSystemFont(ofSize: 26.0)
-        }
-        
-//        emailInputFormView.do {
-//            $0.inputTextField.delegate = self
-//        }
-        
-        nextButton.do {
-            $0.titleLabel?.font = .systemFont(ofSize: 16)
-            $0.setTitleColor(.white, for: .normal)
-            $0.backgroundColor = .gray
-            $0.setTitle("다음", for: .normal)
-            $0.layer.cornerRadius = 5
-            $0.isEnabled = false
-            $0.addTarget(self, action: #selector(nextButtonDidTap), for: .touchUpInside)
-        }
-    }
 }
 
 // MARK: - Action
 
-extension FindIDViewController {
+private extension FindIDViewController {
     
-    private func validateEmail(string: String) -> Bool {
-        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: string)
+    @objc private func nextButtonDidTap() {
+        if self.userID == nil {
+            requestFindID()
+        } else {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
-    @objc
-    private func closeButtonDidTap() {
-        self.dismiss(animated: true, completion: nil)
+    @objc func didTapFindPasswordButton() {
+        self.navigationController?.pushViewController(FindPasswordViewController(), animated: true)
+    }
+
+    func requestFindID() {
+        guard let email = emailInputFormView.inputText else { return }
+        self.updateNextButton(enable: false)
+        Provider.request(API.findId(email: email), completion: {[weak self] (response: FindIDResponse) in
+            self?.didFind(userID: response.userId)
+        }, failure: {[weak self] (error: ErrorData) in
+            if error.code == 4003 {
+                self?.emailInputFormView.verified = false
+            }
+        })
     }
     
-    @objc
-    private func nextButtonDidTap() {
-        
+    func didFind(userID: String) {
+        self.userID = userID
+        self.findPasswordButton.isHidden = false
+        self.emailInputFormView.titleLabel.text = "아이디 찾기 결과"
+        self.emailInputFormView.inputTextField.text = userID
+        self.emailInputFormView.isUserInteractionEnabled = false
+        self.nextButton.setTitle("로그인 하기", for: .normal)
+        self.updateNextButton(enable: true)
     }
 }
 
-// MARK: - UITextFieldDelegate
+extension FindIDViewController: InputFormViewDelegate {
+    func inputFormView(_ inputFormView: InputFormView, didTap button: UIButton) {
+    }
+    
+    func inputFormView(_ inputFormView: InputFormView, didTimerEnded style: InputFormViewStyle) {
+    }
 
-extension FindIDViewController: UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let string = textField.text else { return }
-        
-        if validateEmail(string: string) {
-            nextButton.isEnabled = true
-            nextButton.backgroundColor = .navy3
-        } else {
-            nextButton.isEnabled = false
-            nextButton.backgroundColor = .gray
+    func inputFormView(_ inputFormView: InputFormView, didChanged text: String?) {
+        let verified = inputFormView.verified
+        if inputFormView === self.emailInputFormView {
+            updateNextButton(enable: verified)
         }
     }
+
 }

@@ -195,7 +195,7 @@ private extension SettingsViewController {
                                       duration: 0.3,
                                       options: [.transitionCrossDissolve],
                                       completion: { _ in
-                                        self.view.window?.rootViewController = onBoardingViewController
+//                                        self.view.window?.rootViewController = onBoardingViewController
                                     })
                 }
             })

@@ -8,6 +8,12 @@
 
 import Foundation
 
+struct SimpleDiaryDto: Decodable {
+    let date: String
+    let id: Int
+    let title: String
+}
+
 struct DiariesDto: Decodable {
     let diaries: SimpleDiaryDto
     let timeZone: String

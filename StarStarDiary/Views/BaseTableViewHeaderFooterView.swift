@@ -39,7 +39,7 @@ class BaseTableViewHeaderFooterView: UITableViewHeaderFooterView {
         self.addSubview(baseView)
 
         baseView.do {
-            $0.backgroundColor = .white
+            $0.backgroundColor = .clear
             $0.addSubview(titleLabel)
             $0.addSubview(bottomView)
             $0.snp.makeConstraints {

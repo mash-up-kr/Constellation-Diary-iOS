@@ -12,3 +12,11 @@ struct CheckUserDto: Decodable {
     let available: Bool
     let userId: String
 }
+
+struct FindIDResponse: Decodable {
+    let userId: String
+}
+
+struct TempTokenResponse: Decodable {
+    let token: String
+}

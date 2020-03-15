@@ -98,10 +98,12 @@ extension LoginViewController {
     private func findAccountButtonDidTap(_ button: UIButton) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "아이디를 찾고 싶어요.", style: .default, handler: { [weak self] _ in
-            self?.present(FindIDViewController(), animated: true, completion: nil)
+            let navigationController = MultiStepNavigationController(rootViewController: FindIDViewController())
+            self?.present(navigationController, animated: true, completion: nil)
         }))
         alert.addAction(UIAlertAction(title: "비밀번호를 찾고 싶어요.", style: .default, handler: { [weak self] _ in
-            self?.present(FindIDViewController(), animated: true, completion: nil)
+            let navigationController = MultiStepNavigationController(rootViewController: FindPasswordViewController())
+            self?.present(navigationController, animated: true, completion: nil)
         }))
         self.resizeSignInView()
         self.present(alert, animated: true, completion: nil)
