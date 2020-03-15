@@ -29,9 +29,11 @@ final class InputFormView: UIView {
     let actionButton: UIButton = UIButton(type: .system)
     let lineView: UIView = UIView().then { $0.backgroundColor = .white216 }
     let inputTextField = UITextField()
+    
     private let verificationImageView: UIImageView = UIImageView()
     private let messageLabel: UILabel = UILabel()
     private let timerLabel: UILabel = UILabel()
+    
     var verified: Bool = false {
         didSet {
             let newValue = self.verified
@@ -51,6 +53,7 @@ final class InputFormView: UIView {
     
     private let disabledColor = UIColor.white216
     private let enableColor = UIColor.buttonBlue
+    private let errorColor = UIColor.coral255
     
     // MARK: - Initialization
     
@@ -110,6 +113,7 @@ final class InputFormView: UIView {
     
     @objc private func didEditingChanged(_ textField: UITextField) {
         self.lineView.backgroundColor = textField.isEditing ? self.enableColor : self.disabledColor
+        self.delegate?.inputFormView(self, didChanged: textField.text)
     }
     
     @objc private func didTapActionButton(_ button: UIButton) {
@@ -198,6 +202,7 @@ final class InputFormView: UIView {
             $0.addTarget(self, action: #selector(didEditingEndOnExit), for: .editingDidEndOnExit)
             $0.addTarget(self, action: #selector(didEditingChanged), for: .editingDidBegin)
             $0.addTarget(self, action: #selector(didEditingChanged), for: .editingDidEnd)
+            $0.addTarget(self, action: #selector(didEditingChanged), for: .editingChanged)
         }
         
         timerLabel.do {
@@ -225,7 +230,7 @@ final class InputFormView: UIView {
         }
         
         messageLabel.do {
-            $0.textColor = .coral255
+            $0.textColor = errorColor
             $0.font = .font(.notoSerifCJKMedium, size: 10)
         }
     }
@@ -302,4 +307,5 @@ enum InputFormViewStyle {
         case .signInPassword, .confirmPassword, .certificationNumber: return true
         }
     }
+
 }

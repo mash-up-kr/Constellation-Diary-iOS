@@ -61,6 +61,7 @@ class SignUpViewController: FormBaseViewController {
             $0.setTitle("별별일기 시작하기", for: .normal)
             $0.addTarget(self, action: #selector(completionButtonDidTap), for: .touchUpInside)
         }
+        inputFormViews.append(contentsOf: [self.idInputFormView, self.passwordInputFormView, self.confirmPasswordInputFormView])
     }
 
     override func setupConstraints() {
@@ -153,11 +154,11 @@ extension SignUpViewController: InputFormViewDelegate {
         if inputFormView === confirmPasswordInputFormView {
             inputFormView.verified = passwordInputFormView.verified && confirmPasswordInputFormView.inputText == self.passwordInputFormView.inputText
         }
-        
-        let allVerified = [idInputFormView, passwordInputFormView, confirmPasswordInputFormView]
-                          .allSatisfy { $0.verified }
-        nextButton.isEnabled = allVerified
-        nextButton.backgroundColor = allVerified ? .navy3 : .gray122
+    }
+    
+    func inputFormView(_ inputFormView: InputFormView, didExitEditing text: String?) {
+        let allVerified = self.inputFormViews.allSatisfy { $0.verified }
+        updateNextButton(enable: allVerified)
     }
     
 }

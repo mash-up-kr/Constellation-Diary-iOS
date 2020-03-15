@@ -47,6 +47,7 @@ final class FindIDViewController: FormBaseViewController {
         
         emailInputFormView.do {
             $0.delegate = self
+            self.inputFormViews.append($0)
         }
         
         nextButton.do {
@@ -61,6 +62,8 @@ final class FindIDViewController: FormBaseViewController {
             $0.titleLabel?.font = UIFont.font(.notoSerifCJKMedium, size: 12)
             $0.addTarget(self, action: #selector(didTapFindPasswordButton), for: .touchUpInside)
         }
+        
+        self.inputFormViews.append(self.emailInputFormView)
     }
 
 }
@@ -105,6 +108,7 @@ private extension FindIDViewController {
 }
 
 extension FindIDViewController: InputFormViewDelegate {
+
     func inputFormView(_ inputFormView: InputFormView, didTap button: UIButton) {
     }
     

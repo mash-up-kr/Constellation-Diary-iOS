@@ -57,20 +57,22 @@ final class ResetPasswordViewController: FormBaseViewController {
         confirmPasswordInputFormView.delegate = self
         inputFormViews.append(contentsOf: [self.passwordInputFormView, self.confirmPasswordInputFormView])
     }
+
 }
 
 extension ResetPasswordViewController: InputFormViewDelegate {
 
-    func inputFormView(_ inputFormView: InputFormView, didTimerEnded style: InputFormViewStyle) {
-        
-    }
+    func inputFormView(_ inputFormView: InputFormView, didTimerEnded style: InputFormViewStyle) {}
+    
+    func inputFormView(_ inputFormView: InputFormView, didTap button: UIButton) {}
     
     func inputFormView(_ inputFormView: InputFormView, didChanged text: String?) {
+        if inputFormView === confirmPasswordInputFormView {
+            inputFormView.verified = passwordInputFormView.verified && confirmPasswordInputFormView.inputText == self.passwordInputFormView.inputText
+        }
         
-    }
-    
-    func inputFormView(_ inputFormView: InputFormView, didTap button: UIButton) {
-        
+        let allVerified = self.inputFormViews.allSatisfy { $0.verified }
+        self.updateNextButton(enable: allVerified)
     }
     
 }
@@ -78,7 +80,10 @@ extension ResetPasswordViewController: InputFormViewDelegate {
 private extension ResetPasswordViewController {
     
     @objc func resetButtonDidTap() {
-        
+        guard let password = self.passwordInputFormView.inputText else { return }
+        Provider.request(.modifyPassword(token: token, password: password), completion: { _ in
+            self.dismiss(animated: true, completion: nil)
+        })
     }
 
 }

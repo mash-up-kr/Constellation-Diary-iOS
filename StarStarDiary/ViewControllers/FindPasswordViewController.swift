@@ -15,7 +15,7 @@ final class FindPasswordViewController: FormBaseViewController {
     private let idInputFormView = InputFormView(style: .id)
     private let emailInputFormView = InputFormView(style: .email)
     private let certificationNumberInputFormView = InputFormView(style: .certificationNumber)
-
+    
     override func setupAttributes() {
         super.setupAttributes()
         titleLabel.do {
@@ -25,6 +25,12 @@ final class FindPasswordViewController: FormBaseViewController {
         nextButton.do {
             $0.setTitle("인증번호 받기", for: .normal)
             $0.addTarget(self, action: #selector(nextButtonDidTap), for: .touchUpInside)
+        }
+        
+        certificationNumberInputFormView.do {
+            $0.actionButton.setTitle("다시 전송", for: .normal)
+            $0.actionButton.isHidden = false
+            $0.actionButton.addTarget(self, action: #selector(self.requestCertificationEmail), for: .touchUpInside)
         }
         
         self.inputFormViews = [self.idInputFormView, self.emailInputFormView, self.certificationNumberInputFormView]
@@ -63,6 +69,11 @@ final class FindPasswordViewController: FormBaseViewController {
         }
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.checkNextButton()
+    }
+
 }
 
 extension FindPasswordViewController: InputFormViewDelegate {
@@ -81,18 +92,16 @@ extension FindPasswordViewController: InputFormViewDelegate {
         let verified = inputFormView.verified
         if inputFormView === self.emailInputFormView {
             updateNextButton(enable: verified)
+        } else if inputFormView === self.certificationNumberInputFormView {
+            guard let text = inputFormView.inputText, text.count >= 6 else { return }
+            updateNextButton(enable: true)
         }
         
         if self.certificationNumberInputFormView.isHidden, self.idInputFormView.verified, self.emailInputFormView.verified {
             self.updateNextButton(enable: true)
             return
         }
-        
-        if let certificationCode = self.certificationNumberInputFormView.inputText,
-            certificationCode.count >= 6 {
-            self.updateNextButton(enable: true)
-            return
-        }
+        self.checkNextButton()
     }
     
 }
@@ -111,6 +120,14 @@ private extension FindPasswordViewController {
         self.navigationController?.pushViewController(FindPasswordViewController(), animated: true)
     }
     
+    func checkNextButton() {
+        if let certificationCode = self.certificationNumberInputFormView.inputText,
+            certificationCode.count >= 6 {
+            self.updateNextButton(enable: true)
+            return
+        }
+    }
+    
     func requestVerifyCode() {
         guard let email = self.emailInputFormView.inputText,
             let userID = self.idInputFormView.inputText,
@@ -122,19 +139,21 @@ private extension FindPasswordViewController {
             resetPasswordViewController.bind(token: response.token)
             self?.navigationController?.pushViewController(resetPasswordViewController, animated: true)
         }, failure: {[weak self] (error: ErrorData) in
-            if error.code == 4003 {
-                self?.emailInputFormView.verified = false
+            if error.code == 4102 {
+                self?.certificationNumberInputFormView.verified = false
+                self?.updateNextButton(enable: false)
             }
         })
     }
 
-    func requestCertificationEmail() {
+    @objc func requestCertificationEmail() {
         guard let email = self.emailInputFormView.inputText,
             let userID = self.idInputFormView.inputText else { return }
-        Provider.request(API.authenticationNumbersToFindPassword(email: email, userId: userID), completion: {[weak self] (isSuccess: Bool) in
+        Provider.request(API.authenticationNumbersToFindPassword(email: email, userId: userID), completion: {[weak self] _ in
             self?.certificationNumberInputFormView.do {
-                $0.actionButton.setTitle("다시 전송", for: .normal)
                 $0.isHidden = false
+                $0.actionButton.isHidden = false
+                $0.verified = true
                 $0.startTimer(duration: 180)
                 $0.inputTextField.becomeFirstResponder()
             }

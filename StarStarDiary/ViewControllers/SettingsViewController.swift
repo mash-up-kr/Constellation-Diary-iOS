@@ -190,13 +190,18 @@ private extension SettingsViewController {
                     UserDefaults.fcmToken = nil
                     let onBoardingViewController = OnBoardingViewController()
                     
-                    UIView.transition(from: self.view,
-                                      to: onBoardingViewController.view,
-                                      duration: 0.3,
-                                      options: [.transitionCrossDissolve],
-                                      completion: { _ in
+//                    UIView.transition(from: self.view,
+//                                      to: onBoardingViewController.view,
+//                                      duration: 0.3,
+//                                      options: [.transitionCrossDissolve],
+//                                      completion: { _ in
 //                                        self.view.window?.rootViewController = onBoardingViewController
-                                    })
+//                    })
+                    onBoardingViewController.modalTransitionStyle = .crossDissolve
+                    onBoardingViewController.modalPresentationStyle = .fullScreen
+                    self.present(onBoardingViewController, animated: true) {
+                        self.view.window?.rootViewController = onBoardingViewController
+                    }
                 }
             })
         }))

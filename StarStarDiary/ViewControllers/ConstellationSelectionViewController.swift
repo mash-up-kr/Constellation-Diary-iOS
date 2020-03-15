@@ -221,7 +221,7 @@ extension ConstellationSelectionViewController {
             $0.top.equalTo(constellationCollectionView.snp.bottom).offset(30).priority(.medium)
             $0.bottom.lessThanOrEqualTo(safeArea.bottom).inset(124)
             $0.leading.trailing.equalToSuperview().inset(20)
-            $0.height.greaterThanOrEqualTo(62)
+            $0.height.greaterThanOrEqualTo(64)
         }
         
         startButton.snp.makeConstraints {
@@ -309,18 +309,40 @@ extension ConstellationSelectionViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        self.updateContent(with: indexPath)
+    }
+    
+    func updateContent(with indexPath: IndexPath) {
         let index = indexPath.item % constellations.count
         let constellation = constellations[index]
         messageLabel.text = constellation.desc
         currentConstellation = constellation
-        if let selectedCell = collectionView.cellForItem(at: indexPath) {
-            selectedCell.isSelected = true
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.constellationCollectionView.visibleCells.forEach {
+        //            print("[caution] : \( $0.transform.a)")
+            if $0.transform.a >= 1.1, let indexPath = self.constellationCollectionView.indexPath(for: $0) {
+                updateContent(with: indexPath)
+                $0.isSelected = true
+            } else {
+                $0.isSelected = false
+            }
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        self.constellationCollectionView.visibleCells.forEach {
+            if $0.transform.a >= 1.1, let indexPath = self.constellationCollectionView.indexPath(for: $0) {
+                updateContent(with: indexPath)
+                $0.isSelected = true
+            } else {
+                $0.isSelected = false
+            }
+        }
     }
 
+    
 }
 
 extension ConstellationSelectionViewController: HoroscopeDetailViewDelegate {

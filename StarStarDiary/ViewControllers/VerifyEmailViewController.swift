@@ -77,6 +77,7 @@ class VerifyEmailViewController: FormBaseViewController {
             $0.addTarget(self, action: #selector(completionButtonDidTap), for: .touchUpInside)
             $0.isHidden = true
         }
+        inputFormViews.append(contentsOf: [self.emailInputFormView, self.certificationNumberInputFormView])
     }
 }
 
