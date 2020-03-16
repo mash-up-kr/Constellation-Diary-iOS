@@ -9,13 +9,14 @@
 import UIKit
 import FSCalendar
 
-class DiaryCalendarViewController: UIViewController {
+final class DiaryCalendarViewController: UIViewController {
     
     private let navigationView = BaseNavigationView(frame: .zero)
     private let navigationBottomLineView = UIView(frame: .zero)
     
     private let titleView = UIView(frame: .zero)
     private let titleLabel = UILabel(frame: .zero)
+    private let titleButton = UIButton(frame: .zero)
     private let todayButton = UIButton(frame: .zero)
     private let titleBottomLineView = UIView(frame: .zero)
 
@@ -28,9 +29,9 @@ class DiaryCalendarViewController: UIViewController {
     private let tableView = UITableView(frame: .zero)
     
     // MARK: - Vars
+    
     private let reuseIdentifier: String = "diary_cell"
 
-    // FIXME: mock up data
     private var monthlyItems: [SimpleDiaryDto] = [] // all of month
     private var items: [SimpleDiaryDto] = [] // all of day
     
@@ -42,6 +43,7 @@ class DiaryCalendarViewController: UIViewController {
         
         view.addSubview(titleView)
         titleView.addSubview(titleLabel)
+        titleView.addSubview(titleButton)
         titleView.addSubview(todayButton)
         titleView.addSubview(titleBottomLineView)
         
@@ -74,7 +76,13 @@ class DiaryCalendarViewController: UIViewController {
         
         titleLabel.snp.makeConstraints {
             $0.top.bottom.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()
+            $0.centerX.equalToSuperview()
+        }
+        
+        titleButton.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview()
+            $0.leading.equalTo(titleLabel.snp.trailing)
+            $0.width.equalTo(titleLabel.snp.height)
         }
         
         todayButton.snp.makeConstraints {
@@ -132,6 +140,7 @@ class DiaryCalendarViewController: UIViewController {
     
     private func initView() {
         view.backgroundColor = .white
+        titleLabel.sizeToFit()
     }
     
     private func initNavigationView() {
@@ -203,6 +212,17 @@ class DiaryCalendarViewController: UIViewController {
     private func initButton() {
         todayButton.do {
             $0.addTarget(self, action: #selector(didClickedTodayButton(sender:)), for: .touchUpInside)
+        }
+        
+        titleButton.do {
+            $0.setImage(UIImage(named: "icDown24"), for: .normal)
+            $0.addTarget(self, action: #selector(didClickedSelectionMonth(sender:)), for: .touchUpInside)
+        }
+        
+        titleLabel.do {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didClickedSelectionMonth(sender:)))
+            $0.isUserInteractionEnabled = true
+            $0.addGestureRecognizer(tapGesture)
         }
     }
     
@@ -297,6 +317,15 @@ class DiaryCalendarViewController: UIViewController {
             self.monthlyItems = diraiesOfMonth ?? []
             
             self.refreshDiaryList(currentDay: current) // 현재 날짜에 작성된 list
+        }
+    }
+    
+    @objc
+    private func didClickedSelectionMonth(sender: AnyObject?) {
+        let viewController = DiarySelectMonthViewController()
+        viewController.do {
+            $0.modalPresentationStyle = .overFullScreen
+            self.present($0, animated: false, completion: nil)
         }
     }
     
