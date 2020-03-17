@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol DiraySelectMonthViewDelegate: class {
+    func didSelectedMonth(viewController: DiarySelectMonthViewController, month: Int, year: Int)
+}
+
 final class DiarySelectMonthViewController: UIViewController {
     
     private let baseView = UIView(frame: .zero)
@@ -52,6 +56,7 @@ final class DiarySelectMonthViewController: UIViewController {
     // MARK: - Items
     
     private var items: [SectionItem] = []
+    private weak var delegate: DiraySelectMonthViewDelegate?
     
     // MARK: - Init
     
@@ -143,8 +148,10 @@ final class DiarySelectMonthViewController: UIViewController {
     
     // MARK: - Life Cycle
     
-    convenience init(current: Date) {
+    convenience init(current: Date, delegate: DiraySelectMonthViewDelegate?) {
         self.init()
+        
+        self.delegate = delegate
         
         // set items
         let calendar = Calendar.current
@@ -207,6 +214,7 @@ final class DiarySelectMonthViewController: UIViewController {
                 }
             }
             
+            self.collectionView.scrollToItem(at: IndexPath(row: 0, section: 2), at: .centeredVertically, animated: false)
             self.collectionView.reloadData()
         }) { error in
             print(error)
@@ -282,5 +290,12 @@ extension DiarySelectMonthViewController: UICollectionViewDelegate, UICollection
         let item = items[indexPath.section].rows[indexPath.row]
         cell.bind(title: String(format: "%d월", item.month), value: String(format: "%d", item.numOfDiary), isSelected: item.isCurrent)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = items[indexPath.section].rows[indexPath.row]
+        
+        delegate?.didSelectedMonth(viewController: self, month: item.month, year: items[indexPath.section].year)
+        hideAnimation()
     }
 }
