@@ -322,7 +322,7 @@ final class DiaryCalendarViewController: UIViewController {
     
     @objc
     private func didClickedSelectionMonth(sender: AnyObject?) {
-        let viewController = DiarySelectMonthViewController(current: calendar.currentPage)
+        let viewController = DiarySelectMonthViewController(current: calendar.currentPage, delegate: self)
         viewController.do {
             $0.modalPresentationStyle = .overFullScreen
             self.present($0, animated: false, completion: nil)
@@ -401,5 +401,20 @@ extension DiaryCalendarViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 68
+    }
+}
+
+// MARK: - DiraySelectMonthViewDelegate
+
+extension DiaryCalendarViewController: DiraySelectMonthViewDelegate {
+    func didSelectedMonth(viewController: DiarySelectMonthViewController, month: Int, year: Int) {
+        print(#function)
+
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        if let date = dateformatter.date(from: String(format: "%d-%02d-15 00:00:00", year, month)) {
+            calendar.setCurrentPage(date, animated: true)
+        }
+        
     }
 }
