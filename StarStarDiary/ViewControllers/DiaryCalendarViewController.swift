@@ -234,6 +234,7 @@ final class DiaryCalendarViewController: UIViewController {
             $0.separatorInset = .zero
             $0.allowsMultipleSelectionDuringEditing = false
             $0.register(DiaryTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+            $0.tableFooterView = UIView()
         }
     }
     
