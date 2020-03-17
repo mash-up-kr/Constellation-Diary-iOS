@@ -371,6 +371,7 @@ extension DiaryCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
     func calendar(_ calendar: FSCalendar, imageFor date: Date) -> UIImage? {
         return UIImage()
     }
+    
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
