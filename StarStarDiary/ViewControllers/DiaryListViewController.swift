@@ -143,6 +143,8 @@ final class DiaryListViewController: UIViewController {
     }
     
     private func initNavigationView() {
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
         navigationView.do {
             $0.setTitle(title: "일기장", titleColor: .black)
             $0.setBackgroundColor(color: .white)
@@ -221,6 +223,7 @@ final class DiaryListViewController: UIViewController {
             $0.backgroundColor = .navy3
             $0.titleLabel?.textColor = .white
             $0.setTitle("일기 작성하기", for: .normal)
+            $0.addTarget(self, action: #selector(didClickedWirteDiary(sender:)), for: .touchUpInside)
         }
         
         showFortuneButton.do {
@@ -228,6 +231,7 @@ final class DiaryListViewController: UIViewController {
             $0.backgroundColor = .navy3
             $0.titleLabel?.textColor = .white
             $0.setTitle("별자리 운세보기", for: .normal)
+            $0.addTarget(self, action: #selector(didClickedShowForturn(sender:)), for: .touchUpInside)
         }
     }
     
@@ -328,6 +332,28 @@ final class DiaryListViewController: UIViewController {
             $0.modalPresentationStyle = .overFullScreen
             self.present($0, animated: false, completion: nil)
         }
+    }
+    
+    @objc
+    private func didClickedShowForturn(sender: AnyObject?) {
+        // TODO: -
+        
+        let horoscopeViewController = HoroscopeDetailViewController()
+//        if let horoscope = self.horoscope {
+//            horoscopeViewController.bind(data: horoscope, type: .detail)
+            navigationController?.present(horoscopeViewController, animated: true, completion: nil)
+//            return
+//        }
+    }
+    
+    @objc func didClickedWirteDiary(sender: AnyObject?) {
+        // TODO: -
+
+        let diaryViewController = WriteViewController()
+//        if let horoscope = self.horoscope {
+//            diaryViewController.bind(horoscope: horoscope)
+//        }
+        self.navigationController?.pushViewController(diaryViewController, animated: true)
     }
 }
 

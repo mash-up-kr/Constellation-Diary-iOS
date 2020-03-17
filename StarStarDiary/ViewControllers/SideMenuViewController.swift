@@ -166,8 +166,9 @@ final class SideMenuViewController: UIViewController {
     private func didTapDiaryList(sender: AnyObject?) {
         let viewController = DiaryListViewController()
         viewController.do {
-            $0.modalPresentationStyle = .fullScreen
-            self.present($0, animated: true, completion: nil)
+            let navigationController = UINavigationController.init(rootViewController: $0)
+            navigationController.modalPresentationStyle = .fullScreen
+            self.present(navigationController, animated: true, completion: nil)
         }
     }
     
