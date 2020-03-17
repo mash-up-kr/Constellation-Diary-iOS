@@ -18,9 +18,19 @@ final class DiarySelectMonthCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Bind
     
-    func bind(title: String, value: String) {
+    func bind(title: String, value: String, isSelected: Bool) {
         self.monthLabel.text = title
         self.numOfDiaryLabel.text = value
+        
+        if isSelected {
+            baseView.backgroundColor = .navy3
+            monthLabel.textColor = .white
+            numOfDiaryLabel.textColor = .white
+        } else {
+            baseView.backgroundColor = .clear
+            monthLabel.textColor = .black
+            numOfDiaryLabel.textColor = .gray122
+        }
     }
     
     // MARK: - Setup
@@ -29,6 +39,11 @@ final class DiarySelectMonthCollectionViewCell: UICollectionViewCell {
         baseView.snp.makeConstraints {
             $0.top.bottom.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
+        }
+        
+        baseView.do {
+            $0.layer.cornerRadius = 2.0
+            $0.clipsToBounds = true
         }
     }
     
@@ -39,26 +54,25 @@ final class DiarySelectMonthCollectionViewCell: UICollectionViewCell {
         }
         
         stackView.do {
-            $0.axis = .vertical
+            $0.axis = .horizontal
+            $0.alignment = .fill
             $0.distribution = .fillEqually
-            $0.backgroundColor = .red // test
-            $0.layer.cornerRadius = 4.0
+            $0.spacing = 4.0
+            $0.isUserInteractionEnabled = true
         }
     }
     
     private func setupLabels() {
+        
         monthLabel.do {
             $0.textAlignment = .right
+            $0.font = UIFont.systemFont(ofSize: 12.0)
         }
         
         numOfDiaryLabel.do {
             $0.textAlignment = .left
+            $0.font = UIFont.systemFont(ofSize: 10.0)
         }
-        
-//        monthLabel.snp.makeConstraints {
-//            $0.top.equalTo(titleLabel.snp.bottom)
-//            $0.bottom.equalToSuperview()
-//        }
     }
     
     // MARK: - Init
@@ -69,12 +83,9 @@ final class DiarySelectMonthCollectionViewCell: UICollectionViewCell {
         stackView.addArrangedSubview(monthLabel)
         stackView.addArrangedSubview(numOfDiaryLabel)
 
+        setupBaseView()
         setupStackView()
         setupLabels()
-        
-        monthLabel.text = "1월"
-        numOfDiaryLabel.text = "30"
-        stackView.backgroundColor = .red
     }
     
     override init(frame: CGRect) {

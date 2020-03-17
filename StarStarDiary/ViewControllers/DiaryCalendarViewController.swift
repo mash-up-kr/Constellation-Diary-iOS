@@ -322,7 +322,7 @@ final class DiaryCalendarViewController: UIViewController {
     
     @objc
     private func didClickedSelectionMonth(sender: AnyObject?) {
-        let viewController = DiarySelectMonthViewController()
+        let viewController = DiarySelectMonthViewController(current: calendar.currentPage)
         viewController.do {
             $0.modalPresentationStyle = .overFullScreen
             self.present($0, animated: false, completion: nil)
