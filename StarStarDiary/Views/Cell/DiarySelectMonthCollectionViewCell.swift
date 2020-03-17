@@ -42,7 +42,7 @@ final class DiarySelectMonthCollectionViewCell: UICollectionViewCell {
         }
         
         baseView.do {
-            $0.layer.cornerRadius = 2.0
+            $0.layer.cornerRadius = 3.0
             $0.clipsToBounds = true
         }
     }

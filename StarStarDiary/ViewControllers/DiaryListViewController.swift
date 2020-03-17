@@ -172,6 +172,22 @@ final class DiaryListViewController: UIViewController {
         }
     }
     
+    func deleteDiary(item: SimpleDiaryDto) {
+        if let deleteID = item.id {
+            Provider.request(.deleteDiary(id: deleteID), completion: { [weak self] isSuccess in
+                guard let self = self else { return }
+                if isSuccess {
+                    self.changeCurrentMonth(date: self.currentDate)
+                } else {
+                    // TODO: error 문구 처리
+                }
+            }) { errorData in
+                print(errorData)
+                // TODO: error 문구 처리
+            }
+        }
+    }
+    
     // MARK: -
     
     private func changeCurrentMonth(date: Date) {
@@ -282,7 +298,11 @@ extension DiaryListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
+        let item = items[indexPath.row]
+        
+        if editingStyle == .delete {
+            // delete api
+            deleteDiary(item: item)
 //            var selectedMonthDiary = monthlyDiary[indexPath.section].diary
 //            selectedMonthDiary.remove(at: indexPath.row)
 //            if selectedMonthDiary.isEmpty {
@@ -292,7 +312,7 @@ extension DiaryListViewController: UITableViewDelegate {
 //                monthlyDiary[indexPath.section].diary = selectedMonthDiary
 //                tableView.deleteRows(at: [indexPath], with: .automatic)
 //            }
-//        }
+        }
     }
 
 }
