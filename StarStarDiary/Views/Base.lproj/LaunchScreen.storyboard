@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,7 +21,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bgMain" translatesAutoresizingMaskIntoConstraints="NO" id="2Ki-gD-UHh">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="-1" width="414" height="897"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="별별일기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zmf-k9-2QV">
                                 <rect key="frame" x="40" y="172.5" width="108" height="30"/>
@@ -30,20 +30,20 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Rl-6D-OMr">
-                                <rect key="frame" x="40" y="220.5" width="251" height="42"/>
+                                <rect key="frame" x="40" y="220.5" width="224" height="45.5"/>
                                 <attributedString key="attributedText">
                                     <fragment>
                                         <string key="content">별처럼 빛나는 당신의 하루,
 </string>
                                         <attributes>
                                             <color key="NSColor" red="0.99519230769230771" green="0.99038461538461542" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <font key="NSFont" size="17" name="KoreanYMJ-B"/>
+                                            <font key="NSFont" metaFont="system" size="17"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content="별자리 운세 일기를 기록해보세요.">
                                         <attributes>
                                             <color key="NSColor" red="0.99519230769230771" green="0.99038461538461542" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <font key="NSFont" size="17" name="KoreanYMJ-B"/>
+                                            <font key="NSFont" metaFont="system" size="17"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" minimumLineHeight="25" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
@@ -69,7 +69,7 @@
                             <constraint firstItem="Zmf-k9-2QV" firstAttribute="bottom" secondItem="yhp-T4-bSe" secondAttribute="bottom" constant="11" id="gRG-JE-shc"/>
                             <constraint firstItem="yhp-T4-bSe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="131" id="n11-8V-g9b"/>
                             <constraint firstItem="8Rl-6D-OMr" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="40" id="uba-fR-zAB"/>
-                            <constraint firstItem="2Ki-gD-UHh" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="xKh-fl-P0N"/>
+                            <constraint firstItem="2Ki-gD-UHh" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" constant="-1" id="xKh-fl-P0N"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
