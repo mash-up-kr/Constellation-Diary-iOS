@@ -219,7 +219,7 @@ final class DiaryListViewController: UIViewController {
     
     @objc
     private func didTapCalendar(sender: AnyObject?) {
-        let viewController = DiaryCalendarViewController()
+        let viewController = DiaryCalendarViewController(delegate: self)
         viewController.do {
             $0.modalPresentationStyle = .fullScreen
             self.present($0, animated: true, completion: nil)
@@ -309,7 +309,7 @@ extension DiaryListViewController: UITableViewDelegate {
 
 // MARK: - DiraySelectMonthViewDelegate
 
-extension DiaryListViewController: DiraySelectMonthViewDelegate {
+extension DiaryListViewController: DiarySelectMonthViewDelegate {
     func didSelectedMonth(viewController: DiarySelectMonthViewController, month: Int, year: Int) {
         print(#function)
         
@@ -318,5 +318,13 @@ extension DiaryListViewController: DiraySelectMonthViewDelegate {
         if let date = dateformatter.date(from: String(format: "%d-%02d-15 00:00:00", year, month)) {
             changeCurrentMonth(date: date)
         }
+    }
+}
+
+// MARK: - DiaryCalendarViewDelegate
+
+extension DiaryListViewController: DiaryCalendarViewDelegate {
+    func didDeleteDiary(viewController: DiaryCalendarViewController) {        
+        changeCurrentMonth(date: currentDate)
     }
 }

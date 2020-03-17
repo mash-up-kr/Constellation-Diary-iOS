@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol DiraySelectMonthViewDelegate: class {
+protocol DiarySelectMonthViewDelegate: class {
     func didSelectedMonth(viewController: DiarySelectMonthViewController, month: Int, year: Int)
 }
 
@@ -56,7 +56,7 @@ final class DiarySelectMonthViewController: UIViewController {
     // MARK: - Items
     
     private var items: [SectionItem] = []
-    private weak var delegate: DiraySelectMonthViewDelegate?
+    private weak var delegate: DiarySelectMonthViewDelegate?
     
     // MARK: - Init
     
@@ -148,7 +148,7 @@ final class DiarySelectMonthViewController: UIViewController {
     
     // MARK: - Life Cycle
     
-    convenience init(current: Date, delegate: DiraySelectMonthViewDelegate?) {
+    convenience init(current: Date, delegate: DiarySelectMonthViewDelegate?) {
         self.init()
         
         self.delegate = delegate

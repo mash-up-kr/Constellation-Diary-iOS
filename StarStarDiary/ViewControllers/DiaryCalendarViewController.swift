@@ -9,6 +9,10 @@
 import UIKit
 import FSCalendar
 
+protocol DiaryCalendarViewDelegate: class {
+    func didDeleteDiary(viewController: DiaryCalendarViewController)
+}
+
 final class DiaryCalendarViewController: UIViewController {
     
     private let navigationView = BaseNavigationView(frame: .zero)
@@ -35,9 +39,16 @@ final class DiaryCalendarViewController: UIViewController {
     private var monthlyItems: [SimpleDiaryDto] = [] // all of month
     private var items: [SimpleDiaryDto] = [] // all of day
     
+    private weak var delegate: DiaryCalendarViewDelegate?
     private var selectedDate = Date()
     
     // MARK: - Init
+    
+    convenience init(delegate: DiaryCalendarViewDelegate?) {
+        self.init()
+        
+        self.delegate = delegate
+    }
     
     private func initLayout() {
         view.addSubview(navigationView)
@@ -290,6 +301,9 @@ final class DiaryCalendarViewController: UIViewController {
             Provider.request(.deleteDiary(id: deleteID), completion: { [weak self] isSuccess in
                 guard let self = self else { return }
                 if isSuccess {
+                    
+                    self.delegate?.didDeleteDiary(viewController: self)
+                    
                     self.getDiariesOfMonth(date: self.selectedDate) { [weak self] diraiesOfMonth in
                         guard let self = self else { return }
                         self.monthlyItems = diraiesOfMonth ?? []
@@ -440,9 +454,9 @@ extension DiaryCalendarViewController: UITableViewDelegate, UITableViewDataSourc
     }
 }
 
-// MARK: - DiraySelectMonthViewDelegate
+// MARK: - DiarySelectMonthViewDelegate
 
-extension DiaryCalendarViewController: DiraySelectMonthViewDelegate {
+extension DiaryCalendarViewController: DiarySelectMonthViewDelegate {
     func didSelectedMonth(viewController: DiarySelectMonthViewController, month: Int, year: Int) {
         print(#function)
 
