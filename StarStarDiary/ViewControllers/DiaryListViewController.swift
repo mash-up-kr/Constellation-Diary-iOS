@@ -27,8 +27,6 @@ final class DiaryListViewController: UIViewController {
     // MARK: - Vars
     
     private var currentDate = Date()
-    // FIXME: mock up data
-//    private var monthlyDiary = sampleDiary
     private var items: [SimpleDiaryDto] = [] // all of month
 
     // MARK: - Init
@@ -142,6 +140,7 @@ final class DiaryListViewController: UIViewController {
             $0.separatorInset = .zero
             $0.allowsMultipleSelectionDuringEditing = false
             $0.register(DiaryTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+            $0.tableFooterView = UIView()
         }
     }
     
@@ -158,14 +157,40 @@ final class DiaryListViewController: UIViewController {
         changeCurrentMonth(date: currentDate)
     }
     
+    // MARK: - APIs
+    
+    func getDiariesOfMonth(date: Date, completion: @escaping ([SimpleDiaryDto]?) -> Void) {
+        let cal = Calendar.current
+        let year = cal.component(.year, from: date)
+        let month = cal.component(.month, from: date)
+        
+        Provider.request(DiaryAPI.diaries(month: month, year: year), completion: { (diaries: DiariesDto) in
+            completion(diaries.diaries)
+        }) { error in
+            print(error)
+            completion(nil)
+        }
+    }
+    
     // MARK: -
     
     private func changeCurrentMonth(date: Date) {
+        currentDate = date
+        
         titleLabel.do {
             let dateFormatter = DateFormatter.defaultInstance
             dateFormatter.dateFormat = "YYYY년 MM월"
             
             $0.text = dateFormatter.string(from: date)
+        }
+        
+        getDiariesOfMonth(date: date) { [weak self] diraiesOfMonth in
+            guard let self = self else { return }
+            self.items = diraiesOfMonth ?? []
+
+            DispatchQueue.main.async { [weak self] in
+                self?.tableView.reloadData()
+            }
         }
     }
     
@@ -277,5 +302,11 @@ extension DiaryListViewController: UITableViewDelegate {
 extension DiaryListViewController: DiraySelectMonthViewDelegate {
     func didSelectedMonth(viewController: DiarySelectMonthViewController, month: Int, year: Int) {
         print(#function)
+        
+        let dateformatter = DateFormatter()
+        dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        if let date = dateformatter.date(from: String(format: "%d-%02d-15 00:00:00", year, month)) {
+            changeCurrentMonth(date: date)
+        }
     }
 }
