@@ -35,6 +35,8 @@ final class DiaryCalendarViewController: UIViewController {
     private var monthlyItems: [SimpleDiaryDto] = [] // all of month
     private var items: [SimpleDiaryDto] = [] // all of day
     
+    private var selectedDate = Date()
+    
     // MARK: - Init
     
     private func initLayout() {
@@ -283,6 +285,27 @@ final class DiaryCalendarViewController: UIViewController {
         }
     }
     
+    func deleteDiary(item: SimpleDiaryDto) {
+        if let deleteID = item.id {
+            Provider.request(.deleteDiary(id: deleteID), completion: { [weak self] isSuccess in
+                guard let self = self else { return }
+                if isSuccess {
+                    self.getDiariesOfMonth(date: self.selectedDate) { [weak self] diraiesOfMonth in
+                        guard let self = self else { return }
+                        self.monthlyItems = diraiesOfMonth ?? []
+                        
+                        self.refreshDiaryList(currentDay: self.selectedDate)
+                    }
+                } else {
+                    // TODO: error 문구 처리
+                }
+            }) { errorData in
+                print(errorData)
+                // TODO: error 문구 처리
+            }
+        }
+    }
+    
     // MARK: - Refresh UI
     
     private func refreshDiaryList(currentDay: Date) {
@@ -294,7 +317,9 @@ final class DiaryCalendarViewController: UIViewController {
             return currentDay == diaryDay ? true : false
         })
         
-        tableView.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
     }
     
     // MARK: - Events
@@ -366,7 +391,8 @@ extension DiaryCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print(date)
         
-        refreshDiaryList(currentDay: date)
+        selectedDate = date
+        refreshDiaryList(currentDay: selectedDate)
     }
     
     func calendar(_ calendar: FSCalendar, imageFor date: Date) -> UIImage? {
@@ -403,6 +429,14 @@ extension DiaryCalendarViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 68
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let item = items[indexPath.row]
+        
+        if editingStyle == .delete {
+            deleteDiary(item: item)
+        }
     }
 }
 

@@ -301,17 +301,7 @@ extension DiaryListViewController: UITableViewDelegate {
         let item = items[indexPath.row]
         
         if editingStyle == .delete {
-            // delete api
             deleteDiary(item: item)
-//            var selectedMonthDiary = monthlyDiary[indexPath.section].diary
-//            selectedMonthDiary.remove(at: indexPath.row)
-//            if selectedMonthDiary.isEmpty {
-//                monthlyDiary.remove(at: indexPath.section)
-//                tableView.deleteSections([indexPath.section], with: .automatic)
-//            } else {
-//                monthlyDiary[indexPath.section].diary = selectedMonthDiary
-//                tableView.deleteRows(at: [indexPath], with: .automatic)
-//            }
         }
     }
 
