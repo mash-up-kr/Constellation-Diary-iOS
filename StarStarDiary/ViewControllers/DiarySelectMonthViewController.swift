@@ -19,6 +19,40 @@ final class DiarySelectMonthViewController: UIViewController {
         collectionViewLayout: UICollectionViewFlowLayout().then { $0.scrollDirection = .horizontal }
     )
     
+    private struct SectionItem {
+        var year: Int
+        var rows: [CellItem]
+    }
+    
+    private struct CellItem {
+        var month: Int
+        var numOfDiary: Int
+        var isCurrent: Bool = false
+    }
+    
+    private enum MonthType: String, CaseIterable {
+        case january
+        case february
+        case march
+        case april
+        case may
+        case june
+        case july
+        case august
+        case september
+        case october
+        case november
+        case december
+        
+        var key: String {
+            return self.rawValue
+        }
+    }
+    
+    // MARK: - Items
+    
+    private var items: [SectionItem] = []
+    
     // MARK: - Init
     
     private func initLayout() {
@@ -97,15 +131,50 @@ final class DiarySelectMonthViewController: UIViewController {
             $0.register(type: DiarySelectMonthCollectionViewCell.self)
             $0.registerHeaderView(type: DiarySelectMonthCollectionViewHeaderView.self)
             
+            $0.contentInset = UIEdgeInsets(top: 0.0, left: 40.0, bottom: 0.0, right: 40.0)
+            
             let layout = UICollectionViewFlowLayout()
             layout.headerReferenceSize = CGSize(width: collectionView.bounds.width, height: 48.0)
 //            layout.estimatedItemSize = CGSize(width: collectionView.bounds.width/3, height: 24.0)
-//            layout.itemSize = CGSize(width: collectionView.bounds.width/3, height: 24.0)
+            layout.itemSize = CGSize(width: 70.0, height: 24.0)
             $0.collectionViewLayout = layout
         }
     }
     
     // MARK: - Life Cycle
+    
+    convenience init(current: Date) {
+        self.init()
+        
+        // set items
+        let calendar = Calendar.current
+        let currentYear = calendar.component(.year, from: current)
+        let currentMonth = calendar.component(.month, from: current)
+        
+        for indexI in 0..<5 {
+            var year = currentYear
+            if indexI > 2 {
+                year += indexI-2
+            } else if indexI < 2 {
+                if indexI == 0 {
+                    year -= 2
+                } else {
+                    year -= 1
+                }
+            }
+
+            var cellItems: [CellItem] = []
+            for indexJ in 0..<12 {
+                let isCurrent = (currentMonth == indexJ+1 && year == currentYear) ? true : false
+                cellItems.append(CellItem(month: indexJ+1, numOfDiary: 0, isCurrent: isCurrent)) // test
+            }
+            let sectionItem = SectionItem(year: year, rows: cellItems)
+            
+            items.append(sectionItem)
+        }
+        
+        setDirayCount(currentYear: currentYear)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,6 +189,28 @@ final class DiarySelectMonthViewController: UIViewController {
         super.viewDidAppear(animated)
         
         showAnimation()
+    }
+    
+    // MARK: - APIs
+    
+    private func setDirayCount(currentYear: Int) {
+        // api
+        Provider.request(.diariesCount(year: currentYear), completion: { [weak self] (diariesCount: DiariesCountDto) in
+            guard let self = self else { return }
+            print(diariesCount)
+            
+            guard let diraiesDto = diariesCount.diaries else { return }
+            
+            for (indexI, section) in self.items.enumerated() {
+                for (index, diraies) in diraiesDto.enumerated() where section.year == diraies.year {
+                    self.items[indexI].rows[index].numOfDiary = diraies.countsInMonth![index]
+                }
+            }
+            
+            self.collectionView.reloadData()
+        }) { error in
+            print(error)
+        }
     }
     
     // MARK: - Events
@@ -165,7 +256,7 @@ final class DiarySelectMonthViewController: UIViewController {
 extension DiarySelectMonthViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     // 현재로부터 2년 전, 현재, 현재로부터 2년 후 ex. 2018~2022
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 5
+        return items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -177,22 +268,19 @@ extension DiarySelectMonthViewController: UICollectionViewDelegate, UICollection
             return UICollectionReusableView()
         }
         
-        let today = Date()
-        let calendar = Calendar.current
-        let year = calendar.component(.year, from: today)
-        let title = String(format: "%d", year-indexPath.section)
+        let title = String(format: "%d", items[indexPath.section].year)
         
-        headerCell.bind(title: title) // test
+        headerCell.bind(title: title)
         return headerCell
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(with: DiarySelectMonthCollectionViewCell.self, for: indexPath) else {
             return DiarySelectMonthCollectionViewCell()
         }
         
-        cell.bind(title: "1월", value: "30")
+        let item = items[indexPath.section].rows[indexPath.row]
+        cell.bind(title: String(format: "%d월", item.month), value: String(format: "%d", item.numOfDiary), isSelected: item.isCurrent)
         return cell
     }
 }

@@ -21,6 +21,7 @@ enum DiaryAPI {
     
     case dailyQuestions
     case diaries(month: Int, year: Int)
+    case diariesCount(year: Int)
     case writeDiary(content: String, horoscopeId: Int, title: String)
     case diary(id: Int)
     case modifyDiary(id: Int, content: String, title: String)
@@ -75,6 +76,8 @@ extension DiaryAPI: TargetType {
             return "/daily-questions"
         case .diaries:
             return "/diaries"
+        case .diariesCount:
+            return "/diaries/count"
         case .writeDiary:
             return "/diaries"
         case .diary(let id):
@@ -113,6 +116,7 @@ extension DiaryAPI: TargetType {
         case .dailyQuestions,
              .diaries,
              .diary,
+             .diariesCount,
              .horoscopes,
              .horoscope,
              .refreshToken,
@@ -149,6 +153,9 @@ extension DiaryAPI: TargetType {
         case .diaries(let month, let year):
             return .requestParameters(parameters: ["month": month,
                                                    "year": year],
+                                      encoding: URLEncoding.default)
+        case .diariesCount(let year):
+            return .requestParameters(parameters: ["year": year],
                                       encoding: URLEncoding.default)
         case .writeDiary(let content,let horoscopeId, let title):
             return .requestParameters(parameters: ["content": content,
@@ -197,6 +204,7 @@ extension DiaryAPI: TargetType {
              .diaries,
              .writeDiary,
              .diary,
+             .diariesCount,
              .modifyDiary,.horoscopes,
              .modifyConstellations,
              .modifyHoroscopeAlarm,

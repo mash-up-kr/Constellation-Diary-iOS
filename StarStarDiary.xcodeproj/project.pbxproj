@@ -82,6 +82,7 @@
 		DB09E1722389A4B400760C86 /* BaseNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB09E1712389A4B400760C86 /* BaseNavigationView.swift */; };
 		DB513CC8241FB3A200A5CC4A /* DiarySelectMonthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB513CC7241FB3A200A5CC4A /* DiarySelectMonthViewController.swift */; };
 		DB513CCA241FC39700A5CC4A /* DiarySelectMonthCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB513CC9241FC39700A5CC4A /* DiarySelectMonthCollectionViewCell.swift */; };
+		DB513CCC24210F7200A5CC4A /* DiariesCountDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB513CCB24210F7200A5CC4A /* DiariesCountDto.swift */; };
 		DB9EA41523AE90A000F4488D /* DiaryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9EA41423AE90A000F4488D /* DiaryListViewController.swift */; };
 		DBAF024023AE2B480044E2DD /* Bundle+appVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF023F23AE2B480044E2DD /* Bundle+appVersion.swift */; };
 		DBAF024223AE2C9B0044E2DD /* SettingsViewController+cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF024123AE2C9B0044E2DD /* SettingsViewController+cell.swift */; };
@@ -173,6 +174,7 @@
 		DB09E1712389A4B400760C86 /* BaseNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationView.swift; sourceTree = "<group>"; };
 		DB513CC7241FB3A200A5CC4A /* DiarySelectMonthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiarySelectMonthViewController.swift; sourceTree = "<group>"; };
 		DB513CC9241FC39700A5CC4A /* DiarySelectMonthCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiarySelectMonthCollectionViewCell.swift; sourceTree = "<group>"; };
+		DB513CCB24210F7200A5CC4A /* DiariesCountDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiariesCountDto.swift; sourceTree = "<group>"; };
 		DB9EA41423AE90A000F4488D /* DiaryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewController.swift; sourceTree = "<group>"; };
 		DBAF023F23AE2B480044E2DD /* Bundle+appVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+appVersion.swift"; sourceTree = "<group>"; };
 		DBAF024123AE2C9B0044E2DD /* SettingsViewController+cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsViewController+cell.swift"; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 				0E79612D23F0444C008446CB /* CheckUserDto.swift */,
 				0E79612923F0444B008446CB /* DailyQuestionDto.swift */,
 				0E79612E23F0444C008446CB /* DiariesDto.swift */,
+				DB513CCB24210F7200A5CC4A /* DiariesCountDto.swift */,
 				0E79612F23F0444C008446CB /* DiaryDto.swift */,
 				0E79613023F0444C008446CB /* HoroscopeDto.swift */,
 				0E79612723F0444B008446CB /* UserDto.swift */,
@@ -606,6 +609,7 @@
 				DBAF024223AE2C9B0044E2DD /* SettingsViewController+cell.swift in Sources */,
 				0E160CD823ABED80000CA518 /* UITextField+.swift in Sources */,
 				0E2874C723F8201600730C1E /* DiaryProvider.swift in Sources */,
+				DB513CCC24210F7200A5CC4A /* DiariesCountDto.swift in Sources */,
 				9CF049FC23A918B400A85BEC /* SideMenuViewController.swift in Sources */,
 				D54F6CF023BB53D4001DA319 /* Diary.swift in Sources */,
 				0E79613923F0444C008446CB /* DiariesDto.swift in Sources */,
