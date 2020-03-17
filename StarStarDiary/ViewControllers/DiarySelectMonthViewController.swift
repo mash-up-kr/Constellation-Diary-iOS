@@ -214,7 +214,7 @@ final class DiarySelectMonthViewController: UIViewController {
                 }
             }
             
-            self.collectionView.scrollToItem(at: IndexPath(row: 0, section: 2), at: .centeredVertically, animated: false)
+            self.collectionView.scrollToItem(at: IndexPath(row: 0, section: 2), at: .centeredVertically, animated: true)
             self.collectionView.reloadData()
         }) { error in
             print(error)
