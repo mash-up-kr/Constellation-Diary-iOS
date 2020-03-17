@@ -22,10 +22,18 @@ final class DiaryListViewController: UIViewController {
     
     private let tableView = UITableView(frame: .zero)
     
-    private let reuseIdentifier: String = "diary_cell"
+    // 작성된 운세가 없을 때 보여지는 뷰
+    private let noneView = UIView(frame: .zero)
+    private let noneContentsView = UIView(frame: .zero)
+    private let noneImageView = UIImageView(frame: .zero)
+    private let noneLabel = UILabel(frame: .zero)
+    private let noneBottomView = UIView(frame: .zero)
+    private let writeButton = UIButton(frame: .zero)
+    private let showFortuneButton = UIButton(frame: .zero)
     
     // MARK: - Vars
     
+    private let reuseIdentifier: String = "diary_cell"
     private var currentDate = Date()
     private var items: [SimpleDiaryDto] = [] // all of month
 
@@ -41,6 +49,14 @@ final class DiaryListViewController: UIViewController {
         titleView.addSubview(titleBottomLineView)
         
         view.addSubview(tableView)
+        
+        view.addSubview(noneView)
+        noneView.addSubview(noneContentsView)
+        noneContentsView.addSubview(noneImageView)
+        noneContentsView.addSubview(noneLabel)
+        noneView.addSubview(noneBottomView)
+        noneBottomView.addSubview(writeButton)
+        noneBottomView.addSubview(showFortuneButton)
 
         //
         navigationView.snp.makeConstraints {
@@ -83,6 +99,47 @@ final class DiaryListViewController: UIViewController {
             $0.leading.trailing.bottom.equalToSuperview()
             $0.top.equalTo(titleBottomLineView.snp.bottom)
         }
+        
+        //
+        noneView.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(titleBottomLineView.snp.bottom)
+        }
+        
+        noneContentsView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(noneBottomView.snp.top)
+        }
+        
+        noneBottomView.snp.makeConstraints {
+            $0.bottom.leading.trailing.equalToSuperview()
+            $0.height.equalToSuperview().multipliedBy(0.3)
+        }
+        
+        writeButton.snp.makeConstraints {
+            $0.height.equalTo(56.0)
+            $0.leading.trailing.equalToSuperview().inset(24.0)
+            $0.bottom.equalToSuperview().inset(16.0)
+        }
+        
+        showFortuneButton.snp.makeConstraints {
+            $0.height.equalTo(56.0)
+            $0.leading.trailing.equalToSuperview().inset(24.0)
+            $0.bottom.equalTo(writeButton.snp.top).offset(-16.0)
+        }
+        
+        noneImageView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview().multipliedBy(0.9)
+            $0.width.equalTo(136.0)
+            $0.height.equalTo(noneImageView.snp.width).multipliedBy(1.2)
+        }
+        
+        noneLabel.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(16.0)
+            $0.top.equalTo(noneImageView.snp.bottom).offset(24.0)
+        }
+                
     }
     
     private func initNavigationView() {
@@ -129,6 +186,20 @@ final class DiaryListViewController: UIViewController {
             $0.isUserInteractionEnabled = true
             $0.addGestureRecognizer(tapGesture)
         }
+        
+        noneView.isHidden = true
+        noneImageView.do {
+            $0.image = UIImage(named: "illustTree")
+            $0.contentMode = .scaleAspectFit
+        }
+        
+        noneLabel.do {
+            $0.text = "작성된 일기가 없어요.\n오늘의 운세를 확인하고 일기장을 채워주세요."
+            $0.textAlignment = .center
+            $0.font = UIFont.systemFont(ofSize: 16.0)
+            $0.textColor = .navy118
+            $0.numberOfLines = 0
+        }
     }
     
     private func initTableView() {
@@ -144,6 +215,22 @@ final class DiaryListViewController: UIViewController {
         }
     }
     
+    private func initButton() {
+        writeButton.do {
+            $0.layer.cornerRadius = 8.0
+            $0.backgroundColor = .navy3
+            $0.titleLabel?.textColor = .white
+            $0.setTitle("일기 작성하기", for: .normal)
+        }
+        
+        showFortuneButton.do {
+            $0.layer.cornerRadius = 8.0
+            $0.backgroundColor = .navy3
+            $0.titleLabel?.textColor = .white
+            $0.setTitle("별자리 운세보기", for: .normal)
+        }
+    }
+    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -153,6 +240,7 @@ final class DiaryListViewController: UIViewController {
         initNavigationView()
         initTableView()
         initView()
+        initButton()
         
         changeCurrentMonth(date: currentDate)
     }
@@ -204,6 +292,12 @@ final class DiaryListViewController: UIViewController {
             guard let self = self else { return }
             self.items = diraiesOfMonth ?? []
 
+            if self.items.isEmpty {
+                self.noneView.isHidden = false
+            } else {
+                self.noneView.isHidden = true
+            }
+            
             DispatchQueue.main.async { [weak self] in
                 self?.tableView.reloadData()
             }
@@ -264,7 +358,7 @@ extension DiaryListViewController: UITableViewDataSource {
 
 extension DiaryListViewController: UITableViewDelegate {
     // MARK: - Karen.
-    // 디자인 변경으로 인한 header 불필요 부분 주석
+    // 디자인 변경으로 인한 header 불.필요 부분 주석
 //    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 //        let headerView = DiaryTableHeaderView(title: monthlyDiary[section].month)
 //        headerView.frame.size.height = 52
@@ -324,7 +418,7 @@ extension DiaryListViewController: DiarySelectMonthViewDelegate {
 // MARK: - DiaryCalendarViewDelegate
 
 extension DiaryListViewController: DiaryCalendarViewDelegate {
-    func didDeleteDiary(viewController: DiaryCalendarViewController) {        
+    func didDeleteDiary(viewController: DiaryCalendarViewController) {
         changeCurrentMonth(date: currentDate)
     }
 }
