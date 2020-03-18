@@ -66,8 +66,6 @@ final class InputFormView: UIView {
         setupAttribute()
     }
     
-    // MARK: - Configuration
-    
     func configure(style: InputFormViewStyle) {
         titleLabel.text = style.title
         inputTextField.placeholder = style.placeHolder
@@ -86,7 +84,23 @@ final class InputFormView: UIView {
         resetTimer()
     }
     
-    @objc private func update() {
+    func checkValidate() {
+        guard self.style.checksValidate == true, let inputText = self.inputText else { return }
+        self.verified = self.style.isValid(inputText)
+    }
+    
+}
+
+private extension InputFormView {
+    
+    func resetTimer() {
+        self.timer?.invalidate()
+        self.timer = nil
+        self.startDate = nil
+        self.duration = .zero
+    }
+    
+    @objc func update() {
         guard let startDate = startDate else {
             self.resetTimer()
             return
@@ -104,32 +118,23 @@ final class InputFormView: UIView {
         }
     }
     
-    @objc private func didEditingEndOnExit(_ textField: UITextField) {
+    @objc func didEditingEndOnExit(_ textField: UITextField) {
         if let text = textField.text, style.checksValidate {
             self.verified = style.isValid(text)
         }
         self.delegate?.inputFormView(self, didChanged: textField.text)
     }
     
-    @objc private func didEditingChanged(_ textField: UITextField) {
+    @objc func didEditingChanged(_ textField: UITextField) {
         self.lineView.backgroundColor = textField.isEditing ? self.enableColor : self.disabledColor
         self.delegate?.inputFormView(self, didChanged: textField.text)
     }
     
-    @objc private func didTapActionButton(_ button: UIButton) {
+    @objc func didTapActionButton(_ button: UIButton) {
         self.delegate?.inputFormView(self, didTap: button)
     }
     
-    private func resetTimer() {
-        self.timer?.invalidate()
-        self.timer = nil
-        self.startDate = nil
-        self.duration = .zero
-    }
-    
-    // MARK: - Layouts
-    
-    private func setupLayout() {
+    func setupLayout() {
         self.do {
             $0.addSubview(titleLabel)
             $0.addSubview(inputTextField)
@@ -187,7 +192,7 @@ final class InputFormView: UIView {
     
     // MARK: - Attributes
     
-    private func setupAttribute() {
+    func setupAttribute() {
         titleLabel.do {
             $0.font = .font(.notoSerifCJKMedium, size: 12)
             $0.textColor = .black

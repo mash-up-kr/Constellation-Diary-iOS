@@ -28,12 +28,13 @@ final class WriteViewController: UIViewController {
     private let bodyView = UIView(frame: .zero)
 
     // headerView
-    private let titleTextField = UITextField(frame: .zero)
+    private let titleTextView = UITextView(frame: .zero)
     private let headerViewBottomLine = UIView(frame: .zero)
 
     // bodyView
     private let contentsTextView = UITextView(frame: .zero)
-    private let placeHodlerButton = UIButton(frame: .zero)
+    private let titlePlaceHolderButton = UIButton(frame: .zero)
+    private let contentsPlaceHolderButton = UIButton(frame: .zero)
     
     private let contentsPlaceHolder: String = "오늘의 이야기를 들려주세요."
     
@@ -51,11 +52,24 @@ final class WriteViewController: UIViewController {
         self.view.endEditing(true)
     }
     
-    func bind(diary: DiaryDto) {
+    func bind(diary: DiaryDto, isEditable: Bool) {
         self.diary = diary
-        self.titleTextField.text = diary.title
-        self.contentsTextView.text = diary.content
-        self.placeHodlerButton.isHidden = true
+        self.titleTextView.do {
+            $0.text = diary.title
+            $0.isUserInteractionEnabled = isEditable
+        }
+        self.contentsTextView.do {
+            $0.text = diary.content
+            $0.isUserInteractionEnabled = isEditable
+        }
+        self.titlePlaceHolderButton.do {
+            $0.isHidden = true
+            $0.isUserInteractionEnabled = isEditable
+        }
+        self.contentsPlaceHolderButton.do {
+            $0.isHidden = true
+            $0.isUserInteractionEnabled = isEditable
+        }
     }
     
     func bind(horoscope: HoroscopeDto) {
@@ -75,30 +89,34 @@ extension WriteViewController: UITextViewDelegate {
            navigationView.button(for: .right).isEnabled = false
        }
     }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if textView == self.titleTextView {
+            textView.snp.updateConstraints {
+                $0.height.equalTo(textView.contentSize.height)
+            }
+            return self.titleTextView.text.count < 30
+        }
+        return true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            let placeHolderButton = textView == self.titleTextView ? self.titlePlaceHolderButton : self.contentsPlaceHolderButton
+            placeHolderButton.isHidden = false
+        }
+    }
 
 }
 
 private extension WriteViewController {
 
-    @objc func textFieldDidChange(_ textField: UITextField) {
-        if textField.text?.isEmpty == false {
-            navigationView.button(for: .right).do {
-                $0.isEnabled = true
-                $0.tintColor = .buttonBlue
-            }
-        } else {
-            navigationView.button(for: .right).do {
-                $0.isEnabled = false
-                $0.tintColor = .gray122
-            }
-        }
-    }
-
     // MARK: - Event
     @objc
     func didTap(_ sender: UIButton) {
-        placeHodlerButton.isHidden = true
-        contentsTextView.becomeFirstResponder()
+        let textView = sender == self.titlePlaceHolderButton ? self.titleTextView : self.contentsTextView
+        sender.isHidden = true
+        textView.becomeFirstResponder()
     }
     
     @objc
@@ -109,7 +127,7 @@ private extension WriteViewController {
     @objc
     func done(sender: AnyObject?) {
         guard let horoscopeId = self.diary?.horoscopeId ?? self.horoscope?.id,
-            let title = titleTextField.text,
+            let title = titleTextView.text,
             let contents = contentsTextView.text
         else { return }
         
@@ -151,20 +169,31 @@ private extension WriteViewController {
             $0.backgroundColor = .white
         }
         headerView.do {
-            $0.addSubview(titleTextField)
+            $0.addSubview(titleTextView)
             $0.addSubview(headerViewBottomLine)
+            $0.addSubview(titlePlaceHolderButton)
         }
         
         bodyView.do {
             $0.addSubview(contentsTextView)
-            $0.addSubview(placeHodlerButton)
+            $0.addSubview(contentsPlaceHolderButton)
         }
         headerViewBottomLine.backgroundColor = .white216
-        titleTextField.do {
+        titleTextView.do {
             $0.font = UIFont.font(.koreaYMJBold, size: 20)
-            $0.placeholder = "제목"
-            $0.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+            $0.delegate = self
+            $0.contentOffset.y = 20
         }
+
+        titlePlaceHolderButton.do {
+            $0.titleLabel?.font =  UIFont.font(.koreaYMJBold, size: 20)
+            $0.setTitle("제목", for: .normal)
+            $0.setTitleColor(.black, for: .normal)
+            $0.contentVerticalAlignment = .top
+            $0.contentHorizontalAlignment = .leading
+            $0.addTarget(self, action: #selector(didTap(_:)), for: .touchUpInside)
+        }
+        
         contentsTextView.do {
             let style = NSMutableParagraphStyle()
             style.minimumLineHeight = 23
@@ -173,8 +202,8 @@ private extension WriteViewController {
             $0.font = UIFont.font(.notoSerifCJKRegular, size: 16)
             $0.delegate = self
         }
-
-        placeHodlerButton.do {
+        
+        contentsPlaceHolderButton.do {
             $0.titleLabel?.font = UIFont.systemFont(ofSize: 16)
             $0.setTitle(contentsPlaceHolder, for: .normal)
             $0.setTitleColor(.gray114, for: .normal)
@@ -192,21 +221,26 @@ private extension WriteViewController {
         }
 
         headerView.snp.makeConstraints {
-            $0.height.equalTo(68.0)
+            $0.height.equalTo(69.0)
             $0.top.equalTo(navigationView.snp.bottom)
             $0.trailing.leading.equalToSuperview()
         }
 
-        titleTextField.snp.makeConstraints {
+        titleTextView.snp.makeConstraints {
             $0.top.greaterThanOrEqualToSuperview()
-            $0.bottom.equalToSuperview().inset(8.0)
+            $0.height.equalTo(30)
+            $0.bottom.equalToSuperview().inset(4.0)
             $0.leading.trailing.equalToSuperview().inset(20.0)
+        }
+        
+        titlePlaceHolderButton.snp.makeConstraints {
+            $0.edges.equalTo(titleTextView)
         }
         
         headerViewBottomLine.snp.makeConstraints {
             $0.height.equalTo(1.0)
             $0.bottom.equalToSuperview()
-            $0.leading.trailing.equalTo(titleTextField)
+            $0.leading.trailing.equalTo(titleTextView)
         }
         
         bodyView.snp.makeConstraints {
@@ -218,12 +252,12 @@ private extension WriteViewController {
         
         contentsTextView.snp.makeConstraints {
             $0.top.equalTo(bodyView.snp.top).offset(24.0)
-            $0.trailing.equalTo(titleTextField.snp.trailing)
-            $0.leading.equalTo(titleTextField.snp.leading)
+            $0.trailing.equalTo(titleTextView.snp.trailing)
+            $0.leading.equalTo(titleTextView.snp.leading)
             $0.bottom.equalTo(bodyView.snp.bottom)
         }
         
-        placeHodlerButton.snp.makeConstraints {
+        contentsPlaceHolderButton.snp.makeConstraints {
             $0.edges.equalTo(contentsTextView)
         }
     }

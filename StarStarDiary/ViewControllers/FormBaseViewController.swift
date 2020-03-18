@@ -24,6 +24,7 @@ class FormBaseViewController: UIViewController {
         super.touchesBegan(touches, with: event)
         self.inputFormViews.forEach {
             $0.endEditing(true)
+            $0.checkValidate()
         }
     }
     

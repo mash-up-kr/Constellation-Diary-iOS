@@ -22,8 +22,4 @@ final class UserManager {
         self.dailyQuestion = dailyQuestion
     }
     
-    func checkTokenValidation() {
-        
-    }
-    
 }

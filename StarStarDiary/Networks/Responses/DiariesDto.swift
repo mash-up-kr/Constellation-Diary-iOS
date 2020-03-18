@@ -9,25 +9,27 @@
 import Foundation
 
 struct SimpleDiaryDto: Decodable {
+    let id: Int
+    let title: String
     let date: Date
-    let id: Int?
-    let title: String?
     
     enum CodingKeys: String, CodingKey {
-        case date
         case id
         case title
+        case date
     }
     
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        let dateString = try values.decode(String.self, forKey: .date)
-        let dateformatter = DateFormatter.defaultInstance
-        dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        date = dateformatter.date(from: dateString) ?? Date()
-        title = try values.decode(String.self, forKey: .title)
         id = try values.decode(Int.self, forKey: .id)
+        title = try values.decode(String.self, forKey: .title)
+        
+        let dateString = try values.decode(String.self, forKey: .date)
+        let dateFormatter = DateFormatter.defaultInstance
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
+        date = dateFormatter.date(from: dateString) ?? Date()
     }
+    
 }
 
 struct DiariesDto: Decodable {

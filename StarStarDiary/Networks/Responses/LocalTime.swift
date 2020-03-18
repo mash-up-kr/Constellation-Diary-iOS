@@ -25,10 +25,12 @@ struct LocalTime: Encodable {
     }
     
     var date: Date {
-        guard let date = Calendar.current.date(bySettingHour: hour, minute: minute, second: second, of: Date()) else {
+        guard let date = Calendar.current.date(bySettingHour: hour, minute: minute, second: second, of: Date()),
+            let user = UserManager.share.user,
+            let timeZone = TimeZone(abbreviation: user.timeZone) else {
             preconditionFailure()
         }
-        return date
+        return date.convertToTimeZone(initTimeZone: timeZone, timeZone: TimeZone.current)
     }
 
 }
