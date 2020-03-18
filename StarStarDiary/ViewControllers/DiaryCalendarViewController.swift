@@ -211,8 +211,10 @@ final class DiaryCalendarViewController: UIViewController {
             $0.headerHeight = 0.0
             $0.delegate = self
             $0.dataSource = self
-            $0.appearance.todayColor = UIColor.gray197
+            $0.appearance.todayColor = .clear
             $0.appearance.titleTodayColor = .black
+            $0.appearance.selectionColor = .gray197
+            $0.appearance.titleSelectionColor = .black
             
             let weekday = ["일", "월", "화", "수", "목", "금", "토"]
             for (index, weekdayLabel) in $0.appearance.calendar.calendarWeekdayView.weekdayLabels.enumerated() {
@@ -252,11 +254,14 @@ final class DiaryCalendarViewController: UIViewController {
     }
     
     private func setCalendar() {
+        calendar.select(Date())
+        
         getDiariesOfMonth(date: calendar.currentPage) { [weak self] diraiesOfMonth in
             guard let self = self else { return }
             self.monthlyItems = diraiesOfMonth ?? []
             
             self.refreshDiaryList(currentDay: Date()) // 현재 날짜에 작성된 list
+            self.calendar.reloadData()
         }
     }
     
@@ -399,6 +404,7 @@ extension DiaryCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
         getDiariesOfMonth(date: calendar.currentPage) { [weak self] diraiesOfMonth in
             guard let self = self else { return }
             self.monthlyItems = diraiesOfMonth ?? []
+            self.calendar.reloadData()
         }
     }
     
@@ -410,10 +416,29 @@ extension DiaryCalendarViewController: FSCalendarDelegate, FSCalendarDataSource 
     }
     
     func calendar(_ calendar: FSCalendar, imageFor date: Date) -> UIImage? {
-        return UIImage()
+        
+        if monthlyItems.contains(where: { (diary) -> Bool in
+            let cal = Calendar.current
+            let dMonth = cal.component(.month, from: diary.date)
+            let dDay = cal.component(.day, from: diary.date)
+            
+            let month = cal.component(.month, from: date)
+            let day = cal.component(.day, from: date)
+            
+            if (dMonth == month) && (dDay == day) {
+                return true
+            } else {
+                return false
+            }
+        }) {
+            return UIImage(named: "icStar24")
+        } else {
+            return nil
+        }
     }
-    
+        
 }
+
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
 
