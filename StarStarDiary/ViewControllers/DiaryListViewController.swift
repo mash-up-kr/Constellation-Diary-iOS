@@ -272,18 +272,16 @@ final class DiaryListViewController: UIViewController {
     }
     
     func deleteDiary(item: SimpleDiaryDto) {
-        if let deleteID = item.id {
-            Provider.request(.deleteDiary(id: deleteID), completion: { [weak self] isSuccess in
-                guard let self = self else { return }
-                if isSuccess {
-                    self.changeCurrentMonth(date: self.currentDate)
-                } else {
-                    // TODO: error 문구 처리
-                }
-            }) { errorData in
-                print(errorData)
+        Provider.request(.deleteDiary(id: item.id), completion: { [weak self] isSuccess in
+            guard let self = self else { return }
+            if isSuccess {
+                self.changeCurrentMonth(date: self.currentDate)
+            } else {
                 // TODO: error 문구 처리
             }
+        }) { errorData in
+            print(errorData)
+            // TODO: error 문구 처리
         }
     }
     
@@ -325,10 +323,7 @@ final class DiaryListViewController: UIViewController {
     @objc
     private func didTapCalendar(sender: AnyObject?) {
         let viewController = DiaryCalendarViewController(delegate: self)
-        viewController.do {
-            $0.modalPresentationStyle = .fullScreen
-            self.present($0, animated: true, completion: nil)
-        }
+        self.navigationController?.pushViewController(viewController, animated: false)
     }
     
     @objc
@@ -362,11 +357,6 @@ final class DiaryListViewController: UIViewController {
 // MARK: - UITableViewDataSource
 
 extension DiaryListViewController: UITableViewDataSource {
-    
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        print("[caution]: numberOfSections \(monthlyDiary.count)")
-//        return monthlyDiary.count
-//    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
@@ -385,34 +375,19 @@ extension DiaryListViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension DiaryListViewController: UITableViewDelegate {
-    // MARK: - Karen.
-    // 디자인 변경으로 인한 header 불.필요 부분 주석
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let headerView = DiaryTableHeaderView(title: monthlyDiary[section].month)
-//        headerView.frame.size.height = 52
-//        return headerView
-//    }
-    
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 52
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return 0
-//    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 68
     }
     
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        return nil
-//    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        // TODO: Detail 페이지로 이동
+        let item = self.items[indexPath.row]
+        Provider.request(DiaryAPI.diary(id: item.id), completion: { (diary: DiaryDto) in
+            let writeViewController = WriteViewController()
+            writeViewController.bind(diary: diary, isEditable: item.date.isSameDate(with: Date()))
+            self.navigationController?.pushViewController(writeViewController, animated: true)
+        })
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

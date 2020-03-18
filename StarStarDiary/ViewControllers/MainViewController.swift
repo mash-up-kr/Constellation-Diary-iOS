@@ -130,7 +130,7 @@ private extension MainViewController {
     @objc func didTapNewDiary() {
         let diaryViewController = WriteViewController()
         if let diary = self.diary {
-            diaryViewController.bind(diary: diary)
+            diaryViewController.bind(diary: diary, isEditable: true)
         }
         if let horoscope = self.horoscope {
             diaryViewController.bind(horoscope: horoscope)

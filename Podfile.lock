@@ -110,7 +110,7 @@ DEPENDENCIES:
   - Then (~> 2.6.0)
 
 SPEC REPOS:
-  trunk:
+  https://github.com/cocoapods/specs.git:
     - Alamofire
     - Firebase
     - FirebaseAnalytics
@@ -166,4 +166,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 229742b01e207985695ddf317da28a97dd15ba92
 
-COCOAPODS: 1.9.0
+COCOAPODS: 1.7.3

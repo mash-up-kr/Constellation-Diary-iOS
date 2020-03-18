@@ -302,26 +302,24 @@ final class DiaryCalendarViewController: UIViewController {
     }
     
     func deleteDiary(item: SimpleDiaryDto) {
-        if let deleteID = item.id {
-            Provider.request(.deleteDiary(id: deleteID), completion: { [weak self] isSuccess in
-                guard let self = self else { return }
-                if isSuccess {
+        Provider.request(.deleteDiary(id: item.id), completion: { [weak self] isSuccess in
+            guard let self = self else { return }
+            if isSuccess {
+                
+                self.delegate?.didDeleteDiary(viewController: self)
+                
+                self.getDiariesOfMonth(date: self.selectedDate) { [weak self] diraiesOfMonth in
+                    guard let self = self else { return }
+                    self.monthlyItems = diraiesOfMonth ?? []
                     
-                    self.delegate?.didDeleteDiary(viewController: self)
-                    
-                    self.getDiariesOfMonth(date: self.selectedDate) { [weak self] diraiesOfMonth in
-                        guard let self = self else { return }
-                        self.monthlyItems = diraiesOfMonth ?? []
-                        
-                        self.refreshDiaryList(currentDay: self.selectedDate)
-                    }
-                } else {
-                    // TODO: error 문구 처리
+                    self.refreshDiaryList(currentDay: self.selectedDate)
                 }
-            }) { errorData in
-                print(errorData)
+            } else {
                 // TODO: error 문구 처리
             }
+        }) { errorData in
+            print(errorData)
+            // TODO: error 문구 처리
         }
     }
     
@@ -350,7 +348,7 @@ final class DiaryCalendarViewController: UIViewController {
     
     @objc
     private func didTapList(sender: AnyObject?) {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: false)
     }
 
     @objc
