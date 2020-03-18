@@ -22,9 +22,16 @@ final class SideMenuViewController: UIViewController {
     // MARK: - Vars
 
     private var isShowing = false
+    private var horoscope: HoroscopeDto?
 
     // MARK: - Life Cycle
 
+    convenience init(horoscope: HoroscopeDto?) {
+        self.init()
+        
+        self.horoscope = horoscope
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -164,7 +171,7 @@ final class SideMenuViewController: UIViewController {
     
     @objc
     private func didTapDiaryList(sender: AnyObject?) {
-        let viewController = DiaryListViewController()
+        let viewController = DiaryListViewController(horoscope: horoscope)
         viewController.do {
             let navigationController = UINavigationController.init(rootViewController: $0)
             navigationController.modalPresentationStyle = .fullScreen

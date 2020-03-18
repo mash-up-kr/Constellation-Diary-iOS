@@ -122,7 +122,7 @@ private extension MainViewController {
     }
 
     @objc func didTapMenuItem() {
-        let viewController = SideMenuViewController()
+        let viewController = SideMenuViewController(horoscope: self.horoscope)
         viewController.modalPresentationStyle = .overFullScreen
         navigationController?.present(viewController, animated: false)
     }
