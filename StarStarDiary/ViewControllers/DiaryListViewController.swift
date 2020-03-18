@@ -36,6 +36,7 @@ final class DiaryListViewController: UIViewController {
     private let reuseIdentifier: String = "diary_cell"
     private var currentDate = Date()
     private var items: [SimpleDiaryDto] = [] // all of month
+    private var horoscope: HoroscopeDto?
 
     // MARK: - Init
     
@@ -237,6 +238,12 @@ final class DiaryListViewController: UIViewController {
     
     // MARK: - LifeCycle
     
+    convenience init(horoscope: HoroscopeDto?) {
+        self.init()
+        
+        self.horoscope = horoscope
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -336,23 +343,18 @@ final class DiaryListViewController: UIViewController {
     
     @objc
     private func didClickedShowForturn(sender: AnyObject?) {
-        // TODO: -
-        
         let horoscopeViewController = HoroscopeDetailViewController()
-//        if let horoscope = self.horoscope {
-//            horoscopeViewController.bind(data: horoscope, type: .detail)
+        if let horoscope = self.horoscope {
+            horoscopeViewController.bind(data: horoscope, type: .detail)
             navigationController?.present(horoscopeViewController, animated: true, completion: nil)
-//            return
-//        }
+        }
     }
     
     @objc func didClickedWirteDiary(sender: AnyObject?) {
-        // TODO: -
-
         let diaryViewController = WriteViewController()
-//        if let horoscope = self.horoscope {
-//            diaryViewController.bind(horoscope: horoscope)
-//        }
+        if let horoscope = self.horoscope {
+            diaryViewController.bind(horoscope: horoscope)
+        }
         self.navigationController?.pushViewController(diaryViewController, animated: true)
     }
 }
