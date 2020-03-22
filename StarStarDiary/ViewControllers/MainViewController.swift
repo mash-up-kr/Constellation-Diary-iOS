@@ -12,19 +12,21 @@ import Lottie
 
 
 final class MainViewController: UIViewController {
-
+    
     // MARK: - Properties
-
-    private let writeDiaryLabel: UILabel       =       UILabel(frame: .zero)
-    private let titleLabel: UILabel         =       UILabel(frame: .zero)
-    private let editImageView: UIImageView  =       UIImageView(frame: .zero)
-    private let horoscopeHeaderView: HoroscopeHeaderView = HoroscopeHeaderView(frame: .zero)
-    private var diary: DiaryDto?
-    private var horoscope: HoroscopeDto?
+    
+    private let writeDiaryLabel = UILabel(frame: .zero)
+    private let titleLabel = UILabel(frame: .zero)
+    private let editImageView = UIImageView(frame: .zero)
+    private let horoscopeViewController = HoroscopeDetailViewController()
     private let lottieView = AnimationView()
     
+    private var horoscopeViewTopConstraints: NSLayoutConstraint?
+    private var diary: DiaryDto?
+    private var horoscope: HoroscopeDto?
+    
     // MARK: Life cycle
-
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -43,9 +45,18 @@ final class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         setupNavigationBar()
         lottieView.play()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.horoscopeViewTopConstraints?.constant = self.horoscopeViewMaxY
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
     }
     
     func bind(questionDTO: DailyQuestionDto) {
@@ -54,7 +65,7 @@ final class MainViewController: UIViewController {
             Provider.request(DiaryAPI.diary(id: questionDTO.diaryId),
                              completion: { (data: DiaryDto) in
                                 self.bind(diary: data)
-                            })
+            })
         }
     }
     
@@ -66,15 +77,26 @@ final class MainViewController: UIViewController {
 }
 
 extension MainViewController: HoroscopeDetailViewDelegate {
-
+    
     func horoscopeDeatilView(_ viewController: HoroscopeDetailViewController,
                              didTap button: UIButton) {
-        didTapNewDiary()
+        self.closeHoroscopeView()
+        DispatchQueue.main.async {
+            self.didTapNewDiary()
+        }
     }
-
+    
 }
 
 private extension MainViewController {
+    
+    var horoscopeViewMinY: CGFloat {
+        return self.view.safeAreaInsets.top
+    }
+    
+    var horoscopeViewMaxY: CGFloat {
+        return self.view.frame.maxY - (self.view.safeAreaInsets.bottom + HoroscopeHeaderView.height)
+    }
     
     func setTitle(_ text: String) {
         let attributedString = NSMutableAttributedString(string: text)
@@ -92,10 +114,9 @@ private extension MainViewController {
     
     func bind(horoscope: HoroscopeDto) {
         self.horoscope = horoscope
-        horoscopeHeaderView.bind(horoscope: horoscope)
-        horoscopeHeaderView.isHidden = false
+        horoscopeViewController.bind(data: horoscope, type: .writeDiary(diary: self.diary))
     }
-
+    
     func requestDailyQuestion() {
         Provider.request(.dailyQuestions, completion: {[weak self] (data: DailyQuestionDto) in
             UserManager.share.updateDailyQuestion(with: data)
@@ -106,27 +127,33 @@ private extension MainViewController {
     func requesthoroscope() {
         Provider.request(DiaryAPI.horoscopes(constellation: UserDefaults.constellation.rawValue,
                                              date: Date()),
-                                             completion: { (data: HoroscopeDto) in
-                                                self.bind(horoscope: data)
-                                            })
+                         completion: { (data: HoroscopeDto) in
+                            self.bind(horoscope: data)
+        })
     }
     
     // MARK: actions
     
     @objc func openhoroscopeView() {
-        guard let horoscope = self.horoscope else { return }
-        let horoscopeViewController = HoroscopeDetailViewController()
-        horoscopeViewController.bind(data: horoscope, type: .writeDiary(diary: self.diary))
-        horoscopeViewController.delegate = self
-        navigationController?.present(horoscopeViewController, animated: true, completion: nil)
+        self.horoscopeViewTopConstraints?.constant = self.horoscopeViewMinY
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
     }
-
+    
+    @objc func closeHoroscopeView() {
+        self.horoscopeViewTopConstraints?.constant = self.horoscopeViewMaxY
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
     @objc func didTapMenuItem() {
         let viewController = SideMenuViewController(horoscope: self.horoscope)
         viewController.modalPresentationStyle = .overFullScreen
         navigationController?.present(viewController, animated: false)
     }
-
+    
     @objc func didTapNewDiary() {
         let diaryViewController = WriteViewController()
         if let diary = self.diary {
@@ -140,17 +167,17 @@ private extension MainViewController {
 }
 
 private extension MainViewController {
-
+    
     func setupView() {
         view.backgroundColor = .black
         setupLottieView()
         setupTitleLabel()
         setupWriteLabel()
-        setuphoroscopeView()
         setupContainerView()
+        setuphoroscopeView()
         setupGestures()
     }
-
+    
     func setupLottieView() {
         lottieView.do {
             $0.contentMode = .scaleAspectFill
@@ -164,7 +191,7 @@ private extension MainViewController {
             }
         }
     }
-
+    
     func setupNavigationBar() {
         let menuItem = UIBarButtonItem(image: UIImage(named: "icMenu24"),
                                        style: .plain,
@@ -178,6 +205,7 @@ private extension MainViewController {
             $0.backgroundColor = UIColor.clear
             $0.tintColor = .white
             $0.barStyle = .black
+            $0.layer.zPosition = 0
         }
         setupNavigationTitleView()
     }
@@ -207,21 +235,28 @@ private extension MainViewController {
     }
     
     func setuphoroscopeView() {
-        horoscopeHeaderView.do {
+        horoscopeViewController.do {
+            self.addChild($0)
+            self.modalPresentationStyle = .pageSheet
+            $0.delegate = self
+        }
+        
+        horoscopeViewController.view.do {
             $0.clipsToBounds = true
             $0.layer.cornerRadius = 10
             $0.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             $0.isUserInteractionEnabled = true
-            $0.isHidden = true
+            $0.layer.zPosition = 1
             view.addSubview($0)
-
+            
             $0.snp.makeConstraints { make in
-                make.leading.trailing.equalToSuperview()
-                make.bottom.equalToSuperview()
+                make.leading.trailing.bottom.equalToSuperview()
             }
+            horoscopeViewTopConstraints = $0.topAnchor.constraint(equalTo: self.view.topAnchor, constant: self.view.frame.maxY)
+            horoscopeViewTopConstraints?.isActive = true
         }
     }
-
+    
     func setupContainerView() {
         let stackView = UIStackView()
         stackView.do {
@@ -237,7 +272,7 @@ private extension MainViewController {
             $0.addGestureRecognizer(recognizer)
             $0.isUserInteractionEnabled = true
         }
-
+        
         stackView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(view.snp.bottom).multipliedBy(0.2)
@@ -246,19 +281,25 @@ private extension MainViewController {
     }
     
     func setupGestures() {
-        let swipeGestureRecognizer = UISwipeGestureRecognizer(
+        let upSwipeGestureRecognizer = UISwipeGestureRecognizer(
             target: self,
             action: #selector(openhoroscopeView)
         )
-        swipeGestureRecognizer.direction = .up
-        view.addGestureRecognizer(swipeGestureRecognizer)
+        upSwipeGestureRecognizer.direction = .up
+        view.addGestureRecognizer(upSwipeGestureRecognizer)
         let tapGestureRecognizer = UITapGestureRecognizer(
             target: self,
             action: #selector(openhoroscopeView)
         )
-        horoscopeHeaderView.addGestureRecognizer(tapGestureRecognizer)
+        horoscopeViewController.view.addGestureRecognizer(tapGestureRecognizer)
+        let downSwipeGestureRecognizer = UISwipeGestureRecognizer(
+            target: self,
+            action: #selector(closeHoroscopeView)
+        )
+        downSwipeGestureRecognizer.direction = .down
+        horoscopeViewController.view.addGestureRecognizer(downSwipeGestureRecognizer)
     }
-
+    
     func registerObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(setupNavigationTitleView), name: .didChangeConstellation, object: nil)
     }

@@ -183,17 +183,20 @@ private extension SettingsViewController {
     func presentLogoutAlert() {
         let alert = UIAlertController(title: nil, message: "로그아웃 하시겠습니까?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
-            Provider.request(.signOut, completion: { success in
-                if success {
+            Provider.request(.signOut, completion: { [weak self] success in
+                if success, let self = self {
                     UserDefaults.currentToken = nil
                     UserDefaults.refreshToken = nil
-                    UserDefaults.fcmToken = nil
                     let onBoardingViewController = OnBoardingViewController()
                     onBoardingViewController.modalTransitionStyle = .crossDissolve
                     onBoardingViewController.modalPresentationStyle = .fullScreen
-                    self.present(onBoardingViewController, animated: true) {
-                        self.view.window?.rootViewController = onBoardingViewController
-                    }
+                    let window = self.view.window
+
+                    UIView.transition(from: self.view, to: onBoardingViewController.view, duration: 0.3, options: .transitionCrossDissolve, completion: { _ in
+                        window?.rootViewController = onBoardingViewController
+                    })
+                    self.presentingViewController?.dismiss(animated: false, completion: nil)
+
                 }
             })
         }))
