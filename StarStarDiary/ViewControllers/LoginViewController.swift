@@ -38,7 +38,8 @@ final class LoginViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.view.frame.origin.y = self.view.frame.maxY - 336
+//        self.view.frame.origin.y = self.view.frame.maxY - 336
+        self.idTextField.becomeFirstResponder()
     }
     
     deinit {
@@ -105,6 +106,7 @@ extension LoginViewController {
             let navigationController = MultiStepNavigationController(rootViewController: FindPasswordViewController())
             self?.present(navigationController, animated: true, completion: nil)
         }))
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         self.resizeSignInView()
         self.present(alert, animated: true, completion: nil)
     }
@@ -271,7 +273,6 @@ private extension LoginViewController {
             $0.titleLabel?.textColor = .white
             $0.backgroundColor = .navy3
             $0.layer.cornerRadius = 5.0
-            $0.isHidden = true
             view.addSubview($0)
         }
     }

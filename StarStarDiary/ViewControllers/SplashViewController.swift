@@ -12,8 +12,9 @@ import SnapKit
 
 class SplashViewController: UIViewController {
 
-    private let backgroundImageView: UIImageView = UIImageView(frame: .zero)
+    private let backgroundImageView: UIImageView = UIImageView()
     private let lottieView = AnimationView()
+    private let titleImageView = UIImageView()
     
     private var requestCount: Int = 0
     private let maxRetryCount: Int = 3
@@ -51,6 +52,7 @@ private extension SplashViewController {
     func setupView() {
         setupBackgroundImageView()
         setupLottieView()
+        setupTitleView()
     }
     
     func setupLottieView() {
@@ -75,6 +77,18 @@ private extension SplashViewController {
             view.addSubview($0)
             $0.snp.makeConstraints { imageView in
                 imageView.edges.equalToSuperview()
+            }
+        }
+    }
+    
+    func setupTitleView() {
+        titleImageView.do {
+            $0.image = UIImage(named: "splashTitle")
+            $0.contentMode = .scaleAspectFit
+            view.addSubview($0)
+            $0.snp.makeConstraints { imageView in
+                imageView.leading.equalToSuperview().inset(32)
+                imageView.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(81)
             }
         }
     }

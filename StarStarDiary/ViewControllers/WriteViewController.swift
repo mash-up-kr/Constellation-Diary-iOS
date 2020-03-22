@@ -271,10 +271,9 @@ private extension WriteViewController {
         navigationView.setBackgroundColor(color: .clear) // test
         navigationView.setTitle(title: "일기 작성하기", titleColor: .black)
         navigationView.setButton(type: .left, image: UIImage(named: "icClose24"), addTargetType: leftTargetType)
-        let completeButton = navigationView.setButton(type: .right, title: "완료", color: .gray122, addTargetType: rightTargetType)
+        let completeButton = navigationView.setButton(type: .right, title: "완료", color: .buttonBlue, addTargetType: rightTargetType)
         completeButton.do {
             $0.isEnabled = false
-            $0.tintColor = .gray122
         }
     }
 
