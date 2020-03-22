@@ -17,8 +17,7 @@ protocol NavigationDelegate: class {
 final class OnBoardingViewController: UIViewController {
     
     private let backgrounImageView = UIImageView()
-    private let titleLabel = UILabel()
-    private let descriptionLabel = UILabel()
+    private let titleImageView = UIImageView()
     private let loginButton = UIButton()
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -34,7 +33,7 @@ final class OnBoardingViewController: UIViewController {
     
     private func setupViews() {
         setupBackground()
-        setupLables()
+        setupTitleView()
         setupSignInButton()
     }
     
@@ -45,30 +44,11 @@ final class OnBoardingViewController: UIViewController {
             view.addSubview($0)
         }
     }
-    
-    private func setupLables() {
-        titleLabel.do {
-            $0.text = "별별일기"
-            $0.font = UIFont.font(.koreaYMJBold, size: 30)
-            $0.textColor = .white
-            view.addSubview($0)
-        }
-        
-        descriptionLabel.do {
-            let attributedString = NSMutableAttributedString(string: "별처럼 빛나는 당신의 하루,\n별자리 운세일기를 기록해보세요.")
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineSpacing = 0.31
-            paragraphStyle.minimumLineHeight = 43
-            attributedString.addAttribute(
-                .paragraphStyle,
-                value: paragraphStyle,
-                range: NSRange(location: 0, length: attributedString.length
-            ))
-            $0.attributedText = attributedString
-            $0.font = UIFont.font(.koreaYMJBold, size: 15)
-            $0.numberOfLines = 2
-            $0.textColor = .white
-            $0.alpha = 0.7
+
+    func setupTitleView() {
+        titleImageView.do {
+            $0.image = UIImage(named: "splashTitle")
+            $0.contentMode = .scaleAspectFit
             view.addSubview($0)
         }
     }
@@ -90,14 +70,9 @@ final class OnBoardingViewController: UIViewController {
             $0.edges.equalToSuperview()
         }
         
-        titleLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(32)
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(112)
-        }
-        
-        descriptionLabel.snp.makeConstraints {
-            $0.leading.equalTo(titleLabel.snp.leading)
-            $0.top.equalTo(titleLabel.snp.bottom).offset(17)
+        titleImageView.snp.makeConstraints { imageView in
+            imageView.leading.equalToSuperview().inset(32)
+            imageView.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(81)
         }
         
         loginButton.snp.makeConstraints {
