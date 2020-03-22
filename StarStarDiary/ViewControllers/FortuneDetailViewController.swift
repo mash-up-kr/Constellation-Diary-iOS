@@ -47,6 +47,7 @@ final class HoroscopeDetailViewController: UIViewController {
     // MARK: - UI
     
     private let horoscopeHeaderView = HoroscopeHeaderView(frame: .zero)
+    private let contentsView = UIView()
     private let seperatorView = UIView()
     private let detailLabel = UILabel()
     private let completeButton = UIButton()
@@ -61,9 +62,19 @@ final class HoroscopeDetailViewController: UIViewController {
         setUpConstraints()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: false)
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        (self.parent as? MainViewController).map {
+            let isContentsVisible = self.view.frame.origin.y < $0.view.center.y
+            self.contentsView.isHidden = isContentsVisible == false
+            if isContentsVisible {
+                self.contentsView.alpha = 0
+                UIView.animate(withDuration: 0.3) {
+                    self.contentsView.alpha = 1
+                }
+            }
+        }
     }
     
     // MARK: - Configure
@@ -76,9 +87,7 @@ final class HoroscopeDetailViewController: UIViewController {
     }
     
     @objc private func didTapCompleteButton(_ sender: UIButton) {
-        dismiss(animated: true) {
-            self.delegate?.horoscopeDeatilView(self, didTap: sender)
-        }
+        self.delegate?.horoscopeDeatilView(self, didTap: sender)
     }
     
 }
@@ -90,9 +99,13 @@ private extension HoroscopeDetailViewController {
         view.do {
             $0.backgroundColor = .white
             $0.addSubview(horoscopeHeaderView)
+            $0.addSubview(contentsView)
+        }
+        contentsView.do {
             $0.addSubview(seperatorView)
             $0.addSubview(detailLabel)
             $0.addSubview(completeButton)
+            $0.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         }
         
         seperatorView.do {
@@ -110,16 +123,25 @@ private extension HoroscopeDetailViewController {
             $0.layer.cornerRadius = 5
             $0.addTarget(self, action: #selector(didTapCompleteButton), for: .touchUpInside)
         }
+        
+        horoscopeHeaderView.do {
+            $0.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+        }
     }
     
     func setUpConstraints() {
         horoscopeHeaderView.snp.makeConstraints {
             $0.leading.trailing.top.equalToSuperview()
-            $0.bottom.equalTo(seperatorView.snp.top).offset(6)
+        }
+        
+        contentsView.snp.makeConstraints {
+            $0.top.equalTo(horoscopeHeaderView.snp.bottom).offset(29).priority(.low)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
 
         seperatorView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
+            $0.top.centerX.equalToSuperview()
             $0.leading.trailing.equalToSuperview().inset(32)
             $0.height.equalTo(1)
         }
@@ -130,8 +152,7 @@ private extension HoroscopeDetailViewController {
         }
 
         completeButton.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.centerX.bottom.equalToSuperview()
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.height.equalTo(52)
         }

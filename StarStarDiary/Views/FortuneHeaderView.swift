@@ -11,6 +11,8 @@ import UIKit
 
 final class HoroscopeHeaderView: UIView {
     
+    static let height: CGFloat = 195
+    
     var isDrawerHidden: Bool = false {
         didSet {
             self.drawerHandleView.isHidden = self.isDrawerHidden
@@ -81,7 +83,7 @@ final class HoroscopeHeaderView: UIView {
     
     private func setUpConstraints() {
         drawerHandleView.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide).offset(20)
+            $0.top.equalToSuperview().offset(20)
             $0.width.equalTo(24)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(3)
@@ -102,7 +104,7 @@ final class HoroscopeHeaderView: UIView {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(suggestionLabel.snp.bottom).offset(16)
             $0.height.equalTo(70)
-            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(23)
+            $0.bottom.equalToSuperview()
         }
     }
 

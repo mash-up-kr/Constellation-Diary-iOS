@@ -273,7 +273,6 @@ private extension LoginViewController {
             $0.titleLabel?.textColor = .white
             $0.backgroundColor = .navy3
             $0.layer.cornerRadius = 5.0
-            $0.isHidden = true
             view.addSubview($0)
         }
     }
