@@ -133,6 +133,7 @@ final class SideMenuViewController: UIViewController {
         constellationTextLabel.do {
             $0.textAlignment = .center
             $0.font = UIFont.font(.koreaYMJBold, size: 16.0)
+            $0.adjustsFontSizeToFitWidth = true
         }
 
         constellationDateLabel.do {
