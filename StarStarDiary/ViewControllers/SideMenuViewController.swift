@@ -9,16 +9,20 @@
 import UIKit
 
 final class SideMenuViewController: UIViewController {
-
-    @IBOutlet weak var dimView: UIView!
-    @IBOutlet weak var menuBackgroundView: UIView!
-    @IBOutlet weak var constellationImageView: UIImageView!
-    @IBOutlet weak var constellationTextLabel: UILabel!
-    @IBOutlet weak var constellationDateLabel: UILabel!
-    @IBOutlet weak var constellationButton: UIButton!
-    @IBOutlet weak var diaryListButton: UIButton!
-    @IBOutlet weak var settingsButton: UIButton!
-
+    
+    private var dimView = UIView(frame: .zero)
+    private var menuBackgroundView = UIView(frame: .zero)
+    private var constellationImageView = UIImageView(frame: .zero)
+    private var constellationTextLabel = UILabel(frame: .zero)
+    private var constellationDateLabel = UILabel(frame: .zero)
+    
+    private var lineView = UIView(frame: .zero)
+    
+    private var stackView = UIStackView(frame: .zero)
+    private var constellationButton = UIButton(frame: .zero)
+    private var diaryListButton = UIButton(frame: .zero)
+    private var settingsButton = UIButton(frame: .zero)
+    
     // MARK: - Vars
 
     private var isShowing = false
@@ -35,6 +39,7 @@ final class SideMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupView()
         initView()
         initBtn()
         registerObserver()
@@ -53,8 +58,66 @@ final class SideMenuViewController: UIViewController {
     func registerObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(updateConstellation), name: .didChangeConstellation, object: nil)
     }
-    
-    // FIXME: - 스토리보드 > snapKit 변경 작업시, 객체생성 함수 init+a() 그 외 setUp+a()
+
+    private func setupView() {
+        
+        view.addSubview(dimView)
+        
+        view.addSubview(menuBackgroundView)
+        menuBackgroundView.addSubview(constellationImageView)
+        menuBackgroundView.addSubview(constellationTextLabel)
+        menuBackgroundView.addSubview(constellationDateLabel)
+        menuBackgroundView.addSubview(lineView)
+        
+        menuBackgroundView.addSubview(stackView)
+        stackView.addArrangedSubview(constellationButton)
+        stackView.addArrangedSubview(diaryListButton)
+        stackView.addArrangedSubview(settingsButton)
+        
+        dimView.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+        }
+        
+        ///
+        menuBackgroundView.snp.makeConstraints {
+            $0.top.bottom.leading.equalToSuperview()
+            $0.width.equalToSuperview().multipliedBy(0.5)
+        }
+        
+        ///
+        constellationImageView.snp.makeConstraints {
+            $0.width.height.equalTo(64.0)
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview().multipliedBy(0.4)
+        }
+        
+        constellationTextLabel.snp.makeConstraints {
+            $0.leading.equalTo(constellationImageView.snp.leading)
+            $0.trailing.equalTo(constellationImageView.snp.trailing)
+            $0.top.equalTo(constellationImageView.snp.bottom).offset(16.0)
+        }
+        
+        constellationDateLabel.snp.makeConstraints {
+            $0.leading.equalTo(constellationImageView.snp.leading)
+            $0.trailing.equalTo(constellationImageView.snp.trailing)
+            $0.top.equalTo(constellationTextLabel.snp.bottom).offset(4.0)
+        }
+        
+        lineView.snp.makeConstraints {
+            $0.width.equalTo(24.0)
+            $0.height.equalTo(1.0)
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(constellationDateLabel.snp.bottom).offset(16.0)
+            $0.bottom.equalTo(stackView.snp.top).offset(-16.0)
+        }
+        
+        ///
+        stackView.snp.makeConstraints {
+            $0.leading.equalTo(constellationImageView.snp.leading)
+            $0.trailing.equalTo(constellationImageView.snp.trailing)
+        }
+    }
 
     private func initView() {
         view.backgroundColor = .dim
@@ -62,6 +125,7 @@ final class SideMenuViewController: UIViewController {
 
         constellationTextLabel.do {
             $0.textAlignment = .center
+            $0.font = UIFont.font(.koreaYMJBold, size: 16.0)
         }
 
         constellationDateLabel.do {
@@ -69,8 +133,18 @@ final class SideMenuViewController: UIViewController {
             $0.textColor = .lightGray
             $0.adjustsFontSizeToFitWidth = true
             $0.textAlignment = .center
+            $0.font = UIFont.font(.notoSerifCJKRegular, size: 10.0)
         }
 
+        lineView.do {
+            $0.backgroundColor = .black
+        }
+        
+        stackView.do {
+            $0.spacing = 8.0
+            $0.axis = .vertical
+        }
+        
         dimView.do {
             $0.alpha = 0.0
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hide))
@@ -88,6 +162,7 @@ final class SideMenuViewController: UIViewController {
             $0.addTarget(self,
                          action: #selector(didTapConstellations(sender:)),
                          for: .touchUpInside)
+            $0.titleLabel?.font = UIFont.font(.notoSerifCJKRegular, size: 16.0)
         }
 
         diaryListButton.do {
@@ -97,6 +172,7 @@ final class SideMenuViewController: UIViewController {
             $0.addTarget(self,
                          action: #selector(didTapDiaryList(sender:)),
                          for: .touchUpInside)
+            $0.titleLabel?.font = UIFont.font(.notoSerifCJKRegular, size: 16.0)
         }
 
         settingsButton.do {
@@ -106,6 +182,7 @@ final class SideMenuViewController: UIViewController {
             $0.addTarget(self,
                          action: #selector(didTapSettings(sender:)),
                          for: .touchUpInside)
+            $0.titleLabel?.font = UIFont.font(.notoSerifCJKRegular, size: 16.0)
         }
     }
 
