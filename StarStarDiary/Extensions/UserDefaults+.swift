@@ -34,7 +34,7 @@ extension UserDefaults {
         }
     }
 
-    static var constellation: Constellation = .aries {
+    static var constellation: Constellation = Constellation(rawValue: defaults.string(forKey: constellationKey) ?? Constellation.aries.rawValue) ?? .aries {
         willSet(newValue) {
             defaults.set(newValue.rawValue, forKey: constellationKey)
         }
