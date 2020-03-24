@@ -38,7 +38,6 @@
 		0EEB411623E45962000AE851 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEB411523E45961000AE851 /* UIView+.swift */; };
 		0EEB412B23E481BB000AE851 /* FindIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEB412A23E481BB000AE851 /* FindIDViewController.swift */; };
 		9CF049FC23A918B400A85BEC /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF049FA23A918B400A85BEC /* SideMenuViewController.swift */; };
-		9CF049FD23A918B400A85BEC /* SideMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CF049FB23A918B400A85BEC /* SideMenuViewController.xib */; };
 		9CF04A0023A92F5D00A85BEC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF049FE23A92F5D00A85BEC /* SettingsViewController.swift */; };
 		ADCC22B4D25855423D8EE10D /* Pods_StarStarDiary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A57C3B489FC848FFBB6107E7 /* Pods_StarStarDiary.framework */; };
 		D5406081240FED7900E8EECB /* splash.json in Resources */ = {isa = PBXBuildFile; fileRef = D5406080240FED7800E8EECB /* splash.json */; };
@@ -125,7 +124,6 @@
 		0EEB411523E45961000AE851 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		0EEB412A23E481BB000AE851 /* FindIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIDViewController.swift; sourceTree = "<group>"; };
 		9CF049FA23A918B400A85BEC /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
-		9CF049FB23A918B400A85BEC /* SideMenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SideMenuViewController.xib; sourceTree = "<group>"; };
 		9CF049FE23A92F5D00A85BEC /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		A57C3B489FC848FFBB6107E7 /* Pods_StarStarDiary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StarStarDiary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B52A4D106A7F14CB5BEAE593 /* Pods-StarStarDiary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarStarDiary.release.xcconfig"; path = "Target Support Files/Pods-StarStarDiary/Pods-StarStarDiary.release.xcconfig"; sourceTree = "<group>"; };
@@ -234,7 +232,6 @@
 				0E3272952389C37300EF36B4 /* FortuneDetailViewController.swift */,
 				DBF122EF2389673300EFE5B2 /* WriteViewController.swift */,
 				9CF049FA23A918B400A85BEC /* SideMenuViewController.swift */,
-				9CF049FB23A918B400A85BEC /* SideMenuViewController.xib */,
 				9CF049FE23A92F5D00A85BEC /* SettingsViewController.swift */,
 				DBAF024123AE2C9B0044E2DD /* SettingsViewController+cell.swift */,
 				DB9EA41423AE90A000F4488D /* DiaryListViewController.swift */,
@@ -508,7 +505,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBF6324F23EDD77E006E60FF /* GoogleService-Info.plist in Resources */,
-				9CF049FD23A918B400A85BEC /* SideMenuViewController.xib in Resources */,
 				D5406081240FED7900E8EECB /* splash.json in Resources */,
 				D5847DF423E56C8500D8BA8E /* KoreanYMJB.otf in Resources */,
 				D54F6D0D23E46475001DA319 /* NotoSansCJKkr-Medium.otf in Resources */,
