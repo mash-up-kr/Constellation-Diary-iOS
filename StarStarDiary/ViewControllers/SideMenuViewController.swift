@@ -11,6 +11,8 @@ import UIKit
 final class SideMenuViewController: UIViewController {
     
     private var dimView = UIView(frame: .zero)
+    
+    private var menuBackgroundViewLeading: NSLayoutConstraint?
     private var menuBackgroundView = UIView(frame: .zero)
     private var constellationImageView = UIImageView(frame: .zero)
     private var constellationTextLabel = UILabel(frame: .zero)
@@ -80,6 +82,10 @@ final class SideMenuViewController: UIViewController {
         }
         
         ///
+        menuBackgroundViewLeading = menuBackgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
+        menuBackgroundViewLeading?.constant = -UIScreen.main.bounds.width*0.5
+        menuBackgroundViewLeading?.isActive = true
+
         menuBackgroundView.snp.makeConstraints {
             $0.top.bottom.leading.equalToSuperview()
             $0.width.equalToSuperview().multipliedBy(0.5)
@@ -120,7 +126,8 @@ final class SideMenuViewController: UIViewController {
     }
 
     private func initView() {
-        view.backgroundColor = .dim
+        self.view.clipsToBounds = true
+        view.backgroundColor = .clear
         menuBackgroundView.backgroundColor = .white
 
         constellationTextLabel.do {
@@ -131,7 +138,6 @@ final class SideMenuViewController: UIViewController {
         constellationDateLabel.do {
             $0.text = "08.23 ~ 10.01"
             $0.textColor = .lightGray
-            $0.adjustsFontSizeToFitWidth = true
             $0.textAlignment = .center
             $0.font = UIFont.font(.notoSerifCJKRegular, size: 10.0)
         }
@@ -147,6 +153,8 @@ final class SideMenuViewController: UIViewController {
         
         dimView.do {
             $0.alpha = 0.0
+            $0.backgroundColor = .dim
+
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hide))
             $0.addGestureRecognizer(tapGesture)
         }
@@ -189,39 +197,34 @@ final class SideMenuViewController: UIViewController {
     // MARK: - Animation
 
     private func show() {
-        menuBackgroundView.do {
-            $0.frame.origin.x = -(UIScreen.main.bounds.width + $0.frame.width)
-        }
+        
+        self.menuBackgroundViewLeading?.constant = 0.0
 
-        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn,
-                       animations: { [weak self] in
-            guard let self = self else { return }
-
+        UIView.animate(withDuration: 0.25) {
             self.dimView.alpha = 1.0
-            self.menuBackgroundView.frame.origin.x = .zero
-        })
+            self.view.layoutIfNeeded()
+        }
 
         isShowing = true
     }
 
     @objc
     private func hide() {
-        UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn,
-                       animations: { [weak self] in
+        self.menuBackgroundViewLeading?.constant = -self.view.bounds.width*0.5
+        
+        UIView.animate(withDuration: 0.25, animations: { [weak self] in
             guard let self = self else { return }
                         
+            self.view.layoutIfNeeded()
             self.dimView.alpha = 0.0
-            self.menuBackgroundView.do {
-                $0.frame.origin.x = -(UIScreen.main.bounds.width + $0.frame.width)
-            }
-        }, completion: { [weak self] isFinished in
+        }) { [weak self] isFinished in
             guard let self = self else { return }
 
             if isFinished {
                 self.isShowing = false
                 self.dismiss(animated: false, completion: nil)
             }
-        })
+        }
     }
 
     // MARK: - Event
