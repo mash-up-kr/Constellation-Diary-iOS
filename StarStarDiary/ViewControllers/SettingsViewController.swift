@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import MessageUI
 
 class SettingsViewController: UIViewController {
     
@@ -174,9 +175,22 @@ private extension SettingsViewController {
     }
     
     func openMail() {
-        let email = "caution.dev@gmail.com"
-        if let url = URL(string: "mailto:\(email)") {
-            UIApplication.shared.open(url)
+        let email = "kancho.service@gmail.com"
+        let appVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String ?? ""
+        let systemVersion = UIDevice.current.systemVersion
+
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self
+        mailComposerVC.setToRecipients([email])
+        mailComposerVC.setSubject("별별일기 문의하기")
+        mailComposerVC.setMessageBody("\n\n\n\n\n\n-\n별별일기 개발팀에 전하고 싶은 것들을 작성해주세요!\niOS \(systemVersion)\n별별일기 \(appVersion)", isHTML: false)
+        
+        if MFMailComposeViewController.canSendMail() {
+            self.present(mailComposerVC, animated: true, completion: nil)
+        } else {
+            if let url = URL(string: "mailto:\(email)") {
+                UIApplication.shared.open(url)
+            }
         }
     }
     
@@ -283,5 +297,11 @@ private extension SettingsViewController {
 
     func initView() {
         view.backgroundColor = .white
+    }
+}
+
+extension SettingsViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
     }
 }
