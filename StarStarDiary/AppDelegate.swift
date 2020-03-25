@@ -19,14 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        // FIXME: Karen - FCM, 추후 Push 모듈화 예정
-        FirebaseApp.configure()
-        Messaging.messaging().delegate = self
-        UNUserNotificationCenter.current().delegate = self
-        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-        UNUserNotificationCenter.current().requestAuthorization(options: authOptions,completionHandler: {_, _ in })
-        application.registerForRemoteNotifications()
-//        self.window = UIWindow(frame: UIScreen.main.bounds)
+        PushManager.share.registerPush()
         
         return true
     }
@@ -135,7 +128,27 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         print("\(#function)")
+        
+        if let type = response.notification.request.content.userInfo["type"] as? String {
+            if PushType.toType(rawValue: type) == .horoscope {
+                openHoroscopeDetailView()
+            }
+        }
 
         completionHandler()
+    }
+}
+
+// MARK: - Open ViewController
+
+extension AppDelegate {
+    func openHoroscopeDetailView() {
+        let mainViewController = MainViewController(shouldOpenHoroscopeView: true)
+        let navi = UINavigationController(rootViewController: mainViewController)
+        navi.modalTransitionStyle = .crossDissolve
+        navi.modalPresentationStyle = .fullScreen
+        
+        self.window?.rootViewController = navi
+        self.window?.makeKeyAndVisible()
     }
 }
