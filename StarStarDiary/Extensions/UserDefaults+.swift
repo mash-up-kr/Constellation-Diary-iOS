@@ -15,6 +15,7 @@ extension UserDefaults {
     private static let currentTokenKey = "currentToken"
     private static let refreshTokenKey = "refreshToken"
     private static let constellationKey = "constellation"
+    private static let isFirstInKey = "isFirstIn"
 
     static var fcmToken: String? = defaults.string(forKey: fcmTokenKey) {
         willSet(newValue) {
@@ -40,6 +41,12 @@ extension UserDefaults {
         }
         didSet {
             NotificationCenter.default.post(name: .didChangeConstellation, object: nil)
+        }
+    }
+    
+    static var isFirstIn: Bool = defaults.value(forKey: isFirstInKey) as? Bool ?? true {
+        willSet(newValue) {
+            defaults.set(newValue, forKey: isFirstInKey)
         }
     }
     

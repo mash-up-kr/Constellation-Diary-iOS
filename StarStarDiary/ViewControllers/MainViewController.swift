@@ -21,6 +21,13 @@ final class MainViewController: UIViewController {
     private let horoscopeViewController = HoroscopeDetailViewController()
     private let lottieView = AnimationView()
     
+    /// tutorial view
+    private let tutorialView = UIView(frame: .zero)
+    private let tutoArrowImageView = UIImageView(frame: .zero)
+    private let tutoLabel = UILabel(frame: .zero)
+    private let tutoStarImageView = UIImageView(frame: .zero)
+    private let tutoCloseButton = UIButton(frame: .zero)
+    
     private var horoscopeViewTopConstraints: NSLayoutConstraint?
     private var diary: DiaryDto?
     private var horoscope: HoroscopeDto?
@@ -175,6 +182,12 @@ private extension MainViewController {
         }
         self.navigationController?.pushViewController(diaryViewController, animated: true)
     }
+    
+    @objc func didTouchView() {
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.tutorialView.alpha = 0.0
+        }
+    }
 }
 
 private extension MainViewController {
@@ -185,8 +198,89 @@ private extension MainViewController {
         setupTitleLabel()
         setupWriteLabel()
         setupContainerView()
+        setupTutorialView()
         setuphoroscopeView()
         setupGestures()
+        
+        setupTutoContentsView()
+    }
+    
+    func setupTutorialView() {
+        // FIXME: - 서버 api 나오면 반영해야함.
+        guard UserDefaults.isFirstIn == true else {
+            return
+        }
+        UserDefaults.isFirstIn = false
+        
+        view.do {
+            let gesture = UILongPressGestureRecognizer(target: self, action: #selector(didTouchView))
+            gesture.minimumPressDuration = 0.0
+            $0.addGestureRecognizer(gesture)
+        }
+        
+        tutorialView.do {
+            view.addSubview(tutorialView)
+            $0.backgroundColor = .dim80
+        }
+        
+        tutorialView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
+        }
+    }
+    
+    func setupTutoContentsView() {
+        tutoArrowImageView.do {
+            tutorialView.addSubview($0)
+            $0.image = UIImage(named: "icMainArrow")
+            $0.contentMode = .scaleAspectFit
+        }
+        
+        tutoArrowImageView.snp.makeConstraints {
+            $0.bottom.equalTo(horoscopeViewController.view.snp.top)
+            $0.width.equalTo(48.0)
+            $0.height.equalTo(72.0)
+            $0.centerX.equalToSuperview()
+        }
+        
+        tutoLabel.do {
+            tutorialView.addSubview($0)
+            $0.font = .systemFont(ofSize: 16.0)
+            $0.numberOfLines = 0
+            $0.textAlignment = .center
+            $0.textColor = .white
+            $0.text = "검은색 바를 위로 올리면\n오늘의 별자리 운세를 볼 수 있어요!"
+        }
+        
+        tutoLabel.snp.makeConstraints {
+            $0.bottom.equalTo(tutoArrowImageView.snp.top).inset(-16.0)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(48.0)
+        }
+        
+        tutoStarImageView.do {
+            tutorialView.addSubview($0)
+            $0.image = UIImage(named: "icMainStar")
+            $0.contentMode = .scaleAspectFit
+        }
+        
+        tutoStarImageView.snp.makeConstraints {
+            $0.bottom.equalTo(tutoLabel.snp.top).offset(-8.0)
+            $0.width.height.equalTo(24.0)
+            $0.centerX.equalToSuperview()
+        }
+        
+        tutoCloseButton.do {
+            tutorialView.addSubview($0)
+            $0.setImage(UIImage(named: "iconMainClose"), for: .normal)
+            $0.contentMode = .scaleAspectFit
+        }
+        
+        tutoCloseButton.snp.makeConstraints {
+            $0.top.equalTo(view.snp.topMargin)
+            $0.trailing.equalToSuperview()
+            $0.width.height.equalTo(24.0)
+        }
     }
     
     func setupLottieView() {
