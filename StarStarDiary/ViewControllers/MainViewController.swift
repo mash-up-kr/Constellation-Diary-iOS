@@ -25,7 +25,15 @@ final class MainViewController: UIViewController {
     private var diary: DiaryDto?
     private var horoscope: HoroscopeDto?
     
+    private var shouldOpenHoroscopeView: Bool = false
+    
     // MARK: Life cycle
+    
+    convenience init(shouldOpenHoroscopeView: Bool = false) {
+        self.init()
+        
+        self.shouldOpenHoroscopeView = shouldOpenHoroscopeView
+    }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -53,9 +61,13 @@ final class MainViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.horoscopeViewTopConstraints?.constant = self.horoscopeViewMaxY
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
+        if shouldOpenHoroscopeView {
+            openhoroscopeView()
+        } else {
+            self.horoscopeViewTopConstraints?.constant = self.horoscopeViewMaxY
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
+            }
         }
     }
     
@@ -85,7 +97,6 @@ extension MainViewController: HoroscopeDetailViewDelegate {
             self.didTapNewDiary()
         }
     }
-    
 }
 
 private extension MainViewController {
