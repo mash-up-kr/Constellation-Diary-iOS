@@ -114,7 +114,7 @@ extension VerifyEmailViewController: InputFormViewDelegate {
             self.map {
                 $0.certificationNumberInputFormView.isHidden = false
                 $0.certificationNumberInputFormView.inputTextField.becomeFirstResponder()
-                $0.certificationNumberInputFormView.startTimer(duration: 180)
+                $0.certificationNumberInputFormView.startTimer(duration: 60 * 10)
                 $0.emailInputFormView.inputTextField.isUserInteractionEnabled = false
                 self?.nextButton.isHidden = false
                 self?.updateNextButton(enable: false)
