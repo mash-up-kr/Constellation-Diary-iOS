@@ -15,6 +15,7 @@ final class MainViewController: UIViewController {
     
     // MARK: - Properties
     
+    private let navigationView = BaseNavigationView(frame: .zero)
     private let writeDiaryLabel = UILabel(frame: .zero)
     private let titleLabel = UILabel(frame: .zero)
     private let editImageView = UIImageView(frame: .zero)
@@ -33,6 +34,7 @@ final class MainViewController: UIViewController {
     private var horoscope: HoroscopeDto?
     
     private var shouldOpenHoroscopeView: Bool = false
+    private var gesture: UILongPressGestureRecognizer?
     
     // MARK: Life cycle
     
@@ -61,7 +63,7 @@ final class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        setupNavigationBar()
+//        setupNavigationBar()
         lottieView.play()
     }
     
@@ -183,9 +185,24 @@ private extension MainViewController {
         self.navigationController?.pushViewController(diaryViewController, animated: true)
     }
     
+    @objc func didTapDiaryList() {
+        let viewController = DiaryListViewController(horoscope: horoscope)
+        viewController.do {
+            let navigationController = UINavigationController.init(rootViewController: $0)
+            navigationController.modalPresentationStyle = .fullScreen
+            self.present(navigationController, animated: true, completion: nil)
+        }
+    }
+    
     @objc func didTouchView() {
-        UIView.animate(withDuration: 0.3) { [weak self] in
+        if let gesture = self.gesture {
+            view.removeGestureRecognizer(gesture)
+        }
+        
+        UIView.animate(withDuration: 0.25, animations: { [weak self] in
             self?.tutorialView.alpha = 0.0
+        }) { [weak self] isFinished in
+            self?.tutorialView.isHidden = true
         }
     }
 }
@@ -198,6 +215,7 @@ private extension MainViewController {
         setupTitleLabel()
         setupWriteLabel()
         setupContainerView()
+        setupNavigationView()
         setupTutorialView()
         setuphoroscopeView()
         setupGestures()
@@ -205,17 +223,55 @@ private extension MainViewController {
         setupTutoContentsView()
     }
     
+    func setupNavigationView() {
+        navigationController?.setNavigationBarHidden(true, animated: false)
+
+        navigationView.do {
+            view.addSubview($0)
+            setupNavigationTitleView()
+            $0.setBackgroundColor(color: .clear)
+            
+            let leftTargetType: AddTargetType = (self,
+                                                 #selector(didTapMenuItem),
+                                                 .touchUpInside)
+            
+            $0.setButton(type: .left, image: UIImage(named: "icMenu24"), addTargetType: leftTargetType)
+            $0.setButtonImageColor(type: .left, color: .white)
+            
+            let rightTargetType: AddTargetType = (self,
+                                                  #selector(didTapDiaryList),
+                                                  .touchUpInside)
+
+            $0.setButton(type: .right, image: UIImage(named: "icBook24"), addTargetType: rightTargetType)
+            $0.setButtonImageColor(type: .right, color: .white)
+        }
+        
+        navigationView.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(44.0)
+        }
+    }
+    
+    @objc func setupNavigationTitleView() {
+        navigationView.do {
+            $0.setTitle(image: UserDefaults.constellation.icon, addTargetType: nil)
+            $0.setButtonImageColor(type: .title, color: .white)
+        }
+    }
+    
     func setupTutorialView() {
         // FIXME: - 서버 api 나오면 반영해야함.
-        guard UserDefaults.isFirstIn == true else {
-            return
-        }
-        UserDefaults.isFirstIn = false
-        
+//        guard UserDefaults.isFirstIn == true else {
+//            return
+//        }
+//        UserDefaults.isFirstIn = false
+//
         view.do {
-            let gesture = UILongPressGestureRecognizer(target: self, action: #selector(didTouchView))
-            gesture.minimumPressDuration = 0.0
-            $0.addGestureRecognizer(gesture)
+            self.gesture = UILongPressGestureRecognizer(target: self, action: #selector(didTouchView))
+            if let gesture = self.gesture {
+                gesture.minimumPressDuration = 0.0
+                $0.addGestureRecognizer(gesture)
+            }
         }
         
         tutorialView.do {
@@ -277,8 +333,8 @@ private extension MainViewController {
         }
         
         tutoCloseButton.snp.makeConstraints {
-            $0.top.equalTo(view.snp.topMargin)
-            $0.trailing.equalToSuperview()
+            $0.top.equalTo(navigationView.snp.top).offset(10.0)
+            $0.trailing.equalToSuperview().inset(18.0)
             $0.width.height.equalTo(24.0)
         }
     }
@@ -297,29 +353,29 @@ private extension MainViewController {
         }
     }
     
-    func setupNavigationBar() {
-        let menuItem = UIBarButtonItem(image: UIImage(named: "icMenu24"),
-                                       style: .plain,
-                                       target: self,
-                                       action: #selector(didTapMenuItem))
-        navigationItem.setLeftBarButton(menuItem, animated: false)
-        navigationController?.setNavigationBarHidden(false, animated: false)
-        navigationController?.navigationBar.do {
-            $0.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-            $0.shadowImage = UIImage()
-            $0.backgroundColor = UIColor.clear
-            $0.tintColor = .white
-            $0.barStyle = .black
-            $0.layer.zPosition = 0
-        }
-        setupNavigationTitleView()
-    }
-    
-    @objc func setupNavigationTitleView() {
-        let logoImageView = UIImageView(image: UserDefaults.constellation.icon)
-        logoImageView.contentMode = .scaleAspectFit
-        navigationItem.titleView = logoImageView
-    }
+//    func setupNavigationBar() {
+//        let menuItem = UIBarButtonItem(image: UIImage(named: "icMenu24"),
+//                                       style: .plain,
+//                                       target: self,
+//                                       action: #selector(didTapMenuItem))
+//        navigationItem.setLeftBarButton(menuItem, animated: false)
+//        navigationController?.setNavigationBarHidden(false, animated: false)
+//        navigationController?.navigationBar.do {
+//            $0.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+//            $0.shadowImage = UIImage()
+//            $0.backgroundColor = UIColor.clear
+//            $0.tintColor = .white
+//            $0.barStyle = .black
+//            $0.layer.zPosition = 0
+//        }
+//        setupNavigationTitleView()
+//    }
+//
+//    @objc func setupNavigationTitleView() {
+//        let logoImageView = UIImageView(image: UserDefaults.constellation.icon)
+//        logoImageView.contentMode = .scaleAspectFit
+//        navigationItem.titleView = logoImageView
+//    }
     
     func setupTitleLabel() {
         titleLabel.do {
@@ -407,5 +463,6 @@ private extension MainViewController {
     
     func registerObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(setupNavigationTitleView), name: .didChangeConstellation, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(setupNavigationTitleView), name: .didChangeConstellation, object: nil)
     }
 }

@@ -85,6 +85,16 @@ extension BaseNavigationView {
         return button
     }
     
+    func setButtonImageColor(type: BaseNavigationButtonType, color: UIColor) {
+        let button = self.button(for: type)
+        button.do {
+            $0.tintColor = color
+            let image = $0.imageView?.image?.withRenderingMode(.alwaysTemplate)
+            $0.imageView?.image = image
+            $0.imageView?.tintColor = color
+        }
+    }
+    
     func updateButton(type: BaseNavigationButtonType, isEnabled: Bool) {
         button(for: type).do {
             $0.isEnabled = false
