@@ -154,7 +154,7 @@ private extension FindPasswordViewController {
                 $0.isHidden = false
                 $0.actionButton.isHidden = false
                 $0.verified = true
-                $0.startTimer(duration: 180)
+                $0.startTimer(duration: 60 * 10)
                 $0.inputTextField.becomeFirstResponder()
             }
             self?.emailInputFormView.inputTextField.isUserInteractionEnabled = false
