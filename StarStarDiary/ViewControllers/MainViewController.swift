@@ -260,12 +260,9 @@ private extension MainViewController {
     }
     
     func setupTutorialView() {
-        // FIXME: - 서버 api 나오면 반영해야함.
-//        guard UserDefaults.isFirstIn == true else {
-//            return
-//        }
-//        UserDefaults.isFirstIn = false
-//
+        
+        UserDefaults.isFirstIn = false
+
         view.do {
             self.gesture = UILongPressGestureRecognizer(target: self, action: #selector(didTouchView))
             if let gesture = self.gesture {
@@ -282,6 +279,12 @@ private extension MainViewController {
         tutorialView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
             $0.top.bottom.equalToSuperview()
+        }
+        
+        // FIXME: - 서버 api 나오면 반영해야함.
+        guard UserDefaults.isFirstIn == true else {
+            tutorialView.isHidden = true
+            return
         }
     }
     
