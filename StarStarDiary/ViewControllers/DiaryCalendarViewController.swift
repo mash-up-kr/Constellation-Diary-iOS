@@ -457,7 +457,12 @@ extension DiaryCalendarViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        // TODO: Detail 페이지로 이동
+        let item = self.items[indexPath.row]
+        Provider.request(DiaryAPI.diary(id: item.id), completion: { (diary: DiaryDto) in
+            let writeViewController = WriteViewController()
+            writeViewController.bind(diary: diary, isEditable: item.date.isSameDate(with: Date()))
+            self.navigationController?.pushViewController(writeViewController, animated: true)
+        })
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
