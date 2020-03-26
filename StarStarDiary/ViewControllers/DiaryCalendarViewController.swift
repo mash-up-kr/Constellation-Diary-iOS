@@ -359,6 +359,7 @@ final class DiaryCalendarViewController: UIViewController {
             guard let self = self else { return }
             self.monthlyItems = diraiesOfMonth ?? []
             
+            self.calendar.select(current, scrollToDate: true)
             self.refreshDiaryList(currentDay: current) // 현재 날짜에 작성된 list
         }
     }
