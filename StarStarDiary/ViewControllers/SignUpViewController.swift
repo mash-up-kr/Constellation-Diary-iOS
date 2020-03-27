@@ -97,6 +97,12 @@ class SignUpViewController: FormBaseViewController {
             $0.top.equalTo(confirmPasswordInputFormView.snp.bottom).offset(48)
         }
     }
+    
+    override func touchesBegan() {
+        super.touchesBegan()
+        let allVerified = self.inputFormViews.allSatisfy { $0.verified }
+        updateNextButton(enable: allVerified)
+    }
 
 }
 
@@ -119,11 +125,13 @@ extension SignUpViewController {
             DispatchQueue.main.async { [weak self] in
                 self?.showConstellationSelectionView()
             }
-        }, failure: { error in
-            // FIXME
+        }, failure: {[weak self] error in
+            if error.code == 4006 {
+                self?.idInputFormView.updateValidate(force: false)
+                self?.idInputFormView.setErrorMessage("중복된 아이디입니다.")
+                self?.updateNextButton(enable: false)
+            }
         })
-        showConstellationSelectionView()
-        
     }
     
     private func showConstellationSelectionView() {
@@ -146,17 +154,26 @@ extension SignUpViewController {
 }
 
 extension SignUpViewController: InputFormViewDelegate {
-
     func inputFormView(_ inputFormView: InputFormView, didTimerEnded style: InputFormViewStyle) {}
     func inputFormView(_ inputFormView: InputFormView, didTap button: UIButton) {}
     
     func inputFormView(_ inputFormView: InputFormView, didChanged text: String?) {
         if inputFormView === confirmPasswordInputFormView {
-            inputFormView.verified = passwordInputFormView.verified && confirmPasswordInputFormView.inputText == self.passwordInputFormView.inputText
+            inputFormView.updateValidate(force: confirmPasswordInputFormView.inputText == self.passwordInputFormView.inputText)
+        } else {
+            inputFormView.updateValidate()
         }
     }
-    
-    func inputFormView(_ inputFormView: InputFormView, didExitEditing text: String?) {
+
+    func inputFormView(_ inputFormView: InputFormView, didChanged editign: Bool) {
+        if editign == false {
+            if inputFormView.verified == false {
+                inputFormView.setErrorMessage()
+            }
+        } else {
+            inputFormView.clearErrorMessage()
+        }
+        
         let allVerified = self.inputFormViews.allSatisfy { $0.verified }
         updateNextButton(enable: allVerified)
     }

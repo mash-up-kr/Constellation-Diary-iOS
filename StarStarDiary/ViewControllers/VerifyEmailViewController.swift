@@ -92,20 +92,29 @@ extension VerifyEmailViewController: InputFormViewDelegate {
     
     func inputFormView(_ inputFormView: InputFormView, didTimerEnded style: InputFormViewStyle) {
         if inputFormView === self.certificationNumberInputFormView {
-            inputFormView.verified = false
+            inputFormView.updateValidate(force: false)
         }
     }
     
     func inputFormView(_ inputFormView: InputFormView, didChanged text: String?) {
-        let verified = inputFormView.verified
+        inputFormView.clearErrorMessage()
         if inputFormView === self.emailInputFormView {
-            inputFormView.actionButton.backgroundColor = verified ? .buttonBlue : .gray122
-            inputFormView.actionButton.isEnabled = verified
+            inputFormView.updateValidate()
+            let verified = inputFormView.verified
+            inputFormView.showActionButton(enable: verified)
         } else if inputFormView === self.certificationNumberInputFormView {
             guard let text = inputFormView.inputText, text.count >= 6 else { return }
             updateNextButton(enable: true)
         }
     }
+
+    func inputFormView(_ inputFormView: InputFormView, didChanged editign: Bool) {
+        inputFormView.updateValidate()
+    }
+
+}
+
+private extension VerifyEmailViewController {
 
     func requestCertification(_ inputFormView: InputFormView) {
         guard let email = inputFormView.inputText else { return }
@@ -119,8 +128,14 @@ extension VerifyEmailViewController: InputFormViewDelegate {
                 self?.nextButton.isHidden = false
                 self?.updateNextButton(enable: false)
             }
-        }, failure: {
-            print($0)
+        }, failure: {[weak self] error in
+            if error.code == 4009 {
+                self.map {
+                    $0.certificationNumberInputFormView.stopTimer()
+                    $0.emailInputFormView.updateValidate(force: false)
+                    $0.emailInputFormView.setErrorMessage()
+                }
+            }
         })
     }
     
@@ -134,8 +149,9 @@ extension VerifyEmailViewController: InputFormViewDelegate {
             let nextVC = SignUpViewController(token: data.token, email: email)
             self?.navigationController?.pushViewController(nextVC, animated: true)
         }, failure: { [weak self] _ in
-            self?.certificationNumberInputFormView.verified = false
+            self?.certificationNumberInputFormView.updateValidate(force: false)
             self?.certificationNumberInputFormView.inputTextField.text = nil
+            self?.certificationNumberInputFormView.setErrorMessage()
             self?.updateNextButton(enable: false)
         })
     }

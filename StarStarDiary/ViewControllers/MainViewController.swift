@@ -272,7 +272,7 @@ private extension MainViewController {
         }
         
         tutorialView.do {
-            view.addSubview(tutorialView)
+            view.addSubview($0)
             $0.backgroundColor = .dim80
         }
         

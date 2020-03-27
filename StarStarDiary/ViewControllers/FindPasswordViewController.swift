@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class FindPasswordViewController: FormBaseViewController {
     
@@ -15,6 +16,10 @@ final class FindPasswordViewController: FormBaseViewController {
     private let idInputFormView = InputFormView(style: .id)
     private let emailInputFormView = InputFormView(style: .email)
     private let certificationNumberInputFormView = InputFormView(style: .certificationNumber)
+    private var idInputFormViewTopConstraintOriginal: Constraint?
+    private var idInputFormViewTopConstraintOverTop: Constraint?
+    private var nextButtonTopConstraint: Constraint?
+    private var nextButtonTopConstraintOverTop: Constraint?
     
     override func setupAttributes() {
         super.setupAttributes()
@@ -29,8 +34,8 @@ final class FindPasswordViewController: FormBaseViewController {
         
         certificationNumberInputFormView.do {
             $0.actionButton.setTitle("다시 전송", for: .normal)
-            $0.actionButton.isHidden = false
-            $0.actionButton.addTarget(self, action: #selector(self.requestCertificationEmail), for: .touchUpInside)
+            $0.actionButton.addTarget(self, action: #selector(self.requestVerificationCode), for: .touchUpInside)
+            $0.showActionButton(enable: true)
         }
         
         self.inputFormViews = [self.idInputFormView, self.emailInputFormView, self.certificationNumberInputFormView]
@@ -50,7 +55,7 @@ final class FindPasswordViewController: FormBaseViewController {
         }
         
         idInputFormView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(32)
+            self.idInputFormViewTopConstraintOriginal = $0.top.equalTo(titleLabel.snp.bottom).offset(32).constraint
             $0.leading.trailing.equalToSuperview().inset(20)
         }
         
@@ -65,7 +70,7 @@ final class FindPasswordViewController: FormBaseViewController {
         }
         
         nextButton.snp.makeConstraints {
-            $0.top.equalTo(certificationNumberInputFormView.snp.bottom).offset(48)
+            self.nextButtonTopConstraint = $0.top.equalTo(emailInputFormView.snp.bottom).offset(48).constraint
         }
     }
     
@@ -73,10 +78,43 @@ final class FindPasswordViewController: FormBaseViewController {
         super.touchesBegan(touches, with: event)
         self.checkNextButton()
     }
+    
+    override func keyboardWillAppear(frame: CGRect, withDuration: TimeInterval, curve: UIView.AnimationOptions) {
+        super.keyboardWillAppear(frame: frame, withDuration: withDuration, curve: curve)
+        guard self.idInputFormViewTopConstraintOverTop == nil else { return }
+        let buttonFrame = self.nextButton.frame
+        let overlapHeight = buttonFrame.maxY - frame.origin.y
+        guard overlapHeight > 0 else { return }
+        let inset = -(overlapHeight + buttonFrame.height)
+        self.idInputFormView.snp.makeConstraints {
+            self.idInputFormViewTopConstraintOverTop = $0.top.equalToSuperview().inset(inset).constraint
+        }
+        self.idInputFormViewTopConstraintOverTop?.deactivate()
+        if self.certificationNumberInputFormView.isEditing {
+            self.idInputFormViewTopConstraintOverTop?.activate()
+            UIView.animate(withDuration: 0.1, animations: {
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
 
 }
 
 extension FindPasswordViewController: InputFormViewDelegate {
+    func inputFormView(_ inputFormView: InputFormView, didChanged editign: Bool) {
+        
+        if inputFormView == self.certificationNumberInputFormView {
+            let activateConstraint = editign ? self.idInputFormViewTopConstraintOverTop : self.idInputFormViewTopConstraintOriginal
+            let deactivateConstrint = editign ? self.idInputFormViewTopConstraintOriginal : self.idInputFormViewTopConstraintOverTop
+            deactivateConstrint?.deactivate()
+            activateConstraint?.activate()
+            UIView.animate(withDuration: 0.1, animations: {
+                self.idInputFormView.alpha = self.certificationNumberInputFormView.isEditing ? 0 : 1
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
+    
     func inputFormView(_ inputFormView: InputFormView, didTap button: UIButton) {
         if inputFormView == self.certificationNumberInputFormView {
             // 다시 요청
@@ -89,19 +127,17 @@ extension FindPasswordViewController: InputFormViewDelegate {
     }
     
     func inputFormView(_ inputFormView: InputFormView, didChanged text: String?) {
-        let verified = inputFormView.verified
-        if inputFormView === self.emailInputFormView {
-            updateNextButton(enable: verified)
-        } else if inputFormView === self.certificationNumberInputFormView {
-            guard let text = inputFormView.inputText, text.count >= 6 else { return }
-            updateNextButton(enable: true)
+        if inputFormView === self.certificationNumberInputFormView {
+            self.checkNextButton()
+            inputFormView.clearErrorMessage()
+        } else {
+            inputFormView.updateValidate()
         }
         
         if self.certificationNumberInputFormView.isHidden, self.idInputFormView.verified, self.emailInputFormView.verified {
             self.updateNextButton(enable: true)
             return
         }
-        self.checkNextButton()
     }
     
 }
@@ -110,7 +146,7 @@ private extension FindPasswordViewController {
     
     @objc func nextButtonDidTap() {
         if self.certificationNumberInputFormView.isHidden {
-            self.requestCertificationEmail()
+            self.requestVerificationCode()
         } else {
             self.requestVerifyCode()
         }
@@ -140,27 +176,32 @@ private extension FindPasswordViewController {
             self?.navigationController?.pushViewController(resetPasswordViewController, animated: true)
         }, failure: {[weak self] (error: ErrorData) in
             if error.code == 4102 {
-                self?.certificationNumberInputFormView.verified = false
+                self?.certificationNumberInputFormView.updateValidate(force: false)
+                self?.certificationNumberInputFormView.setErrorMessage()
                 self?.updateNextButton(enable: false)
             }
         })
     }
-
-    @objc func requestCertificationEmail() {
+    
+    @objc func requestVerificationCode() {
         guard let email = self.emailInputFormView.inputText,
             let userID = self.idInputFormView.inputText else { return }
         Provider.request(API.authenticationNumbersToFindPassword(email: email, userId: userID), completion: {[weak self] _ in
-            self?.certificationNumberInputFormView.do {
+            guard let self = self else { return }
+            self.nextButtonTopConstraint?.deactivate()
+            self.nextButton.snp.makeConstraints {
+                self.nextButtonTopConstraint = $0.top.equalTo(self.certificationNumberInputFormView.snp.bottom).offset(48).constraint
+            }
+            self.certificationNumberInputFormView.do {
                 $0.isHidden = false
-                $0.actionButton.isHidden = false
-                $0.verified = true
+                $0.updateValidate(force: true)
                 $0.startTimer(duration: 60 * 10)
                 $0.inputTextField.becomeFirstResponder()
             }
-            self?.emailInputFormView.inputTextField.isUserInteractionEnabled = false
-            self?.idInputFormView.inputTextField.isUserInteractionEnabled = false
-            self?.updateNextButton(enable: false)
-            self?.nextButton.setTitle("비밀번호 재설정", for: .normal)
+            self.emailInputFormView.inputTextField.isUserInteractionEnabled = false
+            self.idInputFormView.inputTextField.isUserInteractionEnabled = false
+            self.updateNextButton(enable: false)
+            self.nextButton.setTitle("비밀번호 재설정", for: .normal)
         }, failure: {[weak self] error in
             print(error)
             if error.code == 4002 {

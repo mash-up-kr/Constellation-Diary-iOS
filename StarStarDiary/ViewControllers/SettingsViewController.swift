@@ -272,7 +272,6 @@ private extension SettingsViewController {
         tableView.do {
             $0.delegate = self
             $0.dataSource = self
-            $0.backgroundColor = .clear
             $0.register(SettingBaseTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
             $0.register(BaseTableViewHeaderFooterView.self,
                         forHeaderFooterViewReuseIdentifier: headerFooterViewIdentifier)

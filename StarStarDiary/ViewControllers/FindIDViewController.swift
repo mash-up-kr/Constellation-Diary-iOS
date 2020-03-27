@@ -91,12 +91,15 @@ private extension FindIDViewController {
             self?.didFind(userID: response.userId)
         }, failure: {[weak self] (error: ErrorData) in
             if error.code == 4003 {
-                self?.emailInputFormView.verified = false
+                self?.emailInputFormView.updateValidate(force: false)
+                self?.emailInputFormView.setErrorMessage()
             }
         })
     }
     
     func didFind(userID: String) {
+        let snapshotView = self.view.snapshotView(afterScreenUpdates: false)
+        self.view.superview?.addSubview(snapshotView)
         self.userID = userID
         self.findPasswordButton.isHidden = false
         self.emailInputFormView.titleLabel.text = "아이디 찾기 결과"
@@ -104,22 +107,25 @@ private extension FindIDViewController {
         self.emailInputFormView.isUserInteractionEnabled = false
         self.nextButton.setTitle("로그인 하기", for: .normal)
         self.updateNextButton(enable: true)
+        UIView.animate(withDuration: 0.3, animations: {
+            snapshotView?.alpha = 0.2
+        }, completion: { _ in
+            snapshotView?.removeFromSuperview()
+        })
     }
 }
 
 extension FindIDViewController: InputFormViewDelegate {
 
-    func inputFormView(_ inputFormView: InputFormView, didTap button: UIButton) {
-    }
-    
-    func inputFormView(_ inputFormView: InputFormView, didTimerEnded style: InputFormViewStyle) {
-    }
-
     func inputFormView(_ inputFormView: InputFormView, didChanged text: String?) {
-        let verified = inputFormView.verified
         if inputFormView === self.emailInputFormView {
-            updateNextButton(enable: verified)
+            inputFormView.updateValidate()
+            updateNextButton(enable: inputFormView.verified)
         }
     }
+
+    func inputFormView(_ inputFormView: InputFormView, didTimerEnded style: InputFormViewStyle) { }
+    func inputFormView(_ inputFormView: InputFormView, didTap button: UIButton) { }
+    func inputFormView(_ inputFormView: InputFormView, didChanged editign: Bool) { }
 
 }
