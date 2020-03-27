@@ -161,7 +161,7 @@
 		D5A8C1B223FAC88200C596AF /* MoyaProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaProvider.swift; sourceTree = "<group>"; };
 		D5A8C1B523FAD15F00C596AF /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		D5A8C1B723FADA2900C596AF /* MultiStepNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiStepNavigationController.swift; sourceTree = "<group>"; };
-		D5D0F66C23890DC500DA3169 /* StarStarDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarStarDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5D0F66C23890DC500DA3169 /* 별별일기.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "별별일기.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5D0F66F23890DC500DA3169 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D5D0F67423890DC500DA3169 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D5D0F67723890DC500DA3169 /* StarStarDiary.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StarStarDiary.xcdatamodel; sourceTree = "<group>"; };
@@ -425,7 +425,7 @@
 		D5D0F66D23890DC500DA3169 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D5D0F66C23890DC500DA3169 /* StarStarDiary.app */,
+				D5D0F66C23890DC500DA3169 /* 별별일기.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -466,7 +466,7 @@
 			);
 			name = StarStarDiary;
 			productName = StarStarDiary;
-			productReference = D5D0F66C23890DC500DA3169 /* StarStarDiary.app */;
+			productReference = D5D0F66C23890DC500DA3169 /* 별별일기.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -819,7 +819,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mash-up.StarStarDiary";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "별별일기";
 				PROVISIONING_PROFILE_SPECIFIER = StarStarDiary;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -842,7 +842,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mash-up.StarStarDiary";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "별별일기";
 				PROVISIONING_PROFILE_SPECIFIER = StarStarDiary;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
