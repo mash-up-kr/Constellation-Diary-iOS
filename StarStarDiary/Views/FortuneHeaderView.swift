@@ -69,7 +69,7 @@ final class HoroscopeHeaderView: UIView {
         suggestionLabel.do {
             $0.font = UIFont.systemFont(ofSize: 13)
             $0.textColor = .gray122
-            $0.text = "행운의 키워드를 확인하세요."
+            $0.text = "오늘의 행운 키워드를 확인하세요."
         }
         
         horoscopeItemsView.do {

@@ -145,13 +145,11 @@ private extension InputFormView {
     }
     
     @objc func didEditingChanged(_ textField: UITextField) {
-        print("[caution] didEditingEndOnExit")
         self.lineView.backgroundColor = textField.isEditing ? self.enableColor : self.disabledColor
         self.delegate?.inputFormView(self, didChanged: textField.isEditing)
     }
     
     @objc func didValueChanged(_ textField: UITextField) {
-        print("[caution] didEditingChanged")
         self.lineView.backgroundColor = textField.isEditing ? self.enableColor : self.disabledColor
         self.delegate?.inputFormView(self, didChanged: textField.text)
     }
