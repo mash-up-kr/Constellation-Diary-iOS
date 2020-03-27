@@ -31,9 +31,9 @@ final class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupAttributes()
-        setupConstraints()
-        addKeyboardObserver()
+        self.setupAttributes()
+        self.setupConstraints()
+        self.addKeyboardObserver()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,7 +48,7 @@ final class LoginViewController: UIViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        resizeSignInView()
+        self.resizeSignInView()
     }
 }
 
@@ -69,7 +69,7 @@ extension LoginViewController {
     
     @objc
     private func keyboardWillAppear(notification: Notification) {
-        resizeSignInView()
+        self.resizeSignInView()
     }
     
     func resizeSignInView() {
@@ -85,14 +85,14 @@ extension LoginViewController {
     
     @objc
     private func hideKeyboard() {
-        view.endEditing(true)
+        self.view.endEditing(true)
     }
     
     // MARK: Button
     
     @objc
     private func closeButtonDidTap(_ button: UIButton) {
-        dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc
@@ -131,11 +131,10 @@ extension LoginViewController {
             self?.navigateMain()
             
         }, failure: { [weak self] error in
-            self?.passwordTextField.text = nil
-            self?.idTextField.text = nil
             switch (error as ErrorData).code {
-            case 4015:
+            case 4105:
                 self?.errorMessageLabel.text = "아이디/비밀번호가 맞지 않습니다."
+                self?.passwordTextField.text = nil
             default:
                 self?.errorMessageLabel.text = "로그인에 실패했습니다. 다시 시도해주세요."
             }
@@ -143,7 +142,7 @@ extension LoginViewController {
     }
     
     private func navigateMain() {
-        dismiss(animated: true) { [weak self] in
+        self.dismiss(animated: true) { [weak self] in
             guard let strongSelf = self else { return }
             let mainViewController = MainViewController()
 
@@ -160,10 +159,10 @@ extension LoginViewController {
 private extension LoginViewController {
     
     func setupAttributes() {
-        setupViews()
-        setupLabels()
-        setupTextFields()
-        setupButtons()
+        self.setupViews()
+        self.setupLabels()
+        self.setupTextFields()
+        self.setupButtons()
     }
     
     func setupViews() {

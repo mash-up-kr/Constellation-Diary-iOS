@@ -12,6 +12,7 @@ import Then
 
 protocol InputFormViewDelegate: class {
     func inputFormView(_ inputFormView: InputFormView, didTimerEnded style: InputFormViewStyle)
+    func inputFormView(_ inputFormView: InputFormView, didChanged editign: Bool)
     func inputFormView(_ inputFormView: InputFormView, didChanged text: String?)
     func inputFormView(_ inputFormView: InputFormView, didTap button: UIButton)
 }
@@ -25,6 +26,10 @@ final class InputFormView: UIView {
         return self.inputTextField.text
     }
     
+    var isEditing: Bool {
+        return self.inputTextField.isEditing
+    }
+    
     let titleLabel = UILabel()
     let actionButton: UIButton = UIButton(type: .system)
     let lineView: UIView = UIView().then { $0.backgroundColor = .white216 }
@@ -34,17 +39,18 @@ final class InputFormView: UIView {
     private let messageLabel: UILabel = UILabel()
     private let timerLabel: UILabel = UILabel()
     
-    var verified: Bool = false {
-        didSet {
-            let newValue = self.verified
-            self.actionButton.isEnabled = newValue
-            self.messageLabel.text = newValue ? "" : style.invalidMessage
-            
-            let color = newValue ? self.enableColor : self.disabledColor
-            self.actionButton.backgroundColor = color
-            self.lineView.backgroundColor = color
-        }
-    }
+    private (set) var verified: Bool = false
+//    var verified: Bool = false {
+//        didSet {
+//            let newValue = self.verified
+//            self.actionButton.isEnabled = newValue
+////            self.messageLabel.text = newValue ? "" : style.invalidMessage
+//
+//            let color = newValue ? self.enableColor : self.disabledColor
+//            self.actionButton.backgroundColor = color
+//            self.lineView.backgroundColor = color
+//        }
+//    }
     private var style: InputFormViewStyle = .email
     
     private var startDate: Date?
@@ -84,11 +90,31 @@ final class InputFormView: UIView {
         resetTimer()
     }
     
-    func checkValidate() {
+    func updateValidate(force verified: Bool? = nil) {
+        if let verified = verified {
+            self.verified = verified
+            return
+        }
         guard self.style.checksValidate == true, let inputText = self.inputText else { return }
         self.verified = self.style.isValid(inputText)
     }
     
+    func setErrorMessage(_ content: String? = nil) {
+        self.messageLabel.text = content ?? self.style.invalidMessage
+        self.lineView.backgroundColor = .coral255
+    }
+    
+    func clearErrorMessage() {
+        self.messageLabel.text = nil
+    }
+
+    func showActionButton(enable: Bool) {
+        self.actionButton.do {
+            $0.isHidden = false
+            $0.isEnabled = enable
+            $0.backgroundColor = enable ? self.enableColor : self.disabledColor
+        }
+    }
 }
 
 private extension InputFormView {
@@ -118,14 +144,14 @@ private extension InputFormView {
         }
     }
     
-    @objc func didEditingEndOnExit(_ textField: UITextField) {
-        if let text = textField.text, style.checksValidate {
-            self.verified = style.isValid(text)
-        }
-        self.delegate?.inputFormView(self, didChanged: textField.text)
+    @objc func didEditingChanged(_ textField: UITextField) {
+        print("[caution] didEditingEndOnExit")
+        self.lineView.backgroundColor = textField.isEditing ? self.enableColor : self.disabledColor
+        self.delegate?.inputFormView(self, didChanged: textField.isEditing)
     }
     
-    @objc func didEditingChanged(_ textField: UITextField) {
+    @objc func didValueChanged(_ textField: UITextField) {
+        print("[caution] didEditingChanged")
         self.lineView.backgroundColor = textField.isEditing ? self.enableColor : self.disabledColor
         self.delegate?.inputFormView(self, didChanged: textField.text)
     }
@@ -204,10 +230,10 @@ private extension InputFormView {
             $0.autocorrectionType = .no
             $0.autocapitalizationType = .none
             $0.spellCheckingType = .no
-            $0.addTarget(self, action: #selector(didEditingEndOnExit), for: .editingDidEndOnExit)
-            $0.addTarget(self, action: #selector(didEditingChanged), for: .editingDidBegin)
-            $0.addTarget(self, action: #selector(didEditingChanged), for: .editingDidEnd)
-            $0.addTarget(self, action: #selector(didEditingChanged), for: .editingChanged)
+            $0.addTarget(self, action: #selector(didEditingChanged(_:)), for: .editingDidEndOnExit)
+            $0.addTarget(self, action: #selector(didEditingChanged(_:)), for: .editingDidBegin)
+            $0.addTarget(self, action: #selector(didEditingChanged(_:)), for: .editingDidEnd)
+            $0.addTarget(self, action: #selector(didValueChanged(_:)), for: .editingChanged)
         }
         
         timerLabel.do {
@@ -278,7 +304,7 @@ enum InputFormViewStyle {
         case .signUpPassword, .resetPassword: return "비밀번호는 영문자 숫자를 포함한 6~12 글자여야 합니다."
         case .confirmPassword: return "비밀번호 불일치"
         case .signInPassword: return "아이디/비밀번호가 맞지 않습니다."
-        case .email: return "유효하지 않은 이메일"
+        case .email: return "이미 가입된 이메일주소입니다."
         case .certificationNumber: return "인증번호 오류"
         case .findID: return "아이디를 찾을 수 없습니다."
         }

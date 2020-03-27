@@ -192,7 +192,8 @@ extension DiaryAPI: TargetType {
             return .requestParameters(parameters: ["constellation": constellation,
                                                    "email": email,
                                                    "password": password,
-                                                   "userId": userId],
+                                                   "userId": userId,
+                                                   "fcmToken": UserDefaults.fcmToken ?? ""],
                                       encoding: JSONEncoding.default)
         }
     }

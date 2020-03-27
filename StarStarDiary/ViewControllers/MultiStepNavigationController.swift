@@ -63,7 +63,7 @@ extension MultiStepNavigationController: UINavigationControllerDelegate {
     
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         let leftButtonItem = self.viewControllers.first == viewController ? self.closeItem : self.backItem
-        viewController.navigationItem.setLeftBarButton(leftButtonItem, animated: false)
+        viewController.navigationItem.setLeftBarButton(leftButtonItem, animated: animated)
     }
     
 }

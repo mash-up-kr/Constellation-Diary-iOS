@@ -129,10 +129,12 @@ final class ConstellationSelectionViewController: UIViewController {
         UserDefaults.constellation = constellation
         Provider.request(.modifyConstellations(constellation: constellation.name), completion: { [weak self] (data: UserDto) in
             UserManager.share.login(with: data)
-            
-            if let self = self, self.type == .horoscope {
-                DispatchQueue.main.async { [weak self] in
+
+            DispatchQueue.main.async { [weak self] in
+                if self?.type == .select {
                     self?.navigateMainView()
+                } else {
+                    self?.navigationController?.dismiss(animated: true, completion: nil)
                 }
             }
         }, failure: { _ in
