@@ -261,8 +261,6 @@ private extension MainViewController {
     
     func setupTutorialView() {
         
-        UserDefaults.isFirstIn = false
-
         view.do {
             self.gesture = UILongPressGestureRecognizer(target: self, action: #selector(didTouchView))
             if let gesture = self.gesture {
@@ -282,10 +280,13 @@ private extension MainViewController {
         }
         
         // FIXME: - 서버 api 나오면 반영해야함.
-        guard UserDefaults.isFirstIn == true else {
+        if UserDefaults.isFirstIn == false  {
             tutorialView.isHidden = true
             return
         }
+        
+        UserDefaults.isFirstIn = false
+
     }
     
     func setupTutoContentsView() {
