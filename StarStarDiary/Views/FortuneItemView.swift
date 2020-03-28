@@ -37,7 +37,7 @@ final class HoroscopeItemView: UIView {
         addSubview(label)
         imageView.do {
             $0.contentMode = .scaleAspectFit
-            $0.frame.size = CGSize(width: 40, height: 40)
+            $0.frame.size = CGSize(width: 24, height: 24)
         }
 
         label.do {
@@ -53,10 +53,10 @@ final class HoroscopeItemView: UIView {
         imageView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(7.5)
             $0.centerX.equalToSuperview()
-            $0.width.height.equalTo(40)
+            $0.width.height.equalTo(24)
         }
         label.snp.makeConstraints {
-            $0.top.equalTo(imageView.snp.bottom).inset(3)
+            $0.top.equalTo(imageView.snp.bottom).inset(-11)
             $0.leading.trailing.equalToSuperview()
             $0.width.equalTo(56)
             $0.bottom.equalToSuperview().offset(1)

@@ -17,7 +17,7 @@ enum HoroscopeType: CaseIterable {
     var image: UIImage? {
         switch self {
         case .clothes:
-            return UIImage(named: "icClothes48")
+            return UIImage(named: "iconItems")
         case .number:
             return UIImage(named: "iconNumber")
         case .word:

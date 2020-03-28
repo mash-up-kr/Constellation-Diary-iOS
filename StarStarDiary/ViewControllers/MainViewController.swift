@@ -64,6 +64,7 @@ final class MainViewController: UIViewController {
         super.viewWillAppear(animated)
         
 //        setupNavigationBar()
+        setupNavigationTitleView()
         lottieView.play()
     }
     
@@ -93,6 +94,7 @@ final class MainViewController: UIViewController {
     func bind(diary: DiaryDto) {
         self.diary = diary
         setTitle(diary.title)
+        self.writeDiaryLabel.text = "일기 수정 >"
     }
     
 }
