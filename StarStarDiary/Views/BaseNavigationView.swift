@@ -21,8 +21,8 @@ class BaseNavigationView: UIView {
     private let bottomLineView = UIView(frame: .zero)
     
     private let buttonSize: CGFloat = 24.0
-    private let horizontalGap: CGFloat = 20.0
-    private let buttonGap: CGFloat = 16.0
+    private let horizontalGap: CGFloat = 10.0
+    private let buttonGap: CGFloat = 8.0
     
     // MARK: - Init
     
@@ -153,7 +153,8 @@ private extension BaseNavigationView {
         buttonLeft.do {
             $0.snp.makeConstraints { (make) in
                 make.centerY.equalToSuperview()
-                make.height.width.equalTo(buttonSize)
+                make.top.equalToSuperview()
+                make.width.equalTo(buttonLeft.snp.height)
                 make.leading.equalTo(self.snp.leading).offset(horizontalGap)
             }
             $0.isHidden = true
@@ -161,16 +162,18 @@ private extension BaseNavigationView {
         
         buttonRight.do {
             $0.snp.makeConstraints { (make) in
-                make.centerY.height.equalToSuperview()
-                make.leading.equalTo(buttonSubRight.snp.trailing).offset(buttonGap)
+                make.centerY.top.equalToSuperview()
+                make.width.equalTo(buttonRight.snp.height)
+                make.leading.equalTo(buttonSubRight.snp.trailing)
                 make.trailing.equalTo(self.snp.trailing).inset(horizontalGap)
             }
             $0.isHidden = true
         }
         
         buttonSubRight.do {
-            $0.snp.makeConstraints { maker in
-                maker.centerY.height.equalToSuperview()
+            $0.snp.makeConstraints { make in
+                make.centerY.top.equalToSuperview()
+                make.width.equalTo(buttonSubRight.snp.height)
             }
             $0.isHidden = true
         }

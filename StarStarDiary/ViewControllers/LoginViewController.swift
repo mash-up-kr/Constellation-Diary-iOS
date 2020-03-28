@@ -54,6 +54,16 @@ final class LoginViewController: UIViewController {
 
 // MARK: - Action
 
+extension LoginViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.hideKeyboard()
+        return true
+    }
+    
+    
+}
+
 extension LoginViewController {
     
     private func addKeyboardObserver() {
@@ -180,7 +190,7 @@ private extension LoginViewController {
         }
     }
     
-    private func setupLabels() {
+    func setupLabels() {
         titleLabel.do {
             $0.text = "로그인"
             $0.font = UIFont.font(.notoSerifCJKMedium, size: 26)
@@ -207,7 +217,7 @@ private extension LoginViewController {
         }
     }
     
-    private func setupTextFields() {
+    func setupTextFields() {
         idTextField.do {
             $0.placeholder = "아이디 입력"
             $0.font = UIFont.font(.notoSerifCJKMedium, size: 18)
@@ -226,12 +236,13 @@ private extension LoginViewController {
             $0.autocorrectionType = .no
             $0.spellCheckingType = .no
             $0.autocapitalizationType = .none
+            $0.delegate = self
             addUnderline(to: $0)
             view.addSubview($0)
         }
     }
     
-    private func addUnderline(to textfield: UITextField) {
+    func addUnderline(to textfield: UITextField) {
         UIView().do {
             textfield.addSubview($0)
             $0.backgroundColor = .white216
@@ -241,7 +252,7 @@ private extension LoginViewController {
         }
     }
     
-    private func setupButtons() {
+    func setupButtons() {
         closeButton.do {
             $0.addTarget(self, action: #selector(closeButtonDidTap), for: .touchUpInside)
             $0.setImage(UIImage(named: "icClose24"), for: .normal)
