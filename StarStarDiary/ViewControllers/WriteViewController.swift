@@ -95,7 +95,7 @@ extension WriteViewController: UITextViewDelegate {
             textView.snp.updateConstraints {
                 $0.height.equalTo(textView.contentSize.height)
             }
-            return self.titleTextView.text.count < 30
+            return text.isEmpty || self.titleTextView.text.count < 30
         }
         return true
     }
@@ -216,7 +216,7 @@ private extension WriteViewController {
     func initLayout() {
         navigationView.snp.makeConstraints {
             $0.height.equalTo(44.0)
-            $0.top.equalTo(view.snp.topMargin)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             $0.leading.trailing.equalToSuperview()
         }
 
