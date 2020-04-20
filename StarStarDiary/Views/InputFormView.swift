@@ -228,6 +228,7 @@ private extension InputFormView {
             $0.autocorrectionType = .no
             $0.autocapitalizationType = .none
             $0.spellCheckingType = .no
+            $0.returnKeyType = .done
             $0.addTarget(self, action: #selector(didEditingChanged(_:)), for: .editingDidEndOnExit)
             $0.addTarget(self, action: #selector(didEditingChanged(_:)), for: .editingDidBegin)
             $0.addTarget(self, action: #selector(didEditingChanged(_:)), for: .editingDidEnd)

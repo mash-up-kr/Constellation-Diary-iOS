@@ -137,7 +137,6 @@ final class SideMenuViewController: UIViewController {
         }
 
         constellationDateLabel.do {
-            $0.text = "08.23 ~ 10.01"
             $0.textColor = .lightGray
             $0.textAlignment = .center
             $0.font = UIFont.font(.notoSerifCJKRegular, size: 10.0)
@@ -263,6 +262,7 @@ final class SideMenuViewController: UIViewController {
     @objc func updateConstellation() {
         let constellation = UserDefaults.constellation
         constellationTextLabel.text = constellation.name
+        constellationDateLabel.text = constellation.date
         constellationImageView.image = constellation.iconBlack
     }
     
