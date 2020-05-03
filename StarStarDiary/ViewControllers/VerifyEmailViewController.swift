@@ -162,19 +162,22 @@ private extension VerifyEmailViewController {
             $0.backgroundColor = .coral255
             $0.textColor = .white
             $0.font = UIFont.font(.notoSerifCJKBold, size: 13)
+            $0.text = "이미 가입된 이메일입니다."
+            $0.clipsToBounds = true
             $0.layer.cornerRadius = 26
-            $0.frame.size = CGSize(width: 263, height: 52)
+            $0.textAlignment = .center
+            $0.sizeToFit()
+            $0.frame.size = CGSize(width: $0.frame.width + 40, height: 52)
             $0.center = self.view.center
             $0.alpha = 0
-            $0.text = "이미 가입된 이메일입니다."
             self.view.addSubview($0)
         }
         
         UIView.animateKeyframes(withDuration: 2, delay: 0, animations: {
-            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5/2) {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.2/2) {
                 errorLabel.alpha = 1
             }
-            UIView.addKeyframe(withRelativeStartTime: 1.5/2, relativeDuration: 1/2) {
+            UIView.addKeyframe(withRelativeStartTime: 1.7/2, relativeDuration: 0.3/2) {
                 errorLabel.alpha = 0
             }
         }, completion: { _ in
