@@ -30,19 +30,25 @@ struct Provider {
         }
     }
     
-    static func request(_ service: DiaryAPI, completion: @escaping ((Bool) -> Void), failure: @escaping ((ErrorData) -> Void) = defaultFailureHandler) {
+    static func request(_ service: DiaryAPI,
+                        completion: @escaping ((Bool) -> Void),
+                        failure: @escaping ((ErrorData) -> Void) = defaultFailureHandler) {
         diaryProvider.request(service) {
             self.task($0, completion: completion, failure: failure)
         }
     }
 
-    static func request<T: Decodable>(_ service: API, completion: @escaping ResultCompletion<T>, failure: @escaping ((ErrorData) -> Void) = defaultFailureHandler) {
+    static func request<T: Decodable>(_ service: API,
+                                      completion: @escaping ResultCompletion<T>,
+                                      failure: @escaping ((ErrorData) -> Void) = defaultFailureHandler) {
         provider.request(service) { result in
             self.task(result, completion: completion, failure: failure)
         }
     }
     
-    static func request<T: Decodable>(_ service: DiaryAPI, completion:  @escaping ResultCompletion<T>, failure: @escaping ((ErrorData) -> Void) = defaultFailureHandler) {
+    static func request<T: Decodable>(_ service: DiaryAPI,
+                                      completion:  @escaping ResultCompletion<T>,
+                                      failure: @escaping ((ErrorData) -> Void) = defaultFailureHandler) {
         diaryProvider.request(service) { result in
             self.task(result, completion: completion, failure: failure)
         }
@@ -52,7 +58,9 @@ struct Provider {
 
 private extension Provider {
     
-    static func task<T: Decodable>(_ result: Result<Moya.Response, MoyaError>, completion: ResultCompletion<T>, failure: @escaping ((ErrorData) -> Void)) {
+    static func task<T: Decodable>(_ result: Result<Moya.Response, MoyaError>,
+                                   completion: ResultCompletion<T>,
+                                   failure: @escaping ((ErrorData) -> Void)) {
         switch result {
         case .success(let response):
             let statusCode = response.statusCode

@@ -243,7 +243,7 @@ final class SideMenuViewController: UIViewController {
     @objc
     private func didTapSettings(sender: AnyObject?) {
         let viewController = SettingsViewController()
-        viewController.do {
+        UINavigationController(rootViewController: viewController).do {
             $0.modalPresentationStyle = .fullScreen
             self.present($0, animated: true, completion: nil)
         }

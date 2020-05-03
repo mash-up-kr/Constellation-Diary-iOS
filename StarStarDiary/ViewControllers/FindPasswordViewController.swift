@@ -175,7 +175,7 @@ private extension FindPasswordViewController {
             resetPasswordViewController.bind(token: response.token)
             self?.navigationController?.pushViewController(resetPasswordViewController, animated: true)
         }, failure: {[weak self] (error: ErrorData) in
-            if error.code == 4102 {
+            if error.code == .invalidCode {
                 self?.certificationNumberInputFormView.updateValidate(force: false)
                 self?.certificationNumberInputFormView.setErrorMessage()
                 self?.updateNextButton(enable: false)
@@ -203,8 +203,7 @@ private extension FindPasswordViewController {
             self.updateNextButton(enable: false)
             self.nextButton.setTitle("비밀번호 재설정", for: .normal)
         }, failure: {[weak self] error in
-            print(error)
-            if error.code == 4002 {
+            if error.code == .noResult {
                 self?.showErrorView()
             }
         })

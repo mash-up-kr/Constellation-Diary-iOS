@@ -142,7 +142,7 @@ extension LoginViewController {
             
         }, failure: { [weak self] error in
             switch (error as ErrorData).code {
-            case 4105:
+            case .loginFail:
                 self?.errorMessageLabel.text = "아이디/비밀번호가 맞지 않습니다."
                 self?.passwordTextField.text = nil
             default:

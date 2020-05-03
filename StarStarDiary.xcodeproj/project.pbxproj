@@ -10,8 +10,6 @@
 		0E160CD523AA51E6000CA518 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E160CD423AA51E6000CA518 /* LoginViewController.swift */; };
 		0E160CD823ABED80000CA518 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E160CD723ABED80000CA518 /* UITextField+.swift */; };
 		0E2874C223F81E7300730C1E /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2874C123F81E7300730C1E /* NetworkError.swift */; };
-		0E2874C523F81F7B00730C1E /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2874C423F81F7B00730C1E /* Provider.swift */; };
-		0E2874C723F8201600730C1E /* DiaryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2874C623F8201600730C1E /* DiaryProvider.swift */; };
 		0E3272912389BDE000EF36B4 /* DateFormatter+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E32728F2389BDE000EF36B4 /* DateFormatter+.swift */; };
 		0E3272922389BDE000EF36B4 /* UIColor+Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */; };
 		0E3272962389C37300EF36B4 /* FortuneDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3272952389C37300EF36B4 /* FortuneDetailViewController.swift */; };
@@ -26,7 +24,6 @@
 		0E79613A23F0444C008446CB /* DiaryDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79612F23F0444C008446CB /* DiaryDto.swift */; };
 		0E79613B23F0444C008446CB /* HoroscopeDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79613023F0444C008446CB /* HoroscopeDto.swift */; };
 		0E79613D23F04474008446CB /* LocalTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79613C23F04474008446CB /* LocalTime.swift */; };
-		0E79613F23F04FB1008446CB /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E79613E23F04FB1008446CB /* NetworkProvider.swift */; };
 		0EDB40F023CA54350020B0EF /* Constellation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40EF23CA54350020B0EF /* Constellation.swift */; };
 		0EDB40F223CA54830020B0EF /* ConstellationSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40F123CA54830020B0EF /* ConstellationSelectionViewController.swift */; };
 		0EDB40F523CA56140020B0EF /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDB40F423CA56140020B0EF /* Reusable.swift */; };
@@ -46,7 +43,6 @@
 		D540608724113C3C00E8EECB /* background.json in Resources */ = {isa = PBXBuildFile; fileRef = D540608624113C3C00E8EECB /* background.json */; };
 		D544F2862389672C009B3967 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D544F2852389672C009B3967 /* MainViewController.swift */; };
 		D54F6CF023BB53D4001DA319 /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54F6CEF23BB53D4001DA319 /* Diary.swift */; };
-		D54F6CF523BB5DE2001DA319 /* Sample.json in Resources */ = {isa = PBXBuildFile; fileRef = D54F6CF423BB5DE2001DA319 /* Sample.json */; };
 		D54F6CF723BB60D4001DA319 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54F6CF623BB60D4001DA319 /* Date+.swift */; };
 		D54F6CFB23BB7499001DA319 /* DiaryTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54F6CFA23BB7499001DA319 /* DiaryTableHeaderView.swift */; };
 		D54F6CFD23DC7EA4001DA319 /* FortuneHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54F6CFC23DC7EA4001DA319 /* FortuneHeaderView.swift */; };
@@ -56,17 +52,12 @@
 		D54F6D0D23E46475001DA319 /* NotoSansCJKkr-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D54F6D0A23E46473001DA319 /* NotoSansCJKkr-Medium.otf */; };
 		D54F6D0E23E46475001DA319 /* NotoSansCJKkr-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D54F6D0B23E46474001DA319 /* NotoSansCJKkr-Bold.otf */; };
 		D54F6D0F23E46475001DA319 /* NotoSansCJKkr-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D54F6D0C23E46475001DA319 /* NotoSansCJKkr-Regular.otf */; };
+		D5506241245487360029449C /* SettingDeveloperInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5506240245487360029449C /* SettingDeveloperInfoViewController.swift */; };
 		D5580E45241D5F7700BD769F /* FindPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5580E44241D5F7700BD769F /* FindPasswordViewController.swift */; };
 		D5580E47241D6B5800BD769F /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5580E46241D6B5800BD769F /* ResetPasswordViewController.swift */; };
 		D5580E49241E01D000BD769F /* FormBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5580E48241E01D000BD769F /* FormBaseViewController.swift */; };
-		D5847DF223E56C8500D8BA8E /* KoreanYMJE.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DEE23E56C8400D8BA8E /* KoreanYMJE.otf */; };
-		D5847DF323E56C8500D8BA8E /* KoreanYMJM.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DEF23E56C8500D8BA8E /* KoreanYMJM.otf */; };
 		D5847DF423E56C8500D8BA8E /* KoreanYMJB.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DF023E56C8500D8BA8E /* KoreanYMJB.otf */; };
-		D5847DF523E56C8500D8BA8E /* KoreanYMJL.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DF123E56C8500D8BA8E /* KoreanYMJL.otf */; };
 		D5847DF923F0104300D8BA8E /* ConstellationSelectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5847DF823F0104300D8BA8E /* ConstellationSelectionViewFlowLayout.swift */; };
-		D5847DFD23FABD5200D8BA8E /* NanumMyeongjo-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DFA23FABD5100D8BA8E /* NanumMyeongjo-Bold.otf */; };
-		D5847DFE23FABD5200D8BA8E /* NanumMyeongjoExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DFB23FABD5100D8BA8E /* NanumMyeongjoExtraBold.otf */; };
-		D5847DFF23FABD5200D8BA8E /* NanumMyeongjo.otf in Resources */ = {isa = PBXBuildFile; fileRef = D5847DFC23FABD5200D8BA8E /* NanumMyeongjo.otf */; };
 		D58CBF05241689AD00C66FE7 /* DiaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58CBF04241689AD00C66FE7 /* DiaryTableViewCell.swift */; };
 		D5A8C1B323FAC88200C596AF /* MoyaProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A8C1B223FAC88200C596AF /* MoyaProvider.swift */; };
 		D5A8C1B623FAD15F00C596AF /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A8C1B523FAD15F00C596AF /* UserManager.swift */; };
@@ -97,8 +88,6 @@
 		0E160CD423AA51E6000CA518 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0E160CD723ABED80000CA518 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		0E2874C123F81E7300730C1E /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
-		0E2874C423F81F7B00730C1E /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
-		0E2874C623F8201600730C1E /* DiaryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryProvider.swift; sourceTree = "<group>"; };
 		0E32728F2389BDE000EF36B4 /* DateFormatter+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+.swift"; sourceTree = "<group>"; };
 		0E3272902389BDE000EF36B4 /* UIColor+Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Resource.swift"; sourceTree = "<group>"; };
 		0E3272952389C37300EF36B4 /* FortuneDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FortuneDetailViewController.swift; sourceTree = "<group>"; };
@@ -113,7 +102,6 @@
 		0E79612F23F0444C008446CB /* DiaryDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryDto.swift; sourceTree = "<group>"; };
 		0E79613023F0444C008446CB /* HoroscopeDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoroscopeDto.swift; sourceTree = "<group>"; };
 		0E79613C23F04474008446CB /* LocalTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalTime.swift; sourceTree = "<group>"; };
-		0E79613E23F04FB1008446CB /* NetworkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
 		0EDB40EF23CA54350020B0EF /* Constellation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constellation.swift; sourceTree = "<group>"; };
 		0EDB40F123CA54830020B0EF /* ConstellationSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstellationSelectionViewController.swift; sourceTree = "<group>"; };
 		0EDB40F423CA56140020B0EF /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
@@ -136,7 +124,6 @@
 		D544F2852389672C009B3967 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D544F28923898405009B3967 /* DateFormatter+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DateFormatter+.swift"; path = "StarStarDiary/Extensions/DateFormatter+.swift"; sourceTree = SOURCE_ROOT; };
 		D54F6CEF23BB53D4001DA319 /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Diary.swift; path = StarStarDiary/Views/Diary.swift; sourceTree = SOURCE_ROOT; };
-		D54F6CF423BB5DE2001DA319 /* Sample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Sample.json; sourceTree = "<group>"; };
 		D54F6CF623BB60D4001DA319 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		D54F6CFA23BB7499001DA319 /* DiaryTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTableHeaderView.swift; sourceTree = "<group>"; };
 		D54F6CFC23DC7EA4001DA319 /* FortuneHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FortuneHeaderView.swift; sourceTree = "<group>"; };
@@ -146,17 +133,12 @@
 		D54F6D0A23E46473001DA319 /* NotoSansCJKkr-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansCJKkr-Medium.otf"; sourceTree = "<group>"; };
 		D54F6D0B23E46474001DA319 /* NotoSansCJKkr-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansCJKkr-Bold.otf"; sourceTree = "<group>"; };
 		D54F6D0C23E46475001DA319 /* NotoSansCJKkr-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansCJKkr-Regular.otf"; sourceTree = "<group>"; };
+		D5506240245487360029449C /* SettingDeveloperInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingDeveloperInfoViewController.swift; sourceTree = "<group>"; };
 		D5580E44241D5F7700BD769F /* FindPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordViewController.swift; sourceTree = "<group>"; };
 		D5580E46241D6B5800BD769F /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		D5580E48241E01D000BD769F /* FormBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormBaseViewController.swift; sourceTree = "<group>"; };
-		D5847DEE23E56C8400D8BA8E /* KoreanYMJE.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = KoreanYMJE.otf; sourceTree = "<group>"; };
-		D5847DEF23E56C8500D8BA8E /* KoreanYMJM.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = KoreanYMJM.otf; sourceTree = "<group>"; };
 		D5847DF023E56C8500D8BA8E /* KoreanYMJB.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = KoreanYMJB.otf; sourceTree = "<group>"; };
-		D5847DF123E56C8500D8BA8E /* KoreanYMJL.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = KoreanYMJL.otf; sourceTree = "<group>"; };
 		D5847DF823F0104300D8BA8E /* ConstellationSelectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstellationSelectionViewFlowLayout.swift; sourceTree = "<group>"; };
-		D5847DFA23FABD5100D8BA8E /* NanumMyeongjo-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NanumMyeongjo-Bold.otf"; sourceTree = "<group>"; };
-		D5847DFB23FABD5100D8BA8E /* NanumMyeongjoExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumMyeongjoExtraBold.otf; sourceTree = "<group>"; };
-		D5847DFC23FABD5200D8BA8E /* NanumMyeongjo.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumMyeongjo.otf; sourceTree = "<group>"; };
 		D58CBF04241689AD00C66FE7 /* DiaryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryTableViewCell.swift; sourceTree = "<group>"; };
 		D5A8C1B223FAC88200C596AF /* MoyaProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaProvider.swift; sourceTree = "<group>"; };
 		D5A8C1B523FAD15F00C596AF /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
@@ -209,9 +191,6 @@
 		0E2874C323F81F6000730C1E /* Providers */ = {
 			isa = PBXGroup;
 			children = (
-				0E2874C423F81F7B00730C1E /* Provider.swift */,
-				0E79613E23F04FB1008446CB /* NetworkProvider.swift */,
-				0E2874C623F8201600730C1E /* DiaryProvider.swift */,
 				D5A8C1B223FAC88200C596AF /* MoyaProvider.swift */,
 			);
 			path = Providers;
@@ -220,6 +199,7 @@
 		0E32727A2389621600EF36B4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				D5506243245487440029449C /* Setting */,
 				D54060822411337A00E8EECB /* SplashViewController.swift */,
 				D5F23D2E23AA9E4C002F8127 /* OnBoardingViewController.swift */,
 				0E160CD423AA51E6000CA518 /* LoginViewController.swift */,
@@ -234,8 +214,6 @@
 				0E3272952389C37300EF36B4 /* FortuneDetailViewController.swift */,
 				DBF122EF2389673300EFE5B2 /* WriteViewController.swift */,
 				9CF049FA23A918B400A85BEC /* SideMenuViewController.swift */,
-				9CF049FE23A92F5D00A85BEC /* SettingsViewController.swift */,
-				DBAF024123AE2C9B0044E2DD /* SettingsViewController+cell.swift */,
 				DB9EA41423AE90A000F4488D /* DiaryListViewController.swift */,
 				0EDB40F123CA54830020B0EF /* ConstellationSelectionViewController.swift */,
 				DBF6325023EF038B006E60FF /* DiaryCalendarViewController.swift */,
@@ -377,7 +355,6 @@
 				D5D0F67623890DC500DA3169 /* StarStarDiary.xcdatamodeld */,
 				DBF6324D23EDD433006E60FF /* StarStarDiary.entitlements */,
 				DBF6324E23EDD77E006E60FF /* GoogleService-Info.plist */,
-				D54F6CF423BB5DE2001DA319 /* Sample.json */,
 				D5406080240FED7800E8EECB /* splash.json */,
 				D540608424113C0E00E8EECB /* loading.json */,
 				D540608624113C3C00E8EECB /* background.json */,
@@ -388,18 +365,22 @@
 		D54F6D0323E460B5001DA319 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				D5847DFC23FABD5200D8BA8E /* NanumMyeongjo.otf */,
-				D5847DFA23FABD5100D8BA8E /* NanumMyeongjo-Bold.otf */,
-				D5847DFB23FABD5100D8BA8E /* NanumMyeongjoExtraBold.otf */,
 				D5847DF023E56C8500D8BA8E /* KoreanYMJB.otf */,
-				D5847DEE23E56C8400D8BA8E /* KoreanYMJE.otf */,
-				D5847DF123E56C8500D8BA8E /* KoreanYMJL.otf */,
-				D5847DEF23E56C8500D8BA8E /* KoreanYMJM.otf */,
 				D54F6D0B23E46474001DA319 /* NotoSansCJKkr-Bold.otf */,
 				D54F6D0A23E46473001DA319 /* NotoSansCJKkr-Medium.otf */,
 				D54F6D0C23E46475001DA319 /* NotoSansCJKkr-Regular.otf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		D5506243245487440029449C /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				9CF049FE23A92F5D00A85BEC /* SettingsViewController.swift */,
+				D5506240245487360029449C /* SettingDeveloperInfoViewController.swift */,
+				DBAF024123AE2C9B0044E2DD /* SettingsViewController+cell.swift */,
+			);
+			name = Setting;
 			sourceTree = "<group>";
 		};
 		D5A8C1B423FAD15500C596AF /* Manager */ = {
@@ -512,19 +493,12 @@
 				D5847DF423E56C8500D8BA8E /* KoreanYMJB.otf in Resources */,
 				D54F6D0D23E46475001DA319 /* NotoSansCJKkr-Medium.otf in Resources */,
 				D540608724113C3C00E8EECB /* background.json in Resources */,
-				D5847DFD23FABD5200D8BA8E /* NanumMyeongjo-Bold.otf in Resources */,
 				D5D0F67D23890DC600DA3169 /* LaunchScreen.storyboard in Resources */,
 				D54F6D0F23E46475001DA319 /* NotoSansCJKkr-Regular.otf in Resources */,
 				D540608524113C0E00E8EECB /* loading.json in Resources */,
-				D5847DFE23FABD5200D8BA8E /* NanumMyeongjoExtraBold.otf in Resources */,
-				D5847DF323E56C8500D8BA8E /* KoreanYMJM.otf in Resources */,
 				D5D0F67A23890DC600DA3169 /* Assets.xcassets in Resources */,
 				D54F6D0E23E46475001DA319 /* NotoSansCJKkr-Bold.otf in Resources */,
 				D5D0F67523890DC500DA3169 /* Main.storyboard in Resources */,
-				D54F6CF523BB5DE2001DA319 /* Sample.json in Resources */,
-				D5847DF223E56C8500D8BA8E /* KoreanYMJE.otf in Resources */,
-				D5847DF523E56C8500D8BA8E /* KoreanYMJL.otf in Resources */,
-				D5847DFF23FABD5200D8BA8E /* NanumMyeongjo.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,10 +569,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E79613F23F04FB1008446CB /* NetworkProvider.swift in Sources */,
 				0E79610E23EF2103008446CB /* String+.swift in Sources */,
 				DBAF024023AE2B480044E2DD /* Bundle+appVersion.swift in Sources */,
-				0E2874C523F81F7B00730C1E /* Provider.swift in Sources */,
 				D5D0F67823890DC500DA3169 /* StarStarDiary.xcdatamodeld in Sources */,
 				D54F6CFF23DC824A001DA319 /* FortuneItem.swift in Sources */,
 				DBF122F02389673300EFE5B2 /* WriteViewController.swift in Sources */,
@@ -607,7 +579,6 @@
 				DBAF024823AE57B80044E2DD /* BaseTableViewHeaderFooterView.swift in Sources */,
 				DBAF024223AE2C9B0044E2DD /* SettingsViewController+cell.swift in Sources */,
 				0E160CD823ABED80000CA518 /* UITextField+.swift in Sources */,
-				0E2874C723F8201600730C1E /* DiaryProvider.swift in Sources */,
 				DB513CCC24210F7200A5CC4A /* DiariesCountDto.swift in Sources */,
 				9CF049FC23A918B400A85BEC /* SideMenuViewController.swift in Sources */,
 				D54F6CF023BB53D4001DA319 /* Diary.swift in Sources */,
@@ -654,6 +625,7 @@
 				D5F23D2F23AA9E4C002F8127 /* OnBoardingViewController.swift in Sources */,
 				0EDB40F523CA56140020B0EF /* Reusable.swift in Sources */,
 				0EDB40F223CA54830020B0EF /* ConstellationSelectionViewController.swift in Sources */,
+				D5506241245487360029449C /* SettingDeveloperInfoViewController.swift in Sources */,
 				0EEB411623E45962000AE851 /* UIView+.swift in Sources */,
 				DB09E1722389A4B400760C86 /* BaseNavigationView.swift in Sources */,
 				0EDB40F023CA54350020B0EF /* Constellation.swift in Sources */,

@@ -129,11 +129,11 @@ private extension VerifyEmailViewController {
                 self?.updateNextButton(enable: false)
             }
         }, failure: {[weak self] error in
-            if error.code == 4009 {
+            if error.code == .existEmail {
                 self.map {
                     $0.certificationNumberInputFormView.stopTimer()
                     $0.emailInputFormView.updateValidate(force: false)
-                    $0.emailInputFormView.setErrorMessage()
+                    $0.showErrorView()
                 }
             }
         })
@@ -155,5 +155,32 @@ private extension VerifyEmailViewController {
             self?.updateNextButton(enable: false)
         })
     }
-
+    
+    func showErrorView() {
+        let errorLabel = UILabel()
+        errorLabel.do {
+            $0.backgroundColor = .coral255
+            $0.textColor = .white
+            $0.font = UIFont.font(.notoSerifCJKBold, size: 13)
+            $0.layer.cornerRadius = 26
+            $0.frame.size = CGSize(width: 263, height: 52)
+            $0.center = self.view.center
+            $0.alpha = 0
+            $0.text = "이미 가입된 이메일입니다."
+            self.view.addSubview($0)
+        }
+        
+        UIView.animateKeyframes(withDuration: 2, delay: 0, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5/2) {
+                errorLabel.alpha = 1
+            }
+            UIView.addKeyframe(withRelativeStartTime: 1.5/2, relativeDuration: 1/2) {
+                errorLabel.alpha = 0
+            }
+        }, completion: { _ in
+            errorLabel.removeFromSuperview()
+        })
+        
+    }
+    
 }

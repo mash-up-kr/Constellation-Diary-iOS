@@ -19,7 +19,7 @@ enum API {
     case authenticationNumbersToSignUp(email: String)
     case authenticationToSignUp(email: String, number: Int)
     
-    case checkId(id: String)
+    case checkId(userID: String)
     case findId(email: String)
     case signIn(fcmToken: String, password: String, userId: String)
 }
@@ -88,8 +88,8 @@ extension API: TargetType {
             return .requestParameters(parameters: ["email": email,
                                                    "number": number],
                                       encoding: JSONEncoding.default)
-        case .checkId(let id):
-            return .requestParameters(parameters: ["user-id": id],
+        case .checkId(let userID):
+            return .requestParameters(parameters: ["user-id": userID],
                                       encoding: URLEncoding.default)
         case .findId(let email):
             return .requestParameters(parameters: ["email": email],

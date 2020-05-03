@@ -25,17 +25,31 @@ struct ErrorResponse: Decodable {
 }
 
 struct ErrorData: Decodable, Error {
-    let code: Int?
+    let code: ErrorCode
     let httpStatus: String?
     let message: String?
-    
-    static let errorCodeUnauthrozed = 4101
-    static let errorCodeNoData = 4007
 
     init(code: Int?, httpStatus: String?, message: String?) {
-        self.code = code
+        guard let code = code else {
+            preconditionFailure("No erroCode")
+        }
+        self.code = ErrorCode(rawValue: code) ?? .none
         self.httpStatus = httpStatus
         self.message = message
     }
 
+}
+
+enum ErrorCode: Int, Decodable {
+    case none
+    case missingParam = 4001
+    case noResult = 4002
+    case notFoundID = 4003
+    case invalidConstellation = 4005
+    case existUserID = 4006
+    case existEmail = 4009
+    case unauthorized = 4101
+    case invalidCode = 4102
+    case noData = 4007
+    case loginFail = 4105
 }

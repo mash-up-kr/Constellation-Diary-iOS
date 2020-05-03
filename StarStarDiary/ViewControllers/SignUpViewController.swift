@@ -126,7 +126,7 @@ extension SignUpViewController {
                 self?.showConstellationSelectionView()
             }
         }, failure: {[weak self] error in
-            if error.code == 4006 {
+            if error.code == .existUserID {
                 self?.idInputFormView.updateValidate(force: false)
                 self?.idInputFormView.setErrorMessage("중복된 아이디입니다.")
                 self?.updateNextButton(enable: false)

@@ -23,13 +23,9 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>NotoSansCJKkr-Bold.otf</string>
-		<string>KoreanYMJE.otf</string>
 		<string>KoreanYMJB.otf</string>
-		<string>KoreanYMJL.otf</string>
-		<string>KoreanYMJM.otf</string>
 		<string>NotoSansCJKkr-Medium.otf</string>
 		<string>NotoSansCJKkr-Regular.otf</string>
-		<string>NanumMyeongjo-Bold.otf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
