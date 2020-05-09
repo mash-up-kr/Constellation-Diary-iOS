@@ -23,44 +23,155 @@ final class DiarySelectMonthViewController: UIViewController {
         collectionViewLayout: UICollectionViewFlowLayout().then { $0.scrollDirection = .horizontal }
     )
     
-    private struct SectionItem {
-        var year: Int
-        var rows: [CellItem]
-    }
+    // MARK: - Items
     
-    private struct CellItem {
-        var month: Int
-        var numOfDiary: Int
-        var isCurrent: Bool = false
-    }
+    private weak var delegate: DiarySelectMonthViewDelegate?
+    private var yearlyDiaries: [YearlyDiary] = []
+    private var date: Date = Date()
     
-    private enum MonthType: String, CaseIterable {
-        case january
-        case february
-        case march
-        case april
-        case may
-        case june
-        case july
-        case august
-        case september
-        case october
-        case november
-        case december
+    
+    // MARK: - Life Cycle
+    
+    convenience init(current: Date, delegate: DiarySelectMonthViewDelegate?) {
+        self.init()
+        self.date = current
+        self.delegate = delegate
         
-        var key: String {
-            return self.rawValue
+        // set items
+        let calendar = Calendar.current
+        let currentYear = calendar.component(.year, from: current)
+        
+        setDirayCount(currentYear: currentYear)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        initLayout()
+        initView()
+        initButton()
+        initCollectionView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        showAnimation()
+    }
+    
+}
+
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
+
+extension DiarySelectMonthViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return self.yearlyDiaries.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 12
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let headerCell = collectionView.dequeueHeaderView(with: DiarySelectMonthCollectionViewHeaderView.self, for: indexPath) else {
+            return UICollectionReusableView()
+        }
+        
+        self.yearlyDiaries[safe: indexPath.section].map {
+            headerCell.bind(title: "\($0.year)")
+        }
+        return headerCell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(with: DiarySelectMonthCollectionViewCell.self, for: indexPath) else {
+            return DiarySelectMonthCollectionViewCell()
+        }
+        if let monthlyDiary = self.yearlyDiaries[safe: indexPath.section]?.countsInMonth[safe: indexPath.item] {
+            cell.bind(title: monthlyDiary.name, value: "\(monthlyDiary.count)")
+        }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let yearlyDiary = self.yearlyDiaries[safe: indexPath.section] else {
+            return
+        }
+        
+        delegate?.didSelectedMonth(viewController: self, month: indexPath.item + 1, year: yearlyDiary.year)
+        hideAnimation()
+    }
+}
+
+
+private extension DiarySelectMonthViewController {
+    
+    // MARK: - APIs
+    
+    func setDirayCount(currentYear: Int) {
+        // api
+        Provider.request(.diariesCount(year: currentYear), completion: { [weak self] (data: YearlyDiaryResponse) in
+            guard let yearlyDiaries = data.diaries else {
+                return
+            }
+            self?.yearlyDiaries = yearlyDiaries
+            self?.reloadCollectionView(moveTo: currentYear)
+        }) { error in
+            print(error)
         }
     }
     
-    // MARK: - Items
+    func reloadCollectionView(moveTo year: Int) {
+        let calendar = Calendar.current
+        let indexPathItem = calendar.component(.month, from: self.date) - 1
+        self.collectionView.reloadData()
+        if let section = self.yearlyDiaries.firstIndex(where: { $0.year == year }) {
+            let indexPath = IndexPath(item: indexPathItem, section: section)
+            self.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
+        }
+    }
     
-    private var items: [SectionItem] = []
-    private weak var delegate: DiarySelectMonthViewDelegate?
+    // MARK: - Events
     
+    @objc
+    func didClickedBackground(sender: AnyObject?) {
+        print(#function)
+        hideAnimation()
+    }
+    
+    // MARK: - Animation
+    
+    func showAnimation() {
+        UIView.animate(withDuration: 0.7, delay: 0.0, usingSpringWithDamping: 0.65, initialSpringVelocity: 0.0, options: .curveEaseInOut, animations: { [weak self] in
+            guard let self = self else { return }
+            
+            self.contentsView.snp.updateConstraints {
+                $0.bottom.equalToSuperview().constraint.update(inset: 24.0)
+            }
+            
+            self.view.layoutIfNeeded()
+        }) { isFinished in
+            //
+        }
+    }
+    
+    func hideAnimation() {
+        UIView.animate(withDuration: 0.25, animations: {
+
+            self.contentsView.snp.updateConstraints {
+                $0.bottom.equalToSuperview().offset(UIScreen.main.bounds.size.height)
+            }
+
+            self.view.layoutIfNeeded()
+        }) { isFinished in
+            self.dismiss(animated: false, completion: nil)
+        }
+    }
+
     // MARK: - Init
     
-    private func initLayout() {
+    func initLayout() {
         
         view.addSubview(baseView)
         view.addSubview(contentsView)
@@ -100,7 +211,7 @@ final class DiarySelectMonthViewController: UIViewController {
         
     }
     
-    private func initView() {
+    func initView() {
         view.backgroundColor = .clear
         
         contentsView.do {
@@ -117,7 +228,7 @@ final class DiarySelectMonthViewController: UIViewController {
         }
     }
     
-    private func initButton() {
+    func initButton() {
         goPreviousButton.do {
             $0.setImage(UIImage(named: "icUp24"), for: .normal)
         }
@@ -126,7 +237,7 @@ final class DiarySelectMonthViewController: UIViewController {
         }
     }
     
-    private func initCollectionView() {
+    func initCollectionView() {
         collectionView.do {
             $0.backgroundColor = .white
 
@@ -144,158 +255,5 @@ final class DiarySelectMonthViewController: UIViewController {
             layout.itemSize = CGSize(width: 70.0, height: 24.0)
             $0.collectionViewLayout = layout
         }
-    }
-    
-    // MARK: - Life Cycle
-    
-    convenience init(current: Date, delegate: DiarySelectMonthViewDelegate?) {
-        self.init()
-        
-        self.delegate = delegate
-        
-        // set items
-        let calendar = Calendar.current
-        let currentYear = calendar.component(.year, from: current)
-        let currentMonth = calendar.component(.month, from: current)
-        
-        for indexI in 0..<5 {
-            var year = currentYear
-            if indexI > 2 {
-                year += indexI-2
-            } else if indexI < 2 {
-                if indexI == 0 {
-                    year -= 2
-                } else {
-                    year -= 1
-                }
-            }
-
-            var cellItems: [CellItem] = []
-            for indexJ in 0..<12 {
-                let isCurrent = (currentMonth == indexJ+1 && year == currentYear) ? true : false
-                cellItems.append(CellItem(month: indexJ+1, numOfDiary: 0, isCurrent: isCurrent)) // test
-            }
-            let sectionItem = SectionItem(year: year, rows: cellItems)
-            
-            items.append(sectionItem)
-        }
-        
-        setDirayCount(currentYear: currentYear)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        initLayout()
-        initView()
-        initButton()
-        initCollectionView()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        showAnimation()
-    }
-    
-    // MARK: - APIs
-    
-    private func setDirayCount(currentYear: Int) {
-        // api
-        Provider.request(.diariesCount(year: currentYear), completion: { [weak self] (diariesCount: DiariesCountDto) in
-            guard let self = self else { return }
-            print(diariesCount)
-            
-            guard let diraiesDto = diariesCount.diaries else { return }
-            
-            for (indexI, section) in self.items.enumerated() {
-                for (index, diraies) in diraiesDto.enumerated() where section.year == diraies.year {
-                    self.items[indexI].rows[index].numOfDiary = diraies.countsInMonth![index]
-                }
-            }
-            
-            self.collectionView.scrollToItem(at: IndexPath(row: 0, section: 2), at: .centeredVertically, animated: true)
-            self.collectionView.reloadData()
-        }) { error in
-            print(error)
-        }
-    }
-    
-    // MARK: - Events
-    
-    @objc
-    private func didClickedBackground(sender: AnyObject?) {
-        print(#function)
-        hideAnimation()
-    }
-    
-    // MARK: - Animation
-    
-    private func showAnimation() {
-        UIView.animate(withDuration: 0.7, delay: 0.0, usingSpringWithDamping: 0.65, initialSpringVelocity: 0.0, options: .curveEaseInOut, animations: { [weak self] in
-            guard let self = self else { return }
-            
-            self.contentsView.snp.updateConstraints {
-                $0.bottom.equalToSuperview().constraint.update(inset: 24.0)
-            }
-            
-            self.view.layoutIfNeeded()
-        }) { isFinished in
-            //
-        }
-    }
-    
-    private func hideAnimation() {
-        UIView.animate(withDuration: 0.25, animations: {
-
-            self.contentsView.snp.updateConstraints {
-                $0.bottom.equalToSuperview().offset(UIScreen.main.bounds.size.height)
-            }
-
-            self.view.layoutIfNeeded()
-        }) { isFinished in
-            self.dismiss(animated: false, completion: nil)
-        }
-    }
-}
-
-// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
-
-extension DiarySelectMonthViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    // 현재로부터 2년 전, 현재, 현재로부터 2년 후 ex. 2018~2022
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return items.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 12
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let headerCell = collectionView.dequeueHeaderView(with: DiarySelectMonthCollectionViewHeaderView.self, for: indexPath) else {
-            return UICollectionReusableView()
-        }
-        
-        let title = String(format: "%d", items[indexPath.section].year)
-        
-        headerCell.bind(title: title)
-        return headerCell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(with: DiarySelectMonthCollectionViewCell.self, for: indexPath) else {
-            return DiarySelectMonthCollectionViewCell()
-        }
-        
-        let item = items[indexPath.section].rows[indexPath.row]
-        cell.bind(title: String(format: "%d월", item.month), value: String(format: "%d", item.numOfDiary), isSelected: item.isCurrent)
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let item = items[indexPath.section].rows[indexPath.row]
-        
-        delegate?.didSelectedMonth(viewController: self, month: item.month, year: items[indexPath.section].year)
-        hideAnimation()
     }
 }

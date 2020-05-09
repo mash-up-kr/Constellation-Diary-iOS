@@ -210,6 +210,7 @@ private extension DiaryCalendarViewController {
                     
                     self.refreshDiaryList(currentDay: self.selectedDate)
                 }
+                NotificationCenter.default.post(name: didDeleteDiaryNotification, object: nil, userInfo: [deletedDiaryIDKey: item.id])
             } else {
                 // TODO: error 문구 처리
             }

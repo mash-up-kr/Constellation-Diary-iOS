@@ -16,13 +16,21 @@ final class DiarySelectMonthCollectionViewCell: UICollectionViewCell {
     private let monthLabel = UILabel(frame: .zero)
     private let numOfDiaryLabel = UILabel(frame: .zero)
     
+    
+    override var isSelected: Bool {
+        didSet {
+            self.setAppearance()
+        }
+    }
     // MARK: - Bind
     
-    func bind(title: String, value: String, isSelected: Bool) {
+    func bind(title: String, value: String) {
         self.monthLabel.text = title
         self.numOfDiaryLabel.text = value
-        
-        if isSelected {
+    }
+    
+    private func setAppearance() {
+        if self.isSelected {
             baseView.backgroundColor = .navy3
             monthLabel.textColor = .white
             numOfDiaryLabel.textColor = .white
