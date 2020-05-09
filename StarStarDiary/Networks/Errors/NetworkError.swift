@@ -50,6 +50,7 @@ enum ErrorCode: Int, Decodable {
     case existEmail = 4009
     case unauthorized = 4101
     case invalidCode = 4102
+    case unauthorizedNoExistUserID = 4104
     case noData = 4007
     case loginFail = 4105
 }
