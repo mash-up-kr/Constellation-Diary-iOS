@@ -27,7 +27,8 @@ struct SimpleDiaryDto: Decodable {
         let dateString = try values.decode(String.self, forKey: .date)
         let dateFormatter = DateFormatter.defaultInstance
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000+0000"
-        date = dateFormatter.date(from: dateString) ?? Date()
+        let utcDate = dateFormatter.date(from: dateString) ?? Date()
+        date = utcDate.convertToTimeZone(initTimeZone: DateFormatter.utc.timeZone, timeZone: TimeZone.current)
     }
     
 }

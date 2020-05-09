@@ -55,10 +55,10 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         var item = cellItem(for: indexPath)
         if item.menu == .horoscopeNotification {
             cell.datePickerView.date = horoscopeTime
-            item.subTitle = item.isOn ? horoscopeTime.time : ""
+            item.subTitle = item.isOn ? horoscopeTime.shortTime : ""
         } else if item.menu == .questionNotification {
             cell.datePickerView.date = questionTime
-            item.subTitle = item.isOn ? questionTime.time : ""
+            item.subTitle = item.isOn ? questionTime.shortTime : ""
         }
         cell.setEntity(with: item)
         cell.delegate = self
@@ -121,12 +121,12 @@ extension SettingsViewController: SettingBaseTableViewCellDelegate {
         item.didExtension = uiSwitch.isOn
         switch item.menu {
         case .horoscopeNotification:
-            item.subTitle = uiSwitch.isOn ? horoscopeTime.time : ""
+            item.subTitle = uiSwitch.isOn ? horoscopeTime.shortTime : ""
             Provider.request(.modifyHoroscopeAlarm(isOn: uiSwitch.isOn), completion: { (data: UserDto) in
                 UserManager.share.login(with: data)
             })
         case .questionNotification:
-            item.subTitle = uiSwitch.isOn ? questionTime.time : ""
+            item.subTitle = uiSwitch.isOn ? questionTime.shortTime : ""
             Provider.request(.modifyQuestionAlarm(isOn: uiSwitch.isOn), completion: { (data: UserDto) in
                 UserManager.share.login(with: data)
             })
@@ -143,7 +143,7 @@ extension SettingsViewController: SettingBaseTableViewCellDelegate {
             let minute = pickerDate.minute else { return }
         var item = self.cellItem(for: indexPath)
         guard let date = Calendar.current.date(bySettingHour: hour, minute: minute, second: 0, of: Date()) else { return }
-        item.subTitle = date.time
+        item.subTitle = date.shortTime
         cell.setEntity(with: item)
         switch item.menu {
         case .horoscopeNotification:

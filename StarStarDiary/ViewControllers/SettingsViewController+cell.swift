@@ -83,8 +83,8 @@ enum SettingCellType: Int, CaseIterable {
             return nil
         }
         switch self {
-        case .horoscopeNotification: return user.horoscopeTime.date.time
-        case .questionNotification: return user.questionTime.date.time
+        case .horoscopeNotification: return user.horoscopeTime.date.shortTime
+        case .questionNotification: return user.questionTime.date.shortTime
         case .appVersion: return Bundle.main.hasUpdateVersion ? "업데이트 가능" : nil
         case .logout, .developerInfo, .feedback: return nil
         }
