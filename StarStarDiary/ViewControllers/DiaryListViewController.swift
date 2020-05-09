@@ -276,7 +276,7 @@ final class DiaryListViewController: UIViewController {
             guard let self = self else { return }
             if isSuccess {
                 self.changeCurrentMonth(date: self.currentDate)
-                NotificationCenter.default.post(name: didDeleteDiaryNotification, object: nil, userInfo: [deletedDiaryIDKey: item.id])
+                NotificationCenter.default.post(name: .didDeleteDiaryNotification, object: nil, userInfo: [NotificationInfoKey.deletedDiaryIDKey: item.id])
             } else {
                 // TODO: error 문구 처리
             }

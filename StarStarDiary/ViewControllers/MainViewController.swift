@@ -53,11 +53,7 @@ final class MainViewController: UIViewController {
         setupView()
         requesthoroscope()
         registerObserver()
-        if let dailyQuestion = UserManager.share.dailyQuestion {
-            bind(questionDTO: dailyQuestion)
-        } else {
-            requestDailyQuestion()
-        }
+        updateDailyQuestion()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -120,6 +116,14 @@ private extension MainViewController {
         return self.view.frame.maxY - (self.view.safeAreaInsets.bottom + HoroscopeHeaderView.height)
     }
     
+    func updateDailyQuestion() {
+        if let dailyQuestion = UserManager.share.dailyQuestion {
+            bind(questionDTO: dailyQuestion)
+        } else {
+            requestDailyQuestion()
+        }
+    }
+    
     func setTitle(_ text: String) {
         let attributedString = NSMutableAttributedString(string: text)
         let paragraphStyle = NSMutableParagraphStyle()
@@ -139,7 +143,7 @@ private extension MainViewController {
         horoscopeViewController.bind(data: horoscope, type: .writeDiary(diary: self.diary))
     }
     
-    func requestDailyQuestion() {
+    @objc func requestDailyQuestion() {
         Provider.request(.dailyQuestions, completion: {[weak self] (data: DailyQuestionDto) in
             UserManager.share.updateDailyQuestion(with: data)
             self?.bind(questionDTO: data)
@@ -469,6 +473,6 @@ private extension MainViewController {
     
     func registerObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(setupNavigationTitleView), name: .didChangeConstellation, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(setupNavigationTitleView), name: .didChangeConstellation, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(requestDailyQuestion), name: .didDeleteDiaryNotification, object: nil)
     }
 }

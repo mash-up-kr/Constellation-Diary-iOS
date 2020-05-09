@@ -51,8 +51,3 @@ extension UserDefaults {
     }
     
 }
-
-extension Notification.Name {
-    
-    static let didChangeConstellation: Notification.Name = Notification.Name("didChangeConstellation")
-}
