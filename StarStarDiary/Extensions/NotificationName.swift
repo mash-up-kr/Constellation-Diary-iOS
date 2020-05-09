@@ -8,6 +8,16 @@
 
 import Foundation
 
-let deletedDiaryIDKey: String = "deletedDiaryIDKey"
-let didDeleteDiaryNotification: Notification.Name = Notification.Name("didDeleteDiary")
-let didWriteDiaryNotification: Notification.Name = Notification.Name("didWriteDiary")
+extension Notification.Name {
+    
+    static let didChangeConstellation: Notification.Name = Notification.Name("didChangeConstellation")
+    static let didDeleteDiaryNotification: Notification.Name = Notification.Name("didDeleteDiary")
+    static let didWriteDiaryNotification: Notification.Name = Notification.Name("didWriteDiary")
+    
+}
+
+struct NotificationInfoKey {
+    
+    static let deletedDiaryIDKey: String = "deletedDiaryIDKey"
+    
+}
