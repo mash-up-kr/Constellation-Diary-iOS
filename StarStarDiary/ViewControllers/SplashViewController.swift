@@ -122,7 +122,7 @@ private extension SplashViewController {
             self?.requestCount += 1
             guard let strongSelf = self,
                 strongSelf.requestCount < strongSelf.maxRetryCount,
-                error.code == ErrorData.errorCodeUnauthrozed else {
+                error.code == .unauthorized else {
                 return
             }
             strongSelf.requestRefreshToken()

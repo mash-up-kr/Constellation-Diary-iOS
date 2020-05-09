@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="NotoSansCJKkr-Bold.otf">
+            <string>NotoSansCJKkr-Bold</string>
+        </array>
+        <array key="NotoSansCJKkr-Regular.otf">
+            <string>NotoSansCJKkr-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Splash View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="SplashViewController" customModule="StarStarDiary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="SplashViewController" customModule="별별일기" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -22,5 +31,202 @@
             </objects>
             <point key="canvasLocation" x="139" y="106"/>
         </scene>
+        <!--Setting Developer Info View Controller-->
+        <scene sceneID="GiI-Fp-PUD">
+            <objects>
+                <viewController storyboardIdentifier="SettingDeveloperInfoViewController" id="GH3-mA-dmt" customClass="SettingDeveloperInfoViewController" customModule="별별일기" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bzi-D3-TZh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XdU-zJ-9a6">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OKP-Yd-NfL" customClass="BaseNavigationView" customModule="별별일기" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="tiJ-aN-gJx"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="별별일기를 만든 사람들" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vxs-sm-5Xl">
+                                        <rect key="frame" x="101.5" y="39" width="117.5" height="18"/>
+                                        <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="12"/>
+                                        <color key="textColor" name="Gray122"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qgd-7a-ZIR">
+                                        <rect key="frame" x="32" y="179" width="256" height="1"/>
+                                        <color key="backgroundColor" name="White216"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="cWz-OR-kPS"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6E5-Vz-gTU">
+                                        <rect key="frame" x="44" y="86.5" width="232.5" height="62.5"/>
+                                        <string key="text">안녕하세요, 별별일기 팀입니다.
+저희는 IT 동아리 매쉬업 8기 프로젝트로 
+별별일기를 제작하였습니다.</string>
+                                        <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="14"/>
+                                        <color key="textColor" name="Gray122"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="vxs-sm-5Xl" firstAttribute="centerX" secondItem="XdU-zJ-9a6" secondAttribute="centerX" id="8zl-Uh-tGu"/>
+                                    <constraint firstItem="vxs-sm-5Xl" firstAttribute="top" secondItem="XdU-zJ-9a6" secondAttribute="top" constant="39" id="Sal-Ea-d3X"/>
+                                    <constraint firstItem="Qgd-7a-ZIR" firstAttribute="leading" secondItem="XdU-zJ-9a6" secondAttribute="leading" constant="32" id="TkN-eQ-OXb"/>
+                                    <constraint firstAttribute="trailing" secondItem="Qgd-7a-ZIR" secondAttribute="trailing" constant="32" id="bNS-JF-Z73"/>
+                                    <constraint firstItem="Qgd-7a-ZIR" firstAttribute="top" secondItem="6E5-Vz-gTU" secondAttribute="bottom" constant="30" id="jd5-dV-qqS"/>
+                                    <constraint firstItem="OKP-Yd-NfL" firstAttribute="top" secondItem="XdU-zJ-9a6" secondAttribute="top" id="mLh-18-CgH"/>
+                                    <constraint firstAttribute="bottom" secondItem="Qgd-7a-ZIR" secondAttribute="bottom" id="neG-HL-WI9"/>
+                                    <constraint firstAttribute="height" constant="180" id="pMj-Q3-INK"/>
+                                    <constraint firstItem="6E5-Vz-gTU" firstAttribute="centerX" secondItem="XdU-zJ-9a6" secondAttribute="centerX" id="uWN-wB-d1L"/>
+                                    <constraint firstAttribute="trailing" secondItem="OKP-Yd-NfL" secondAttribute="trailing" id="ucx-B3-bUn"/>
+                                    <constraint firstItem="OKP-Yd-NfL" firstAttribute="leading" secondItem="XdU-zJ-9a6" secondAttribute="leading" id="zaH-Ol-M9X"/>
+                                </constraints>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HyF-Gc-ser">
+                                <rect key="frame" x="0.0" y="180" width="320" height="388"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jhy-La-fdk">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="500"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="HXW-tA-KJn">
+                                                <rect key="frame" x="40.5" y="32" width="239" height="372.5"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="9f9-Hm-cSF">
+                                                        <rect key="frame" x="50" y="0.0" width="139.5" height="270"/>
+                                                        <subviews>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" axis="vertical" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="np7-Yw-ieX">
+                                                                <rect key="frame" x="0.0" y="0.0" width="139.5" height="45"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="디자이너" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="reY-pb-J9h">
+                                                                        <rect key="frame" x="42" y="0.0" width="55.5" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="NotoSansCJKkr-Bold" family="Noto Sans CJK KR" pointSize="15"/>
+                                                                        <color key="textColor" red="0.066666666666666666" green="0.062745098039215685" blue="0.098039215686274508" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이정은, 남궁욱, 고은이" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Nu-d5-Yk2">
+                                                                        <rect key="frame" x="0.0" y="22.5" width="139.5" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="15"/>
+                                                                        <color key="textColor" red="0.066666666666666666" green="0.062745098039215685" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                            </stackView>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ZgB-l2-HII">
+                                                                <rect key="frame" x="0.0" y="75" width="139.5" height="45"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="디자이너" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="csN-bb-COF">
+                                                                        <rect key="frame" x="42" y="0.0" width="55.5" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="NotoSansCJKkr-Bold" family="Noto Sans CJK KR" pointSize="15"/>
+                                                                        <color key="textColor" red="0.066666666669999999" green="0.062745098040000002" blue="0.098039215690000001" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이정은, 남궁욱, 고은이" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FYq-ES-msh">
+                                                                        <rect key="frame" x="0.0" y="22.5" width="139.5" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="15"/>
+                                                                        <color key="textColor" red="0.066666666669999999" green="0.062745098040000002" blue="0.098039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                            </stackView>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="GnH-2j-sJw">
+                                                                <rect key="frame" x="0.0" y="150" width="139.5" height="45"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="디자이너" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mWL-t9-lA2">
+                                                                        <rect key="frame" x="42" y="0.0" width="55.5" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="NotoSansCJKkr-Bold" family="Noto Sans CJK KR" pointSize="15"/>
+                                                                        <color key="textColor" red="0.066666666669999999" green="0.062745098040000002" blue="0.098039215690000001" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이정은, 남궁욱, 고은이" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpm-2q-RcY">
+                                                                        <rect key="frame" x="0.0" y="22.5" width="139.5" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="15"/>
+                                                                        <color key="textColor" red="0.066666666669999999" green="0.062745098040000002" blue="0.098039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                            </stackView>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="YWZ-1J-xny">
+                                                                <rect key="frame" x="0.0" y="225" width="139.5" height="45"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="디자이너" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ycp-x8-y1d">
+                                                                        <rect key="frame" x="42" y="0.0" width="55.5" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="NotoSansCJKkr-Bold" family="Noto Sans CJK KR" pointSize="15"/>
+                                                                        <color key="textColor" red="0.066666666669999999" green="0.062745098040000002" blue="0.098039215690000001" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이정은, 남궁욱, 고은이" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zUN-xs-0ec">
+                                                                        <rect key="frame" x="0.0" y="22.5" width="139.5" height="22.5"/>
+                                                                        <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="15"/>
+                                                                        <color key="textColor" red="0.066666666669999999" green="0.062745098040000002" blue="0.098039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                            </stackView>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r2W-Jk-faq" userLabel="빛나는 하루를 소중하게 기록하시고,  별별일기에 대한 좋은 의견 부탁드립니다.  감사합니다 :)">
+                                                        <rect key="frame" x="0.0" y="310" width="239" height="62.5"/>
+                                                        <string key="text">빛나는 하루를 소중하게 기록하시고, 
+별별일기에 대한 좋은 의견 부탁드립니다. 
+감사합니다 :)</string>
+                                                        <fontDescription key="fontDescription" name="NotoSansCJKkr-Regular" family="Noto Sans CJK KR" pointSize="14"/>
+                                                        <color key="textColor" name="Gray122"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="HXW-tA-KJn" firstAttribute="top" secondItem="jhy-La-fdk" secondAttribute="top" constant="32" id="9R2-L7-Jcg"/>
+                                            <constraint firstItem="HXW-tA-KJn" firstAttribute="centerX" secondItem="jhy-La-fdk" secondAttribute="centerX" id="Q4N-Ub-3FX"/>
+                                            <constraint firstAttribute="height" constant="500" id="e5x-QL-yL0"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="btz-0U-GP2" firstAttribute="height" secondItem="jhy-La-fdk" secondAttribute="height" id="D7e-1j-5E2"/>
+                                    <constraint firstItem="jhy-La-fdk" firstAttribute="width" secondItem="phP-Hb-zNr" secondAttribute="width" id="SzU-3y-RHd"/>
+                                    <constraint firstItem="jhy-La-fdk" firstAttribute="leading" secondItem="phP-Hb-zNr" secondAttribute="leading" id="jUj-Kr-F2M"/>
+                                    <constraint firstItem="btz-0U-GP2" firstAttribute="width" secondItem="jhy-La-fdk" secondAttribute="width" id="qyJ-ZK-rvr"/>
+                                    <constraint firstItem="jhy-La-fdk" firstAttribute="top" secondItem="phP-Hb-zNr" secondAttribute="top" id="vJt-LR-MBd"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="btz-0U-GP2"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="phP-Hb-zNr"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="0wx-oh-jff" firstAttribute="trailing" secondItem="XdU-zJ-9a6" secondAttribute="trailing" id="7wt-ct-TCr"/>
+                            <constraint firstItem="0wx-oh-jff" firstAttribute="bottom" secondItem="HyF-Gc-ser" secondAttribute="bottom" id="Jhb-9g-MeU"/>
+                            <constraint firstItem="XdU-zJ-9a6" firstAttribute="top" secondItem="0wx-oh-jff" secondAttribute="top" id="LjE-z4-TDY"/>
+                            <constraint firstItem="HyF-Gc-ser" firstAttribute="top" secondItem="XdU-zJ-9a6" secondAttribute="bottom" id="s99-Hm-3Ze"/>
+                            <constraint firstItem="0wx-oh-jff" firstAttribute="trailing" secondItem="HyF-Gc-ser" secondAttribute="trailing" id="tSB-LY-Lx1"/>
+                            <constraint firstItem="XdU-zJ-9a6" firstAttribute="leading" secondItem="0wx-oh-jff" secondAttribute="leading" id="uyF-Z1-92E"/>
+                            <constraint firstItem="HyF-Gc-ser" firstAttribute="leading" secondItem="0wx-oh-jff" secondAttribute="leading" id="wm4-ZY-1bz"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="0wx-oh-jff"/>
+                    </view>
+                    <connections>
+                        <outlet property="navigationView" destination="OKP-Yd-NfL" id="B8H-G6-OAn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PTE-Hx-L2U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="971.01449275362324" y="105.80357142857143"/>
+        </scene>
     </scenes>
+    <resources>
+        <namedColor name="Gray122">
+            <color red="0.4779999852180481" green="0.4779999852180481" blue="0.4779999852180481" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="White216">
+            <color red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

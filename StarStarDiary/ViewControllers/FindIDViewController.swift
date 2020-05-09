@@ -90,7 +90,7 @@ private extension FindIDViewController {
         Provider.request(API.findId(email: email), completion: {[weak self] (response: FindIDResponse) in
             self?.didFind(userID: response.userId)
         }, failure: {[weak self] (error: ErrorData) in
-            if error.code == 4003 {
+            if error.code == .notFoundID {
                 self?.emailInputFormView.updateValidate(force: false)
                 self?.emailInputFormView.setErrorMessage()
             }

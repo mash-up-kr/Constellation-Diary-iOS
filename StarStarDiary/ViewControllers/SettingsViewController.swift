@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import MessageUI
 
-class SettingsViewController: UIViewController {
+final class SettingsViewController: UIViewController {
     
     private let headerFooterViewIdentifier = "BaseTableViewHeaderFooterView"
     private let cellIdentifier = "BaseTableViewCell"
@@ -219,18 +219,9 @@ private extension SettingsViewController {
     }
     
     func presetDeveloperInfoAlert() {
-        let alert = UIAlertController(title: "안녕하세요, 별별일기 팀입니다.",
-                                      message: """
-                                                저희는 개발 동아리인 Mash Up 8기 활동으로 이 프로젝트를 진행했습니다.
-                                                즐겁게 써주시고, 좋은 의견 부탁드립니다. 감사합니다 :)
-                                                디자이너: 이정은, 남궁욱, 고은이
-                                                백엔드: 이동준, 신혜란
-                                                iOS: 김주희, 임수현, 이동영
-                                                Android: 이해창, 이진성, 최민정
-                                                """,
-                                      preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "확인", style: .cancel, handler: nil))
-        present(alert, animated: true, completion: nil)
+        
+        let developerInfoViewController = SettingDeveloperInfoViewController.loadView()
+        self.navigationController?.pushViewController(developerInfoViewController, animated: true)
     }
     
     // MARK: - Event
@@ -258,6 +249,7 @@ private extension SettingsViewController {
     }
 
     func initNavigationView() {
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         let leftTargetType: AddTargetType = (self, #selector(onClose(sender:)), .touchUpInside)
 
         navigationView.do {
