@@ -87,17 +87,21 @@ extension BaseNavigationView {
     
     func setButtonImageColor(type: BaseNavigationButtonType, color: UIColor) {
         let button = self.button(for: type)
+        if color == button.tintColor {
+            return
+        }
         button.do {
             $0.tintColor = color
             let image = $0.imageView?.image?.withRenderingMode(.alwaysTemplate)
             $0.imageView?.image = image
             $0.imageView?.tintColor = color
         }
+        print("[caution] type: \(type), tintColor: \(color)")
     }
     
     func updateButton(type: BaseNavigationButtonType, isEnabled: Bool) {
         button(for: type).do {
-            $0.isEnabled = false
+            $0.isEnabled = isEnabled
         }
     }
     
@@ -122,7 +126,7 @@ extension BaseNavigationView {
     func setTitle(image: UIImage?, addTargetType: AddTargetType? = nil) {
         buttonTitle.do {
             $0.setImage(image, for: .normal)
-            $0.isEnabled = addTargetType != nil
+            $0.isUserInteractionEnabled = addTargetType != nil
             if let addTargetType = addTargetType {
                 $0.addTarget(addTargetType.target,
                                   action: addTargetType.action,
@@ -183,7 +187,6 @@ private extension BaseNavigationView {
                 make.center.equalToSuperview()
             }
             button.titleLabel?.textAlignment = .center
-            button.tintColor = .black
         }
         
         bottomLineView.do {

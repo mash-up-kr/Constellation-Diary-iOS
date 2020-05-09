@@ -22,7 +22,29 @@ extension Date {
         return DateFormatter.utc.string(from: self)
     }
     
-    var time: String {
+    var fullTime: String {
+        let dateFormatter = DateFormatter.defaultInstance
+        dateFormatter.locale = Locale.init(identifier: "ko")
+        dateFormatter.dateStyle = .full
+        dateFormatter.timeStyle = .none
+        
+        dateFormatter.dateFormat = "a HH:MM"
+        return dateFormatter.string(from: self)
+    }
+    
+    var day: String {
+        let dateFormatter = DateFormatter.defaultInstance
+        dateFormatter.dateFormat = "E"
+        return dateFormatter.string(from: self)
+    }
+    
+    var date: String {
+        let dateFormatter = DateFormatter.defaultInstance
+        dateFormatter.dateFormat = "dd"
+        return dateFormatter.string(from: self)
+    }
+    
+    var shortTime: String {
         let localeFormatter = DateFormatter.defaultInstance
         localeFormatter.dateStyle = .none
         localeFormatter.timeStyle = .short

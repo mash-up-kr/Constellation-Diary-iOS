@@ -28,17 +28,10 @@ final class DiaryTableViewCell: UITableViewCell {
     }
     
     func bind(diary: SimpleDiaryDto) {
-        let dateFormatter = DateFormatter.defaultInstance
-        dateFormatter.locale = Locale.init(identifier: "ko")
-        dateFormatter.dateStyle = .full
-        dateFormatter.timeStyle = .none
         
-        dateFormatter.dateFormat = "a HH:MM"
-        timeLabel.text = dateFormatter.string(from: diary.date)
-        dateFormatter.dateFormat = "E"
-        dayLabel.text = dateFormatter.string(from: diary.date)
-        dateFormatter.dateFormat = "dd"
-        dateLabel.text = dateFormatter.string(from: diary.date)
+        timeLabel.text = diary.date.fullTime
+        dayLabel.text = diary.date.day
+        dateLabel.text = diary.date.date
         
         titleLabel.text = diary.title
         

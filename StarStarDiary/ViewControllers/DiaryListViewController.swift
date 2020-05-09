@@ -276,6 +276,7 @@ final class DiaryListViewController: UIViewController {
             guard let self = self else { return }
             if isSuccess {
                 self.changeCurrentMonth(date: self.currentDate)
+                NotificationCenter.default.post(name: didDeleteDiaryNotification, object: nil, userInfo: [deletedDiaryIDKey: item.id])
             } else {
                 // TODO: error 문구 처리
             }
@@ -328,8 +329,7 @@ final class DiaryListViewController: UIViewController {
     
     @objc
     private func didClickedSelectionMonth(sender: AnyObject?) {
-        // FIXME: Date() 변경 -> 현재 보고 있는 월로
-        let viewController = DiarySelectMonthViewController(current: Date(), delegate: self)
+        let viewController = DiarySelectMonthViewController(current: currentDate, delegate: self)
         viewController.do {
             $0.modalPresentationStyle = .overFullScreen
             self.present($0, animated: false, completion: nil)
@@ -408,8 +408,6 @@ extension DiaryListViewController: UITableViewDelegate {
 
 extension DiaryListViewController: DiarySelectMonthViewDelegate {
     func didSelectedMonth(viewController: DiarySelectMonthViewController, month: Int, year: Int) {
-        print(#function)
-        
         let dateformatter = DateFormatter()
         dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         if let date = dateformatter.date(from: String(format: "%d-%02d-15 00:00:00", year, month)) {
@@ -422,6 +420,7 @@ extension DiaryListViewController: DiarySelectMonthViewDelegate {
 
 extension DiaryListViewController: DiaryCalendarViewDelegate {
     func didDeleteDiary(viewController: DiaryCalendarViewController) {
+        
         changeCurrentMonth(date: currentDate)
     }
 }
