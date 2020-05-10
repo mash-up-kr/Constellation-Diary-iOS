@@ -39,6 +39,9 @@ final class HoroscopeHeaderView: UIView {
     }
     
     func bind(horoscope: HoroscopeDto) {
+        horoscopeItemsView.arrangedSubviews.forEach {
+            $0.removeFromSuperview()
+        }
         horoscope.items.forEach {
             let itemView = HoroscopeItemView()
             itemView.bind(item: $0)

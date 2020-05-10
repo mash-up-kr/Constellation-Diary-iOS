@@ -51,7 +51,7 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        requesthoroscope()
+        requestHoroscope()
         registerObserver()
         updateDailyQuestion()
     }
@@ -143,14 +143,14 @@ private extension MainViewController {
         horoscopeViewController.bind(data: horoscope, type: .writeDiary(diary: self.diary))
     }
     
-    @objc func requestDailyQuestion() {
+    func requestDailyQuestion() {
         Provider.request(.dailyQuestions, completion: {[weak self] (data: DailyQuestionDto) in
             UserManager.share.updateDailyQuestion(with: data)
             self?.bind(questionDTO: data)
         })
     }
     
-    func requesthoroscope() {
+    func requestHoroscope() {
         Provider.request(DiaryAPI.horoscopes(constellation: UserDefaults.constellation.rawValue,
                                              date: Date()),
                          completion: { (data: HoroscopeDto) in
@@ -159,6 +159,11 @@ private extension MainViewController {
     }
     
     // MARK: actions
+    
+    @objc func didChangeConstellation(_ notification: Notification) {
+        self.setupNavigationTitleView()
+        self.requestHoroscope()
+    }
     
     @objc func openhoroscopeView() {
         self.horoscopeViewTopConstraints?.constant = self.horoscopeViewMinY
@@ -207,13 +212,29 @@ private extension MainViewController {
         
         UIView.animate(withDuration: 0.25, animations: { [weak self] in
             self?.tutorialView.alpha = 0.0
-        }) { [weak self] isFinished in
+        }) { [weak self] _ in
             self?.tutorialView.isHidden = true
         }
+    }
+    
+    @objc func didDiaryDelete(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+            let diaryID = userInfo[NotificationInfoKey.deletedDiaryIDKey] as? Int,
+            diaryID == self.diary?.id else {
+                return
+        }
+        self.diary = nil
+        self.requestDailyQuestion()
     }
 }
 
 private extension MainViewController {
+    
+    func registerObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeConstellation), name: .didChangeConstellation, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didDiaryDelete), name: .didDeleteDiaryNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didDiaryDelete), name: .didDeleteDiaryNotification, object: nil)
+    }
     
     func setupView() {
         view.backgroundColor = .black
@@ -258,7 +279,7 @@ private extension MainViewController {
         }
     }
     
-    @objc func setupNavigationTitleView() {
+    func setupNavigationTitleView() {
         navigationView.do {
             $0.setTitle(image: UserDefaults.constellation.icon, addTargetType: nil)
             $0.setButtonImageColor(type: .title, color: .white)
@@ -471,8 +492,4 @@ private extension MainViewController {
         horoscopeViewController.view.addGestureRecognizer(downSwipeGestureRecognizer)
     }
     
-    func registerObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(setupNavigationTitleView), name: .didChangeConstellation, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(requestDailyQuestion), name: .didDeleteDiaryNotification, object: nil)
-    }
 }
