@@ -22,6 +22,7 @@ final class WriteViewController: UIViewController {
     
     private var diary: DiaryDto?
     private var horoscope: HoroscopeDto?
+    private var postRequestCount: Int = 0
     
     private let navigationView = BaseNavigationView(frame: .zero)
     private let headerView = UIView(frame: .zero)
@@ -110,6 +111,39 @@ extension WriteViewController: UITextViewDelegate {
 }
 
 private extension WriteViewController {
+    
+    // MARK: - API Request
+    
+    func postDiary() {
+        self.postRequestCount += 1
+        guard self.postRequestCount < 3,
+            let api = self.apiPostDiary() else {
+            return
+        }
+        Provider.request(api, completion: { [weak self] (data: DiaryDto) in
+                            _ = self?.navigationController?.viewControllers
+                                .map { ($0 as? MainViewController)?.bind(diary: data) }
+                            self?.navigationController?.popViewController(animated: true)
+        }, failure: { error in
+            if error.code == .unauthorized {
+                API.requestRefreshToken(completion: {[weak self] in
+                    self?.postDiary()
+                })
+            }
+        })
+    }
+    
+    func apiPostDiary() -> DiaryAPI? {
+        guard let horoscopeId = self.diary?.horoscopeId ?? self.horoscope?.id,
+            let title = titleTextView.text,
+            let contents = contentsTextView.text
+        else { return nil }
+        if let diaryID = self.diary?.id {
+            return DiaryAPI.modifyDiary(id: diaryID, content: contents, title: title)
+        } else {
+            return DiaryAPI.writeDiary(content: contents, horoscopeId: horoscopeId, title: title)
+        }
+    }
 
     // MARK: - Event
     @objc
@@ -126,20 +160,7 @@ private extension WriteViewController {
     
     @objc
     func done(sender: AnyObject?) {
-        guard let horoscopeId = self.diary?.horoscopeId ?? self.horoscope?.id,
-            let title = titleTextView.text,
-            let contents = contentsTextView.text
-        else { return }
-        
-        var api = DiaryAPI.writeDiary(content: contents, horoscopeId: horoscopeId, title: title)
-        if let diaryId = self.diary?.id {
-            api = DiaryAPI.modifyDiary(id: diaryId, content: contents, title: title)
-        }
-        Provider.request(api, completion: { [weak self] (data: DiaryDto) in
-                            _ = self?.navigationController?.viewControllers
-                                .map { ($0 as? MainViewController)?.bind(diary: data) }
-                            self?.navigationController?.popViewController(animated: true)
-        })
+        self.postDiary()
     }
 
     @objc
