@@ -112,4 +112,19 @@ extension API: TargetType {
         }
         return headers
     }
+
+}
+
+extension API {
+    
+    static func requestRefreshToken(completion: (() -> Void)? = nil, failure: (() -> Void)? = nil ) {
+        Provider.request(.refreshToken, completion: { (tokens: TokenDto) in
+            UserDefaults.currentToken = tokens.authenticationToken
+            UserDefaults.refreshToken = tokens.refreshToken
+            completion?()
+        }, failure: { _ in
+            failure?()
+        })
+    }
+
 }

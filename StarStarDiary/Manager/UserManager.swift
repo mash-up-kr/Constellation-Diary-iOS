@@ -21,5 +21,5 @@ final class UserManager {
     func updateDailyQuestion(with dailyQuestion: DailyQuestionDto) {
         self.dailyQuestion = dailyQuestion
     }
-    
+
 }
