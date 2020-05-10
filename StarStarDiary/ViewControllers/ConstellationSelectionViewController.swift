@@ -64,7 +64,6 @@ final class ConstellationSelectionViewController: UIViewController {
     
     func bind(type: ConstellationSelectionViewType) {
         self.type = type
-        
     }
     
     // MARK: - Life Cycle
@@ -324,7 +323,6 @@ extension ConstellationSelectionViewController: UICollectionViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.constellationCollectionView.visibleCells.forEach {
-        //            print("[caution] : \( $0.transform.a)")
             if $0.transform.a >= 1.1, let indexPath = self.constellationCollectionView.indexPath(for: $0) {
                 updateContent(with: indexPath)
                 $0.isSelected = true

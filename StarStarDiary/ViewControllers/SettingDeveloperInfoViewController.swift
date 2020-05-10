@@ -32,7 +32,7 @@ private extension SettingDeveloperInfoViewController {
         navigationView?.do {
             $0.setBackgroundColor(color: .clear)
             $0.setButton(type: .left, image: UIImage(named: "icBack24"), addTargetType: leftTargetType)
-            $0.setTitle(title: "설정", titleColor: .black)
+            $0.setTitle(title: "개발자 정보", titleColor: .black, font: UIFont.font(.koreaYMJBold, size: 20))
             $0.setBottomLine(isHidden: true)
         }
     }

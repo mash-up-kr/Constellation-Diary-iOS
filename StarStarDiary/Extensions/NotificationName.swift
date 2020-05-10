@@ -19,5 +19,6 @@ extension Notification.Name {
 struct NotificationInfoKey {
     
     static let deletedDiaryIDKey: String = "deletedDiaryIDKey"
+    static let horoscopeIDKey: String = "deletedDiaryIDKey"
     
 }

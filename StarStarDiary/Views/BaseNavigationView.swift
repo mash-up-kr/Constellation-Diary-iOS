@@ -96,7 +96,6 @@ extension BaseNavigationView {
             $0.imageView?.image = image
             $0.imageView?.tintColor = color
         }
-        print("[caution] type: \(type), tintColor: \(color)")
     }
     
     func updateButton(type: BaseNavigationButtonType, isEnabled: Bool) {
