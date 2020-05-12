@@ -269,7 +269,7 @@ private extension SettingsViewController {
                         forHeaderFooterViewReuseIdentifier: headerFooterViewIdentifier)
             $0.separatorStyle = .none
             $0.bounces = false
-            $0.backgroundColor = .gray122
+            $0.backgroundColor = .systemGroupedBackground
         }
     }
     
