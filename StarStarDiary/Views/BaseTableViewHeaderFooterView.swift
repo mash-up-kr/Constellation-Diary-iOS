@@ -13,7 +13,6 @@ class BaseTableViewHeaderFooterView: UITableViewHeaderFooterView {
 
     // MARK: - Private Property
     
-    private let baseView = UIView(frame: .zero)
     private let titleLabel = UILabel(frame: .zero)
     private let bottomView = UIView(frame: .zero)
     
@@ -36,15 +35,15 @@ class BaseTableViewHeaderFooterView: UITableViewHeaderFooterView {
     // MARK: - Init
     
     private func initView() {
-        self.addSubview(baseView)
-
-        baseView.do {
-            $0.backgroundColor = .clear
+        
+        UIView().do {
+            $0.backgroundColor = .systemGroupedBackground
+            self.backgroundView = $0
+        }
+        
+        self.contentView.do {
             $0.addSubview(titleLabel)
             $0.addSubview(bottomView)
-            $0.snp.makeConstraints {
-                $0.edges.equalTo(self.snp.edges)
-            }
         }
         
         titleLabel.do {
